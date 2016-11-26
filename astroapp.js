@@ -2,9 +2,9 @@ var astro = {};
 
 function toItem(columns) {
 	var data={
-		a:null,
-		b:null,
-		c:null,
+		elng:null,
+		elat:null,
+		speed:null,
 	};
 	if (columns instanceof Array) {
 		for (var i=0;i<columns.length;i++) {
@@ -12,13 +12,13 @@ function toItem(columns) {
 				var colVal = toDegrees(columns[i]).toFloat();
 				switch (i) {
 					case 0:
-						data.a = colVal;
+						data.elng = colVal;
 						break;
 					case 1:
-						data.b = colVal;
+						data.elat = colVal;
 						break;
 					case 2:
-						data.c = colVal;
+						data.speed = colVal;
 						break;
 				}
 			}
