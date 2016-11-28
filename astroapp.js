@@ -608,7 +608,6 @@ astro.fetchData = (stdout,debug) => {
 					m.houseData = data[k];
 					break;
 				case 'geo':
-					console.log(data[k])
 					m.geo = objToString(data[k]);
 					break;
 				case 'sun':

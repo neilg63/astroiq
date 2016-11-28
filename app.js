@@ -10,7 +10,7 @@ app.get('/sweph', function(req, res){
 
      var cmd = astro.composeSwetestQuery(req.query);
      child = exec(cmd, function (error, stdout, stderr) {
-	  
+	  console.log(cmd);
 	  var debug = false;
 	  if (req.query.debug) {
 	  	if (req.query.debug == 1) {
@@ -30,7 +30,7 @@ app.get('/sweph', function(req, res){
 	  } else {
 	  	data.valid = true;
 	  }
-	  var cmd = astro.composeSwetestQueryAyanamsa(req.query);
+	  
 	  child = exec(cmd, function (error, stdout, stderr) {
 	  	var ayData =  astro.parseOutput(stdout,debug);
 	  	data.ayanamsa = ayData.ayanamsa;
