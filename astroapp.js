@@ -2,9 +2,9 @@ var astro = {};
 
 function toItem(columns) {
 	var data={
-		elng:null,
-		elat:null,
-		speed:null,
+		lng:null,
+		lat:null,
+		ecl:null,
 	};
 	if (columns instanceof Array) {
 		for (var i=0;i<columns.length;i++) {
@@ -12,13 +12,13 @@ function toItem(columns) {
 				var colVal = toDegrees(columns[i]).toFloat();
 				switch (i) {
 					case 0:
-						data.elng = colVal;
+						data.lng = colVal;
 						break;
 					case 1:
-						data.elat = colVal;
+						data.lat = colVal;
 						break;
 					case 2:
-						data.speed = colVal;
+						data.ecl = colVal;
 						break;
 				}
 			}
@@ -300,6 +300,17 @@ function cleanLine(line) {
 	return line.trim().replace(/(-?\d+)°\s{0,2}(-?\d+)'\s{0,2}(-?\d+)/g,'$1,$2,$3');
 }
 
+astro.model = {
+	date: {},
+	geo: {},
+	astro: {},
+	ayanamsa: {},
+	houseData: {},
+	houses: {},
+	bodies: {},
+	swetest: {}
+};
+
 astro.parseLine = (line,data, debug) => {
 	var items = cleanLine(line).split(/\s+/),
 		isCompoundKey=false, key,keyParts=[],subKey,firstKey;
@@ -417,6 +428,8 @@ astro.parseLine = (line,data, debug) => {
   	}
 }
 
+
+
 function valToGeoLine(val,key,data) {
 	var item = "";
 	if (typeof val == 'string') {
@@ -442,6 +455,22 @@ function valToGeoLine(val,key,data) {
 	return item;
 }
 
+function objToString(obj) {
+	if (typeof obj == 'object') {
+		var parts = [], tp;
+		for (k in obj) {
+			tp = typeof obj[k];
+			switch (tp) {
+				case 'string':
+				case 'number':
+					parts.push(k + ': ' + obj[k]);
+					break;
+			}
+		}
+		return parts.join(', ');
+	}
+}
+
 astro.composeSwetestQuery = (params) => {
 	var paramParts = ["swetest"],
 		data = {
@@ -462,6 +491,7 @@ astro.composeSwetestQuery = (params) => {
 			}
 		}
 	}
+
 	for (key in data) {
 		item = "-" + key;
 		val = data[key];
@@ -544,7 +574,7 @@ astro.composeSwetestQueryAyanamsa = function(params) {
 	return paramParts.join(" ");
 }
 
-astro.parseOutput = function(stdout,debug) {
+astro.parseOutput = (stdout,debug) => {
   var lines = stdout.split(/\n/),
     data={};
     
@@ -555,5 +585,79 @@ astro.parseOutput = function(stdout,debug) {
   }
   return data;
 }
+
+astro.fetchData = (stdout,debug) => {
+	var data = astro.parseOutput(stdout,debug),
+		isHouse=false,parts=[],subK;
+	var m = astro.model;
+	for (k in data) {
+		isHouse = k.indexOf('house_') == 0;
+		if (isHouse) {
+			parts = k.split("_");
+			if (parts.length > 1) {
+				subK = parts.pop();
+				m.houses[subK] = data[k];
+			}
+			
+		} else {
+			switch (k) {
+				case 'date_dmy':
+					m.date = data[k].join(', ');
+					break;
+				case 'houses':
+					m.houseData = data[k];
+					break;
+				case 'geo':
+					console.log(data[k])
+					m.geo = objToString(data[k]);
+					break;
+				case 'sun':
+				case 'moon':
+				case 'mercury':
+				case 'venus':
+				case 'mars':
+				case 'jupiter':
+				case 'saturn':
+				case 'uranus':
+				case 'neptune':
+				case 'pluto':
+				case 'chiron':
+				case 'pholus':
+				case 'ceres':
+				case 'pallas':
+				case 'juno':
+				case 'vesta':
+				case 'cupido':
+				case 'hades':
+				case 'zeus':
+				case 'kronos':
+				case 'apollon':
+				case 'admetos':
+				case 'vulcanus':
+				case 'poseidon':
+				case 'isis_transpluto':
+				case 'nxbiru':
+				case 'nibiru':
+				case 'harrington':
+				case 'leverrier_neptune':
+				case 'adams_neptune':
+				case 'lowell_pluto':
+				case 'pickering_pluto':
+				case 'vulcan':
+				case 'proserpina':
+					m.bodies[k] = objToString(data[k]);
+					break;
+				case 'swetest':
+					m.swetest = data[k];
+					break;
+				default: 
+					m.astro[k] = data[k];
+					break;
+			}
+		}
+	}
+	return m;
+}
+
 
 module.exports = astro;

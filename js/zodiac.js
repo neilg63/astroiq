@@ -132,26 +132,38 @@
             tob =$('#form-tob'),
             lng = $('#form-lng'),
             lat = $('#form-lat'),
-            alt = $('#form-alt');
+            alt = $('#form-alt'),
+            hsy = $('#form-hsy'),
+            aya = $('#form-ayanamsa'),
+            mod = $('#form-mode');
             if (dob.length>0 && lng.length>0) {
                 var dobV = dob.val(),
                 tobV = tob.val(),
                 lngV = lng.val(),
-                latV = lat.val();
-                
+                latV = lat.val(),
+                altV = alt.val();
                 var href='/sweph',params={};
                 params.debug = 1;
-                params.topo = lngV + ',' + latV;
+                params.topo = lngV + ',' + latV + ',' + altV;
                 params.b = toEuroDate(dob.val());
                 params.ut = toSwissEphTime(tob.val());
                 params.elev = alt.val();
+                if (hsy.length>0) {
+                    params.system = hsy.val();
+                }
+                if (aya.length>0) {
+                    params.sid = aya.val();
+                }
+                if (mod.length>0) {
+                    params.mod = mod.val();
+                }
+                
                 $.ajax({
                     url: href,
                     data: params,
                     success: function(data) {
                         if (data.valid) {
                             buildDataView(data);
-                            appendAyamansa(params);
                         }
                     }
                 });

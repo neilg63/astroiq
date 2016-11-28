@@ -25,18 +25,55 @@ body {
 
 #results-pane {
     text-align: left;
-    margin-top: 12em;
+    margin-top: 20em;
     position: relative;
-    width: 32vw;
+    width: 50vw;
     min-height: 50vh;
     float: left;
     border: dashed 1px #999999;
     padding: 2vw;
 }
 
+#results-pane dl dd,
+#results-pane dl dt {
+    float: left;
+    margin-bottom: 0.75em;
+}
+
+#results-pane dl dt {
+    clear: both;
+    width: 8em;
+    margin-right: 0.75em;
+    font-weight: bold;
+}
+
+#results-pane dl dd {
+    padding: 0;
+    margin-left: 0;
+}
+
+#results-pane dl dd pre {
+    max-width: 40em;
+    overflow: auto;
+    color: #999999;
+}
+
+
+#results-pane dl dd ul {
+    list-style-type: none;
+    margin: 0 0 1em 0;
+    padding:0;
+}
+
+#results-pane dl dd li {
+    margin: 0;
+    padding: 0;
+}
+
 #zodiac-pane {
     position: relative;
     float: left;
+    margin-left: -25vw;
 }
 
 #zodiac-pane svg {
@@ -107,6 +144,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
+    min-width: 30em;
     width: 25vw;
     z-index: 10;
     padding: 3vh 2vw;

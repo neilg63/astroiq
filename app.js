@@ -10,27 +10,33 @@ app.get('/sweph', function(req, res){
 
      var cmd = astro.composeSwetestQuery(req.query);
      child = exec(cmd, function (error, stdout, stderr) {
-	  //sys.print('stdout: ' + stdout);
+	  
 	  var debug = false;
 	  if (req.query.debug) {
 	  	if (req.query.debug == 1) {
 	  		debug = true;
 	  	}
 	  }
-	  var data = astro.parseOutput(stdout,debug);
-
+	  // var data = astro.parseOutput(stdout,debug);
+	  var data = astro.fetchData(stdout,debug);
 	  if (debug) {
-	  	data.cmd = cmd;
+	  	data.swetest.cmd = cmd;
+	  	data.swetest.raw = `<pre>${stdout}</pre>`;
 	  }
 
-	  res.setHeader('Content-Type', 'application/json');
+
 	  if (error !== null) {
 	    data = {"valid": false,"msg": "Server error"};
 	  } else {
 	  	data.valid = true;
-	  	data.msg = "OK";
 	  }
-	  res.send(JSON.stringify(data));
+	  var cmd = astro.composeSwetestQueryAyanamsa(req.query);
+	  child = exec(cmd, function (error, stdout, stderr) {
+	  	var ayData =  astro.parseOutput(stdout,debug);
+	  	data.ayanamsa = ayData.ayanamsa;
+	  	res.send(data);
+	  });
+	  
 	});
 });
 
@@ -39,17 +45,7 @@ app.get('/ayanamsa', function(req, res){
      var cmd = astro.composeSwetestQueryAyanamsa(req.query);
      child = exec(cmd, function (error, stdout, stderr) {
 	  //sys.print('stdout: ' + stdout);
-	  var debug = false;
-	  if (req.query.debug) {
-	  	if (req.query.debug == 1) {
-	  		debug = true;
-	  	}
-	  }
 	  var data = astro.parseOutput(stdout,debug);
-
-	  if (debug) {
-	  	data.cmd = cmd;
-	  }
 
 	  res.setHeader('Content-Type', 'application/json');
 	  if (error !== null) {
@@ -58,7 +54,7 @@ app.get('/ayanamsa', function(req, res){
 	  	data.valid = true;
 	  	data.msg = "OK";
 	  }
-	  res.send(JSON.stringify(data));
+	  res.send(data);
 	});
 });
 
