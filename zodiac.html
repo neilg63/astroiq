@@ -160,7 +160,16 @@ body {
 
 #control-panel p label {
     display: inline-block;
-    width: 15em;
+    width: 10em;
+    margin-right: 0.5em;
+}
+
+#control-panel p.radios label {
+    width: auto;
+}
+
+#control-panel p.radios input {
+    margin-right: 1.5em;
 }
 
 </style>
@@ -242,11 +251,12 @@ body {
                 <option value="36">Dhruva/Gal.Center/Mula (Wilhelm)</option> 
             </select>
         </p>
-        <p>
-            <label for="form-mode-geo">Geocentric</label>
+        <p class="radios">
             <input type="radio" value="geo" name="mode" id="form-mode-geo" />
             <label for="form-mode-topo">Topocentric</label>
-            <input type="radio" value="topo" name="mode" id="form-mode-topo" />
+             <input type="radio" value="topo" name="mode" id="form-mode-topo" />
+            <label for="form-mode-geo">Geocentric</label>
+           
         </p>
 
         <input type="submit" value="Go" />

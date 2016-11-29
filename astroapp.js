@@ -134,14 +134,18 @@ function toUt(columns) {
 	return data;
 }
 
-function toDateInfo(columns) {
+function toDateInfo(columns,type) {
 	var data={date:null,time:null,calendar:null,zone:'UT',version:null};
 	if (columns instanceof Array) {
-		var numCols = columns.length,i=0,val,dt;
+		var numCols = columns.length,
+			i=0,
+			offset = type == 'date_dmy'? 0 : 1,
+			val,dt;
+
 		for (;i<numCols;i++) {
 			val = columns[i].trim();
 			switch (i) {
-				case 1:
+				case (0+offset):
 					var parts = val.split('.');
 					
 					dt = parts.reverse().join('-')
@@ -149,20 +153,20 @@ function toDateInfo(columns) {
 						data.date = new Date(dt);
 					}
 					break;
-				case 2:
+				case (1+offset):
 					data.calendar = val;
 					break;
-				case 3:
+				case (2+offset):
 					if (/^\d+:\d+:\d+$/.test(val)) {
 						var parts = val.split(':');
 						data.time = val;
 						data.date.setUTCHours(parts[0],parts[1],parts[2]);
 					}
 					break;
-				case 4:
+				case (3+offset):
 					data.zone = val;
 					break;
-				case 6:
+				case (5+offset):
 					data.version = val;
 					break;
 			}
@@ -344,7 +348,8 @@ astro.parseLine = (line,data, debug) => {
   				data[key] = parseFloat(items[0]);
   				break;
   			case 'date':
-  				data[key] = toDateInfo(items);
+  			case 'date_dmy':
+  				data[key] = toDateInfo(items, key);
   				break;
   			case 'epsilon':
   				data[key] = toEpsilon(items);
@@ -408,6 +413,7 @@ astro.parseLine = (line,data, debug) => {
 			case 'osc_apogee':
 			case 'intp_apogee':
 			case 'intp_perigee':
+			case 'epsilon_true':
 				data[key] = toItem(items);
 				break;
 			default:
@@ -455,31 +461,12 @@ function valToGeoLine(val,key,data) {
 	return item;
 }
 
-function objToString(obj) {
-	if (typeof obj == 'object') {
-		var parts = [], tp;
-		for (k in obj) {
-			tp = typeof obj[k];
-			switch (tp) {
-				case 'string':
-				case 'number':
-					parts.push(k + ': ' + obj[k]);
-					break;
-			}
-		}
-		return parts.join(', ');
-	}
-}
-
 astro.composeSwetestQuery = (params) => {
 	var paramParts = ["swetest"],
 		data = {
 		"b": "3.10.1963",
 		"ut": "03.0000",
 		"f": "PLEBS",
-		"topo": [-3.4522,100,56.0717],
-		//"geopos": [-3.4522,100,56.0717],
-		//"house": [10.2322,39.343],
 		"system": "W",
 		"sid": "1"
 	},
@@ -491,6 +478,11 @@ astro.composeSwetestQuery = (params) => {
 			}
 		}
 	}
+	if (params.topo) {
+		data.topo = params.topo;
+	} else if (params.geopos) {
+		data.geopos = params.geopos;
+	} 
 
 	for (key in data) {
 		item = "-" + key;
@@ -521,9 +513,16 @@ astro.composeSwetestQuery = (params) => {
 		} else if (data.topo) {
 			coords = data.topo;
 		}
+
 		if (coords){
 			item = "-house" + valToGeoLine(coords,"house",data);
 			paramParts.push(item);
+			if (params.system) {
+				if (typeof params.system == 'string') {
+					var hsyV = "-hsy" + params.system.toUpperCase();
+					paramParts.push(hsyV);
+				}
+			}
 
 		}
 	}
@@ -536,7 +535,7 @@ astro.composeSwetestQueryAyanamsa = function(params) {
 		"b": "3.10.1963",
 		"ut": "03.0000",
 		"f": "PLEBS",
-		"topo": [-3.4522,100,56.0717],
+		"topo": [0,0],
 		"system": "W",
 		"ay": "1",
 		"sid": "1"
@@ -590,8 +589,9 @@ astro.fetchData = (stdout,debug) => {
 	var data = astro.parseOutput(stdout,debug),
 		isHouse=false,parts=[],subK;
 	var m = astro.model;
+	m.houses={};
 	for (k in data) {
-		isHouse = k.indexOf('house_') == 0;
+		isHouse = k.indexOf('house_') === 0;
 		if (isHouse) {
 			parts = k.split("_");
 			if (parts.length > 1) {
@@ -602,13 +602,13 @@ astro.fetchData = (stdout,debug) => {
 		} else {
 			switch (k) {
 				case 'date_dmy':
-					m.date = data[k].join(', ');
+					m.date = data[k];
 					break;
 				case 'houses':
 					m.houseData = data[k];
 					break;
 				case 'geo':
-					m.geo = objToString(data[k]);
+					m.geo = data[k];
 					break;
 				case 'sun':
 				case 'moon':
@@ -644,13 +644,22 @@ astro.fetchData = (stdout,debug) => {
 				case 'pickering_pluto':
 				case 'vulcan':
 				case 'proserpina':
-					m.bodies[k] = objToString(data[k]);
+					m.bodies[k] = data[k];
 					break;
 				case 'swetest':
 					m.swetest = data[k];
 					break;
 				default: 
-					m.astro[k] = data[k];
+					var dt = typeof data[k];
+					switch (dt) {
+						case 'object':
+							m.astro[k] = data[k];
+							break;
+						default:
+							m.astro[k] = data[k];
+							break;
+					}
+					
 					break;
 			}
 		}

@@ -42,14 +42,39 @@
             return t;
         };
 
+        function objToString(obj) {
+            if (typeof obj == 'object') {
+                var parts = [], tp;
+                for (var sk in obj) {
+                    tp = typeof obj[sk];
+                    switch (tp) {
+                        case 'string':
+                        case 'number':
+                            parts.push(sk + ': ' + obj[sk]);
+                            break;
+                    }
+                }
+                return parts.join(', ');
+            }
+        }
 
-        var buildBodyDataView = function(body) {
-            var ul = $('<ul class="body-details"></ul>'),hasData=false,li;
+
+        var buildBodyDataView = function(body,key) {
+            var ul = $('<ul class="details-'+key+'"></ul>'),hasData=false,content, li, tp;
             for (k in body) {
                 hasData = false;
-                if (typeof body[k] == 'string' || typeof body[k] == 'number') {
+                tp = typeof body[k];
+                if (key == 'bodies') {
+                    console.log(k);
+                }
+                if (tp == 'object') {
+                    content = objToString(body[k]);
+                } else {
+                    content = body[k];
+                }
+                if (content) {
                     hasData = true;
-                    li = $('<li class="'+k+'"><strong class="label">'+k+':</strong> <span class="value">'+body[k]+'</span></li>');
+                    li = $('<li class="'+k+'"><strong class="label">'+k+':</strong> <span class="value">'+content+'</span></li>');
                 } /*else {
                     console.log(k);
                     console.log(typeof body[k]);
@@ -142,20 +167,26 @@
                 lngV = lng.val(),
                 latV = lat.val(),
                 altV = alt.val();
-                var href='/sweph',params={};
+                var href='/sweph',params={},
+                geopos = lngV + ',' + latV + ',' + altV,
+                isGeo = false;
                 params.debug = 1;
-                params.topo = lngV + ',' + latV + ',' + altV;
                 params.b = toEuroDate(dob.val());
                 params.ut = toSwissEphTime(tob.val());
                 params.elev = alt.val();
+                if (mod.length>0) {
+                    isGeo = mod.val() == 'geo';
+                }
+                if (isGeo) {
+                    params.geopos = geopos;
+                } else {
+                    params.topo = geopos;
+                }
                 if (hsy.length>0) {
                     params.system = hsy.val();
                 }
                 if (aya.length>0) {
                     params.sid = aya.val();
-                }
-                if (mod.length>0) {
-                    params.mod = mod.val();
                 }
                 
                 $.ajax({
