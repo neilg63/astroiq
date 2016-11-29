@@ -160,7 +160,7 @@
             alt = $('#form-alt'),
             hsy = $('#form-hsy'),
             aya = $('#form-ayanamsa'),
-            mod = $('#form-mode');
+            mod = $('#form-mode input.mode:checked');
             if (dob.length>0 && lng.length>0) {
                 var dobV = dob.val(),
                 tobV = tob.val(),
@@ -177,6 +177,7 @@
                 if (mod.length>0) {
                     isGeo = mod.val() == 'geo';
                 }
+                console.log(isGeo);
                 if (isGeo) {
                     params.geopos = geopos;
                 } else {
