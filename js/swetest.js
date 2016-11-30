@@ -8,6 +8,7 @@
             var cmdEl =$('#form-cmd'),cmd;
             if (cmdEl.length>0) {
                 cmd = cmdEl.val();
+                cmd = cmd.replace(/^swetest\s+/i,'');
                 var params = {
                     cmd: cmd
                 }
