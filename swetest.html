@@ -220,32 +220,22 @@ nav.horizontal li {
 <li><strong>-dX</strong>    differential ephemeris: print differential ephemeris between body X and each body in list given by -p example: -p2  -d0  -fJl  -n366</li>
 <li><strong>-b1</strong>.1.1992 prints the longitude distance between SUN (planet 0) and MERCURY (planet 2) for a full year starting at 1 Jan 1992.</li>
 <li><strong>-DX</strong>    midpoint ephemeris, works the same way as the differential mode -d described above, but outputs the midpoint position.</li>
-<li><strong>-nN</strong>    output  data  for  N  consecutive  days; if no -n option is given, the default is 1. If the option -n without a number is given, the</li>
-<p>default is 20.</p>
+<li><strong>-nN</strong>    output  data  for  N  consecutive  days; if no -n option is given, the default is 1. If the option -n without a number is given, the default is 20.</li>
 <li><strong>-sN</strong>    timestep N days, default 1. This option is only meaningful when combined with option -n.  output format:</li>
 <li><strong>-fSEQ</strong>  use SEQ as format sequence for the output columns; default is PLBRS.</li>
-<li><strong>-head</strong>  don't print the header before the planet data. This option is useful when you want to paste the output into a spreadsheet  for  dis‐</li>
-<p>playing graphical ephemeris.</p>
-
-                 +head  header before every step (with -s..)
-<li><strong>-gPPP</strong>  use PPP as gap between output columns; default is a single</li>
-</ul>
-<p>blank. -g followed by white space sets the gap to the TAB character; which is useful for data entry into spreadsheets.</p>
-<p>astrological house system:</p>
-<li><strong>-house</strong>[long,lat,hsys]</li>
-<p>include house cusps. The longitude, latitude (degrees with DECIMAL fraction) and house system letter can be given, with commas sepa‐</p>
-<p>rated, + for east and north. If none are given, Greenwich UK and Placidus is used: 0.00,51.50,p.  The output lists 12  house  cusps,</p>
-<p>Asc, MC, ARMC and Vertex.  Houses can only be computed if option -ut is given.</p>
+<li><strong>-head</strong>  don't print the header before the planet data. This option is useful when you want to paste the output into a spreadsheet  for  displaying graphical ephemeris.</li>
+<li><strong>-+head  </strong> header before every step (with -s..)</li>
+                
+<li><strong>-gPPP</strong>  use PPP as gap between output columns; default is a single blank. -g followed by white space sets the gap to the TAB character; which is useful for data entry into spreadsheets.</p>
+<h4>astrological house system:</h4>
 <ul>
-<li><strong>-hsy</strong>[hsys]</li>
-</ul>
-<p>house system to be used (for house positions of planets) for long, lat, hsys, see -house</p>
-<li><strong>-geopos</strong>[long,lat,elev]</li>
-</ul>
-<p>Geographic  position.  Can  be  used  for  azimuth  and altitude or topocentric or house cups calculations.  The longitude, latitude</p><pre>
-                        (degrees with DECIMAL fraction) and elevation (meters) can be given, with commas separated, + for east and north. If none are given,
-</pre><p>Greenwich is used: 0,51.5,0</p>
-<p>sidereal astrology:</p>
+<li><strong>-house</strong>[long,lat,hsys]</li>
+<p>include house cusps. The longitude, latitude (degrees with DECIMAL fraction) and house system letter can be given, with commas separated, + for east and north. If none are given, Greenwich UK and Placidus is used: 0.00,51.50,p.  The output lists 12  house  cusps Asc, MC, ARMC and Vertex.  Houses can only be computed if option -ut is given.</li>
+<li><strong>-hsy</strong>[hsys] house system to be used (for house positions of planets) for long, lat, hsys, see -house</li>
+<li><strong>-geopos</strong>[long,lat,elev] Geographic  position.  Can  be  used  for  azimuth  and altitude or topocentric or house cups calculations.  The longitude, latitude< (degrees with DECIMAL fraction) and elevation (meters) can be given, with commas separated, + for east and north. If none are given,
+Greenwich is used: 0,51.5,0</li>
+</p>
+<h4>sidereal astrology:</h4>
 <ul>
 <li><strong>-ay</strong>..  ayanamsa, with number of method, e.g. ay0 for Fagan/Bradley</li>
 <li><strong>-sid</strong>.. sidereal, with number of method; 'sid0' for Fagan/Bradley 'sid1' for Lahiri</li>
@@ -256,17 +246,14 @@ nav.horizontal li {
 <li><strong>-ejpl</strong>  jpl ephemeris (DE406), or with ephemeris file name -ejplde200.eph</li>
 <li><strong>-emos</strong>  moshier ephemeris</li>
 <li><strong>-true</strong>  true positions</li>
-<li><strong>-noaberr</strong></li>
-<p>no aberration</p>
-<li><strong>-nodefl</strong></li>
-<p>no gravitational light deflection</p>
+<li><strong>-noaberr</strong> no aberration</li>
+<li><strong>-nodefl</strong> no gravitational light deflection<</li>
 <li><strong>-noaberr</strong> -nodefl astrometric positions</li>
 <li><strong>-j2000</strong> no precession (i.e. J2000 positions)</li>
 <li><strong>-icrs</strong>  ICRS (use Internat. Celestial Reference System)</li>
 <li><strong>-nonut</strong> no nutation</li>
 <li><strong>-speed</strong> calculate high precision speed</li>
-<li><strong>-speed3</strong></li>
-                        ´low' precision speed from 3 positions do not use this option. -speed parameter is faster and preciser
+<li><strong>-speed3</strong> ´low' precision speed from 3 positions do not use this option. -speed parameter is faster and preciser</li>              
 <li><strong>-iXX</strong>   force iflag to value XX</li>
 <li><strong>-testaa96</strong>  test  example  in  AA  96,  B37, i.e. venus, j2450442.5, DE200.  attention: use precession IAU1976 and nutation 1980 (s. swephlib.h)</li>
 <li><strong>-testaa95</strong> -testaa97</li>
@@ -280,7 +267,7 @@ nav.horizontal li {
 <p>special events:</p>
 <ul>
 <li><strong>-solecl</strong> solar eclipse output 1st line:</li>
-
+</ul>
 <p>eclipse  date, time of maximum (UT), core shadow width (negative with total eclipses), fraction of solar diameter that is eclipsed</p>
 <p>Julian day number (6-digit fraction) of maximum</p>
 <p>output 2nd line:</p>
@@ -301,16 +288,21 @@ nav.horizontal li {
 <p>eclipse date, time of maximum, fraction of solar diameter that is eclipsed</p>
 <p>output 2nd line:</p>
 <p>local eclipse duration, local four contacts,</p>
+<ul>
 <li><strong>-hev</strong>[type] heliacal events,</li>
+<ul>
 <p>type 1 = heliacal rising</p>
 <p>type 2 = heliacal setting</p>
 <p>type 3 = evening first</p>
 <p>type 4 = morning last</p>
 <p>type 0 or missing = all four events are listed.</p>
+<ul>
 <li><strong>-rise</strong> rising and setting of a planet or star.</li>
 <p>Use -geopos[long,lat,elev] to specify geographical position.</p>
 <li><strong>-metr</strong>  southern and northern meridian transit of a planet of star Use -geopos[long,lat,elev] to specify geographical position.</li>
-<p>specifications for eclipses:</p>
+</ul>
+<h4>specifications for eclipses:</h4>
+<ul>
 <li><strong>-total</strong> total eclipse (only with -solecl, -lunecl)</li>
 <li><strong>-partial</strong> partial eclipse (only with -solecl, -lunecl)</li>
 <li><strong>-annular</strong> annular eclipse (only with -solecl)</li>
@@ -336,11 +328,8 @@ nav.horizontal li {
 </pre><p>Default values are -at1013.25,15,40,0</p>
 <li><strong>-obs</strong>[age,SN] age of observer and Snellen ratio</li>
 <p>Default values are -obs36,1</p>
-<li><strong>-opt</strong>[age,SN,binocular,magn,diam,transm]</li>
-<p>age and SN as with -obs</p><pre>
-
-                            0 monocular or 1 binocular
-</pre><p>telescope magnification</p>
+<li><strong>-opt</strong>[age,SN,binocular,magn,diam,transm] age and SN as with -obs 0 monocular or 1 binocular telescope magnification</li>
+<ul>
 <p>optical aperture in mm</p>
 <p>optical transmission</p>
 <p>Default values: -opt36,1,1,1,0,0 (naked eye)</p>
@@ -491,7 +480,7 @@ nav.horizontal li {
 <p>F apsides (osc.): perihel, aphel, second focal point; longitude dec.</p><pre>
 
                        + phase angle
-
+    
                        - phase
 </pre><p>elongation</p><pre>
 
