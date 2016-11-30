@@ -142,7 +142,7 @@ body {
 
 #control-panel {
     position: fixed;
-    top: 0;
+    top: 1em;
     left: 0;
     min-width: 30em;
     width: 25vw;
@@ -173,6 +173,46 @@ body {
     margin-right: 0.25em;
 }
 
+#navbar {
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2.5em;
+    background-color: #009999;
+    color: white;
+}
+
+#navbar a {
+    color: white;
+}
+
+#navbar h1 {
+    font-size: 1em;
+    position: absolute;
+    left: 2.5%;
+    top: 0.25em;
+}
+
+nav.horizontal ul,
+nav.horizontal li {
+    list-style-type: none;
+    padding: none;
+}
+
+nav.horizontal ul {
+    margin: 0.75em 0;
+    width: 100%;
+    text-align: center;
+}
+
+nav.horizontal li {
+    display: inline-block;
+    margin: 0 2em;
+    font-weight: bold;
+}
+
 </style>
 
 
@@ -186,8 +226,11 @@ body {
 <body>
 
 <header id="navbar">
-    
-
+    <h1>astroIQ Demo</h1>
+    <nav class="horizontal"><ul>
+        <li><a href="/">Command Test</a></li>   
+        <li><a href="/zodiac">Zodiac Demo</a></li>
+    </ul></nav>
 </header>
 
 <aside id="control-panel">

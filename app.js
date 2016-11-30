@@ -39,6 +39,27 @@ app.get('/sweph', function(req, res){
 	});
 });
 
+app.get('/swetest-backend',function(req,res) {
+	if (req.query.cmd) {
+		if (typeof req.query.cmd == 'string') {
+			var cmd = req.query.cmd;
+			child = exec(cmd, function (error, stdout, stderr) {
+			  //sys.print('stdout: ' + stdout);
+			  var data = {};
+			  if (!stderr) {
+			  	data.output = stdout;
+			  	data.valid = true;
+			  } else {
+			  	data.output = stderr;
+			  	data.valid = true;
+			  }
+			  res.send(data);
+			});
+		}
+		
+	}
+});
+
 app.get('/ayanamsa', function(req, res){ 
 
      var cmd = astro.composeSwetestQueryAyanamsa(req.query);
@@ -65,6 +86,10 @@ app.use('/svgs', express.static('svgs'));
 
 app.get('/zodiac', function(req, res) {
     res.sendfile('./zodiac.html');
+});
+
+app.get('/', function(req, res) {
+    res.sendfile('./swetest.html');
 });
 
 var port = process.env.PORT || 9862;
