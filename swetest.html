@@ -69,9 +69,9 @@ body {
     padding: 0;
 }
 
-#control-panel {
+#command-pane {
     position: fixed;
-    top: 2.25em;
+    top: 2em;
     left: 0;
     min-width: 30em;
     width: 90vw;
@@ -83,23 +83,18 @@ body {
     box-shadow: 4px 4px 4px #999999 0.5;
 }
 
-#control-panel p {
+#command-pane p {
     padding: 0;
 }
 
-#control-panel p label {
+#command-pane p label {
     display: inline-block;
-    width: 10em;
+    width: 6em;
     margin-right: 0.5em;
 }
 
-#control-panel p.radios label {
-    width: auto;
-    margin-right: 1.5em;
-}
-
-#control-panel p.radios input {
-    margin-right: 0.25em;
+#form-cmd {
+    max-width: 80vw;
 }
 
 #main .inner {
@@ -168,15 +163,16 @@ nav.horizontal li {
     </ul></nav>
 </header>
 
-<aside id="control-panel">
+<aside id="command-pane">
     <form id="control-form" action="/sweph" method="post">
-        <p>
+<p>
             <label>Command: </label> swetest&nbsp;<input type="text" id="form-cmd" name="cmd" size="120" value="-b28.06.1961 -ut11.25 -fPLEBS -sid1 -topo-13.667,65.1,305,0 -house-13.667,65.1,W
 " />
-        </p>
+    <input type="submit" value="Go" />
+</p>
         
 
-        <input type="submit" value="Go" />
+        
     </form>
     
 </aside>
