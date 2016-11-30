@@ -64,9 +64,6 @@
             for (k in body) {
                 hasData = false;
                 tp = typeof body[k];
-                if (key == 'bodies') {
-                    console.log(k);
-                }
                 if (tp == 'object') {
                     content = objToString(body[k]);
                 } else {
@@ -75,11 +72,7 @@
                 if (content) {
                     hasData = true;
                     li = $('<li class="'+k+'"><strong class="label">'+k+':</strong> <span class="value">'+content+'</span></li>');
-                } /*else {
-                    console.log(k);
-                    console.log(typeof body[k]);
-                    console.log(body[k]);
-                }*/
+                }
                 if (hasData) {
                     ul.append(li);
                 }

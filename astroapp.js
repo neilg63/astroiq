@@ -468,9 +468,9 @@ astro.composeSwetestQuery = (params) => {
 		"ut": "03.0000",
 		"f": "PLEBS",
 		"system": "W",
-		"sid": "1"
+		"sid": "0"
 	},
-	matched=true,item,val;
+	matched=true,item,val,tp;
 	if (typeof params == 'object') {
 		for (key in params) {
 		if (data[key]) {
@@ -487,6 +487,7 @@ astro.composeSwetestQuery = (params) => {
 	for (key in data) {
 		item = "-" + key;
 		val = data[key];
+		tp = typeof val;
 		matched = true;
 		switch (key) {
 			case "system":
@@ -497,6 +498,19 @@ astro.composeSwetestQuery = (params) => {
 			case "house":
 			case "topo":	
 				item += valToGeoLine(val,key,data);
+				break;
+			case 'sid':
+				if (tp == 'string') {
+					if (/^\d+$/.test(val)) {
+						val = parseInt(val);
+						tp = typeof val;
+					}
+				}
+				if (tp == 'number') {
+					item += val.toString();
+				} else {
+					matched = false;
+				}
 				break;
 			default:
 				item += val;
@@ -538,7 +552,7 @@ astro.composeSwetestQueryAyanamsa = function(params) {
 		"topo": [0,0],
 		"system": "W",
 		"ay": "1",
-		"sid": "1"
+		"sid": "0"
 	},
 	matched=true,item,val;
 	if (typeof params == 'object') {

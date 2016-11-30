@@ -10,7 +10,6 @@ app.get('/sweph', function(req, res){
 
      var cmd = astro.composeSwetestQuery(req.query);
      child = exec(cmd, function (error, stdout, stderr) {
-	  console.log(cmd);
 	  var debug = false;
 	  if (req.query.debug) {
 	  	if (req.query.debug == 1) {

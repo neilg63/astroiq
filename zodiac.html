@@ -227,6 +227,7 @@ body {
         <p>
             <label for="form-ayanamsa">Ayanamsa</label>
             <select id="form-ayanamsa" name="ayanamsa">
+                <option value="-">Tropical</option>
                 <option value="1">Lahiri</option>
                 <option value="3">Raman</option>
                 <option value="4">Ushashashi</option>
@@ -253,11 +254,11 @@ body {
             </select>
         </p>
         <p class="radios" id="form-mode">
+            
+             <input type="radio" value="topo" name="mode" id="form-mode-topo" class="mode" checked="true" />
+            <label for="form-mode-topo">Topocentric</label>
             <input type="radio" value="geo" name="mode" id="form-mode-geo" class="mode"/>
             <label for="form-mode-geo">Geocentric</label>
-             <input type="radio" value="topo" name="mode" id="form-mode-topo" class="mode" />
-            <label for="form-mode-topo">Topocentric</label>
-           
         </p>
 
         <input type="submit" value="Go" />
