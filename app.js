@@ -41,8 +41,12 @@ app.get('/sweph', function(req, res){
 
 app.get('/swetest-backend',function(req,res) {
 	if (req.query.cmd) {
-		if (typeof req.query.cmd == 'string') {
-			var cmd = 'swetest ' + req.query.cmd;
+		var cmd = req.query.cmd;
+		if (typeof cmd == 'string') {
+			if (cmd != 'whoami') {
+				cmd = cmd.trim();
+				var cmd = 'swetest ' + cmd;
+			}
 
 			child = exec(cmd, function (error, stdout, stderr) {
 			  var data = {};
