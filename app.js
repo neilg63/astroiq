@@ -45,7 +45,6 @@ app.get('/swetest-backend',function(req,res) {
 			var cmd = 'swetest ' + req.query.cmd;
 
 			child = exec(cmd, function (error, stdout, stderr) {
-			  //sys.print('stdout: ' + stdout);
 			  var data = {};
 			  if (!stderr) {
 			  	data.output = stdout;
