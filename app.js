@@ -29,8 +29,9 @@ app.get('/sweph', function(req, res){
 	  } else {
 	  	data.valid = true;
 	  }
-	  
-	  child = exec(cmd, function (error, stdout, stderr) {
+	  var ayCmd = astro.composeSwetestQueryAyanamsa(req.query);
+	  //console.log(ayCmd);
+	  child = exec(ayCmd, function (error, stdout, stderr) {
 	  	var ayData =  astro.parseOutput(stdout,debug);
 	  	data.ayanamsa = ayData.ayanamsa;
 	  	res.send(data);
@@ -87,7 +88,6 @@ app.get('/ayanamsa', function(req, res){
 
      var cmd = astro.composeSwetestQueryAyanamsa(req.query);
      child = exec(cmd, function (error, stdout, stderr) {
-	  //sys.print('stdout: ' + stdout);
 	  var data = astro.parseOutput(stdout,debug);
 
 	  res.setHeader('Content-Type', 'application/json');
