@@ -41,13 +41,27 @@ app.get('/sweph', function(req, res){
 
 app.get('/swetest-backend',function(req,res) {
 	if (req.query.cmd) {
-		var cmd = req.query.cmd;
+		var cmd = req.query.cmd,
+			valid = false,
+			msg = "Please enter a valid command";
 		if (typeof cmd == 'string') {
-			if (cmd != 'whoami') {
-				cmd = cmd.trim();
-				var cmd = 'swetest ' + cmd;
+			cmd = cmd.split("|").shift().split(">").shift().split('&').shift().split("<").shift();
+			if (cmd.length>1) {
+					cmd = cmd.trim();
+				
+				if (cmd !== 'whoami') {
+					if (cmd.startsWith('-')) {
+						var cmd = 'swetest ' + cmd;
+						valid = true;
+					} else {
+						msg = "Swetest command options must begin with a hyphen (-)";
+					}
+				} else {
+					valid = true;
+				}
 			}
-
+		}
+		if (valid) {
 			child = exec(cmd, function (error, stdout, stderr) {
 			  var data = {};
 			  if (!stderr) {
@@ -59,8 +73,13 @@ app.get('/swetest-backend',function(req,res) {
 			  }
 			  res.send(data);
 			});
+		} else {
+			var data = {
+				valid: true,
+				output: msg
+			};
+			res.send(data);
 		}
-		
 	}
 });
 
