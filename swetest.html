@@ -226,15 +226,15 @@ nav.horizontal li {
 <li><strong>-head</strong>  don't print the header before the planet data. This option is useful when you want to paste the output into a spreadsheet  for  displaying graphical ephemeris.</li>
 <li><strong>-+head  </strong> header before every step (with -s..)</li>
                 
-<li><strong>-gPPP</strong>  use PPP as gap between output columns; default is a single blank. -g followed by white space sets the gap to the TAB character; which is useful for data entry into spreadsheets.</p>
+<li><strong>-gPPP</strong>  use PPP as gap between output columns; default is a single blank. -g followed by white space sets the gap to the TAB character; which is useful for data entry into spreadsheets.</li>
+</ul>
 <h4>astrological house system:</h4>
 <ul>
-<li><strong>-house</strong>[long,lat,hsys]</li>
-<p>include house cusps. The longitude, latitude (degrees with DECIMAL fraction) and house system letter can be given, with commas separated, + for east and north. If none are given, Greenwich UK and Placidus is used: 0.00,51.50,p.  The output lists 12  house  cusps Asc, MC, ARMC and Vertex.  Houses can only be computed if option -ut is given.</li>
+<li><strong>-house</strong>[long,lat,hsys] include house cusps. The longitude, latitude (degrees with DECIMAL fraction) and house system letter can be given, with commas separated, + for east and north. If none are given, Greenwich UK and Placidus is used: 0.00,51.50,p.  The output lists 12  house  cusps Asc, MC, ARMC and Vertex.  Houses can only be computed if option -ut is given.</li>
 <li><strong>-hsy</strong>[hsys] house system to be used (for house positions of planets) for long, lat, hsys, see -house</li>
 <li><strong>-geopos</strong>[long,lat,elev] Geographic  position.  Can  be  used  for  azimuth  and altitude or topocentric or house cups calculations.  The longitude, latitude< (degrees with DECIMAL fraction) and elevation (meters) can be given, with commas separated, + for east and north. If none are given,
 Greenwich is used: 0,51.5,0</li>
-</p>
+</ul>
 <h4>sidereal astrology:</h4>
 <ul>
 <li><strong>-ay</strong>..  ayanamsa, with number of method, e.g. ay0 for Fagan/Bradley</li>
@@ -262,9 +262,9 @@ Greenwich is used: 0,51.5,0</li>
 <p>observer position:</p>
 <li><strong>-hel</strong> compute heliocentric positions</li>
 <li><strong>-bary</strong>  compute barycentric positions (bar. earth instead of node)</li>
-<li><strong>-topo</strong>[long,lat,elev] topocentric positions. The longitude, latitude (degrees with DECIMAL fraction) and elevation (meters) can be given, with commas sep‐</p>
-<p>arated, + for east and north. If none are given, Zuerich is used: 8.55,47.38,400</li>
-<p>special events:</p>
+<li><strong>-topo</strong>[long,lat,elev] topocentric positions. The longitude, latitude (degrees with DECIMAL fraction) and elevation (meters) can be given, with commas sep arated, + for east and north. If none are given, Zuerich is used: 8.55,47.38,400</li>
+</ul>
+<h4>special events:</h4>
 <ul>
 <li><strong>-solecl</strong> solar eclipse output 1st line:</li>
 </ul>
@@ -280,10 +280,10 @@ Greenwich is used: 0,51.5,0</li>
 <li><strong>-lunecl</strong> lunar eclipse</li>
 <p>output 1st line:</p>
 <p>eclipse date, time of maximum (UT), Julian day number (6-digit fraction) of maximum</p>
-<p>output 2nd line:</p>
-                               6 contacts for start and end of penumbral, partial, and total phase
-<li><strong>-local</strong> only with -solecl or -occult, if the next event of this kind is wanted for a given geogr. position.  Use  -geopos[long,lat,elev]  to</li>
-<p>specify that position.  If -local is not set, the program searches for the next event anywhere on earth.</p>
+<p>output 2nd line: 6 contacts for start and end of penumbral, partial, and total phase</p>
+  <ul>                            
+<li><strong>-local</strong> only with -solecl or -occult, if the next event of this kind is wanted for a given geogr. position.  Use  -geopos[long,lat,elev]  to< specify that position.  If -local is not set, the program searches for the next event anywhere on earth.</li>
+</ul>
 <p>output 1st line:</p>
 <p>eclipse date, time of maximum, fraction of solar diameter that is eclipsed</p>
 <p>output 2nd line:</p>
@@ -329,11 +329,12 @@ Greenwich is used: 0,51.5,0</li>
 <li><strong>-obs</strong>[age,SN] age of observer and Snellen ratio</li>
 <p>Default values are -obs36,1</p>
 <li><strong>-opt</strong>[age,SN,binocular,magn,diam,transm] age and SN as with -obs 0 monocular or 1 binocular telescope magnification</li>
-<ul>
+</ul>
 <p>optical aperture in mm</p>
 <p>optical transmission</p>
 <p>Default values: -opt36,1,1,1,0,0 (naked eye)</p>
 <p>backward search:</p>
+<ul>
 <li><strong>-bwd</strong></li>
 <li><strong>-rise</strong> rising and setting of a planet or star.  Use -geopos[long,lat,elev] to specify geographical position.</li>
 <li><strong>-metr</strong> southern and northern meridian transit of a planet of star Use -geopos[long,lat,elev] to specify geographical position.</li>
@@ -351,6 +352,7 @@ Greenwich is used: 0,51.5,0</li>
 <li><strong>-hindu</strong> hindu version of sunrise (with option -rise)</li>
 <p>specifications for heliacal events:</p>
 <li><strong>-at</strong>[press,temp,rhum,visr]:</li>
+</ul>
 <p>pressure in hPa</p>
 <p>temperature in degrees Celsius</p>
 <p>relative humidity in %</p>
