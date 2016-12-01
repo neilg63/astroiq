@@ -34,6 +34,9 @@
       #backgr { fill:#cccccc; opacity: 0.5; }
       .bc, .bck {  opacity:0.0; z-index: 0; }
       .bc:hover, .bck:hover { opacity:0.3;  fill:red; }
+      #house-02 {
+        fill: green;
+      }
   </style>
   <g
      id="chart-background">
@@ -169,6 +172,7 @@
   <!-- container for sign glyph for each house -->
   <g
      id="house-sign-glyphs">
+     <g id="house-01-group">
     <rect
        id="house-01"
        class="house"
@@ -178,6 +182,9 @@
        y="200"
        rx="0"
        ry="0" />
+       <image href="/svgs/signs/devanagari/01_Aries.svg" x="237" y="203" height="24" width="24"></image>
+     </g>
+    <g id="house-02-group">
     <rect
        id="house-02"
        class="house"
@@ -187,6 +194,9 @@
        y="75"
        rx="0"
        ry="0" />
+       <image href="/svgs/signs/devanagari/02_Taurus.svg" x="112" y="77" height="24" width="24"></image>
+    </g>
+    <g id="house-03-group">
     <rect
        id="house-03"
        class="house"
@@ -196,6 +206,9 @@
        y="110"
        rx="0"
        ry="0" />
+       <image href="/svgs/signs/devanagari/03_Gemini.svg" x="77" y="112" height="24" width="24"></image>
+    </g>
+    <g id="house-04-group">
     <rect
        id="house-04"
        class="house"
@@ -205,6 +218,9 @@
        y="235"
        rx="0"
        ry="0" />
+       <image href="/svgs/signs/devanagari/04_Cancer.svg" x="202" y="237" height="24" width="24"></image>
+      </g>
+    <g id="house-05-group">
     <rect
        id="house-05"
        class="house"
@@ -214,6 +230,8 @@
        y="360"
        rx="0"
        ry="0" />
+    </g>
+    <g id="house-06-group">
     <rect
        id="house-06"
        class="house"
@@ -223,6 +241,8 @@
        y="395"
        rx="0"
        ry="0" />
+    </g>
+    <g id="house-07-group">
     <rect
        id="house-07"
        class="house"
@@ -232,6 +252,8 @@
        y="270"
        rx="0"
        ry="0" />
+    </g>
+    <g id="house-08-group">
     <rect
        id="house-08"
        class="house"
@@ -241,6 +263,8 @@
        y="395"
        rx="0"
        ry="0" />
+    </g>
+    <g id="house-09-group">
     <rect
        id="house-09"
        class="house"
@@ -250,6 +274,8 @@
        y="360"
        rx="0"
        ry="0" />
+      </g>
+    <g id="house-10-group">
     <rect
        id="house-10"
        class="house"
@@ -259,6 +285,8 @@
        y="235"
        rx="0"
        ry="0" />
+      </g>
+      <g id="house-11-group">
     <rect
        id="house-11"
        class="house"
@@ -268,6 +296,8 @@
        y="110"
        rx="0"
        ry="0" />
+      </g>
+      <g id="house-12-group">
     <rect
        id="house-12"
        class="house"
@@ -277,6 +307,7 @@
        y="75"
        rx="0"
        ry="0" />
+     </g>
   </g>
   <g
      id="planet-containers">

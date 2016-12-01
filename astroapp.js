@@ -551,8 +551,7 @@ astro.composeSwetestQueryAyanamsa = function(params) {
 		"f": "PLEBS",
 		"topo": [0,0],
 		"system": "W",
-		"ay": "1",
-		"sid": "0"
+		"ay": "1"
 	},
 	matched=true,item,val;
 	if (typeof params == 'object') {
