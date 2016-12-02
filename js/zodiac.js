@@ -125,6 +125,24 @@
             $('#results-pane').append(info);
         };
 
+        var updateChart = function(data) {
+            $('svg line.boundary').removeClass('solid');
+            if (data.houses) {
+                if (typeof data.houses == 'object') {
+                    var id,ln;
+                    for (k in data.houses) {
+                        if (/\d+/.test(k)) {
+                            id = 'line-' + parseInt(k);
+                            ln = $(id);
+                            if (ln.length>0) {
+                                ln.css('transform','rotate('+data[k]+'deg)');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         var appendAyamansa = function(params) {
             var href = '/ayanamsa';
             $.ajax({
@@ -189,6 +207,7 @@
                     success: function(data) {
                         if (data.valid) {
                             buildDataView(data);
+                            updateChart(data);
                         }
                     }
                 });

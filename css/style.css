@@ -80,6 +80,12 @@ body {
 
 .boundary {
     transform-origin: 100% 100% 0;
+    transition: transform .5s ease-in;
+}
+
+line.solid {
+    stroke-width: 1px;
+    stroke: black;
 }
 
 @keyframes spin {
