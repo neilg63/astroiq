@@ -126,8 +126,9 @@
         };
 
         var updateChart = function(data) {
-            $('svg line.boundary').removeClass('solid');
+            $('#zodiac-pane svg line.boundary').removeClass('solid');
             if (data.houses) {
+                console.log(data.houses);
                 if (typeof data.houses == 'object') {
                     var id,ln;
                     for (k in data.houses) {
