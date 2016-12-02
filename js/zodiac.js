@@ -132,7 +132,7 @@
                     var id,ln;
                     for (k in data.houses) {
                         if (/\d+/.test(k)) {
-                            id = 'line-' + parseInt(k);
+                            id = '#line-' + parseInt(k);
                             ln = $(id);
                             if (ln.length>0) {
                                 ln.css('transform','rotate('+data[k]+'deg)');
@@ -188,7 +188,6 @@
                 if (mod.length>0) {
                     isGeo = mod.val() == 'geo';
                 }
-                console.log(isGeo);
                 if (isGeo) {
                     params.geopos = geopos;
                 } else {
