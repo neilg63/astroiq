@@ -128,13 +128,14 @@
         var updateChart = function(data) {
             $('#zodiac-pane svg line.boundary').removeClass('solid');
             if (data.houses) {
-                console.log(data.houses);
+
                 if (typeof data.houses == 'object') {
                     var id,ln;
                     for (k in data.houses) {
                         if (/\d+/.test(k)) {
                             id = '#line-' + parseInt(k);
                             ln = $(id);
+                            console.log(ln.length + ' ' + id);
                             if (ln.length>0) {
                                 ln.css('transform','rotate('+data[k]+'deg)');
                             }
