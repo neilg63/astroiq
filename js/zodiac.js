@@ -137,8 +137,7 @@
                             ln = $(id);
                             if (ln.length>0) {
                                 ln.addClass('solid');
-                                ln.css('transform','rotate('+data[k]+'deg)');
-                                console.log(data[k]);
+                                ln.css('transform','rotate('+data.houses[k]+'deg)');
                             }
                         }
                     }
