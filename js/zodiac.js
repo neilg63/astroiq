@@ -135,9 +135,10 @@
                         if (/\d+/.test(k)) {
                             id = '#line-' + parseInt(k);
                             ln = $(id);
-                            console.log(ln.length + ' ' + id);
                             if (ln.length>0) {
+                                ln.addClass('solid');
                                 ln.css('transform','rotate('+data[k]+'deg)');
+                                console.log(data[k]);
                             }
                         }
                     }
