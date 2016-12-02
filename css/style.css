@@ -1,0 +1,211 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.zodiac-pane,
+#main {
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#main {
+    padding: 4em 0 0 0;
+    z-index: 1;
+}
+
+#results-pane {
+    text-align: left;
+    margin-top: 20em;
+    position: relative;
+    width: 50vw;
+    min-height: 50vh;
+    float: left;
+    border: dashed 1px #999999;
+    padding: 2vw;
+}
+
+#results-pane dl dd,
+#results-pane dl dt {
+    float: left;
+    margin-bottom: 0.75em;
+}
+
+#results-pane dl dt {
+    clear: both;
+    width: 8em;
+    margin-right: 0.75em;
+    font-weight: bold;
+}
+
+#results-pane dl dd {
+    padding: 0;
+    margin-left: 0;
+}
+
+#results-pane dl dd pre {
+    max-width: 40em;
+    overflow: auto;
+    color: #999999;
+}
+
+
+#results-pane dl dd ul {
+    list-style-type: none;
+    margin: 0 0 1em 0;
+    padding:0;
+}
+
+#results-pane dl dd li {
+    margin: 0;
+    padding: 0;
+}
+
+.zodiac-pane {
+    position: relative;
+    float: left;
+    margin-left: -25vw;
+}
+
+.zodiac-pane svg {
+    width: 60vw;
+    height: 60vw;
+    max-height: 80vh;
+    margin-left: 5vw;
+}
+
+#indian-zodiac-pane {
+    margin-top: 2vh;
+}
+
+.boundary {
+    transform-origin: 100% 100% 0;
+}
+
+@keyframes spin {
+    0% {transform: rotate(0deg);}
+    8.3333% {transform: rotate(30deg);}
+    16.6667% {transform: rotate(60deg);}
+    25% {transform: rotate(90deg);}
+    33.3333% {transform: rotate(120deg);}
+    41.6667% {transform: rotate(150deg);}
+    50% {transform: rotate(180deg);}
+    58.3333% {transform: rotate(210deg);}
+    66.6667% {transform: rotate(240deg);}
+    75% {transform: rotate(270deg);}
+    83.3333% {transform: rotate(300deg);}
+    91.6667% {transform: rotate(330deg);}
+    100% {transform: rotate(360deg);}
+}
+
+#dial {
+    animation: spin 60s infinite;
+    transform-origin: 50% 50% 0;
+}
+
+.planet path {
+    fill: #999999;
+}
+
+.mars path {
+    fill: #ff0000;
+}
+
+.jupiter path {
+    fill: #996600;
+}
+
+.mercury path {
+    fill: #66ff00;
+}
+
+.venus path {
+    fill: #004499;
+}
+
+.saturn path {
+    fill: #0000ff;
+}
+
+.neptune path {
+    fill: #990066;
+}
+
+.uranus path {
+    fill: #229966;
+}
+
+
+#control-panel {
+    position: fixed;
+    top: 1em;
+    left: 0;
+    min-width: 24em;
+    width: 20vw;
+    z-index: 10;
+    padding: 3vh 2vw;
+    background-color: white;
+    border-right: solid 1px #999999;
+    border-bottom: solid 1px #999999;
+    box-shadow: 4px 4px 4px #999999 0.5;
+}
+
+#control-panel p {
+    padding: 0;
+}
+
+#control-panel p label {
+    display: inline-block;
+    width: 9em;
+    margin-right: 0.5em;
+    font-size: 0.9em;
+}
+
+#control-panel p.radios label {
+    width: auto;
+    margin-right: 1.5em;
+}
+
+#control-panel p.radios input {
+    margin-right: 0.25em;
+}
+
+#navbar {
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2.5em;
+    background-color: #009999;
+    color: white;
+}
+
+#navbar a {
+    color: white;
+}
+
+#navbar h1 {
+    font-size: 1em;
+    position: absolute;
+    left: 2.5%;
+    top: 0.25em;
+}
+
+nav.horizontal ul,
+nav.horizontal li {
+    list-style-type: none;
+    padding: none;
+}
+
+nav.horizontal ul {
+    margin: 0.75em 0;
+    width: 100%;
+    text-align: center;
+}
+
+nav.horizontal li {
+    display: inline-block;
+    margin: 0 2em;
+    font-weight: bold;
+}
