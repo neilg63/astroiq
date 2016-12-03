@@ -443,12 +443,18 @@ function valToGeoLine(val,key,data) {
 	}
 	if (val instanceof Array && val.length >= 2) {
 		item += val[0] + ',' + val[1];
+
 		switch (key) {
 			case "house":
 				item += "," + data.system;
 				break;
 			case "geopos":
 			case "topo":
+				if (!data.elev && val.length > 2) {
+					if (/^\d+$/.test(val[2])) {
+						data.elev = parseInt(val[2]);
+					}
+				}
 				if (data.elev) {
 					item += "," + data.elev;
 				} else {
