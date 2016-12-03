@@ -1,11 +1,12 @@
 const request = require('request');
+const googleApiKey = 'AIzaSyAOeXTgZTB_cJUyV9B2DOiZI_6LoVU2vs8';
 
 var geocode = {
 
 	buildRequest: (address) => {
 		var strAddress = encodeURIComponent(address);	
 		return {
-		  url: `https://maps.googleapis.com/maps/api/geocode/json?address=${strAddress}`,
+		  url: `https://maps.googleapis.com/maps/api/geocode/json?address=${strAddress}&key=${googleApiKey}`,
 		  json: true
 		}
 	},
