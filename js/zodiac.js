@@ -162,6 +162,30 @@
             });
         }
 
+        var geofinder = $('#geobirth-finder');
+        if (geofinder.length>0) {
+            geofinder.on('click', function(e){
+                e.preventDefault();
+                var adEl = $('#form-geobirth');
+                if (adEl.length>0) {
+                    var adStr = adEl.val();
+                    var href = '/geocode/' + adStr;
+                    $.ajax({
+                        url: href,
+                        success: function(data) {
+                            if (data.valid) {
+                                if (data.lat) {
+                                    $('#form-lat').val(data.lat);
+                                }
+                                if (data.lng) {
+                                    $('#form-lng').val(data.lng);
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
 
         cf.on('submit',function(e){
             e.preventDefault();
