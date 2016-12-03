@@ -466,6 +466,7 @@ astro.composeSwetestQuery = (params) => {
 		"b": "3.10.1963",
 		"ut": "03.0000",
 		"f": "PLEBS",
+		"elev": 0,
 		"system": "W",
 		"sid": "0"
 	},
@@ -487,7 +488,8 @@ astro.composeSwetestQuery = (params) => {
 		item = "-" + key;
 		val = data[key];
 		tp = typeof val;
-		matched = true;
+		matched = true,
+		elev = 0;
 		switch (key) {
 			case "system":
 			case "elev":
@@ -495,7 +497,12 @@ astro.composeSwetestQuery = (params) => {
 				break;
 			case "geopos":
 			case "house":
-			case "topo":	
+			case "topo":
+				if (data.elev) {
+					if /^\s*\d+\s*$/.test(data.elev) {
+						data.elev = parseInt(data.elev);
+					}
+				}
 				item += valToGeoLine(val,key,data);
 				break;
 			case 'sid':
