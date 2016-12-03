@@ -1,43 +1,53 @@
 var sys = require('util'),
 express = require("express")
 app = express(),
+geocode = require('./geocode/geocode.js'),
 textutils = require('./text-utils.js'),
 astro = require('./astroapp.js'),
 exec = require('child_process').exec;
 var child;
 
+String.prototype.cleanCommand = function() {
+	return this.split("|").shift().split(">").shift().split('&').shift().split("<").shift();
+}
+
 app.get('/sweph', function(req, res){ 
 
      var cmd = astro.composeSwetestQuery(req.query);
-     child = exec(cmd, function (error, stdout, stderr) {
-	  var debug = false;
-	  if (req.query.debug) {
-	  	if (req.query.debug == 1) {
-	  		debug = true;
-	  	}
-	  }
-	  // var data = astro.parseOutput(stdout,debug);
-	  var data = astro.fetchData(stdout,debug);
-	  if (debug) {
-	  	data.swetest.cmd = cmd;
-	  	data.swetest.raw = `<pre>${stdout}</pre>`;
-	  }
+     if (cmd.length > 4) {
+	  	  cmd = cmd.cleanCommand();
+	  	  if (cmd.length > 4) {
+		     child = exec(cmd, function (error, stdout, stderr) {
+			  var debug = false;
+			  if (req.query.debug) {
+			  	if (req.query.debug == 1) {
+			  		debug = true;
+			  	}
+			  }
+			  var data = astro.fetchData(stdout,debug);
+			  if (debug) {
+			  	data.swetest.cmd = cmd;
+			  	data.swetest.raw = `<pre>${stdout}</pre>`;
+			  }
 
-
-	  if (error !== null) {
-	    data = {"valid": false,"msg": "Server error"};
-	  } else {
-	  	data.valid = true;
-	  }
-	  var ayCmd = astro.composeSwetestQueryAyanamsa(req.query);
-	  //console.log(ayCmd);
-	  child = exec(ayCmd, function (error, stdout, stderr) {
-	  	var ayData =  astro.parseOutput(stdout,debug);
-	  	data.ayanamsa = ayData.ayanamsa;
-	  	res.send(data);
-	  });
-	  
-	});
+			  if (error !== null) {
+			    data = {"valid": false,"msg": "Server error"};
+			  } else {
+			  	data.valid = true;
+			  }
+			  var ayCmd = astro.composeSwetestQueryAyanamsa(req.query);
+			  if (ayCmd.length > 4) {
+			  	  ayCmd = ayCmd.cleanCommand();
+				  child = exec(ayCmd, function (error, stdout, stderr) {
+				  	var ayData =  astro.parseOutput(stdout,debug);
+				  	data.ayanamsa = ayData.ayanamsa;
+				  	res.send(data);
+				  });
+			  }
+			  
+			});
+		}
+	}
 });
 
 app.get('/swetest-backend',function(req,res) {
@@ -46,7 +56,7 @@ app.get('/swetest-backend',function(req,res) {
 			valid = false,
 			msg = "Please enter a valid command";
 		if (typeof cmd == 'string') {
-			cmd = cmd.split("|").shift().split(">").shift().split('&').shift().split("<").shift();
+			cmd = cmd.cleanCommand();
 			if (cmd.length>1) {
 					cmd = cmd.trim();
 				
@@ -84,21 +94,25 @@ app.get('/swetest-backend',function(req,res) {
 	}
 });
 
-app.get('/ayanamsa', function(req, res){ 
-
+app.get('/ayanamsa', function(req, res){
      var cmd = astro.composeSwetestQueryAyanamsa(req.query);
-     child = exec(cmd, function (error, stdout, stderr) {
-	  var data = astro.parseOutput(stdout,debug);
+     if (cmd.length > 4) {
+	     cmd = cmd.cleanCommand();
+	     if (cmd.length > 4) {
+	     	child = exec(cmd, function (error, stdout, stderr) {
+			  var data = astro.parseOutput(stdout,debug);
 
-	  res.setHeader('Content-Type', 'application/json');
-	  if (error !== null) {
-	    data = {"valid": false,"msg": "Server error"};
-	  } else {
-	  	data.valid = true;
-	  	data.msg = "OK";
-	  }
-	  res.send(data);
-	});
+			  res.setHeader('Content-Type', 'application/json');
+			  if (error !== null) {
+			    data = {"valid": false,"msg": "Server error"};
+			  } else {
+			  	data.valid = true;
+			  	data.msg = "OK";
+			  }
+			  res.send(data);
+			});
+	     }
+	}
 });
 
 app.use('/js', express.static('js'));
@@ -115,7 +129,19 @@ app.get('/', function(req, res) {
     res.sendfile('./swetest.html');
 });
 
+app.get('/geocode/:address', (req,res) => {
+	geocode.geocodeAddress(req.params.address, (errorMessage, result) => {
+		if (errorMessage){
+			res.status(404).send({valid:false,message:errorMessage});
+		} else {
+			result.valid = true;
+			res.send(result);
+		}
+	});
+});
+
 var port = process.env.PORT || 9862;
 app.listen(port, function() {
 	console.log("Listening on " + port);
 });
+
