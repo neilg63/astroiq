@@ -188,7 +188,7 @@ line.solid {
 }
 
 #control-panel #form-submit {
-    transform: scaleX(1.25);
+    transform: scale(1.5);
 }
 
 #geo-address {
