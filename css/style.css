@@ -183,8 +183,11 @@ line.solid {
     margin-right: 0.25em;
 }
 
+#control-panel #form-actions {
+    font-size: 2em;
+}
+
 #control-panel #form-submit {
-    font-size: 2rem;
     transform: scaleX(1.25);
 }
 
