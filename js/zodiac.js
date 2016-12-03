@@ -195,6 +195,7 @@
                     $.ajax({
                         url: href,
                         success: function(data) {
+                            var msg = '';
                             if (data.valid) {
                                 if (data.lat) {
                                     $('#form-lat').val(data.lat);
@@ -207,11 +208,13 @@
                             } else if (data.message) {
                                 msg = data.message;
                             }
-                            $('#geo-address').html(data.address).removeClass('hidden');
-                            if (!data.message) {
-                                setTimeout(function() {
-                                    $('#geo-address').addClass('hidden');
-                                },2000);
+                            if (msg.length > 1) {
+                                $('#geo-address').html(msg).removeClass('hidden');
+                                if (data.message && !data.valid) {
+                                    setTimeout(function() {
+                                        $('#geo-address').addClass('hidden');
+                                    },5000);
+                                }
                             }
                         }
                     });
