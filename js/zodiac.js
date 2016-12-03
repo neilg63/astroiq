@@ -150,7 +150,6 @@
                     for (k in data.bodies) {
                         if (/\w+/.test(k)) {
                             id = k + '-sign';
-                            console.log(id);
                             ln = $('#' + id);
                             if (ln.length>0 && typeof data.bodies[k] == 'object') {
                                 obj = data.bodies[k];
