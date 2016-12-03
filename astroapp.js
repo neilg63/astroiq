@@ -499,7 +499,7 @@ astro.composeSwetestQuery = (params) => {
 			case "house":
 			case "topo":
 				if (data.elev) {
-					if /^\s*\d+\s*$/.test(data.elev) {
+					if (/^\s*\d+\s*$/.test(data.elev)) {
 						data.elev = parseInt(data.elev);
 					}
 				}
