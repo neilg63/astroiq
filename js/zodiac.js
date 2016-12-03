@@ -208,7 +208,7 @@
                                 msg = data.message;
                             }
                             $('#geo-address').html(data.address).removeClass('hidden');
-                            if (!.message) {
+                            if (!data.message) {
                                 setTimeout(function() {
                                     $('#geo-address').addClass('hidden');
                                 },2000);
