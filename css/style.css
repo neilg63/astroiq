@@ -183,13 +183,9 @@ line.solid {
     margin-right: 0.25em;
 }
 
-#form-submit {
-    font-size: 2em;
-    transform: scaleX(1.5);
-}
-
-#form-submit:hover {
-    background-color: #ffff33;
+#control-panel #form-submit {
+    font-size: 2rem;
+    transform: scaleX(1.25);
 }
 
 #geo-address {
