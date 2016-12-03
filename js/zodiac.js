@@ -156,7 +156,7 @@
                                 obj = data.bodies[k];
                                 console.log(obj);
                                 if (obj.lat) {
-                                    y = 306 - ((obj.lat * 225) / 10);
+                                    y = 306 - ((obj.lat * 225) / 90) - 120;
                                     ln.css('transform','translate(306px,'+y+'px) rotate('+obj.lng+'deg)');
                                 }
                                 

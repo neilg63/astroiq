@@ -76,7 +76,7 @@ body {
 
 .zodiac-pane svg .planet {
     transform: translate(306px,306px) rotate(0deg);
-    transform-origin: 0 0;
+    transform-origin: 0 120px 0;
     transition: transform 1s ease-in;
 }
 
