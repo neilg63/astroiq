@@ -183,6 +183,17 @@ line.solid {
     margin-right: 0.25em;
 }
 
+#geo-address {
+    clear: both;
+    color: #666699;
+    font-size: 0.8em;
+    padding: 0.25em;
+}
+
+.hidden {
+    display: none;
+}
+
 #navbar {
     z-index: 20;
     position: fixed;

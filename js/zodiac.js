@@ -154,7 +154,6 @@
                             ln = $('#' + id);
                             if (ln.length>0 && typeof data.bodies[k] == 'object') {
                                 obj = data.bodies[k];
-                                console.log(obj);
                                 if (obj.lat) {
                                     y = 306 - ((obj.lat * 225) / 90) - 120;
                                     ln.css('transform','translate(306px,'+y+'px) rotate('+obj.lng+'deg)');
@@ -189,6 +188,7 @@
             geofinder.on('click', function(e){
                 e.preventDefault();
                 var adEl = $('#form-geobirth');
+                $('#geo-address').addClass('hidden');
                 if (adEl.length>0) {
                     var adStr = adEl.val();
                     var href = '/geocode/' + adStr;
@@ -202,6 +202,16 @@
                                 if (data.lng) {
                                     $('#form-lng').val(data.lng);
                                 }
+                                $('#form-geobirth').val("");
+                                msg = data.address;
+                            } else if (data.message) {
+                                msg = data.message;
+                            }
+                            $('#geo-address').html(data.address).removeClass('hidden');
+                            if (!.message) {
+                                setTimeout(function() {
+                                    $('#geo-address').addClass('hidden');
+                                },2000);
                             }
                         }
                     });
