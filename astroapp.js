@@ -441,9 +441,8 @@ function valToGeoLine(val,key,data) {
 	if (typeof val == 'string') {
 		val = val.split(',');
 	}
-	if (val instanceof Array) {
-		item += val.join(",");
-
+	if (val instanceof Array && val.length >= 2) {
+		item += val[0] + ',' + val[1];
 		switch (key) {
 			case "house":
 				item += "," + data.system;
