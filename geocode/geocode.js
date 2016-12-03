@@ -7,7 +7,9 @@ var geocode = {
 		var strAddress = encodeURIComponent(address);	
 		return {
 		  url: `https://maps.googleapis.com/maps/api/geocode/json?address=${strAddress}&key=${googleApiKey}`,
-		  json: true
+		  json: true,
+		  rejectUnauthorized: false,
+		  port: 443
 		}
 	},
 
