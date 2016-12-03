@@ -143,6 +143,28 @@
                     }
                 }
             }
+            if (data.bodies) {
+
+                if (typeof data.bodies == 'object') {
+                    var id,ln,obj,y;
+                    for (k in data.bodies) {
+                        if (/\w+/.test(k)) {
+                            id = k + '-sign';
+                            console.log(id);
+                            ln = $('#' + id);
+                            if (ln.length>0 && typeof data.bodies[k] == 'object') {
+                                obj = data.bodies[k];
+                                console.log(obj);
+                                if (obj.lat) {
+                                    y = 306 - ((obj.lat * 225) / 10);
+                                    ln.css('transform','translate(306px,'+y+'px) rotate('+obj.lng+'deg)');
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         var appendAyamansa = function(params) {

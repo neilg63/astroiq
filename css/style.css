@@ -74,6 +74,12 @@ body {
     margin-left: 5vw;
 }
 
+.zodiac-pane svg .planet {
+    transform: translate(306px,306px) rotate(0deg);
+    transform-origin: 0 0;
+    transition: transform 1s ease-in;
+}
+
 #indian-zodiac-pane {
     margin-top: 2vh;
 }
@@ -111,6 +117,7 @@ line.solid {
 
 .planet path {
     fill: #999999;
+    transform: scale(0.5);
 }
 
 .mars path {
