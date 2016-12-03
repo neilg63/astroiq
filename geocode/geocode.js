@@ -13,7 +13,7 @@ var geocode = {
 
 	handleResponse: (error, body, callback) => {
 		if (error) {
-			callback('Unable to connect to Google servers' + JSON.stringfy(error));
+			callback('Unable to connect to Google servers' + JSON.stringify(error));
 		} else if (body.status === 'ZERO_RESULTS') {
 			callback('Unable to find a matching address');
 		} else if (body.status === 'OK') {
