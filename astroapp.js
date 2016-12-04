@@ -58,7 +58,7 @@ function Degree(degrees,minutes,seconds) {
 		this.seconds = 0;
 	}
 	this.toFloat = function() {
-		return this.degrees + (this.minutes/60) + (this.seconds/60) 
+		return this.degrees + (this.minutes/60) + (this.seconds/3600) 
 	}
 	this.decimal = this.toFloat();
 	return this;
@@ -67,9 +67,8 @@ function Degree(degrees,minutes,seconds) {
 function toDegrees(string) {
 	var degrees=0,minutes=0,seconds=0;
 	if (typeof string == 'string') {
-
+		string = string.replace(/[°'"]/g,',');
 		var parts = string.split(','),numParts = parts.length,i=0;
-		
 		if (numParts >= 3) {
 			for (;i<numParts;i++) {
 
@@ -94,6 +93,8 @@ function toDegrees(string) {
 
 	return new Degree(degrees,minutes,seconds);	
 }
+
+astro.toDegrees = toDegrees;
 
 function toNutation(columns) {
 	var data=[];
