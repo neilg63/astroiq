@@ -36,10 +36,11 @@ function isNumeric(val) {
 	return false;
 }
 
-function Degree(degrees,minutes,seconds) {
-	var hasMinutes = isNumeric(minutes);
+function Degree(degrees,minutes,seconds,positive) {
+	this.hasMinutes = isNumeric(minutes);
+	this.positive = positive;
 	if (isNumeric(degrees)) {
-		if (hasMinutes) {
+		if (this.hasMinutes) {
 			this.degrees = parseInt(degrees);
 		} else {
 			this.degrees = parseFloat(degrees);
@@ -47,7 +48,7 @@ function Degree(degrees,minutes,seconds) {
 	} else {
 		this.degrees = 0;
 	}
-	if (hasMinutes) {
+	if (this.hasMinutes) {
 		this.minutes = parseInt(minutes);
 	} else {
 		this.minutes = 0;
@@ -58,23 +59,33 @@ function Degree(degrees,minutes,seconds) {
 		this.seconds = 0;
 	}
 	this.toFloat = function() {
-		return this.degrees + (this.minutes/60) + (this.seconds/3600) 
+		const mins = this.minutes/60, secs = this.seconds/3600;
+		if (this.positive) {
+			return this.degrees + mins + secs;
+		} else {
+			return this.degrees - mins - secs;
+		}
 	}
 	this.decimal = this.toFloat();
 	return this;
 }
 
 function toDegrees(string) {
-	var degrees=0,minutes=0,seconds=0;
+	var degrees=0,minutes=0,seconds=0,positive = true, val;
 	if (typeof string == 'string') {
 		string = string.replace(/[°'"]/g,',');
 		var parts = string.split(','),numParts = parts.length,i=0;
 		if (numParts >= 3) {
 			for (;i<numParts;i++) {
-
 				if (isNumeric(parts[i])) {
-
-					var val = parseFloat(parts[i]);
+					val = parts[i];
+					if (i == 0) {
+						val = val.toString().trim();
+						if (val.indexOf('-') === 0) {
+							positive = false;
+						}
+					}
+					val = parseFloat(val);
 					switch (i) {
 						case 0:
 							degrees = val;
@@ -91,10 +102,35 @@ function toDegrees(string) {
 		}
 	}
 
-	return new Degree(degrees,minutes,seconds);	
+	return new Degree(degrees,minutes,seconds,positive);	
 }
 
 astro.toDegrees = toDegrees;
+
+
+/*function houseParameter(lng, lat, houseType) {
+	if (!houseType) {
+		houseType = 'W';
+	}
+	if (typeof lat == 'string') {
+		lat = toDegrees(lat);
+	}
+	if (typeof lng == 'string') {
+		lng = toDegrees(lng);
+	}
+	if (lng instanceof Degree && lat instanceof Degree) {
+		return lng.toFloat() + ',' + lat.toFloat() + ',' + houseType;
+	}
+}
+
+function coordsStringToHouseParameters(coordStr,houseType) {
+	var coords = coordStr.trim().replace(/([°'])\s+(-?[0-9])/g,"$1$2").split(/[ ,]+/);
+	if (coords.length>1) {		
+		return houseParameter(coords[0],coords[1],houseType)
+	}
+}
+
+astro.coordsStringToHouseParameters = coordsStringToHouseParameters;*/
 
 function toNutation(columns) {
 	var data=[];
@@ -602,7 +638,6 @@ astro.composeSwetestQueryAyanamsa = function(params) {
 astro.parseOutput = (stdout,debug) => {
   var lines = stdout.split(/\n/),
     data={};
-    
   for (var i=0;i< lines.length;i++) {
   	if (typeof lines[i] == 'string') {
   		astro.parseLine(lines[i],data, debug);
@@ -687,6 +722,43 @@ astro.fetchData = (stdout,debug) => {
 					}
 					
 					break;
+			}
+		}
+	}
+	if (m.bodies) {
+		var b, hv, v, nxHv, hvStart, hvEnd,neg,diff;
+		var arrHouses = Object.keys(m.houses).map((key) => m.houses[key]),
+			maxHouseValue = Math.max.apply(null,arrHouses);
+		for (k in m.bodies) {
+			b = m.bodies[k];
+			hvStart = null;
+			hvEnd = null;
+			neg = false;
+			if (isNumeric(b.lng)) {
+				for (h in m.houses) {
+					hv = m.houses[h];
+					if (hv == maxHouseValue) {
+						v = maxHouseValue - 360;
+						neg = true;
+					} else {
+						v = hv;
+					}
+					if (b.lng >= v) {
+						hvStart = v;
+					}
+					else if (isNumeric(hvStart)) {
+						if (b.lng < hv || (neg && (b.lng-360) < hv)) {
+							hvEnd = hv;
+							break;
+						}
+					}
+				}
+				if (hvStart != null && hvEnd != null) {
+					diff = (hvEnd - b.lng) / ((hvEnd + 360) - (hvStart + 360));
+					m.bodies[k].house = parseInt(h) + diff;
+				} else {
+					m.bodies[k].house = 1 + diff;
+				}
 			}
 		}
 	}
