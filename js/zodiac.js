@@ -144,7 +144,8 @@
                 }
             }
             if (data.bodies) {
-
+                var hasPlanets = false;
+                $('#zodiac-pane svg').removeClass('planets-assigned');
                 if (typeof data.bodies == 'object') {
                     var id,ln,obj,y;
                     for (k in data.bodies) {
@@ -156,11 +157,15 @@
                                 if (obj.lat) {
                                     y = 306 - ((obj.lat * 225) / 90) - 120;
                                     ln.css('transform','translate(306px,'+y+'px) rotate('+obj.lng+'deg)');
+                                    hasPlanets = true;
                                 }
                                 
                             }
                         }
                     }
+                }
+                if (hasPlanets) {
+                    $('#zodiac-pane svg').addClass('planets-assigned');
                 }
             }
         }

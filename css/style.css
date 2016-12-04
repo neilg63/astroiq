@@ -77,7 +77,15 @@ body {
 .zodiac-pane svg .planet {
     transform: translate(306px,306px) rotate(0deg);
     transform-origin: 0 120px 0;
-    transition: transform 1s ease-in;
+    transition: transform 1s ease-in, opacity .5s ease-in;
+}
+
+.planet {
+    opacity: 0;
+}
+
+.zodiac-pane svg.planets-assigned .planet {
+    opacity: 1;
 }
 
 #indian-zodiac-pane {
