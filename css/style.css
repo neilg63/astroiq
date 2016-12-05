@@ -92,6 +92,7 @@ body {
     margin-top: 2vh;
 }
 
+.line-label,
 .boundary {
     transform-origin: 100% 100% 0;
     transition: transform .5s ease-in;

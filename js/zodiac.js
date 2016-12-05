@@ -130,14 +130,23 @@
             if (data.houses) {
 
                 if (typeof data.houses == 'object') {
-                    var id,ln;
+                    var cls = ['#990000','#009900','#000099'],index=0,textEl,id,ln,stroke;
                     for (k in data.houses) {
                         if (/\d+/.test(k)) {
                             id = '#line-' + parseInt(k);
                             ln = $(id);
                             if (ln.length>0) {
                                 ln.addClass('solid');
-                                ln.css('transform','rotate('+data.houses[k]+'deg)');
+                                stroke = cls[(index%3)];
+                                css = {
+                                    'transform':'rotate('+data.houses[k]+'deg)',
+                                    'stroke': stroke
+                                }
+                                ln.css(css);
+                                // textEl = $('<text class="line-label" x="330" y="2">'+k+'</text>');
+                                // textEl.css(css);
+                                // ln.after(textEl);
+                                index++;
                             }
                         }
                     }

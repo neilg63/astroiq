@@ -1,0 +1,1024 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"list",
+				"list-style-type"
+			],
+			[
+				"min",
+				"min-width"
+			],
+			[
+				"ketu",
+				"ketu-sign"
+			],
+			[
+				"box",
+				"box-shadow"
+			],
+			[
+				"pa",
+				"padding-bottom"
+			],
+			[
+				"margi",
+				"margin-bottom"
+			],
+			[
+				"po",
+				"pointer-events"
+			],
+			[
+				"marg",
+				"margin-bottom"
+			],
+			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"pad",
+				"padding-right"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"max",
+				"max-height"
+			],
+			[
+				"u",
+				"uppercase"
+			],
+			[
+				"mob",
+				"mobileHeader"
+			],
+			[
+				"mobi",
+				"mobile_width"
+			],
+			[
+				"ilin",
+				"inline-block"
+			],
+			[
+				"has",
+				"hasClass"
+			],
+			[
+				"bac",
+				"background"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"ha",
+				"has_audio_img"
+			],
+			[
+				"min-",
+				"min-height"
+			],
+			[
+				"_man",
+				"_manageDownArrow"
+			],
+			[
+				"scroll",
+				"scrolling"
+			],
+			[
+				"scr",
+				"scrollTo"
+			],
+			[
+				"mobile",
+				"mobile-width"
+			],
+			[
+				"parse",
+				"parseInt"
+			],
+			[
+				"p",
+				"padding"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"show",
+				"show-detail"
+			],
+			[
+				"de",
+				"detailPane"
+			],
+			[
+				"toN",
+				"toNextPortfolioScreen"
+			],
+			[
+				"to",
+				"toNextInsightScreen"
+			],
+			[
+				"s",
+				"swiperight"
+			],
+			[
+				"section-",
+				"section-insights"
+			],
+			[
+				"scro",
+				"scroll"
+			],
+			[
+				"str_re",
+				"str_replace"
+			],
+			[
+				"prompt-",
+				"prompt-link"
+			],
+			[
+				"promp",
+				"promptLink"
+			],
+			[
+				"addPr",
+				"addPromptLinkHandler"
+			],
+			[
+				"he",
+				"headerHeight"
+			],
+			[
+				"id",
+				"idStr"
+			],
+			[
+				"curr",
+				"currAlias"
+			],
+			[
+				"data",
+				"data-path"
+			],
+			[
+				"prev",
+				"prevContent"
+			],
+			[
+				"load",
+				"load-more"
+			],
+			[
+				"pr",
+				"prompt-archives"
+			],
+			[
+				"rem",
+				"removeClass"
+			],
+			[
+				"add",
+				"addClass"
+			],
+			[
+				"app",
+				"append"
+			],
+			[
+				"is",
+				"isPastExhibs"
+			],
+			[
+				"last",
+				"lastItem"
+			],
+			[
+				"borde",
+				"border-bottom"
+			],
+			[
+				"swipe",
+				"swipeleft"
+			],
+			[
+				"tr",
+				"trigger"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"fo",
+				"font-size"
+			],
+			[
+				"ma",
+				"margin-top"
+			],
+			[
+				"class",
+				"class_str"
+			],
+			[
+				"backr",
+				"background-color"
+			],
+			[
+				"strip",
+				"strip_tags"
+			],
+			[
+				"ret",
+				"return"
+			],
+			[
+				"num",
+				"num_strs"
+			],
+			[
+				"mapc_f",
+				"mapc_field_value"
+			],
+			[
+				"mapc_te",
+				"mapc_term_name"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"bo",
+				"bottom"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"as",
+				"asidePane"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"arr",
+				"arrow-nav"
+			],
+			[
+				"view",
+				"viewCont"
+			],
+			[
+				"_to",
+				"_toMobileInsightItem"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"_m",
+				"_moveToSlide"
+			],
+			[
+				"pf",
+				"pfViewCont"
+			],
+			[
+				"new",
+				"newItems"
+			],
+			[
+				"left",
+				"leftCol"
+			],
+			[
+				"left-longe",
+				"left-longer-pin"
+			],
+			[
+				"dif",
+				"diffMode"
+			],
+			[
+				"pin",
+				"pinSpacer"
+			],
+			[
+				"diff",
+				"diffLR"
+			],
+			[
+				"d",
+				"database"
+			],
+			[
+				"start",
+				"startProjectSlideShow"
+			],
+			[
+				"mana",
+				"manageClickNav"
+			],
+			[
+				"deta",
+				"detailPane"
+			],
+			[
+				"sec",
+				"section"
+			],
+			[
+				"move",
+				"moveToParaSection"
+			],
+			[
+				"sett",
+				"settings"
+			],
+			[
+				"cont",
+				"content"
+			],
+			[
+				"append",
+				"appending"
+			],
+			[
+				"paddin",
+				"padding-top"
+			],
+			[
+				"b",
+				"body"
+			],
+			[
+				"function",
+				"function_exists"
+			],
+			[
+				"remov",
+				"removeClass"
+			],
+			[
+				"detail",
+				"detailSections"
+			],
+			[
+				"ca",
+				"calendar"
+			],
+			[
+				"key",
+				"keyParts"
+			],
+			[
+				"pro",
+				"processPage"
+			],
+			[
+				"trans",
+				"transform"
+			],
+			[
+				"object",
+				"object-fit"
+			],
+			[
+				"tran",
+				"transform"
+			],
+			[
+				"pre",
+				"preventDefault"
+			],
+			[
+				"scril",
+				"scrollbarWidth"
+			],
+			[
+				"next",
+				"nextIndex"
+			],
+			[
+				"nex",
+				"nextIndex"
+			],
+			[
+				"first",
+				"firstSecPos"
+			],
+			[
+				"detail-",
+				"close-detail-pane"
+			],
+			[
+				"fram",
+				"frameStr"
+			],
+			[
+				"content",
+				"justify-content"
+			],
+			[
+				"flex",
+				"flex-direction"
+			],
+			[
+				"para",
+				"paragraphs_nav"
+			],
+			[
+				"menu",
+				"menuItems"
+			],
+			[
+				"get_def",
+				"get_defined_vars"
+			],
+			[
+				"h",
+				"hidden"
+			],
+			[
+				"sub",
+				"subNavItems"
+			],
+			[
+				"drupal",
+				"drupal_lookup_path"
+			],
+			[
+				"prc_ds",
+				"prc_ds_field_settings_form"
+			],
+			[
+				"module",
+				"module_load_include"
+			],
+			[
+				"paragraphs",
+				"paragraphs_item"
+			],
+			[
+				"ti",
+				"titleField"
+			],
+			[
+				"def",
+				"default"
+			],
+			[
+				"stop",
+				"stopImmediatePropagation"
+			],
+			[
+				"inline",
+				"inline-block"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 33.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Snippet: circ",
+				"Snippet: SVG - BASIC SHAPES: circle"
+			],
+			[
+				"Snippet: ",
+				"Snippet: SVG Icon Twitter"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 485.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/neilg/Sites/platform3/spw/sites/all"
+	],
+	"file_history":
+	[
+		"/home/neilg/Apps/swisseph/astroapp/svgs/signs/glyph/12.svg",
+		"/home/neilg/Apps/swisseph/astroapp/astroapp.js",
+		"/home/neilg/Apps/swisseph/astroapp/svgs/charts/chartstyle_west-1.svg",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/templates/file_entity.tpl.php",
+		"/home/neilg/Dropbox/p3-neil/sam/sampler-export/sampler-pages-full.xml",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/images/map-marquee.svg",
+		"/home/neilg/Dropbox/p3-neil/sam/sampler-export/sampler-users.html",
+		"/home/neilg/Dropbox/p3-neil/sam/sampler-export/users_sampler.csv",
+		"/home/neilg/Dropbox/p3-neil/sam/sampler-export/usersq.csv",
+		"/home/neilg/Dropbox/p3-neil/sam/sampler-export/usersq.txt",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/images/marquee-burst.svg",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/images/marquee-burst.xml",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/images/spinning-circles-maps.svg",
+		"/home/neilg/Dropbox/p3-neil/SVG-Loaders-master/svg-loaders/tail-spin-maps.svg",
+		"/home/neilg/Sites/platform3/cell/sites/all/themes/cellproj/cboxcell/colorbox_style.js",
+		"/home/neilg/Sites/platform3/maps/sites/all/modules/custom/jqmobevents/jqmobevents.module",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/templates/views-view-list--portfolio--page.tpl.php",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/templates/ds-1col--node-insight.tpl.php",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/templates/views-view-list--portfolio-items--page.tpl.php",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/templates/ds-1col--node.tpl.php",
+		"/home/neilg/Sites/platform3/fm10/sites/all/modules/custom/fm10_form/templates/fm10-user-reset.tpl.php",
+		"/home/neilg/Sites/platform3/maps/sites/all/modules/custom/json_render/json_render.module",
+		"/home/neilg/Sites/platform3/maps/sites/all/modules/custom/jqmobevents/jqmobevents.admin.inc",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/templates/views-view-list--insights--page.tpl.php",
+		"/home/neilg/Documents/z_pers/nino.txt",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/templates/paragraphs-items.tpl.php",
+		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/css/style.css",
+		"/home/neilg/Sites/platform3/serpentine/sites/all/modules/custom/async/js/load.js",
+		"/etc/apache2/sites-available/praline.local.conf",
+		"/home/neilg/Sites/platform3/serpentine/sites/all/modules/custom/scrollmagic/js/scrollmagic.js",
+		"/home/neilg/Dropbox/Designs/cell_field_data_field_show_description.sql",
+		"/home/neilg/Sites/platform3/fm10/sites/default/settings.php",
+		"/home/neilg/Sites/platform3/serpentine/sites/all/themes/serpentine/css/layout.css",
+		"/home/neilg/Sites/platform3/cell/sites/all/modules/custom/smartimgload/smartimgload.module",
+		"/home/neilg/Dropbox/code/nodejs/casper/twitter/ar.js",
+		"/home/neilg/Apps/drupalcore-git.py",
+		"/home/neilg/Sites/platform3/praline/sites/all/themes/praline/css/style.css",
+		"/home/neilg/Downloads/jmp-people.csv",
+		"/home/neilg/Downloads/jmp-contact.csv",
+		"/home/neilg/Downloads/jmp-awards.csv",
+		"/home/neilg/Downloads/jmp-bursary.csv",
+		"/home/neilg/Sites/platform3/serpentine/sites/all/themes/serpentine/templates/field--field_period.tpl.php",
+		"/home/neilg/Sites/platform3/drupal-7.50/includes/common.inc",
+		"/home/neilg/Sites/platform3/serpentine/includes/common.inc",
+		"/home/neilg/Sites/platform3/sp/sites/all/modules/contrib/field_group/field_group.install",
+		"/home/neilg/.profile",
+		"/home/neilg/Sites/platform3/praline/sites/all/themes/praline/images/arrow-up.svg",
+		"/home/neilg/Downloads/mylcw-events-20160620173010.ics",
+		"/home/neilg/Downloads/mylcw-events-20160620144004.ics",
+		"/home/neilg/Apps/swisseph/astroapp/sweresult-1.txt",
+		"/home/neilg/Apps/swisseph/src/Makefile",
+		"/home/neilg/Dropbox/2. Praline/Designs/*For_Sheila/6_Arrow/arrow-down.svg",
+		"/home/neilg/Sites/platform3/praline/sites/all/themes/praline/images/loading-wheel.svg",
+		"/home/neilg/Dropbox/2. Praline/Designs/*For_Sheila/6_Arrow/Arrow.svg",
+		"/home/neilg/Sites/platform3/serpentine/sites/all/modules/contrib/apachesolr_autocomplete/apachesolr_autocomplete.orig.js",
+		"/home/neilg/Sites/platform3/serpentine/sites/all/modules/contrib/apachesolr_autocomplete/apachesolr_autocomplete.js",
+		"/home/neilg/Dropbox/md/land-of-wired-vegetables.mmd",
+		"/home/neilg/Apps/idea/build.txt",
+		"/home/neilg/code/nodejs/casper/13pycoders/pycoders.js",
+		"/home/neilg/code/nodejs/casper/13pycoders/pycoders_2.js",
+		"/home/neilg/code/nodejs/casper/13pycoders/date.html",
+		"/home/neilg/Sites/platform3/praline/sites/all/modules/custom/json_render/js/easing.js",
+		"/run/user/1001/gvfs/sftp:host=shiny.local/Users/neil/Dropbox/London Craft Week/Design/Fonts/437728/76E51CD926DC15CD5.css",
+		"/home/neilg/Sites/platform3/fonts/437728/E7689DF040968D58E.css",
+		"/run/user/1001/gvfs/sftp:host=shiny.local/Users/neil/Dropbox/London Craft Week/Design/Fonts/437728/561F4FA516D4377D6.css",
+		"/home/neilg/Sites/platform3/praline/sites/all/modules/custom/json_render/js/disablescroll.min.js",
+		"/home/neilg/Sites/platform3/praline/sites/all/libraries/alton/assets/jquery.alton.js",
+		"/home/neilg/Sites/platform3/praline/sites/all/modules/contrib/paragraphs/theme/paragraphs-item.tpl.php",
+		"/home/neilg/Sites/platform3/praline/sites/all/themes/praline/icomoon/style.css",
+		"/home/neilg/Sites/platform3/praline/sites/all/themes/pure_css/template.php",
+		"/home/neilg/Sites/platform3/praline/sites/all/themes/praline/css/icomoon.css",
+		"/home/neilg/Sites/platform3/praline/sites/all/themes/pure_css/subthemes/pure_theme/template.php",
+		"/home/neilg/Sites/platform3/praline/sites/all/themes/bootstrap/includes/pre-render.inc",
+		"/home/neilg/Sites/platform3/praline/sites/all/themes/pure_css/templates/page.tpl.php",
+		"/home/neilg/Sites/platform3/praline/sites/all/themes/pure_css/subthemes/pure_theme/pure_theme.info",
+		"/home/neilg/Apps/idea-IC-143.2287.1/Install-Linux-tar.txt",
+		"/home/neilg/Apps/idea-IC-143.2287.1/build.txt",
+		"/home/neilg/Sites/platform3/quintet/sites/all/libraries/isotope/isotope.pkgd.min.js",
+		"/home/neilg/Sites/platform3/lcwdev/sites/all/themes/lcw/LL Akkurat-Light Web/css/stylesheet.css",
+		"/home/neilg/Sites/platform3/serpentine/sites/all/themes/serpentine/templates/field--field_image_sets.tpl.php",
+		"/home/neilg/Sites/cake124/cake/LICENSE.txt",
+		"/home/neilg/Sites/platform3/anagram/sites/all/modules/custom/anagram_commerce/anagram_commerce.module",
+		"/home/neilg/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/neilg/Sites/platform3/serpentine/sites/all/themes/serpentine/css/ie8rem.css",
+		"/home/neilg/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/neilg/Sites/platform3/d8/modules/ds/ds.links.task.yml",
+		"/home/neilg/Sites/platform3/d8/modules/ds/templates/ds-2col-fluid.html.twig",
+		"/home/neilg/Sites/motherlode/webglearth/plopbyte.com/insideglobetweeter/index.html"
+	],
+	"find":
+	{
+		"height": 43.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"gaug",
+			"Gauq",
+			"Gaug",
+			"true_no",
+			"console.log",
+			"console.lo",
+			"system",
+			"buildBodyDataView",
+			"buildBodyDataView:",
+			"buildBodyDataView(",
+			"buildBodyDataView:",
+			"bodies",
+			"objToString",
+			"console.log",
+			"sid",
+			"topo",
+			"astro.m",
+			"case 'mercury'",
+			"astro.m",
+			"parseOutput",
+			"houses",
+			"elat",
+			"^(\\w+)\\b\\s*(\\w.*?)$",
+			"^\\s*",
+			"<form",
+			"width=\"40\"",
+			"height=\"40\"",
+			"a:",
+			"out",
+			"return",
+			"planet",
+			"lat",
+			"parseLine",
+			"house",
+			"circle",
+			"<circ",
+			"dl =",
+			"anima",
+			"keyfr",
+			"ayan",
+			"toNutation(",
+			"toNutation:",
+			"toDegree",
+			"toDegrees",
+			"exec",
+			"mercury",
+			"mercury-p",
+			"transl",
+			"origin",
+			"color:",
+			"planet",
+			"ketu-sign",
+			"\"Shape\"",
+			"neptune",
+			"class=\"planet",
+			"class=\"planet\"",
+			"id=\"(\\w+)-sign\"",
+			"-sign\"",
+			"astro.",
+			"parseLine",
+			"composeSwetestQuery",
+			"767px",
+			"navbar .hamburger-icon:before",
+			";\n",
+			"s.main.attr('data-off",
+			"assignPagePos:",
+			"on('scroll",
+			"'scroll",
+			"_updateMainMenu:",
+			"update",
+			"updateMen",
+			"s.main.attr('data-off",
+			"_fixMain",
+			"show-aside",
+			"shpw-aside",
+			"aside-loaded",
+			"opacity: 0",
+			"mobile_w",
+			"mobileW",
+			"_scrollAsidePane",
+			"scrollTop",
+			"no-medi",
+			"15.8",
+			"has-med",
+			"767px) {",
+			"767px)",
+			"#content-detail .node > .group-main .file-audio iframe",
+			"51",
+			"768px)",
+			"group-main ",
+			"toNextPort",
+			"data-off",
+			"data-of",
+			"_moveToSlide:",
+			"toNextPortf",
+			"s.pfV",
+			"_handleViewHorNavArrows",
+			"_mapc_arrow_nav_html",
+			"_handleViewHorNavArrows",
+			"toNextPortfolioScreen",
+			"console.lo",
+			"toNextPortfolioScreen",
+			"_toMobileInsightItem:",
+			"arrow-nav",
+			"bullet-nav",
+			"arrow-nav",
+			"_mapc_arrow_nav_html",
+			"c_portfolio",
+			"_mapc_arrow_nav_htm",
+			"arrow_nav",
+			"767px",
+			"_toSection:",
+			"toSect",
+			".fp-section .node-article > .group-main",
+			"platf",
+			"767px",
+			"serpgalad",
+			"avenir",
+			".show-menu #navbar .hamburger-icon:before ",
+			"960px",
+			".view-header .view-filter {",
+			"1080px",
+			"10vh;",
+			"10px",
+			"#content-detail .node > .group-top",
+			"_hideAside",
+			"close",
+			"closeAs"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"<option value=\"$1\">$2</option>",
+			"",
+			"width=\"120\"",
+			"height=\"120\"",
+			"fill:",
+			"id=\"$1-sign\" class=\"planet $1\"",
+			"AvenirNextLTPro-Regular",
+			"{",
+			"}",
+			"AvenirNextLTW01-UltraLi",
+			"../fonts/",
+			"",
+			"$1-$2-$3",
+			"avenir-next-cyr-",
+			"avenir-next-cyr ",
+			"",
+			"mv $2.$3 $1.$3",
+			"mv $2 $2.$3",
+			"",
+			"\\tNULL\\tNULL\\t\"$1",
+			"\\tNULL\\tNULL\\tNULL\\t\"$1",
+			"NULL\\t\"$1",
+			"\"$1",
+			"\nLEFT JOIN",
+			"]]></bodytext>",
+			"http://www.soundandmusic",
+			">\n  <",
+			"<event>\n <title>",
+			" <title>",
+			" <title>\n",
+			"<event>\n <title>\n",
+			"<bodytext><![CDATA[\n",
+			"\n]]><bodytext>",
+			"<bodytext><![CDATA[",
+			"$2",
+			"$1",
+			"<image>$1</image>",
+			"<title>$2</title>\n<link>$1</link>",
+			"<title>$2</title>\n<link>$2</link>",
+			"</event>\n<event>",
+			"<event>",
+			"<where-based>$1</where-based>",
+			"<last-name>$1</last-name>",
+			"<first-name>$1</first-name>",
+			"<user-roles>$1</user-roles>",
+			"<user-name>$1</user-name>",
+			"<bodytext>$1</bodytext>",
+			"<embed-video>$1</embed-video>",
+			"<embed-audio>$1</embed-audio>",
+			"<venue>$1</venue>",
+			"<date>$1</date>",
+			"",
+			"<div class=\"view view-sampler-listings",
+			"",
+			"from=\"1 1\" to=\"2 2\"",
+			"<animateTransform attributeName=\"transform\" begin=\"$1\" dur=\"2s\" type=\"scale\" from=\"0 0\" to=\"1 1\" repeatCount=\"indefinite\"\n/><animateTransform attributeName=\"transform\" begin=\"2$1\" dur=\"2s\" type=\"scale\" from=\"1 1\" to=\"1 1\" repeatCount=\"indefinite\"\n/>",
+			"\"$1$2\"",
+			"3$1 00ms",
+			"3$100ms",
+			"3000ms",
+			"<animateTransform attributeName=\"transform\" begin=\"$1\" dur=\"2s\" type=\"scale\" from=\"0 0\" to=\"1 1\" repeatCount=\"indefinite\"\n/><animateTransform attributeName=\"transform\" begin=\"2$1\" dur=\"2s\" type=\"scale\" from=\"1 1\" to=\"0 0\" repeatCount=\"indefinite\"\n/>",
+			"dur=\"2s\"",
+			"to=\"1 1\"",
+			"from=\"0 0\"",
+			"to=\"1 1\"",
+			"\"1 1\"",
+			"\"0 0\"",
+			"100%",
+			"0%",
+			"scale",
+			"\"><animateTransform attributeName=\"transform\" begin=\"0s\" dur=\"5s\" type=\"rotate\" from=\"0 60 60\" to=\"360 60 60\" repeatCount=\"indefinite\"\n/></polygon>",
+			"class=\"triangle\"",
+			"",
+			"1.4285em",
+			"#1d1d1b",
+			"#004bc8",
+			"}",
+			"{",
+			"field-name-body",
+			".show-detail",
+			".view-filter:hover .filter-items",
+			"field_data_body",
+			"fm10",
+			"JMP_Favicon_",
+			"\",\"301\",\"und\"",
+			"\"",
+			"\", \"\\1",
+			"\"",
+			"\", \"\\1",
+			"\"",
+			"\", \"\\1",
+			"\"",
+			"opacity 0.125s ease-in",
+			"-right",
+			"case '",
+			"':",
+			"'",
+			"$1$2",
+			"\\1\"\\2\":",
+			"\"\\1\":",
+			"\"",
+			"$1 $2",
+			"$1\\t$2",
+			"case '",
+			"':",
+			"'",
+			"\\1 \\2",
+			"ccccdd",
+			"field_revision_",
+			"body",
+			"\\1,",
+			",",
+			"body",
+			"text",
+			"artist_description",
+			"show_description",
+			"NPZ",
+			"getDates",
+			"font-famil",
+			"alton",
+			"",
+			"A",
+			" A",
+			" ",
+			" \\\"",
+			" ",
+			"\\\"",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 43.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "spw.sublime-project",
+	"replace":
+	{
+		"height": 82.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Apps/swisseph/astroapp/astro.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 431.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

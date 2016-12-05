@@ -1,11 +1,16 @@
-var sys = require('util'),
-express = require("express")
-app = express(),
-geocode = require('./geocode/geocode.js'),
-textutils = require('./text-utils.js'),
-astro = require('./astroapp.js'),
-exec = require('child_process').exec;
+const sys = require('util');
+const express = require("express");
+const hbs = require('hbs');
+const app = express();
+const geocode = require('./geocode/geocode.js');
+const textutils = require('./text-utils.js');
+const astro = require('./astroapp.js');
+const exec = require('child_process').exec;
 var child;
+
+hbs.registerPartials(__dirname + '/views/partials');
+app.set('view engine', 'hbs');
+
 
 String.prototype.cleanCommand = function() {
 	return this.split("|").shift().split(">").shift().split('&').shift().split("<").shift();
@@ -123,6 +128,10 @@ app.use('/svgs', express.static('svgs'));
 
 app.get('/zodiac', function(req, res) {
     res.sendfile('./zodiac.html');
+});
+
+app.get('/snap', function(req, res) {
+    res.render('snap.hbs',{});
 });
 
 app.get('/', function(req, res) {
