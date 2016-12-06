@@ -58,7 +58,7 @@
             }
 
             var ps = [360,-150,360,360,870,360],
-                adj = Math.pow((3/Math.PI),2),
+                adj = Math.pow((3/Math.PI),1.125),
                 s1 = Math.abs(ps[1] - ps[3]),
             spanDeg = endDeg - startDeg, frac = spanDeg / 90, sub = s1 * (1-frac) * adj;
             ps[4] -= sub;
@@ -73,7 +73,7 @@
             
         }
 
-        $('#navbar ul li:first').html(3/Math.PI);
+        
 
        // addSegment(s,'#ff6600',0,30);
 
@@ -100,9 +100,21 @@
 
         housesToSegments(houses);
 
+        
+        var th = 1;
+        for (var i=0; i < 180;i++) {
+            th = i%5==0? 2 : 1;
+            s.line(360, 0, 360, 720).attr({
+                "stroke":"black",
+                "stroke-width": th +"px",
+                "transform-origin": "0 0",
+                transform: "rotate("+i+"deg)"
+            });
+        }
         s.circle(360,360,270).attr({fill:'#110066'});
-
+        
         var img = s.image('/svgs/signs/devanagari/04_Cancer.svg',360,30,30,30);
+
    
     });
 })(jQuery);
