@@ -9,6 +9,19 @@
 
 @import url('/css/style.css') screen;
 
+#snap-pane,
+#main {
+    position: relative;
+    margin: 0 auto;
+}
+#snap-pane {
+    max-height: 92vh;
+}
+
+#snap-pane svg {
+    
+}
+
 </style>
 
 
@@ -34,7 +47,7 @@
 
     <object id="snap-pane" class="snap-pane">
         <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 1200 1200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="zodiac-svg">
+<svg viewBox="0 0 1440 1440" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="zodiac-svg">
    
 </svg>
 
@@ -48,73 +61,89 @@
 (function($) {
     $( document ).ready(function() {
 
-        var s = Snap('#zodiac-svg');
+        var astroDisc = {
+            snap: null,
+            radius: 360,
+            element: '#zodiac-svg',
+            houses: [0,30,60,90,120,150,180,210,240,270,300,330],
+            addSegment: function(fillColor,startDeg,endDeg,radius) {
+                if (!endDeg) {
+                    endDeg = 0;
+                }
+                if (!startDeg) {
+                    startDeg = 0;
+                }
 
-        var addSegment = function(s,fillColor,startDeg,endDeg) {
-            if (!endDeg) {
-                endDeg = 0;
+                var ps = [this.radius,(0-(this.radius * (5/12))),this.radius,this.radius,((this.radius*2) + (this.radius * (5/12))),this.radius],
+                    adj = Math.pow((3/Math.PI),1.125),
+                    s1 = Math.abs(ps[1] - ps[3]),
+                spanDeg = endDeg - startDeg, frac = spanDeg / 90, sub = s1 * (1-frac) * adj;
+                ps[4] -= sub;
+                ps[5] -= sub;
+                var bigCircle = this.snap.circle(this.radius,this.radius,this.radius).attr({fill:fillColor}),
+                    triangle = this.snap.polygon(ps).attr({fill: "white","stroke-width":0}); 
+
+                bigCircle.attr({
+                    mask: triangle,
+                    transform: 'rotate('+(endDeg-spanDeg) +'deg)'
+                });
+                
+            },
+
+            drawDiscs: function() {
+                var th = 1;
+                for (var i=0; i < 180;i++) {
+                    th = i%5==0? 3 : 1;
+                    this.snap.line(this.radius, 0, this.radius, (this.radius*2)).attr({
+                        "stroke":"black",
+                        "stroke-width": th +"px",
+                        "transform-origin": "0 0",
+                        transform: "rotate("+i+"deg)"
+                    });
+                }
+                this.snap.circle(this.radius,this.radius,(this.radius * 0.75 )).attr({fill:'#110066'});
+            },
+
+            housesToSegments: function() {
+                this.houses.push((360-this.houses[0]));
+                var cls = ['#ff0000','#999900','#00ff00','#009999','#0000ff','#990099'];
+                var index=0,start, end;
+                for (d in this.houses) {
+                    if (start == null) {
+                        start = this.houses[d];
+                    } else {
+                        end = this.houses[d];
+                    }
+                    if (end != null && start !=null) {
+                         this.addSegment(cls[(index%cls.length)],start,end);
+                         start = end;
+                         end = null;
+                         index++;
+                    }
+                }
+            },
+
+            init: function(radius,houses) {
+                this.snap = Snap('#zodiac-svg');
+                if (radius) {
+                    if (typeof radius == 'number') {
+                        this.radius = radius;
+                    }
+                }
+                if (houses) {
+                    if (houses instanceof Array) {
+                        this.houses = houses;
+                    }
+                }
+                this.housesToSegments();
+                this.drawDiscs();
+               // var img = this.snap.image('/svgs/signs/devanagari/04_Cancer.svg',360,30,30,30);
             }
-            if (!startDeg) {
-                startDeg = 0;
-            }
-
-            var ps = [360,-150,360,360,870,360],
-                adj = Math.pow((3/Math.PI),1.125),
-                s1 = Math.abs(ps[1] - ps[3]),
-            spanDeg = endDeg - startDeg, frac = spanDeg / 90, sub = s1 * (1-frac) * adj;
-            ps[4] -= sub;
-            ps[5] -= sub;
-            var bigCircle = s.circle(360,360,360).attr({fill:fillColor}),
-                triangle = s.polygon(ps).attr({fill: "white","stroke-width":0}); 
-
-            bigCircle.attr({
-                mask: triangle,
-                transform: 'rotate('+(endDeg-spanDeg) +'deg)'
-            });
-            
         }
 
         
-
-       // addSegment(s,'#ff6600',0,30);
-
-        var housesToSegments = function(houses) {
-            houses.push((360-houses[0]));
-            var cls = ['#ff0000','#999900','#00ff00','#009999','#0000ff','#990099'];
-            var index=0,start, end;
-            for (d in houses) {
-                if (start == null) {
-                    start = houses[d];
-                } else {
-                    end = houses[d];
-                }
-                if (end != null && start !=null) {
-                     addSegment(s,cls[(index%cls.length)],start,end);
-                     start = end;
-                     end = null;
-                     index++;
-                }
-            }
-        };
-
-        var houses = [0,30,60,90,120,150,180,210,240,270,300,330];
-
-        housesToSegments(houses);
-
         
-        var th = 1;
-        for (var i=0; i < 180;i++) {
-            th = i%5==0? 2 : 1;
-            s.line(360, 0, 360, 720).attr({
-                "stroke":"black",
-                "stroke-width": th +"px",
-                "transform-origin": "0 0",
-                transform: "rotate("+i+"deg)"
-            });
-        }
-        s.circle(360,360,270).attr({fill:'#110066'});
-        
-        var img = s.image('/svgs/signs/devanagari/04_Cancer.svg',360,30,30,30);
+        astroDisc.init(720);
 
    
     });
