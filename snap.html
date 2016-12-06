@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <title>Zodiac</title>
+<style>
+
+@import url('/css/style.css') screen;
+
+</style>
+
+
+    <script
+  src="//code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+<header id="navbar">
+    <h1>astroIQ Demo</h1>
+    <nav class="horizontal"><ul>
+        <li><a href="/">Command Test</a></li>   
+        <li><a href="/zodiac">Zodiac Demo</a></li>
+    </ul></nav>
+</header>
+
+<div id="main">
+
+    <object id="snap-pane" class="snap-pane">
+        <?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 1200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="zodiac-svg">
+   
+</svg>
+
+    </object>
+
+
+</div>
+<script data-source="internal" type="text/javascript" src="/js/snap/dist/snap.svg-min.js"></script>
+<script data-source="internal" type="text/javascript">
+
+(function($) {
+    $( document ).ready(function() {
+
+        var s = Snap('#zodiac-svg');
+
+        var addSegment = function(s,fillColor,startDeg,endDeg) {
+            if (!endDeg) {
+                endDeg = 0;
+            }
+            if (!startDeg) {
+                startDeg = 0;
+            }
+
+            var ps = [360,-150,360,360,870,360],
+                adj = Math.pow((3/Math.PI),2),
+                s1 = Math.abs(ps[1] - ps[3]),
+            spanDeg = endDeg - startDeg, frac = spanDeg / 90, sub = s1 * (1-frac) * adj;
+            ps[4] -= sub;
+            ps[5] -= sub;
+            var bigCircle = s.circle(360,360,360).attr({fill:fillColor}),
+                triangle = s.polygon(ps).attr({fill: "white","stroke-width":0}); 
+
+            bigCircle.attr({
+                mask: triangle,
+                transform: 'rotate('+(endDeg-spanDeg) +'deg)'
+            });
+            
+        }
+
+        $('#navbar ul li:first').html(3/Math.PI);
+
+       // addSegment(s,'#ff6600',0,30);
+
+        var housesToSegments = function(houses) {
+            houses.push((360-houses[0]));
+            var cls = ['#ff0000','#999900','#00ff00','#009999','#0000ff','#990099'];
+            var index=0,start, end;
+            for (d in houses) {
+                if (start == null) {
+                    start = houses[d];
+                } else {
+                    end = houses[d];
+                }
+                if (end != null && start !=null) {
+                     addSegment(s,cls[(index%cls.length)],start,end);
+                     start = end;
+                     end = null;
+                     index++;
+                }
+            }
+        };
+
+        var houses = [0,30,60,90,120,150,180,210,240,270,300,330];
+
+        housesToSegments(houses);
+
+        s.circle(360,360,270).attr({fill:'#110066'});
+
+
+    });
+})(jQuery);
+
+</script>
+
+</body>
+</html>
