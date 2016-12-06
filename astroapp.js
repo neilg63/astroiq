@@ -646,6 +646,28 @@ astro.parseOutput = (stdout,debug) => {
   return data;
 }
 
+astro.matchHouse = (model,key,houseData) => {
+	if (model.bodies[key]) {
+		var v = model.bodies[key].lng,hs;
+		for (i in houseData) {
+			hs = houseData[i];
+			if (v >= hs.lng && v < hs.end) {
+				var frac = calcDegreeSpan(hs.lng,v) / hs.spn;
+				model.bodies[key].house = parseInt(hs.num) + frac;
+				break;
+			}
+		}
+	}
+}
+
+var calcDegreeSpan = (startDeg,endDeg) => {
+	if (endDeg > startDeg) {
+		return endDeg - startDeg;
+	} else {
+		return Math.abs(endDeg - (360-startDeg));
+	}
+}
+
 astro.fetchData = (stdout,debug) => {
 	var data = astro.parseOutput(stdout,debug),
 		isHouse=false,parts=[],subK;
@@ -726,40 +748,37 @@ astro.fetchData = (stdout,debug) => {
 		}
 	}
 	if (m.bodies) {
-		var b, hv, v, nxHv, hvStart, hvEnd,neg,diff;
-		var arrHouses = Object.keys(m.houses).map((key) => m.houses[key]),
-			maxHouseValue = Math.max.apply(null,arrHouses);
-		for (k in m.bodies) {
-			b = m.bodies[k];
-			hvStart = null;
-			hvEnd = null;
-			neg = false;
-			if (isNumeric(b.lng)) {
-				for (h in m.houses) {
-					hv = m.houses[h];
-					if (hv == maxHouseValue) {
-						v = maxHouseValue - 360;
-						neg = true;
-					} else {
-						v = hv;
-					}
-					if (b.lng >= v) {
-						hvStart = v;
-					}
-					else if (isNumeric(hvStart)) {
-						if (b.lng < hv || (neg && (b.lng-360) < hv)) {
-							hvEnd = hv;
-							break;
-						}
-					}
-				}
-				if (hvStart != null && hvEnd != null) {
-					diff = (hvEnd - b.lng) / ((hvEnd + 360) - (hvStart + 360));
-					m.bodies[k].house = parseInt(h) + diff;
-				} else {
-					m.bodies[k].house = 1 + diff;
-				}
+		var b, hv, v, nxHv, hvStart, hvEnd,neg,diff, mh,diffDegs;
+		var arrHouses = Object.keys(m.houses).map((key) => m.houses[key])
+			houseKeys = Object.keys(m.houses).map((key) => key),
+			maxHouseValue = Math.max.apply(null,arrHouses),
+			firstHouse = arrHouses[0],
+			secondHouse = arrHouses[1],
+			lastHouse = arrHouses[(arrHouses.length-1)];
+		var houseData = [],lng=0, lastLng,prevKey;
+
+		for (bv in m.houses) {
+			lng = m.houses[bv];
+			if (lastLng) {
+				houseData.push({
+					num: prevKey,
+					lng: lastLng,
+					spn: calcDegreeSpan(lastLng,lng),
+					end: lng
+				});
 			}
+			lastLng = lng;
+			prevKey = bv;
+		}
+		houseData.push({
+			num: prevKey,
+			lng: lastLng,
+			spn: calcDegreeSpan(lastLng,firstHouse),
+			end: firstHouse
+		});
+		m.house_bounds = houseData;
+		for (k in m.bodies) {
+			astro.matchHouse(m,k,houseData);
 		}
 	}
 	return m;
