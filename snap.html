@@ -18,8 +18,8 @@
     max-height: 92vh;
 }
 
-#snap-pane svg {
-    
+#snap-pane svg image.body {
+    transition: all 50ms ease-in;
 }
 
 </style>
@@ -66,6 +66,7 @@
             radius: 360,
             element: '#zodiac-svg',
             houses: [0,30,60,90,120,150,180,210,240,270,300,330],
+            bodies: {},
             addSegment: function(fillColor,startDeg,endDeg,radius) {
                 if (!endDeg) {
                     endDeg = 0;
@@ -125,7 +126,15 @@
 
             placeBody: function(bodyName,x,y) {
                 var r= this.radius, xd = r - ((r * 0.75) * x), yd = r - ((r * 0.75) * y);
-                var img = this.snap.image('/svgs/bodies/'+bodyName+'-sign.svg',xd,yd,(r/12),(r/12));
+                return this.snap.image('/svgs/bodies/'+bodyName+'-sign.svg',xd,yd,(r/12),(r/12)).attr('class','body ' + bodyName);
+            },
+
+            positionBody: function(bodyEl,x,y) {
+                var r= this.radius, xd = r - ((r * 0.75) * x), yd = r - ((r * 0.75) * y);
+                bodyEl.attr({
+                    x: xd,
+                    y: yd
+                });
             },
 
             init: function(radius,houses) {
@@ -142,14 +151,25 @@
                 }
                 this.housesToSegments();
                 this.drawDiscs();
-
-                this.placeBody('mercury',0.25,0.25);
-                this.placeBody('venus',0.1,-0.15);
-                this.placeBody('mars',0.35,0.15);
-                this.placeBody('jupiter',0.5,0.5);
-                this.placeBody('saturn',-0.7,0.3);
-                this.placeBody('neptune',-0.4,-0.23);
-                this.placeBody('neptune',0.2,-0.42);
+                this.bodies.sun = this.placeBody('sun',0.1,0.-.1);
+                this.bodies.moon = this.placeBody('moon',0.6,0.-.6);
+                this.bodies.mercury = this.placeBody('mercury',0.25,0.25);
+                this.bodies.venus = this.placeBody('venus',0.1,-0.15);
+                this.bodies.marse = this.placeBody('mars',0.35,0.15);
+                this.bodies.jupiter = this.placeBody('jupiter',0.5,0.5);
+                this.bodies.saturn = this.placeBody('saturn',-0.7,0.3);
+                this.bodies.neptune = this.placeBody('neptune',-0.4,-0.23);
+                var rd = 180/Math.PI, degs=45, pos=.9;
+                this.bodies.uranus = astroDisc.placeBody('uranus',Math.sin(degs/rd),Math.cos(45/degs));
+                setInterval(function() {
+                    degs += 1;
+                    var mx = Math.cos(degs/rd),
+                    my = Math.sin(degs/rd);
+                    // pos = 1 - ((degs%45) / 1000);
+                    my *= pos;
+                    mx *= pos;
+                    astroDisc.positionBody(astroDisc.bodies.uranus,mx,my);
+                },50); 
             }
         }
 
