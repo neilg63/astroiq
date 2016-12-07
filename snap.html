@@ -127,7 +127,7 @@
 
             placeBody: function(bodyName,x,y) {
                 var r= this.radius, xd = r - ((r * 0.75) * x), yd = r - ((r * 0.75) * y);
-                return this.snap.image('/svgs/bodies/'+bodyName+'-sign.svg',xd,yd,(r/12),(r/12)).attr('class','body ' + bodyName);
+                return this.snap.image('/svgs/grahas/glyph/'+bodyName+'-sign.svg',xd,yd,(r/12),(r/12)).attr('class','body ' + bodyName);
             },
 
             positionBody: function(bodyEl,x,y) {

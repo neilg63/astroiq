@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ viewBox="0 0 60 60"
+ preserveAspectRatio="xMidYMid meet">
+<g id="sun-sign" class="planet vesta">
+    <circle r="27" cx="30" cy="30" fill="none" stroke="yellow" stroke-width="3"/>
+    <circle r="9" cx="30" cy="30" fill="none" stroke="yellow" stroke-width="3"/>
+</g>
+</svg>
