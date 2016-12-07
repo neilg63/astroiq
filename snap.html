@@ -14,8 +14,22 @@
     position: relative;
     margin: 0 auto;
 }
-#snap-pane {
+#snap-pane.fit-screen svg {
     max-height: 92vh;
+}
+
+#main .plus-minus {
+    position: absolute;
+    top: 4em;
+    left: 5%;
+    font-size: 2.5rem;
+    padding: 0 0.125em 0.25em 0.125em;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 2rem;
+    border: solid 2px black;
+    cursor: pointer;
+    z-index: 100;
 }
 
 #snap-pane svg image.body {
@@ -45,8 +59,9 @@
 </header>
 
 <div id="main">
-
-    <object id="snap-pane" class="snap-pane">
+    <div class="plus-minus">+</div>
+    <object id="snap-pane" class="snap-pane fit-screen">
+    
         <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 1440 1440" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="zodiac-svg">
    
@@ -178,6 +193,16 @@
         
         astroDisc.init(720);
 
+        $('.plus-minus').on('click',function(e){
+            e.stopImmediatePropagation();
+            if ($('#snap-pane').hasClass('fit-screen')) {
+                $('#snap-pane').removeClass('fit-screen');
+                $(this).text('-');
+            } else {
+                $('#snap-pane').addClass('fit-screen');
+                $(this).text('+');
+            }
+        });
    
     });
 })(jQuery);
