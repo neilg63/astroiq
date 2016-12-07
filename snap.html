@@ -74,13 +74,13 @@
                     startDeg = 0;
                 }
 
-                var ps = [this.radius,(0-(this.radius * (5/12))),this.radius,this.radius,((this.radius*2) + (this.radius * (5/12))),this.radius],
+                var r = this.radius, ps = [r,(0-(r * (5/12))),r,r,((r*2) + (r * (5/12))),r],
                     adj = Math.pow((3/Math.PI),1.125),
                     s1 = Math.abs(ps[1] - ps[3]),
                 spanDeg = endDeg - startDeg, frac = spanDeg / 90, sub = s1 * (1-frac) * adj;
                 ps[4] -= sub;
                 ps[5] -= sub;
-                var bigCircle = this.snap.circle(this.radius,this.radius,this.radius).attr({fill:fillColor}),
+                var bigCircle = this.snap.circle(r,r,r).attr({fill:fillColor}),
                     triangle = this.snap.polygon(ps).attr({fill: "white","stroke-width":0}); 
 
                 bigCircle.attr({
@@ -91,17 +91,17 @@
             },
 
             drawDiscs: function() {
-                var th = 1;
+                var r = this.radius, th = 1;
                 for (var i=0; i < 180;i++) {
                     th = i%5==0? 3 : 1;
-                    this.snap.line(this.radius, 0, this.radius, (this.radius*2)).attr({
+                    this.snap.line(r, 0, r, (r*2)).attr({
                         "stroke":"black",
                         "stroke-width": th +"px",
                         "transform-origin": "0 0",
                         transform: "rotate("+i+"deg)"
                     });
                 }
-                this.snap.circle(this.radius,this.radius,(this.radius * 0.75 )).attr({fill:'#110066'});
+                this.snap.circle(r,r,(r * 0.75 )).attr({fill:'#110066'});
             },
 
             housesToSegments: function() {
@@ -123,6 +123,11 @@
                 }
             },
 
+            placeBody: function(bodyName,x,y) {
+                var r= this.radius, xd = r - ((r * 0.75) * x), yd = r - ((r * 0.75) * y);
+                var img = this.snap.image('/svgs/bodies/'+bodyName+'-sign.svg',xd,yd,(r/12),(r/12));
+            },
+
             init: function(radius,houses) {
                 this.snap = Snap('#zodiac-svg');
                 if (radius) {
@@ -137,7 +142,14 @@
                 }
                 this.housesToSegments();
                 this.drawDiscs();
-               // var img = this.snap.image('/svgs/signs/devanagari/04_Cancer.svg',360,30,30,30);
+
+                this.placeBody('mercury',0.25,0.25);
+                this.placeBody('venus',0.1,-0.15);
+                this.placeBody('mars',0.35,0.15);
+                this.placeBody('jupiter',0.5,0.5);
+                this.placeBody('saturn',-0.7,0.3);
+                this.placeBody('neptune',-0.4,-0.23);
+                this.placeBody('neptune',0.2,-0.42);
             }
         }
 
