@@ -19,7 +19,8 @@
 }
 
 #snap-pane svg image.body {
-    transition: all 50ms ease-in;
+    /*transition: all 5ms ease-in;*/
+    transform-origin: 50% 50% 50%;    
 }
 
 </style>
@@ -162,14 +163,14 @@
                 var rd = 180/Math.PI, degs=45, pos=.9;
                 this.bodies.uranus = astroDisc.placeBody('uranus',Math.sin(degs/rd),Math.cos(45/degs));
                 setInterval(function() {
-                    degs += 1;
+                    degs += .05;
                     var mx = Math.cos(degs/rd),
                     my = Math.sin(degs/rd);
                     // pos = 1 - ((degs%45) / 1000);
                     my *= pos;
                     mx *= pos;
                     astroDisc.positionBody(astroDisc.bodies.uranus,mx,my);
-                },50); 
+                },5); 
             }
         }
 
