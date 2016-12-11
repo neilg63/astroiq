@@ -126,15 +126,19 @@ app.use('/css', express.static('css'));
 
 app.use('/svgs', express.static('svgs'));
 
+app.get('/', function(req, res) {
+    res.sendfile('./chart.html');
+});
+
 app.get('/zodiac', function(req, res) {
-    res.sendfile('./zodiac.html');
+    res.sendfile('./chart.html');
 });
 
 app.get('/snap', function(req, res) {
     res.sendfile('./chart.html');
 });
 
-app.get('/', function(req, res) {
+app.get('/command', function(req, res) {
     res.sendfile('./swetest.html');
 });
 
