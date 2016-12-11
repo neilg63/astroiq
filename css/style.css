@@ -68,15 +68,20 @@ body {
 }
 
 .zodiac-pane svg {
+    position: relative;
     width: 60vw;
+    max-width: 100%;
     height: 60vw;
+    max-height: 60vw;
     max-height: 80vh;
     margin-left: 5vw;
 }
 
 .zodiac-pane svg .planet {
-    transform: translate(306px,306px) rotate(0deg);
-    transform-origin: 0 120px 0;
+    transition: transform 1s ease-in, opacity .5s ease-in;
+}
+
+.zodiac-pane svg .body {
     transition: transform 1s ease-in, opacity .5s ease-in;
 }
 

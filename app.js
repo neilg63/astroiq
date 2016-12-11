@@ -131,7 +131,7 @@ app.get('/zodiac', function(req, res) {
 });
 
 app.get('/snap', function(req, res) {
-    res.sendfile('./snap.html');
+    res.sendfile('./chart.html');
 });
 
 app.get('/', function(req, res) {
