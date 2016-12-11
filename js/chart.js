@@ -371,7 +371,7 @@
                     var i=0,houses=[],end=0,h;
                     for (;i<data.house_bounds.length;i++) {
                         h = data.house_bounds[i];
-                        if (h.lng) {
+                        if (typeof h == 'object') {
                             if (i==0) {
                                 end = h.lng;
                             }

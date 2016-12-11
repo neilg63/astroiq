@@ -755,11 +755,11 @@ astro.fetchData = (stdout,debug) => {
 			firstHouse = arrHouses[0],
 			secondHouse = arrHouses[1],
 			lastHouse = arrHouses[(arrHouses.length-1)];
-		var houseData = [],lng=0, lastLng,prevKey;
+		var houseData = [],lng=0, lastLng=false,prevKey;
 
 		for (bv in m.houses) {
 			lng = m.houses[bv];
-			if (lastLng) {
+			if (lastLng !== false) {
 				houseData.push({
 					num: prevKey,
 					lng: lastLng,
@@ -770,6 +770,7 @@ astro.fetchData = (stdout,debug) => {
 			lastLng = lng;
 			prevKey = bv;
 		}
+		
 		houseData.push({
 			num: prevKey,
 			lng: lastLng,
