@@ -20,7 +20,7 @@ body {
     width: 60vw;
     min-height: 50vh;
     padding: 2vw;
-    margin-left: 40vw;
+    left: 36vw;
 }
 
 #control-panel object#tween-symbol-container svg {
