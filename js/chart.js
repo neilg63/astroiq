@@ -142,8 +142,6 @@
             placeBody: function(bodyName,lng) {
                 var r= this.radius, ofs=30,xd = r - ofs, yd = (r * 0.4) - ofs;
                 var matrix = new Snap.Matrix();
-                    //matrix.translate(xd,yd);
-                    console.log((r-yd))
                     matrix.rotate(lng,r,r);
                 if (this.bodies[bodyName]) {
                     if (this.bodies[bodyName].image) {
