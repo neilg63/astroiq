@@ -14,7 +14,7 @@ var GeoMap = {
 
     matchLocation: function(position) {
         console.log(position);
-        var coords = position.coords;
+        var coords = position.coords;   
         GeoMap.buildMap(coords.latitude,coords.longitude);
     },
 
@@ -583,7 +583,7 @@ function initMap() {
                         pane.removeClass('behind').addClass('active');
                         it.parent().find('.active').removeClass('active');
                         it.addClass('active');
-                   } 
+                   }
                 }
                
             }
