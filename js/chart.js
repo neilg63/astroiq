@@ -1,13 +1,32 @@
+var GeoMap = {
+
+    buildMap: function(lat, lng) {
+        var uluru = {lat: lat, lng: lng};
+        var map = new google.maps.Map(document.getElementById('gmap'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+    },
+
+    matchLocation: function(position) {
+        console.log(position);
+        var coords = position.coords;
+        GeoMap.buildMap(coords.latitude,coords.longitude);
+    },
+
+    init: function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
+        }
+    }
+};
+
 function initMap() {
-    var uluru = {lat: -25.363, lng: 131.044};
-    var map = new google.maps.Map(document.getElementById('gmap'), {
-      zoom: 4,
-      center: uluru
-    });
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
-    });
+    return GeoMap.init();
 }
 
 (function($) {
