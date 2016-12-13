@@ -16,16 +16,30 @@ var GeoMap = {
           animation: google.maps.Animation.DROP,
           map: this.map
         });
-        google.maps.event.addListener(this.marker, "click", function (e) {
+        google.maps.event.addListener(this.marker, "dragend", function (e) {
             var lat = e.latLng.lat(),
             lng = e.latLng.lng();
             GeoMap.buildMap(lat,lng);
         });
     },
 
+    updateMap: function(lat,lng) {
+        GeoMap.map.setCenter(GeoMap.marker.getPosition());
+    },
+
     matchLocation: function(position) {
         var coords = position.coords; 
         GeoMap.buildMap(coords.latitude,coords.longitude);
+        GeoMap.updateCoords(coords);
+    },
+
+    updateCoords: function(coords,lng) {
+        if (typeof coords != 'object') {
+            coords = {
+                latitude: coords,
+                longitude: lng
+            };
+        }
         document.getElementById('form-lat').setAttribute('value',coords.latitude);
         document.getElementById('form-lng').setAttribute('value',coords.longitude);
     },
