@@ -20,17 +20,18 @@ var GeoMap = {
             var lat = e.latLng.lat(),
             lng = e.latLng.lng();
             GeoMap.updateCoords(lat,lng);
+            GeoMap.updateMap();
         });
     },
 
-    updateMap: function(lat,lng) {
-        GeoMap.map.setCenter(GeoMap.marker.getPosition());
+    updateMap: function() {
+        this.map.setCenter(this.marker.getPosition());
     },
 
     matchLocation: function(position) {
         var coords = position.coords; 
-        GeoMap.buildMap(coords.latitude,coords.longitude);
-        GeoMap.updateCoords(coords);
+        this.buildMap(coords.latitude,coords.longitude);
+        this.updateCoords(coords);
     },
 
     updateCoords: function(coords,lng) {
@@ -511,7 +512,7 @@ function initMap() {
                                 }
                                 $('#form-geobirth').val("");
                                 if (GeoMap) {
-                                   if (GeoMap.map) {
+                                   if (GeoMap.map !== null) {
                                         GeoMap.updateMap(data.lat, data.lng);
                                     } else {
                                         GeoMap.buildMap(data.lat, data.lng);
