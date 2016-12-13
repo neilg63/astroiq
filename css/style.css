@@ -183,14 +183,20 @@ line.solid {
     position: fixed;
     top: 1em;
     left: 0;
-    min-width: 24em;
-    width: 20vw;
+    min-width: 30em;
+    width: 25vw;
     z-index: 10;
     padding: 3vh 2vw;
     background-color: white;
     border-right: solid 1px #999999;
     border-bottom: solid 1px #999999;
-    box-shadow: 4px 4px 4px #999999 0.5;
+    height: 100vh;
+}
+
+#gmap {
+    padding-top: 2em;
+    width: 25vw;
+    height: 17vw;
 }
 
 #control-panel p {
