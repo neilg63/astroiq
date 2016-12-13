@@ -7,27 +7,25 @@ body {
     position: relative;
     margin: 0 auto;
     text-align: center;
+    width: 75vw;
 }
 
 #main {
-    padding: 4em 0 0 0;
+    padding: 4em 0 0 25vw;
     z-index: 1;
 }
 
 #results-pane {
     text-align: left;
-    margin-top: 24em;
-    position: relative;
-    width: 50vw;
+    width: 60vw;
     min-height: 50vh;
-    float: left;
-    border: dashed 1px #999999;
     padding: 2vw;
+    margin-left: 33vw;
 }
 
-#results-pane object#tween-symbol-container svg {
+#control-panel object#tween-symbol-container svg {
     position: relative;
-    max-width: 20vw;
+    max-width: 10vw;
 }
 
 #tween-symbol-container .symbol {
@@ -77,11 +75,23 @@ body {
     padding: 0;
 }
 
-.zodiac-pane {
-    position: relative;
-    float: left;
-    margin-left: -25vw;
+#main > .zodiac-pane {
+    transition: opacity 0.25s ease-in;
 }
+
+#main > .active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 40;
+}
+
+.zodiac-pane {
+    position: absolute;
+    top: 8em;
+    left: 0;
+    right: 0;
+}
+
 
 .zodiac-pane svg {
     position: relative;
@@ -238,6 +248,12 @@ line.solid {
     display: none;
 }
 
+.behind {
+    opacity:0;
+    pointer-events: none;
+    z-index: -1;
+}
+
 #navbar {
     z-index: 20;
     position: fixed;
@@ -260,20 +276,34 @@ line.solid {
     top: 0.25em;
 }
 
+ul.hor-tabs,
+ul.hor-tabs li,
 nav.horizontal ul,
 nav.horizontal li {
     list-style-type: none;
     padding: none;
 }
 
+ul.hor-tabs,
 nav.horizontal ul {
     margin: 0.75em 0;
     width: 100%;
     text-align: center;
 }
 
+ul.hor-tabs li,
 nav.horizontal li {
     display: inline-block;
     margin: 0 2em;
     font-weight: bold;
+}
+
+ul.hor-tabs li {
+    padding: 0 1em;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+ul.hor-tabs li.active {
+    color: #0000cc;
 }

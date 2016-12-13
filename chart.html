@@ -108,16 +108,9 @@
         <div id="form-actions"><input type="submit" value="Go" id="form-submit" /></div>
     </form>
     <div id="gmap"></div>
-</aside>
-
-
-<div id="main">
-
-<div id="results-pane">
-  <div class="inner"></div>
-<object id="tween-symbol-container">
+    <object id="tween-symbol-container">
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- viewBox="0 0 60 60"
+ viewBox="0 0 72 72"
  preserveAspectRatio="xMidYMid meet" id="tween-symbol">
 <g id="symbol-wrapper" class="symbol">
       <path id="symbol-path" class="symbol"></path>
@@ -128,9 +121,18 @@
     </g>
 </g>
 </svg></object>
-    </div>
 
-    <object id="zodiac-pane" class="zodiac-pane">
+</aside>
+
+
+<div id="main">
+<ul class="hor-tabs"><li class="zodiac active">Zodiac</li> <li class="indian-zodiac">Indian</li><li class="results">Results</li></ul>
+
+<div id="results-pane" class="zodiac-pane behind">
+<div class="inner"></div>
+</div>
+
+  <object id="zodiac-pane" class="zodiac-pane active">
         <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 1440 1440" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="astro-disc">
     <title>Zodiac</title>
@@ -138,7 +140,7 @@
     </g>
 </svg>
     </object>
-    <object id="indian-zodiac-pane" class="zodiac-pane">
+<object id="indian-zodiac-pane" class="zodiac-pane behind">
     <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"

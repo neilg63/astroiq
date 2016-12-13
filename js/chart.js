@@ -551,5 +551,24 @@ function initMap() {
             morph3.start();
             morph4.start();
         });
+
+        $('#main .hor-tabs li').on('click',function(e){
+            e.stopImmediatePropagation();
+            var it = $(this), main = $('#main');
+            if (it.hasClass('active') == false) {
+                var cl = it.attr('class');
+                if (cl) {
+                   var pane = $('#'+cl.split(' ').shift() + '-pane');
+                   if (pane.length>0) {
+                        main.find('> .active').removeClass('active').addClass('behind');
+                        pane.removeClass('behind').addClass('active');
+                        it.parent().find('.active').removeClass('active');
+                        it.addClass('active');
+                   } 
+                }
+               
+            }
+        });
+
     });
 })(jQuery);
