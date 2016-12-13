@@ -32,6 +32,7 @@ var GeoMap = {
                 if (document.getElementById('form-lat')) {
                     var lat = document.getElementById('form-lat').getAttribute('value'),
                     lng = document.getElementById('form-lng').getAttribute('value');
+                    console.log(lat);
                     GeoMap.buildMap(lat,lng);
                 }
             }

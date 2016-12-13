@@ -8,6 +8,7 @@ body {
     margin: 0 auto;
     text-align: center;
     width: 75vw;
+    margin-left: 25vw;
 }
 
 #main {
@@ -25,7 +26,7 @@ body {
 
 #control-panel object#tween-symbol-container svg {
     position: relative;
-    max-width: 10vw;
+    max-width: 6vw;
 }
 
 #tween-symbol-container .symbol {
@@ -193,7 +194,7 @@ line.solid {
     position: fixed;
     top: 1em;
     left: 0;
-    min-width: 30em;
+    min-width: 25em;
     width: 25vw;
     z-index: 10;
     padding: 3vh 2vw;
