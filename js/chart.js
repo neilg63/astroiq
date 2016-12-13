@@ -13,7 +13,7 @@ var GeoMap = {
     },
 
     matchLocation: function(position) {
-        var coords = position.coords;   
+        var coords = position.coords; 
         GeoMap.buildMap(coords.latitude,coords.longitude);
         document.getElementById('form-lat').setAttribute('value',coords.latitude);
         document.getElementById('form-lng').setAttribute('value',coords.longitude);
@@ -467,6 +467,7 @@ function initMap() {
                                     $('#form-lng').val(data.lng);
                                 }
                                 $('#form-geobirth').val("");
+                                GeoMap.buildMap(data.lat, data.lng);
                                 msg = data.address;
                             } else if (data.message) {
                                 msg = data.message;
@@ -590,7 +591,6 @@ function initMap() {
             }
         });
 
-        $('#').
 
     });
 })(jQuery);
