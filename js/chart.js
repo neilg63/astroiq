@@ -512,6 +512,7 @@ function initMap() {
                                 }
                                 $('#form-geobirth').val("");
                                 if (GeoMap) {
+                                    console.log(GeoMap.map)
                                    if (GeoMap.map !== null) {
                                         GeoMap.updateMap(data.lat, data.lng);
                                     } else {
