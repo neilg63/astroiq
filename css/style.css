@@ -230,6 +230,10 @@ line.solid {
     margin-right: 0.25em;
 }
 
+#control-panel #form-geobirth {
+    max-width: 10vw;
+}
+
 #control-panel #form-actions {
     font-size: 2em;
 }

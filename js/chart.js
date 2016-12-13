@@ -32,8 +32,12 @@ var GeoMap = {
                 if (document.getElementById('form-lat')) {
                     var lat = document.getElementById('form-lat').getAttribute('value'),
                     lng = document.getElementById('form-lng').getAttribute('value');
-                    console.log(lat);
-                    GeoMap.buildMap(lat,lng);
+                    if (/^\s*-?\d+/.test(lat) && /^\s*-?\d+/.test(lng)) {
+                        lat = parseFloat(lat);
+                        lng = parseFloat(lng);
+                        GeoMap.buildMap(lat,lng);
+                    }
+                    
                 }
             }
         },500);
@@ -580,7 +584,6 @@ function initMap() {
         morph3.start();
         morph4.start();
         $('#tween-symbol').on('click',function(){
-            console.log(99)
             morph1.start();
             morph2.start();
             morph3.start();
