@@ -510,7 +510,13 @@ function initMap() {
                                     $('#form-lng').val(data.lng);
                                 }
                                 $('#form-geobirth').val("");
-                                GeoMap.buildMap(data.lat, data.lng);
+                                if (GeoMap) {
+                                   if (GeoMap.map) {
+                                        GeoMap.updateMap(data.lat, data.lng);
+                                    } else {
+                                        GeoMap.buildMap(data.lat, data.lng);
+                                    }
+                                }
                                 msg = data.address;
                             } else if (data.message) {
                                 msg = data.message;
