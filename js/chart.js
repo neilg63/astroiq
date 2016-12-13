@@ -19,7 +19,7 @@ var GeoMap = {
         google.maps.event.addListener(this.marker, "dragend", function (e) {
             var lat = e.latLng.lat(),
             lng = e.latLng.lng();
-            GeoMap.buildMap(lat,lng);
+            GeoMap.updateCoords(lat,lng);
         });
     },
 
