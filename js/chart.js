@@ -20,9 +20,22 @@ var GeoMap = {
     },
 
     init: function() {
+        var geoOn = false;
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
+            if (/\bChrome\b/i.test(navigator.userAgent) == false) {
+                navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
+                geoOn = true;
+            }  
         }
+        setTimeout(function() {
+            if (!geoOn) {
+                if (document.getElementById('form-lat')) {
+                    var lat = document.getElementById('form-lat').getAttribute('value'),
+                    lng = document.getElementById('form-lng').getAttribute('value');
+                    GeoMap.buildMap(lat,lng);
+                }
+            }
+        },500);
     }
 };
 
