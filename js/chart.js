@@ -16,6 +16,11 @@ var GeoMap = {
         console.log(position);
         var coords = position.coords;   
         GeoMap.buildMap(coords.latitude,coords.longitude);
+        if (jQuery) {
+            var $ = jQuery;
+            $('#form-lat').val(coords.latitude);
+            $('#form-lng').val(coords.longitude);
+        }
     },
 
     init: function() {
@@ -588,6 +593,8 @@ function initMap() {
                
             }
         });
+
+        $('#').
 
     });
 })(jQuery);
