@@ -20,12 +20,16 @@ var GeoMap = {
             var lat = e.latLng.lat(),
             lng = e.latLng.lng();
             GeoMap.updateCoords(lat,lng);
-            GeoMap.updateMap();
+            GeoMap.updateMap(lat,lng);
         });
     },
 
-    updateMap: function() {
-        this.map.setCenter(this.marker.getPosition());
+    updateMap: function(lat,lng) {
+        var pos = {
+           lat: lat,
+           lng: lng 
+        };
+        this.map.setCenter(pos);
     },
 
     matchLocation: function(position) {
