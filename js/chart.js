@@ -13,14 +13,10 @@ var GeoMap = {
     },
 
     matchLocation: function(position) {
-        console.log(position);
         var coords = position.coords;   
         GeoMap.buildMap(coords.latitude,coords.longitude);
-        if (jQuery) {
-            var $ = jQuery;
-            $('#form-lat').val(coords.latitude);
-            $('#form-lng').val(coords.longitude);
-        }
+        document.getElementById('form-lat').setAttribute('value',coords.latitude);
+        document.getElementById('form-lng').setAttribute('value',coords.longitude);
     },
 
     init: function() {
