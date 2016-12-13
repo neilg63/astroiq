@@ -1,4 +1,17 @@
 (function($) {
+
+    function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('gmap'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+
     $( document ).ready(function() {
         var astroDisc = {
             snap: null,
@@ -7,7 +20,7 @@
 
             radius: 720,
 
-            colors: ['#882222','#228822','#222288','#777711','#117777','#996633','#669933','#339966','#cc1100','#11cc00','#0011cc','#559922'],
+            colors: ['#882222','#228822','#222288','#777711','#117777','#996633','#669933','#339966','#aa1122','#11aa22','#2211aa','#55aa55'],
 
             segments: [],
 
@@ -19,7 +32,7 @@
 
             outer: null,
             inner: null,
-
+            disc: null,
             rd: 57,
 
             calcArcX: function(degs) {
@@ -126,25 +139,31 @@
                 
             },
 
-            placeBody: function(bodyName,x,y,lng) {
-                var r= this.radius, xd = r - ((r * 0.75) * x), yd = r - ((r * 0.75) * y);
+            placeBody: function(bodyName,lng) {
+                var r= this.radius, ofs=30,xd = r - ofs, yd = (r * 0.4) - ofs;
+                var matrix = new Snap.Matrix();
+                    //matrix.translate(xd,yd);
+                    console.log((r-yd))
+                    matrix.rotate(lng,r,r);
                 if (this.bodies[bodyName]) {
-                    var matrix = new Snap.Matrix();
-                    matrix.translate(xd,yd);
-                    matrix.rotate(lng);
                     if (this.bodies[bodyName].image) {
-                        this.bodies[bodyName].image.attr({
+                        this.bodies[bodyName].image.animate({
                             transform: matrix
-                        });
+                        },1000);
                    } else {
                     this.bodies[bodyName].image = this.snap.image('/svgs/grahas/glyph/'+bodyName+'-sign.svg',0,0,(r/12),(r/12)).attr({'class':'body ' + bodyName,'id': bodyName + '-sign'});  
                         this.bodies[bodyName].image.attr({
-                            transform: matrix
+                            transform: matrix,
+                            x: xd,
+                            y: yd
                         });
-
                    }
                     
                 }
+            },
+
+            positionBody: function(bodyName,deg) {
+                this.placeBody(bodyName,deg);
             },
 
             tweenBody: function(k,data) {
@@ -172,9 +191,7 @@
                                    this.bodies[k].lng = b.lng;
                                    this.bodies[k].lat = b.lat;
                                    this.bodies[k].ecl = b.ecl;
-                                    yv = (b.lng-180) / 360;
-                                    xv = b.lat / 6; 
-                                   this.placeBody(k,xv,yv,b.lng);
+                                   this.positionBody(k, b.lng);
                                } 
                             }
                         }
@@ -183,12 +200,10 @@
             },
 
             placeBodies: function() {
-                var b, k, y , x;
+                var b, k;
                 for (k in this.bodies) {
                     b = this.bodies[k];
-                    y = (b.lng-180) / 360;
-                    x = b.lat / 6;
-                    this.placeBody(k,y, x,b.lng);
+                    this.positionBody(k,b.lng);
                 }
             },
 
@@ -223,8 +238,14 @@
   
                 }
 
-                this.inner = this.snap.circle(r, r,(r*.75)).attr({
+                this.inner = this.snap.circle(r, r,(r*.8)).attr({
                     fill: "blue"
+                });
+
+                this.disc = this.snap.circle(r, r,(r*.5)).attr({
+                    fill: "none",
+                    stroke: "white",
+                    'stroke-width': '3px'
                 });
 
                 this.bodies = {
@@ -361,8 +382,8 @@
                 
                 
             }
-            $('#results-pane').html(dl);
-            $('#results-pane').append(info);
+            $('#results-pane .inner').html(dl);
+            $('#results-pane .inner').append(info);
         };
 
         var updateChart = function(data) {
@@ -496,6 +517,41 @@
                 });
 
             }
+
+        });
+        var morph1 = KUTE.allFromTo('#symbol-path',
+        { path: '#path-a', fill: "#990000" },{ path: '#path-b', fill: "#009900" }, {
+            duration: 2000,
+            keepHex: true
+        });
+        var morph2 = KUTE.fromTo('#symbol-path',
+        { path: '#path-b',fill: "#009900" },{ path: '#path-c',fill: "#000099" }, {
+            duration: 2000,
+            keepHex: true,
+            delay: 4000,
+        });
+        var morph3 = KUTE.fromTo('#symbol-path',
+        { path: '#path-c', fill: "#000099" },{ path: '#path-d',fill: "#660066" }, {
+            duration: 2000,
+            delay: 7000,
+            keepHex: true
+        });
+        var morph4 = KUTE.fromTo('#symbol-path',
+        { path: '#path-d', fill: "#660066" },{ path: '#path-a',fill: "#990000" }, {
+            duration: 2000,
+            delay: 11000,
+            keepHex: true
+        });
+        morph1.start();
+        morph2.start();
+        morph3.start();
+        morph4.start();
+        $('#tween-symbol').on('click',function(){
+            console.log(99)
+            morph1.start();
+            morph2.start();
+            morph3.start();
+            morph4.start();
         });
     });
 })(jQuery);

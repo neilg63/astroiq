@@ -4,16 +4,56 @@
 		"selected_items":
 		[
 			[
+				"trans",
+				"transform"
+			],
+			[
+				"bo",
+				"border"
+			],
+			[
+				"fo",
+				"font-size"
+			],
+			[
+				"tra",
+				"transform"
+			],
+			[
+				"geo",
+				"geobirth"
+			],
+			[
+				"marg",
+				"margin-top"
+			],
+			[
+				"pa",
+				"padding"
+			],
+			[
+				"padd",
+				"padding-left"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"list",
+				"list-style-type"
+			],
+			[
+				"min",
+				"min-width"
+			],
+			[
 				"ketu",
 				"ketu-sign"
 			],
 			[
 				"box",
 				"box-shadow"
-			],
-			[
-				"pa",
-				"padding-bottom"
 			],
 			[
 				"margi",
@@ -24,16 +64,8 @@
 				"pointer-events"
 			],
 			[
-				"marg",
-				"margin-bottom"
-			],
-			[
 				"mar",
 				"margin-bottom"
-			],
-			[
-				"min",
-				"min-height"
 			],
 			[
 				"pad",
@@ -58,10 +90,6 @@
 			[
 				"mobi",
 				"mobile_width"
-			],
-			[
-				"text",
-				"text-transform"
 			],
 			[
 				"ilin",
@@ -110,10 +138,6 @@
 			[
 				"p",
 				"padding"
-			],
-			[
-				"padd",
-				"padding-top"
 			],
 			[
 				"show",
@@ -224,10 +248,6 @@
 				"display"
 			],
 			[
-				"fo",
-				"font-size"
-			],
-			[
 				"ma",
 				"margin-top"
 			],
@@ -262,10 +282,6 @@
 			[
 				"font-",
 				"font-size"
-			],
-			[
-				"bo",
-				"bottom"
 			],
 			[
 				"padding",
@@ -396,10 +412,6 @@
 				"processPage"
 			],
 			[
-				"trans",
-				"transform"
-			],
-			[
 				"object",
 				"object-fit"
 			],
@@ -503,8 +515,24 @@
 			"file": "swetest.txt",
 			"settings":
 			{
-				"buffer_size": 21992,
+				"buffer_size": 18715,
 				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test.svg",
+			"settings":
+			{
+				"buffer_size": 569,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"settings":
+			{
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		},
@@ -512,43 +540,121 @@
 			"file": "app.js",
 			"settings":
 			{
-				"buffer_size": 1769,
+				"buffer_size": 3763,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "js/zodiac.js",
+			"file": "views/snap.hbs",
 			"settings":
 			{
-				"buffer_size": 5313,
+				"buffer_size": 36602,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/partials/navbar.hbs",
+			"settings":
+			{
+				"buffer_size": 263,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "zodiac.html",
+			"file": "js/swetest.js",
 			"settings":
 			{
-				"buffer_size": 28797,
+				"buffer_size": 857,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "swetest.html",
+			"settings":
+			{
+				"buffer_size": 21689,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "<option value=\"1\">Lahiri</option>\n<option value=\"3\">Raman</option>\n<option value=\"4\">Ushashashi</option>\n<option value=\"5\">Krishnamurti</option>\n<option value=\"6\">Djwhal Khul</option>\n<option value=\"7\">Yukteshwar</option>\n<option value=\"8\">J.N. Bhasin</option>\n<option value=\"0\">Fagan/Bradley</option>\n<option value=\"2\">De Luce</option>\n<option value=\"15\">Hipparchos</option>\n<option value=\"16\">Sassanian</option>\n<option value=\"21\">Suryasiddhanta</option>\n<option value=\"22\">Suryasiddhanta, mean Sun</option>\n<option value=\"23\">Aryabhata</option>\n<option value=\"25\">SS Citra</option>\n<option value=\"26\">SS Revati</option>\n<option value=\"27\">True Citra</option>\n<option value=\"28\">True Revati</option>\n<option value=\"29\">True Pushya</option>\n<option value=\"30\">Galactic (Gil Brand)</option>\n<option value=\"34\">Skydram (Mardyks)</option>\n<option value=\"35\">True Mula (Chandra Hari)</option>\n<option value=\"36\">Dhruva/Gal.Center/Mula (Wilhelm)</option>",
+			"file": "chart.html",
 			"settings":
 			{
-				"buffer_size": 950,
-				"line_ending": "Unix",
-				"name": "<option value=\"1\">Lahiri</option>"
+				"buffer_size": 15678,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "css/style.css",
+			"settings":
+			{
+				"buffer_size": 3934,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/chart.js",
+			"settings":
+			{
+				"buffer_size": 18410,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "snap.html",
+			"settings":
+			{
+				"buffer_size": 13916,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Dropbox/code/swisseph/designs/segment-2.html",
+			"settings":
+			{
+				"buffer_size": 7005,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test-svg.html",
+			"settings":
+			{
+				"buffer_size": 1339,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "astroapp.js",
 			"settings":
 			{
-				"buffer_size": 10833,
+				"buffer_size": 15723,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "geocode/geocode.js",
+			"settings":
+			{
+				"buffer_size": 1160,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "svgs/indian/chart_north.svg",
+			"settings":
+			{
+				"buffer_size": 10238,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -561,16 +667,24 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 138.0,
-		"last_filter": "install",
+		"height": 392.0,
+		"last_filter": "Snippet: ",
 		"selected_items":
 		[
+			[
+				"Snippet: ",
+				"Snippet: html"
+			],
+			[
+				"Snippet: circ",
+				"Snippet: SVG - BASIC SHAPES: circle"
+			],
 			[
 				"install",
 				"Package Control: Install Package"
 			]
 		],
-		"width": 467.0
+		"width": 458.0
 	},
 	"console":
 	{
@@ -591,12 +705,25 @@
 	"expanded_folders":
 	[
 		"/home/neilg/Apps/swisseph/astroapp",
+		"/home/neilg/Apps/swisseph/astroapp/css",
+		"/home/neilg/Apps/swisseph/astroapp/geocode",
 		"/home/neilg/Apps/swisseph/astroapp/js",
 		"/home/neilg/Apps/swisseph/astroapp/svgs",
-		"/home/neilg/Apps/swisseph/astroapp/svgs/signs"
+		"/home/neilg/Apps/swisseph/astroapp/svgs/bodies",
+		"/home/neilg/Apps/swisseph/astroapp/svgs/charts",
+		"/home/neilg/Apps/swisseph/astroapp/svgs/indian",
+		"/home/neilg/Apps/swisseph/astroapp/views",
+		"/home/neilg/Apps/swisseph/astroapp/views/partials"
 	],
 	"file_history":
 	[
+		"/home/neilg/Apps/swisseph/astroapp/js/chart.js",
+		"/home/neilg/Apps/swisseph/astroapp/svgs/bodies/sun-sign.svg",
+		"/home/neilg/Apps/swisseph/astroapp/svgs/bodies/uranus-sign.svg",
+		"/home/neilg/Dropbox/p3-neil/ICMPD/tableau mdule.txt",
+		"/home/neilg/.ssh/id_rsa.pub",
+		"/home/neilg/Apps/swisseph/astroapp/svgs/A_New/chart_north.svg",
+		"/home/neilg/Apps/swisseph/astroapp/svgs/signs/glyph/12.svg",
 		"/home/neilg/Apps/swisseph/astroapp/astroapp.js",
 		"/home/neilg/Apps/swisseph/astroapp/svgs/charts/chartstyle_west-1.svg",
 		"/home/neilg/Sites/platform3/maps/sites/all/themes/maps/templates/file_entity.tpl.php",
@@ -687,7 +814,7 @@
 	],
 	"find":
 	{
-		"height": 51.0
+		"height": 49.0
 	},
 	"find_in_files":
 	{
@@ -701,141 +828,152 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"^(\\w+)\\b\\s*(\\w.*?)$",
-			"^\\s*",
-			"<form",
-			"width=\"40\"",
-			"height=\"40\"",
-			"a:",
-			"out",
-			"return",
+			"house_b",
+			"== 0",
+			"snap dem",
+			"m-or",
+			"placeBody",
+			"matrix",
+			"updateC",
+			"TweenLite.to",
+			"placeBody(",
+			"svgs",
+			"bodies",
+			"\\b(\\w+):\\s+(lng:.*?)$",
+			"\\b(\\w+):\\s_(lng:.*?)$",
+			"zodiac-pa",
+			"vw",
+			"houses_",
+			"updateChart",
+			"line",
+			"calcArcX",
+			"snap.",
+			"rd",
+			"var\\s+(\\w+)\\s*=\\s*function",
+			"snap",
+			"zodiac.js",
+			"zodiac",
+			"49",
+			"jqu",
+			"rotate(",
+			"transit",
+			"rotate",
+			"loopHous",
+			"loop",
+			"keys",
+			"updateSegment",
+			"addSeg",
+			"frac",
+			"rad",
+			"index",
+			"addSegment",
+			"addSegment:",
+			"addSegment(",
+			"addSegment:",
+			"tthis",
+			"housesToSeg",
+			"houseToSeg",
+			"debug",
+			"plus-min",
+			"-sign",
+			"placeBody",
+			"this.",
+			"matchHouseData",
+			"neg",
+			" else {\n\t\t\t\t\tm.bodies[k].house = 1 + diff;\n\t\t\t\t}",
+			"snap.h",
+			"m-or",
+			"\"boundary\" />",
+			"\"boundary\"/>",
+			"<line",
+			"transform-origin",
+			".plane",
 			"planet",
-			"lat",
-			"parseLine",
-			"house",
-			"circle",
-			"<circ",
-			"dl =",
-			"anima",
-			"keyfr",
-			"ayan",
-			"toNutation(",
-			"toNutation:",
-			"toDegree",
-			"toDegrees",
-			"exec",
-			"mercury",
-			"mercury-p",
-			"transl",
-			"origin",
-			"color:",
-			"planet",
-			"ketu-sign",
-			"\"Shape\"",
-			"neptune",
-			"class=\"planet",
-			"class=\"planet\"",
-			"id=\"(\\w+)-sign\"",
+			"houses.",
 			"-sign\"",
-			"astro.",
-			"parseLine",
-			"composeSwetestQuery",
-			"767px",
-			"navbar .hamburger-icon:before",
-			";\n",
-			"s.main.attr('data-off",
-			"assignPagePos:",
-			"on('scroll",
-			"'scroll",
-			"_updateMainMenu:",
-			"update",
-			"updateMen",
-			"s.main.attr('data-off",
-			"_fixMain",
-			"show-aside",
-			"shpw-aside",
-			"aside-loaded",
-			"opacity: 0",
-			"mobile_w",
-			"mobileW",
-			"_scrollAsidePane",
-			"scrollTop",
-			"no-medi",
-			"15.8",
-			"has-med",
-			"767px) {",
-			"767px)",
-			"#content-detail .node > .group-main .file-audio iframe",
-			"51",
-			"768px)",
-			"group-main ",
-			"toNextPort",
-			"data-off",
-			"data-of",
-			"_moveToSlide:",
-			"toNextPortf",
-			"s.pfV",
-			"_handleViewHorNavArrows",
-			"_mapc_arrow_nav_html",
-			"_handleViewHorNavArrows",
-			"toNextPortfolioScreen",
-			"console.lo",
-			"toNextPortfolioScreen",
-			"_toMobileInsightItem:",
-			"arrow-nav",
-			"bullet-nav",
-			"arrow-nav",
-			"_mapc_arrow_nav_html",
-			"c_portfolio",
-			"_mapc_arrow_nav_htm",
-			"arrow_nav",
-			"767px",
-			"_toSection:",
-			"toSect",
-			".fp-section .node-article > .group-main",
-			"platf",
-			"767px",
-			"serpgalad",
-			"avenir",
-			".show-menu #navbar .hamburger-icon:before ",
-			"960px",
-			".view-header .view-filter {",
-			"1080px",
-			"10vh;",
-			"10px",
-			"#content-detail .node > .group-top",
-			"_hideAside",
-			"close",
-			"closeAs",
-			"#content-main .screen-list li .node h4",
-			"768px) an",
-			"6.25vw",
-			"24vw;",
-			"#content-main .screen-list li .node",
-			"console.l",
-			".left",
-			"left",
-			"-4vw",
-			"840px",
-			"-4vw;",
-			".view-head",
-			"840p",
-			"_manageDownArrow:",
-			"_mana",
-			"_manageControls",
-			"_mana",
-			"pointer-event",
-			"closeDet",
-			"show-detail",
-			"show-mai",
-			"show-down"
+			"saturn-s",
+			"<form",
+			"console",
+			"border",
+			".zodiac-",
+			"<obj",
+			"iac-pane",
+			"500px",
+			"href=\"../sig",
+			"href",
+			"02-gr",
+			"01_",
+			"house-0",
+			"house-02",
+			"<imag",
+			"house-02",
+			"house-2",
+			"<imag",
+			"data.ayana",
+			"ayana",
+			"fixed",
+			"help",
+			"m-cmd",
+			"results-",
+			"m-cmd",
+			"form",
+			"</p>([^<]*\\w[^<]*)<p>",
+			"</p>[^<]*\\w[^<]*<p>",
+			"^\\s+(\\d\\s+\\w+)\\s*$",
+			"</?p>",
+			"</li>\n<p>",
+			"^\\s+(-\\w+)\\b(.*?)$",
+			"^\\s+(-\\w)\\b(.*?)$",
+			"^\\s+([A-Z].*?)$",
+			"^(\\w.*?\\w)$",
+			"exec",
+			"topoc",
+			"console",
+			"sid",
+			"<selec",
+			"margin-l",
+			"mode",
+			"radios",
+			"14em",
+			"topoce",
+			"<style",
+			"topoce",
+			"house_",
+			"36",
+			"topo",
+			"objToString",
+			"buildBo",
+			"toDateInfo",
+			"toDateInfo:",
+			"'date'",
+			"parseDateInfo",
+			"toDateInfo",
+			"parseDateInfo",
+			"date",
+			"geopos",
+			"buildDataView",
+			"hsy",
+			"hsy'",
+			"objTo",
+			"object"
 		],
 		"highlight": false,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": true,
+		"regex": false,
 		"replace_history":
 		[
+			"$1: { $2 }",
+			"$1: function",
+			"astroDisc.",
+			"\"boundary\" id=\"house-boundary-1\" />",
+			"href=\"/svgs/sig",
+			"</p><pre>$1</pre><p>",
+			"<h4>$1</h4>",
+			"",
+			"<li><strong>$1</strong>$2</li>",
+			"<p>$1</p>",
+			"<h3>$1</h3>",
 			"<option value=\"$1\">$2</option>",
 			"",
 			"width=\"120\"",
@@ -952,18 +1090,7 @@
 			"text",
 			"artist_description",
 			"show_description",
-			"NPZ",
-			"getDates",
-			"font-famil",
-			"alton",
-			"",
-			"A",
-			" A",
-			" ",
-			" \\\"",
-			" ",
-			"\\\"",
-			""
+			"NPZ"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -974,7 +1101,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 10,
 			"sheets":
 			[
 				{
@@ -983,15 +1110,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21992,
+						"buffer_size": 18715,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7544,
-								7544
+								1090,
+								1090
 							]
 						],
 						"settings":
@@ -1001,107 +1128,19 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 9043.0,
+						"translation.y": 276.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app.js",
+					"file": "test.svg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1769,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1769,
-								1769
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1680.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "js/zodiac.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5313,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2965,
-								2965
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4626.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "zodiac.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 28797,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5761,
-								5761
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 7254.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 950,
+						"buffer_size": 569,
 						"regions":
 						{
 						},
@@ -1114,33 +1153,382 @@
 						],
 						"settings":
 						{
-							"auto_name": "<option value=\"1\">Lahiri</option>",
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/XML/XML.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "astroapp.js",
+					"buffer": 2,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10833,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								631,
-								631
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3763,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3145,
+								3145
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3762.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "views/snap.hbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 36602,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								799,
+								799
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 693.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "views/partials/navbar.hbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 263,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								81,
+								81
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "js/swetest.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								375,
+								375
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "swetest.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21689,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2412,
+								2412
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4579.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "chart.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15678,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								848,
+								848
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 578.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "css/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3934,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1501,
+								1501
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "js/chart.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18410,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14071,
+								14071
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 12103.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "snap.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13916,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12572,
+								12572
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 11633.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "/home/neilg/Dropbox/code/swisseph/designs/segment-2.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7005,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								446,
+								446
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 266.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "test-svg.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1339,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1236,
+								1236
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1089.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "astroapp.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15723,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15587,
+								15587
 							]
 						],
 						"settings":
@@ -1150,10 +1538,69 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1260.0,
+						"translation.y": 24841.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "geocode/geocode.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1160,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								372,
+								372
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "svgs/indian/chart_north.svg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10238,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10238,
+								10238
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
 					"type": "text"
 				}
 			]
@@ -1161,7 +1608,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 43.0
+		"height": 41.0
 	},
 	"input":
 	{
@@ -1190,6 +1637,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 220.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
@@ -1198,7 +1649,7 @@
 	"project": "astro.sublime-project",
 	"replace":
 	{
-		"height": 96.0
+		"height": 92.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1216,6 +1667,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"~/Apps/swisseph/astroapp/astro.sublime-project"
+			]
 		],
 		"width": 380.0
 	},

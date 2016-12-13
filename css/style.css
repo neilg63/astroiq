@@ -25,6 +25,22 @@ body {
     padding: 2vw;
 }
 
+#results-pane object#tween-symbol-container svg {
+    position: relative;
+    max-width: 20vw;
+}
+
+#tween-symbol-container .symbol {
+    fill: none;
+    stroke: #990000;
+    stroke-width: 3px;
+}
+
+#results-pane object#tween-symbol-container {
+    position: relative;
+    clear: both;
+}
+
 #results-pane dl dd,
 #results-pane dl dt {
     float: left;

@@ -4,8 +4,44 @@
 		"selected_items":
 		[
 			[
+				"marg",
+				"margin-left"
+			],
+			[
 				"text",
-				"text-align"
+				"text-decoration"
+			],
+			[
+				"render",
+				"rendered"
+			],
+			[
+				"extra",
+				"extra_classes"
+			],
+			[
+				"cla",
+				"classes_array"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"add",
+				"add_link"
+			],
+			[
+				"spwc_",
+				"spwc_field_value"
+			],
+			[
+				"field",
+				"field_name"
+			],
+			[
+				"fi",
+				"filename"
 			],
 			[
 				"list",
@@ -36,20 +72,12 @@
 				"pointer-events"
 			],
 			[
-				"marg",
-				"margin-bottom"
-			],
-			[
 				"mar",
 				"margin-bottom"
 			],
 			[
 				"pad",
 				"padding-right"
-			],
-			[
-				"font",
-				"font-size"
 			],
 			[
 				"max",
@@ -194,10 +222,6 @@
 			[
 				"rem",
 				"removeClass"
-			],
-			[
-				"add",
-				"addClass"
 			],
 			[
 				"app",
@@ -490,19 +514,144 @@
 			[
 				"def",
 				"default"
-			],
-			[
-				"stop",
-				"stopImmediatePropagation"
-			],
-			[
-				"inline",
-				"inline-block"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc/spwc.info",
+			"settings":
+			{
+				"buffer_size": 178,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/themes/spw/spw.info",
+			"settings":
+			{
+				"buffer_size": 2634,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/themes/spw/css/style.css",
+			"settings":
+			{
+				"buffer_size": 23244,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/json_render/js/app.js",
+			"settings":
+			{
+				"buffer_size": 23161,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/json_render/json_render.module",
+			"settings":
+			{
+				"buffer_size": 5888,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc/spwc.module",
+			"settings":
+			{
+				"buffer_size": 12615,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/shopfront/shopfront.module",
+			"settings":
+			{
+				"buffer_size": 1589,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/shopfront/shopfront.info",
+			"settings":
+			{
+				"buffer_size": 200,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/shopfront/shopfront.pages.inc",
+			"settings":
+			{
+				"buffer_size": 7241,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/shopfront/js/shop.js",
+			"settings":
+			{
+				"buffer_size": 8357,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/json_render/includes/JsonRenderData.php",
+			"settings":
+			{
+				"buffer_size": 13465,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc/spwc.admin.inc",
+			"settings":
+			{
+				"buffer_size": 4393,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc/spwc.geofield.inc",
+			"settings":
+			{
+				"buffer_size": 1831,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/themes/spw/template.php",
+			"settings":
+			{
+				"buffer_size": 11984,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Sites/platform3/spw/sites/all/themes/spw/templates/page.tpl.php",
+			"settings":
+			{
+				"buffer_size": 5504,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -548,10 +697,33 @@
 	},
 	"expanded_folders":
 	[
-		"/home/neilg/Sites/platform3/spw/sites/all"
+		"/home/neilg/Sites/platform3/spw/sites/all",
+		"/home/neilg/Sites/platform3/spw/sites/all/libraries",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/custom",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/custom/json_render",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/custom/json_render/includes",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/custom/json_render/js",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/custom/shopfront",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/custom/shopfront/js",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc",
+		"/home/neilg/Sites/platform3/spw/sites/all/themes",
+		"/home/neilg/Sites/platform3/spw/sites/all/themes/spw",
+		"/home/neilg/Sites/platform3/spw/sites/all/themes/spw/css",
+		"/home/neilg/Sites/platform3/spw/sites/all/themes/spw/fonts",
+		"/home/neilg/Sites/platform3/spw/sites/all/themes/spw/templates"
 	],
 	"file_history":
 	[
+		"/home/neilg/Sites/platform3/spw/sites/all/themes/spw/templates/region--detail.tpl.php",
+		"/home/neilg/Sites/platform3/spw/sites/all/themes/spw/templates/html.tpl.php",
+		"/home/neilg/Sites/platform3/spw/sites/all/themes/spw/fonts/stylesheet.css",
+		"/home/neilg/Sites/platform3/spw/sites/all/themes/spw/fonts/demo.html",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/contrib/flexslider/theme/flexslider.theme.inc",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/contrib/file_entity/file_entity.module",
+		"/home/neilg/Sites/platform3/spw/tb_flag_s.sql",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc/js/prc.js",
+		"/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc/spwc.geofield.inc",
 		"/home/neilg/Apps/swisseph/astroapp/svgs/signs/glyph/12.svg",
 		"/home/neilg/Apps/swisseph/astroapp/astroapp.js",
 		"/home/neilg/Apps/swisseph/astroapp/svgs/charts/chartstyle_west-1.svg",
@@ -643,7 +815,7 @@
 	],
 	"find":
 	{
-		"height": 43.0
+		"height": 51.0
 	},
 	"find_in_files":
 	{
@@ -657,134 +829,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"gaug",
-			"Gauq",
-			"Gaug",
-			"true_no",
-			"console.log",
-			"console.lo",
-			"system",
-			"buildBodyDataView",
-			"buildBodyDataView:",
-			"buildBodyDataView(",
-			"buildBodyDataView:",
-			"bodies",
-			"objToString",
-			"console.log",
-			"sid",
-			"topo",
-			"astro.m",
-			"case 'mercury'",
-			"astro.m",
-			"parseOutput",
-			"houses",
-			"elat",
-			"^(\\w+)\\b\\s*(\\w.*?)$",
-			"^\\s*",
-			"<form",
-			"width=\"40\"",
-			"height=\"40\"",
-			"a:",
-			"out",
-			"return",
-			"planet",
-			"lat",
-			"parseLine",
-			"house",
-			"circle",
-			"<circ",
-			"dl =",
-			"anima",
-			"keyfr",
-			"ayan",
-			"toNutation(",
-			"toNutation:",
-			"toDegree",
-			"toDegrees",
-			"exec",
-			"mercury",
-			"mercury-p",
-			"transl",
-			"origin",
+			"-sign",
+			"toAlias:",
+			"data-path",
+			"instanciateFlexsliders",
+			"flexsl",
+			"view-news",
+			"views-news",
+			"flex-4",
+			"matchTarget",
+			"json_render_match_path",
+			"target",
+			"view-cont",
+			".flex-4 .view-content > .item-list > ul > li",
+			"flex-4",
+			"#top-n",
+			".flex-4",
+			".flex",
+			"<line",
+			"overflow:",
+			"scroll",
+			"body .main-container {",
+			"#navbar {",
+			"#top-nav",
+			"uppercase",
+			"a {",
 			"color:",
-			"planet",
-			"ketu-sign",
-			"\"Shape\"",
-			"neptune",
-			"class=\"planet",
-			"class=\"planet\"",
-			"id=\"(\\w+)-sign\"",
-			"-sign\"",
-			"astro.",
-			"parseLine",
-			"composeSwetestQuery",
-			"767px",
-			"navbar .hamburger-icon:before",
-			";\n",
-			"s.main.attr('data-off",
-			"assignPagePos:",
-			"on('scroll",
-			"'scroll",
-			"_updateMainMenu:",
-			"update",
-			"updateMen",
-			"s.main.attr('data-off",
-			"_fixMain",
-			"show-aside",
-			"shpw-aside",
-			"aside-loaded",
-			"opacity: 0",
-			"mobile_w",
-			"mobileW",
-			"_scrollAsidePane",
-			"scrollTop",
-			"no-medi",
-			"15.8",
-			"has-med",
-			"767px) {",
-			"767px)",
-			"#content-detail .node > .group-main .file-audio iframe",
-			"51",
-			"768px)",
-			"group-main ",
-			"toNextPort",
-			"data-off",
-			"data-of",
-			"_moveToSlide:",
-			"toNextPortf",
-			"s.pfV",
-			"_handleViewHorNavArrows",
-			"_mapc_arrow_nav_html",
-			"_handleViewHorNavArrows",
-			"toNextPortfolioScreen",
-			"console.lo",
-			"toNextPortfolioScreen",
-			"_toMobileInsightItem:",
-			"arrow-nav",
-			"bullet-nav",
-			"arrow-nav",
-			"_mapc_arrow_nav_html",
-			"c_portfolio",
-			"_mapc_arrow_nav_htm",
-			"arrow_nav",
-			"767px",
-			"_toSection:",
-			"toSect",
-			".fp-section .node-article > .group-main",
-			"platf",
-			"767px",
-			"serpgalad",
-			"avenir",
-			".show-menu #navbar .hamburger-icon:before ",
-			"960px",
-			".view-header .view-filter {",
-			"1080px",
-			"10vh;",
-			"10px",
-			"#content-detail .node > .group-top",
+			"top-nav",
+			"initLoad",
+			"initlLoad",
+			"instanciateFlexsliders",
+			"flex",
+			"instantia",
+			"console.",
+			"initLoad",
+			"instanciateFlexsliders",
+			"postLoad:",
+			"\\)$",
+			"'node",
+			"$",
+			"und",
+			"product",
+			"node",
+			"\\t",
+			"(\\d\\d)\\s+(\\d+)",
+			"(\\d+)\\s+(\\d+)",
+			"\\b(\\d+)\\s+(\\d+)\\b",
+			"product\t0\\s+",
+			"node\tproduct",
+			"\\s+node",
+			"\\s+\\|\\s+?(\\n)?",
+			"\\s+\\|\\s+?(\\n)",
+			"\\s+\\|\\s+?([a-z0-9]|$\\n)",
+			"\\s+\\|\\s+?([a-z0-9]|$)",
+			"\\s+\\|\\s+",
+			"^\\s+\\|\\s+",
+			"^\\s*\\|?\\s*",
+			"^\\s*\\|?\\s*(\\w+)\\b.*?$",
+			"assignAddToCart:",
+			"cforms",
+			"shopfront_cart_product_data",
+			"look",
+			"get_pa",
+			"menu_",
+			"object",
+			"show-de",
+			"spw_add_page_section_classes",
+			"classes",
+			"page_al",
+			"main-con",
+			"show-deta",
+			"render:",
+			"json-re",
+			"urlRoot",
+			"json-re",
+			"render:",
+			"render",
+			"toPath",
+			"coreAliases",
+			"topNavUnder",
+			"closeDeta",
+			"setStartOffset",
+			"vpMode",
+			"currSec",
+			".asidePane",
+			"s.asidePane",
+			"s.asideCont",
+			"innerSc",
+			"controlDow",
+			"pageSections",
 			"_hideAside",
-			"close",
-			"closeAs"
+			"_addInnerScrollArrows",
+			"_scrollAsidePane",
+			"_hideShowScrollDownArrow",
+			"_initNavUnderline",
+			"loadMoreRelated",
+			"toNextPortfolioScreen",
+			"_moveToSlide",
+			"fetchInsightScreen",
+			"fetchPortfolioSlides",
+			"_loadInsightScreens",
+			"_showInsightSlide",
+			"_movePage",
+			"_toSection",
+			"setParent",
+			"setParentC",
+			"excLinkRgx",
+			"matchRelPath",
+			"_fixMain",
+			"parsePictureEls",
+			"manageLoadMore",
+			"toNextInsightScreen",
+			"_toMobileInsightItem",
+			"_fixNavUnderline",
+			"targetSection",
+			"_manageDownArrow",
+			"_manageRelatedTabs",
+			"_manageCo",
+			"_handleViewHorNavArrows",
+			"matchSection",
+			"_randomHomeImg",
+			"_manageDownArrow: function(s,sTop) {\n\t\t\tvar shDn = false, hasDownArr = s.body.hasClass('show-down');\n\t\t\tif (s.body.hasClass('show-aside') == false) {\n\t\t\t\tif (s.body.hasClass('show-detail')) {\n\t\t\t\t\tvar tgPane = s.detailPane; \n\t\t\t\t} else {\n\t\t\t\t\tvar tgPane = s.main; \n\t\t\t\t}\n\t\t\t\tif (tgPane.height() > s.height && sTop < (tgPane.height() - (s.height*1.5))) {\n\t\t\t\t\tshDn = true;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (shDn && !hasDownArr) {\n\t\t\t\ts.body.addClass('show-down');\n\t\t\t} else if (!shDn && hasDownArr) {\n\t\t\t\ts.body.removeClass('show-down');\n\t\t\t}\n\t\t},\n\n\t\t_hideShowScrollDownArrow: function(s,iNode) {\n\t\t\tvar paneH = iNode.find('> .group-top').height(),\n\t\t\t\taTab=[],aTab2=[];\n\t\t\tif (iNode.hasClass('node-person')) {\n\t\t\t\taTab = iNode.find('.group-main > .active');\n\t\t\t\tif (aTab.length < 1) {\n\t\t\t\t\tiNode.find('.group-biography');\n\t\t\t\t}\n\t\t\t} else {\n\t\t\t\taTab = iNode.find('.group-content');\n\t\t\t\taTab2 = iNode.find('.group-insight');\n\t\t\t}\n\t\t\t\n\t\t\tif (aTab.length>0) {\n\t\t\t\tpaneH += aTab.height();\n\t\t\t}\n\t\t\tif (aTab2.length>0) {\n\t\t\t\tpaneH += aTab2.height();\n\t\t\t}\n\t\t\tif (paneH > (s.height - (s.headerHeight * 2))) {\n\t\t\t\ts.innerScrollArrows.addClass('show-scroll-down');\n\t\t\t}\n\t\t},\n\n\t\t_scrollAsidePane: function(dir,loadMore,vh) {\n\t\t\tvar s=Drupal.settings.jsr,\n\t\t\t\tiNode=s.asidePane.find('.node'),iTop;\n\t\t\tif (iNode.length>0 && s.width >= s.mobile_width) {\n\t\t\t\tiTop = s.asidePane.scrollTop();\n\t\t\t\tif (!vh) {\n\t\t\t\t\tvh = 0.75;\n\t\t\t\t}\n\t\t\t\tif (dir == 'down') {\n\t\t\t\t\tiTop += (s.height * vh);\n\t\t\t\t} else {\n\t\t\t\t\tiTop -= (s.height * vh);\n\t\t\t\t}\n\t\t\t\tif (iTop < 0) {\n\t\t\t\t\tiTop = 0;\n\t\t\t\t}\n\t\t\t\ts.asidePane.animate({scrollTop: iTop},500,\"easeInOutQuart\");\n\t\t\t\tif (iTop > 1) {\n\t\t\t\t\ts.innerScrollArrows.addClass('show-scroll-up');\n\t\t\t\t\ts.asideCont.addClass('hide-close');\n\t\t\t\t\tif (loadMore  && dir == 'down') {\n\t\t\t\t\t\tvar lm = s.asideCont.find('.load-more');\n\t\t\t\t\t\tif (lm.length > 0 && lm.parent().hasClass('hidden') == false) {\n\t\t\t\t\t\t\tif (lm.parent().hasClass('hidden')== false) {\n\t\t\t\t\t\t\t\tlm.trigger('click');\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t} else {\n\t\t\t\t\ts.innerScrollArrows.removeClass('show-scroll-up');\n\t\t\t\t\tsetTimeout(function(){\n\t\t\t\t\t\tDrupal.settings.jsr.asideCont.removeClass('hide-close');\n\t\t\t\t\t},375);\n\t\t\t\t}\n\t\t\t\tsetTimeout(function(){\n\t\t\t\t\tDrupal.settings.jsr.scrolling = false;\n\t\t\t\t},750);\n\t\t\t\tDrupal.jsr._hideShowScrollDownArrow(s,iNode);\n\t\t\t}\n\t\t},\n\n\t\t_addInnerScrollArrows: function(s) {\n\t\t\tvar iNode = s.asidePane.find('> .node');\n\t\t\tif (s.innerScrollArrows.length>0 && iNode.length>0) {\n\t\t\t\ts.asidePane.addClass('overflow-hidden');\n\t\t\t\ts.innerScrollArrows.removeClass('show-scroll-down show-scroll-up');\n\t\t\t\tsetTimeout(function(){\n\t\t\t\t\tDrupal.jsr._hideShowScrollDownArrow(s,iNode);\n\t\t\t\t},250);\n\t\t\t\ts.innerScrollArrows.find('li').on('click', function(e){\n\t\t\t\t\te.stopImmediatePropagation();\n\t\t\t\t\tvar it = $(this), dir = it.hasClass('up')? 'up' : 'down';\n\t\t\t\t\tDrupal.jsr._scrollAsidePane(dir,true);\n\t\t\t\t});\n\t\t\t}\n\t\t},",
+			"s.de",
+			"#nav",
+			"'consola'",
+			"cellc",
+			"var_d",
+			"exit",
+			"max-width:\\s*\\d+vw;"
 		],
 		"highlight": false,
 		"in_selection": false,
@@ -792,6 +964,25 @@
 		"regex": false,
 		"replace_history":
 		[
+			"),",
+			"('node",
+			")",
+			"'und'",
+			"'product'",
+			"'node'",
+			", ",
+			"$1\\t$2\\tund\\t0\\t1",
+			"$1\\t$2",
+			"product\t0\\t",
+			"node\\tproduct\\t0",
+			"\\nnode",
+			"\\t$1",
+			"\\t",
+			"$1",
+			"Akagi",
+			"spwc",
+			"spw_",
+			"spwc_",
 			"<option value=\"$1\">$2</option>",
 			"",
 			"width=\"120\"",
@@ -900,38 +1091,453 @@
 			"'",
 			"\\1 \\2",
 			"ccccdd",
-			"field_revision_",
-			"body",
-			"\\1,",
-			",",
-			"body",
-			"text",
-			"artist_description",
-			"show_description",
-			"NPZ",
-			"getDates",
-			"font-famil",
-			"alton",
-			"",
-			"A",
-			" A",
-			" ",
-			" \\\"",
-			" ",
-			"\\\"",
-			""
+			"field_revision_"
 		],
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
 		"whole_word": false,
-		"wrap": false
+		"wrap": true
 	},
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc/spwc.info",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 178,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								57,
+								57
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/themes/spw/spw.info",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2634,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								227,
+								227
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 111.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/themes/spw/css/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23244,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11363,
+								11363
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 22790.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/json_render/js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23161,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/json_render/json_render.module",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5888,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4691,
+								4691
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5457.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc/spwc.module",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12615,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4724,
+								4724
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5470.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/shopfront/shopfront.module",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1589,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1589,
+								1589
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 561.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/shopfront/shopfront.info",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								200,
+								200
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/shopfront/shopfront.pages.inc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7241,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								296,
+								296
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/shopfront/js/shop.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8357,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7507,
+								7507
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 7577.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/json_render/includes/JsonRenderData.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13465,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								458,
+								458
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 701.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc/spwc.admin.inc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4393,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								138,
+								138
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2937.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/modules/custom/spwc/spwc.geofield.inc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1831,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								326,
+								326
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Perl/Perl.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/themes/spw/template.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11984,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								909,
+								909
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 639.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "/home/neilg/Sites/platform3/spw/sites/all/themes/spw/templates/page.tpl.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5504,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3868,
+								3868
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2982.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -974,7 +1580,7 @@
 	"project": "spw.sublime-project",
 	"replace":
 	{
-		"height": 82.0
+		"height": 96.0
 	},
 	"save_all_on_build": true,
 	"select_file":
