@@ -53,8 +53,11 @@ var GeoMap = {
                 longitude: lng
             };
         }
-        document.getElementById('form-lat').setAttribute('value',coords.latitude);
-        document.getElementById('form-lng').setAttribute('value',coords.longitude);
+        /*document.getElementById('form-lat').setAttribute('value',coords.latitude);
+        document.getElementById('form-lng').setAttribute('value',coords.longitude);*/
+        document.getElementById('form-lat').value = coords.latitude;
+        document.getElementById('form-lng').value = coords.longitude;
+
     },
 
     init: function() {
@@ -524,7 +527,6 @@ function initMap() {
                                 }
                                 $('#form-geobirth').val("");
                                 if (GeoMap) {
-                                    console.log(GeoMap.map)
                                    if (GeoMap.map !== null) {
                                         GeoMap.updateMap(data.lat, data.lng, true);
                                     } else {

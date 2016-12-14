@@ -33,20 +33,14 @@
 <aside id="control-panel">
     <form id="control-form" action="/sweph" method="post">
         <p>
-            <label>Date of birth:</label><input type="date" id="form-dob" name="dob" size="10" value="1961-06-28" />
-        </p>
-        <p>
-            <label>Time of birth:</label><input type="time" id="form-tob" name="tob" size="5" value="11:25"/>
+            <label for="form-dob">Date/time of birth:</label><input type="date" id="form-dob" name="dob" size="10" value="1961-06-28" title="Date of birth" /><input type="time" id="form-tob" name="tob" size="5" value="11:25" title="Time of birth"/>
         </p>
         <p>
             <label for="form-geobirth">Place of birth:</label><input type="text" id="form-geobirth" name="geobirth" size="48" value="" /><input type="submit" id="geobirth-finder" value="Find" />
             <div class="hidden" id="geo-address"></div>
         </p>
         <p>
-            <label>Co-ordinates (longitude/latitude):</label><input type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="8" value="-13.6667" /><input type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="8" value="65.15"/>
-        </p>
-        <p>
-            <label for="form-alt">Altitude (metres):</label><input type="number" id="form-alt" name="alt" size="8" value="30" steps="10" min="0" max="9000"/>
+            <label title="Geolocation as latitude/longitude/altitude">Location (lat/long/alt):</label><input type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="8" value="65.15" title="latitude" /><input type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="8" value="-13.6667" title="longitude" /><input type="number" id="form-alt" name="alt" size="5" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" />
         </p>
         <p>
             <label for="form-hsy">House system:</label><select id="form-hsy" name="hsy">
