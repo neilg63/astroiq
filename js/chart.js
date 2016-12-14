@@ -112,6 +112,7 @@ function initMap() {
             outer: null,
             inner: null,
             disc: null,
+            ascendant: null,
             rd: 57,
 
             calcArcX: function(degs) {
@@ -182,7 +183,7 @@ function initMap() {
             },
             
             tweenSegments: function(newBounds) {
-                var valid = false;
+                var valid = false, r = this.radius;
                 if (newBounds instanceof Array) {
                     if (newBounds.length>1) {
                         valid = true;
@@ -193,6 +194,11 @@ function initMap() {
                         rotation: newBounds[0],
                         transformOrigin: "50% 50%"
                     });
+                    var matrix = new Snap.Matrix();
+                    matrix.rotate(newBounds[0],r,r);
+                    this.ascendant.animate({
+                        transform: matrix
+                    },500);
                     var numHouses = newBounds.length-1, i=0, hb = [],
                         hv, spanDeg, startDeg, endDeg;
                     for (;i<(newBounds.length+1);i++) {
@@ -338,6 +344,16 @@ function initMap() {
                     pluto: { lng: 134, lat: 12.669, ecl: 0.020179944444444445, house: 12.531 },
                 };
                 this.placeBodies();
+
+   
+                this.ascendant = this.snap.line(r, 0, r, r).attr({
+                    'stroke': "white",
+                    'stroke-width': '3px'
+                });
+                
+
+
+
             }
         };
         
