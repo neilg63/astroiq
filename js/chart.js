@@ -16,11 +16,11 @@ var GeoMap = {
           animation: google.maps.Animation.DROP,
           map: this.map
         });
-        this.addDragendEvent();
+        this.addDragendEvent(this.marker);
     },
 
-    addDragendEvent: function() {
-        google.maps.event.addListener(this.marker, "dragend", function (e) {
+    addDragendEvent: function(marker) {
+        google.maps.event.addListener(marker, "dragend", function (e) {
             var lat = e.latLng.lat(),
             lng = e.latLng.lng();
             GeoMap.updateCoords(lat,lng);
@@ -36,7 +36,7 @@ var GeoMap = {
         this.map.setCenter(pos);
         if (updateMarker) {
             this.marker.setPosition(pos);
-            this.addDragendEvent();
+            this.addDragendEvent(this.marker);
         }
     },
 
