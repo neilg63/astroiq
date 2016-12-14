@@ -20,16 +20,19 @@ var GeoMap = {
             var lat = e.latLng.lat(),
             lng = e.latLng.lng();
             GeoMap.updateCoords(lat,lng);
-            GeoMap.updateMap(lat,lng);
+            GeoMap.updateMap(lat,lng,false);
         });
     },
 
-    updateMap: function(lat,lng) {
+    updateMap: function(lat,lng,updateMarker) {
         var pos = {
            lat: lat,
            lng: lng 
         };
         this.map.setCenter(pos);
+        if (updateMarker) {
+            this.marker.setPosition(pos);
+        }
     },
 
     matchLocation: function(position) {
@@ -518,7 +521,7 @@ function initMap() {
                                 if (GeoMap) {
                                     console.log(GeoMap.map)
                                    if (GeoMap.map !== null) {
-                                        GeoMap.updateMap(data.lat, data.lng);
+                                        GeoMap.updateMap(data.lat, data.lng, true);
                                     } else {
                                         GeoMap.buildMap(data.lat, data.lng);
                                     }
