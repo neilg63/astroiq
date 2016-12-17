@@ -313,22 +313,25 @@ function initMap() {
                 });
                 this.central.append(this.outer)
                 this.addSegments();
-                var i=0, ofs = this.offset, c = r+ofs, ln, th, len, lc;
+                var i=0, ofs = this.offset, c = r+ofs, ln, th, len, lc, st;
                 for (;i<180;i++) {
                     if (i%10 == 0) {
                         len = (r*2)+(ofs*2);
                         th = 3;
                         lc = '#994444';
+                        st = 0;
                     } else if (i%5 == 0) {
                         len = (r*2)+(ofs*1.4);
                         th = 2;
                         lc = '#006699';
+                        st = ofs * 0.2;
                     } else {
                         len = (r*2) + ofs;
                         th = 1;
                         lc = '#999999';
+                        st = ofs * 0.5;
                     }
-                    ln = this.snap.line(c, ofs, c, len).attr({
+                    ln = this.snap.line(c, st, c, len).attr({
                         stroke: lc,
                         'stroke-width': th + 'px',
                         transform: "rotate("+i+"deg)"
