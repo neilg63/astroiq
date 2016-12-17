@@ -316,15 +316,15 @@ function initMap() {
                 var i=0, ofs = this.offset, c = r+ofs, ln, th, len, lc;
                 for (;i<180;i++) {
                     if (i%10 == 0) {
-                        len = (r*2)+30;
+                        len = (r*2)+(ofs*2);
                         th = 3;
                         lc = '#994444';
                     } else if (i%5 == 0) {
-                        len = (r*2)+21;
+                        len = (r*2)+(ofs*1.4);
                         th = 2;
                         lc = '#006699';
                     } else {
-                        len = (r*2) + 15;
+                        len = (r*2) + ofs;
                         th = 1;
                         lc = '#999999';
                     }
