@@ -300,7 +300,7 @@ function initMap() {
                 var r = this.radius;
                 this.snap = new Snap('#astro-disc');
                 this.central = this.snap.select('#segments');
-                this.lines = this.snap.select('#lines');
+                this.lines = this.snap.select('#degree-lines');
                 this.rd = 180/Math.PI;
                 
                 this.outer = this.snap.circle(r,r,r).attr({
