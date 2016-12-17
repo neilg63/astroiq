@@ -310,11 +310,23 @@ function initMap() {
                 });
                 this.central.append(this.outer)
                 this.addSegments();
-                var i=0, ln, th;
+                var i=0, ofs = 30, c = r+ofs, ln, th, len, lc;
                 for (;i<180;i++) {
-                    th = i%10==0? 3 : 1;
-                    ln = this.snap.line(r, 0, r, (r*2)).attr({
-                        stroke:'#110066',
+                    if (i%10 == 0) {
+                        len = (r*2)+12;
+                        th = 3;
+                        lc = '#994444';
+                    } else if (i%5 == 0) {
+                        len = (r*2)+6;
+                        th = 2;
+                        lc = '#006699';
+                    } else {
+                        len = (r*2);
+                        th = 1;
+                        lc = '#999999';
+                    }
+                    ln = this.snap.line(c, 0, c, len).attr({
+                        stroke: lc,
                         'stroke-width': th + 'px',
                         transform: "rotate("+i+"deg)"
                     });
