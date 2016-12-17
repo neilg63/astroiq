@@ -107,7 +107,9 @@ function initMap() {
 
             degreeLines: [],
 
-            group: null,
+            central: null,
+            topCircles: null,
+            lines: null,
 
             outer: null,
             inner: null,
@@ -162,13 +164,6 @@ function initMap() {
                 segment.animate({
                     transform: matrix
                 },500,mina.easein);
-               /* TweenLite.to(segment.node,2,{
-                    attr: {
-                        d: this.calcSegmentD(spanDeg,startDeg),
-                        transform: matrix.toString()
-                    },
-                    ease:Power2.easeInOut
-                });*/
             },
             
             addSegments: function() {
@@ -180,7 +175,7 @@ function initMap() {
                     spanDeg = (hb[(i+1)]-hb[i]);
                     startDeg = hb[i];
                     seg = this.addSegment(spanDeg,startDeg,this.colors[i%this.colors.length],i);
-                    this.group.append(seg);
+                    this.central.append(seg);
                     this.segments.push(seg);
                     /*this.snap.text(r + calcArcX(startDeg),(r - this.calcArcY(startDeg)),(i+1)).attr({
                         'class': 'label'
@@ -196,17 +191,11 @@ function initMap() {
                     }
                 }
                 if (valid) {
-                    /*TweenLite.to(this.group.node,1,{
-                        rotation: newBounds[0],
-                        transformOrigin: "50% 50%"
-                    });*/
                     var m = new Snap.Matrix();
                     m.rotate(newBounds[0],r,r);
-                    this.group.animate({
+                    this.central.animate({
                         transform: m
-                    },500);
-                    /*var m = new Snap.Matrix();
-                    m.rotate(newBounds[0],r,r);*/
+                    },500,mina.easein);
                     this.ascendant.animate({
                         transform: m
                     },500);
@@ -248,7 +237,7 @@ function initMap() {
                             title: bodyName + ': ' + pos
                         });
                    } else {
-                    this.bodies[bodyName].image = this.snap.image('/svgs/grahas/glyph/'+bodyName+'-sign.svg',0,0,(r/12),(r/12)).attr({'class':'body ' + bodyName,'id': bodyName + '-sign'});  
+                    this.bodies[bodyName].image = this.snap.image('/svgs/grahas/glyph/'+bodyName+'-sign.svg',0,0,(r/12),(r/12)).attr({'class':'body ' + bodyName,'id': bodyName + '-sign'});
                         this.bodies[bodyName].image.attr({
                             transform: matrix,
                             x: xd,
@@ -310,13 +299,16 @@ function initMap() {
                 this.radius = 720;
                 var r = this.radius;
                 this.snap = new Snap('#astro-disc');
-                this.group = this.snap.select('#segments');
+                this.central = this.snap.select('#segments');
+                this.lines = this.snap.select('#lines');
                 this.rd = 180/Math.PI;
+                
                 this.outer = this.snap.circle(r,r,r).attr({
                     fill: "none",
                     stroke: '#999999',
                     'stroke-width': '1px'
                 });
+                this.central.append(this.outer)
                 this.addSegments();
                 var i=0, ln, th;
                 for (;i<180;i++) {
@@ -327,20 +319,21 @@ function initMap() {
                         transform: "rotate("+i+"deg)"
                     });
                     this.degreeLines[i] = ln;
-                    this.group.append(ln);
+                    this.lines.append(ln);
   
                 }
+                this.topCircles = this.snap.select('#top-circles');
 
                 this.inner = this.snap.circle(r, r,(r*.8)).attr({
                     fill: "blue"
                 });
-
+                this.topCircles.append(this.inner);
                 this.disc = this.snap.circle(r, r,(r*.5)).attr({
                     fill: "none",
                     stroke: "white",
                     'stroke-width': '3px'
                 });
-
+                this.topCircles.append(this.disc);
                 this.bodies = {
                     sun: { lng: 72, lat: -0.0015, ecl: 0.9472557500000001, house: 10.668 },
                     moon: { lng: 250, lat: 3.353, ecl: 17.1252025, house: 4.640 },
