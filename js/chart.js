@@ -307,9 +307,8 @@ function initMap() {
                 this.rd = 180/Math.PI;
                 
                 this.outer = this.snap.circle(r,r,r).attr({
-                    fill: "none",
-                    stroke: '#999999',
-                    'stroke-width': '1px'
+                    fill: "blue",
+                    stroke: 'none'
                 });
                 this.central.append(this.outer)
                 this.addSegments();
