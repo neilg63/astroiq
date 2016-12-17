@@ -324,12 +324,12 @@ function initMap() {
                         len = (r*2)+(ofs*1.4);
                         th = 2;
                         lc = '#006699';
-                        st = ofs * 0.2;
+                        st = ofs * 0.15;
                     } else {
                         len = (r*2) + ofs;
                         th = 1;
                         lc = '#999999';
-                        st = ofs * 0.5;
+                        st = ofs * 0.25;
                     }
                     ln = this.snap.line(c, st, c, len).attr({
                         stroke: lc,
