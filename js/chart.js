@@ -195,7 +195,7 @@ function initMap() {
                 if (valid) {
                     var m = new Snap.Matrix();
                     m.rotate(newBounds[0],r+this.offset,r+this.offset);
-                    m.translate(0-this.offset,0-this.offset);
+                    m.translate(this.offset,this.offset);
                     this.central.animate({
                         transform: m
                     },500,mina.easein);
