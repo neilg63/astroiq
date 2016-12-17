@@ -313,11 +313,11 @@ function initMap() {
                 var i=0, ofs = 30, c = r+ofs, ln, th, len, lc;
                 for (;i<180;i++) {
                     if (i%10 == 0) {
-                        len = (r*2)+12;
+                        len = (r*2)+24;
                         th = 3;
                         lc = '#994444';
                     } else if (i%5 == 0) {
-                        len = (r*2)+6;
+                        len = (r*2)+16;
                         th = 2;
                         lc = '#006699';
                     } else {
@@ -325,7 +325,7 @@ function initMap() {
                         th = 1;
                         lc = '#999999';
                     }
-                    ln = this.snap.line(c, 0, c, len).attr({
+                    ln = this.snap.line(c, ofs, c, len).attr({
                         stroke: lc,
                         'stroke-width': th + 'px',
                         transform: "rotate("+i+"deg)"
