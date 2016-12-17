@@ -321,12 +321,12 @@ function initMap() {
                         lc = '#994444';
                         st = 0;
                     } else if (i%5 == 0) {
-                        len = (r*2)+(ofs*1.4);
+                        len = (r*2)+(ofs*1.75);
                         th = 2;
                         lc = '#006699';
-                        st = ofs * 0.15;
+                        st = ofs * 0.125;
                     } else {
-                        len = (r*2) + ofs;
+                        len = (r*2) + (ofs*1.5);
                         th = 1;
                         lc = '#999999';
                         st = ofs * 0.25;
