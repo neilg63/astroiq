@@ -99,6 +99,8 @@ function initMap() {
 
             radius: 720,
 
+            offset: 30,
+
             colors: ['#882222','#228822','#222288','#777711','#117777','#996633','#669933','#339966','#aa1122','#11aa22','#2211aa','#55aa55'],
 
             segments: [],
@@ -193,6 +195,7 @@ function initMap() {
                 if (valid) {
                     var m = new Snap.Matrix();
                     m.rotate(newBounds[0],r,r);
+                    m.translate(this.offset,this.offset);
                     this.central.animate({
                         transform: m
                     },500,mina.easein);
@@ -310,7 +313,7 @@ function initMap() {
                 });
                 this.central.append(this.outer)
                 this.addSegments();
-                var i=0, ofs = 30, c = r+ofs, ln, th, len, lc;
+                var i=0, ofs = this.offset, c = r+ofs, ln, th, len, lc;
                 for (;i<180;i++) {
                     if (i%10 == 0) {
                         len = (r*2)+24;
