@@ -15,6 +15,11 @@ body {
     z-index: 1;
 }
 
+
+#zodiac-pane svg {
+    transform: rotate(180deg);
+}
+
 #results-pane {
     text-align: left;
     width: 60vw;

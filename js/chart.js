@@ -156,13 +156,19 @@ function initMap() {
                 if (startDeg) {
                     matrix.rotate(startDeg,0,r);
                 }
-                TweenLite.to(segment.node,2,{
+                segment.attr({
+                    d: this.calcSegmentD(spanDeg,startDeg)
+                });
+                segment.animate({
+                    transform: matrix
+                },500,mina.easein);
+               /* TweenLite.to(segment.node,2,{
                     attr: {
                         d: this.calcSegmentD(spanDeg,startDeg),
                         transform: matrix.toString()
                     },
                     ease:Power2.easeInOut
-                });
+                });*/
             },
             
             addSegments: function() {
@@ -190,14 +196,19 @@ function initMap() {
                     }
                 }
                 if (valid) {
-                    TweenLite.to(this.group.node,1,{
+                    /*TweenLite.to(this.group.node,1,{
                         rotation: newBounds[0],
                         transformOrigin: "50% 50%"
-                    });
-                    var matrix = new Snap.Matrix();
-                    matrix.rotate(newBounds[0],r,r);
+                    });*/
+                    var m = new Snap.Matrix();
+                    m.rotate(newBounds[0],r,r);
+                    this.group.animate({
+                        transform: m
+                    },500);
+                    /*var m = new Snap.Matrix();
+                    m.rotate(newBounds[0],r,r);*/
                     this.ascendant.animate({
-                        transform: matrix
+                        transform: m
                     },500);
                     var numHouses = newBounds.length-1, i=0, hb = [],
                         hv, spanDeg, startDeg, endDeg;
@@ -224,7 +235,7 @@ function initMap() {
                 
             },
 
-            placeBody: function(bodyName,lng) {
+            placeBody: function(bodyName,lng,pos) {
                 var r= this.radius, ofs=30,xd = r - ofs, yd = (r * 0.4) - ofs;
                 var matrix = new Snap.Matrix();
                     matrix.rotate(lng,r,r);
@@ -233,6 +244,9 @@ function initMap() {
                         this.bodies[bodyName].image.animate({
                             transform: matrix
                         },1000);
+                        this.bodies[bodyName].image.attr({
+                            title: bodyName + ': ' + pos
+                        });
                    } else {
                     this.bodies[bodyName].image = this.snap.image('/svgs/grahas/glyph/'+bodyName+'-sign.svg',0,0,(r/12),(r/12)).attr({'class':'body ' + bodyName,'id': bodyName + '-sign'});  
                         this.bodies[bodyName].image.attr({
@@ -243,10 +257,6 @@ function initMap() {
                    }
                     
                 }
-            },
-
-            positionBody: function(bodyName,deg) {
-                this.placeBody(bodyName,deg);
             },
 
             tweenBody: function(k,data) {
@@ -274,7 +284,7 @@ function initMap() {
                                    this.bodies[k].lng = b.lng;
                                    this.bodies[k].lat = b.lat;
                                    this.bodies[k].ecl = b.ecl;
-                                   this.positionBody(k, b.lng);
+                                   this.placeBody(k, b.lng,b.house);
                                } 
                             }
                         }
@@ -286,7 +296,7 @@ function initMap() {
                 var b, k;
                 for (k in this.bodies) {
                     b = this.bodies[k];
-                    this.positionBody(k,b.lng);
+                    this.placeBody(k,b.lng);
                 }
             },
 
