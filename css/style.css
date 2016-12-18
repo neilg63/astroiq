@@ -353,6 +353,16 @@ ul.hor-tabs li.active {
     color: #882222;
 }
 
+ul.ver-tabs li,
+ul.hor-tabs li {
+    transition: transform 250ms ease-in;
+}
+
+ul.ver-tabs li:hover,
+ul.hor-tabs li:hover {
+    transform: scale(1.125);
+}
+
 #indian-chart .zone {
     fill: white;
 }
