@@ -6,7 +6,7 @@
     font-style: normal;
 }
 
-body, input, textarea {
+body, input, textarea, select, option {
     font-family: genlight, Helvetica, Arial, sans-serif;
 }
 
@@ -246,12 +246,16 @@ line.solid {
     max-width: 10vw;
 }
 
-#control-panel #form-actions {
-    font-size: 2em;
+#control-panel #form-submit {
+    transform: scaleX(1.5);
 }
 
-#control-panel #form-submit {
-    transform: scale(1.5);
+#form-dob {
+    max-width: 9em;
+}
+
+#control-panel select option {
+    font-size: 0.8em;
 }
 
 #geo-address {
