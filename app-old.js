@@ -1,12 +1,15 @@
 const sys = require('util');
 const express = require("express");
-const pug = require('pug');
+const hbs = require('hbs');
 const app = express();
 const geocode = require('./geocode/geocode.js');
 const textutils = require('./text-utils.js');
 const astro = require('./astroapp.js');
 const exec = require('child_process').exec;
 var child;
+
+hbs.registerPartials(__dirname + '/views/partials');
+app.set('view engine', 'hbs');
 
 
 String.prototype.cleanCommand = function() {
@@ -133,13 +136,6 @@ app.get('/zodiac', function(req, res) {
 
 app.get('/snap', function(req, res) {
     res.sendfile('./chart.html');
-});
-
-app.get('/pug', function(req, res) {
-	const page = pug.compileFile(__dirname + '/templates/pug.pug');
-    res.send(page({
-    	title: "AstroIQ Demo"
-    }));
 });
 
 app.get('/command', function(req, res) {
