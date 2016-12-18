@@ -138,7 +138,7 @@ app.get('/snap', function(req, res) {
 app.get('/pug', function(req, res) {
 	const page = pug.compileFile(__dirname + '/templates/pug.pug');
     res.send(page({
-    	title: "Test title"
+    	title: "AstroIQ Demo"
     }));
 });
 
