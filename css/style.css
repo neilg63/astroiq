@@ -247,14 +247,15 @@ line.solid {
 }
 
 #control-panel #form-submit {
-    transform: scaleX(1.5);
+    font-size: 1.25em;
+    transform: scaleX(1.25);
 }
 
 #form-dob {
     max-width: 9em;
 }
 
-#control-panel select option {
+#control-panel select {
     font-size: 0.8em;
 }
 
