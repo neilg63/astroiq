@@ -86,6 +86,7 @@ var GeoMap = {
 };
 
 function initMap() {
+    console.log('pp');
     return GeoMap.init();
 }
 

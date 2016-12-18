@@ -1,8 +1,9 @@
 doctype html
 head
   link(type="text/css" href="//unpkg.com/purecss@0.6.1/build/pure-min.css" rel="stylesheet")
-  link(type="text/css" href="/css/style.css" rel="stylesheet")
-  script(src="//code.jquery.com/jquery-3.1.1.min.js")
+  style(media="all") @import url('/css/style.css')
+  script(src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous")
   script(type="text/javascript" source="internal" src="/js/snap/dist/snap.svg-min.js")
 body
   include includes/header.pug
@@ -33,5 +34,5 @@ body
   script(src="/js/kutejs/kute.min.js")
   script(src="/js/kutejs/kute-attr.min.js")
   script(src="/js/kutejs/kute-svg.min.js")
-  script(src="/js/chart.js")
+  script(data-source="internal" type="text/javascript" src="/js/chart.js")
   scripts(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGq1eIKwzv92oPoBGzxhIkp4C8anr0_Ow&callback=initMap" async defer)
