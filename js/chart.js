@@ -109,6 +109,8 @@ function initMap() {
 
             degreeLines: [],
 
+            indian: null,
+
             central: null,
             topCircles: null,
             lines: null,
@@ -298,6 +300,10 @@ function initMap() {
                 }
             },
 
+            buildIndian: function() {
+                this.indian = this.snap.select('#indian');
+            },
+
             init: function() {
                 this.radius = 720;
                 var r = this.radius;
@@ -370,7 +376,7 @@ function initMap() {
                     'stroke': "white",
                     'stroke-width': '3px'
                 });
-                
+                this.topCircles.append(this.ascendant);
 
 
 
@@ -689,6 +695,18 @@ function initMap() {
                 }
                
             }
+        });
+
+        $('#chart-mode li').on('click',function(e) {
+            var it = $(this);
+            if (it.hasClass('indian')) {
+                $('#astro-disc').addClass('show-indian').removeClass('show-european');
+
+            } else {
+                $('#astro-disc').addClass('show-european').removeClass('show-indian');
+            }
+            it.parent().find('li.active').removeClass('active');
+            it.addClass('active');
         });
 
 

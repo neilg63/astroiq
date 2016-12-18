@@ -24,10 +24,6 @@ body, input, textarea {
 }
 
 
-#zodiac-pane svg {
-    transform: rotate(180deg);
-}
-
 #results-pane {
     text-align: left;
     width: 60vw;
@@ -297,6 +293,8 @@ line.solid {
     top: 0.25em;
 }
 
+ul.ver-tabs,
+ul.ver-tabs li,
 ul.hor-tabs,
 ul.hor-tabs li,
 nav.horizontal ul,
@@ -327,4 +325,68 @@ ul.hor-tabs li {
 
 ul.hor-tabs li.active {
     color: #0000cc;
+}
+
+#chart-mode {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 200;
+}
+
+
+
+#chart-mode li {
+    font-size: 2vw;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    color: #999999;
+    cursor: pointer;
+}
+
+#chart-mode li.active {
+    color: #882222;
+}
+
+#indian-chart .zone {
+    fill: white;
+}
+
+#indian-chart .zone:hover {
+    fill: rgba(255,0,0,0.5);
+}
+
+#astro-disc #segments,
+#astro-disc #top-circles {
+    transform: rotate(180deg);
+    transform-origin: 735px 735px;
+}
+
+#indian-chart {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.show-indian #indian-chart {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.show-indian #indian-chart .shape {
+    stroke-width: 3px;
+    stroke: blue;
+}
+
+.european-element {
+    opacity: 1;
+}
+
+.european-element,
+#indian-chart {
+    transition: all 1s ease-in;
+}
+
+.show-indian .european-element {
+    opacity: 0;
+    pointer-events: none;
 }
