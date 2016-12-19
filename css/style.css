@@ -35,6 +35,7 @@ body, input, textarea, select, option {
 #control-panel object#tween-symbol-container svg {
     position: relative;
     max-width: 6vw;
+    margin-top: 1em;
 }
 
 #tween-symbol-container .symbol {
@@ -220,6 +221,7 @@ line.solid {
     padding-top: 2em;
     width: 25vw;
     height: 17vw;
+    min-width: 15em;
 }
 
 #control-panel p {
