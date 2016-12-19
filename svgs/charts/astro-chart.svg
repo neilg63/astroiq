@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1500 1500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="astro-disc">
+    <title>Zodiac</title>
+    <g id="degree-lines" stroke="none" fill="none" class="european-element"></g>
+    <g id="segments" stroke="none" fill="none" transform="translate(30,30)" class="european-element"></g>
+    <g id="top-circles" stroke="none" fill="none" transform="translate(30,30)" class="european-element"></g>
+    <g id="indian-chart" stroke="none" fill="none" transform="translate(30,30)">
+      <path d="M0,0 L1440,0 L1440,1440 L0,1440 Z" stroke="none" class="shape" />
+      <polygon
+       id="zone-01"
+       class="triangle zone shape"
+       points="0,0 720,0 360,360" stroke="none"/>
+      <polygon
+       id="zone-02"
+       class="triangle zone shape"
+       points="0,0 0,720 360,360" stroke="none"/>
+      <polygon
+       id="zone-03"
+       class="rect zone shape"
+       points="720,0 360,360 720,720 1080,360" stroke="none" fill="yellow" />
+       <polygon
+       id="zone-04"
+       class="triangle zone shape"
+       points="0,720 0,1440 360,1080" stroke="none"/>
+       <polygon
+       id="zone-05"
+       class="triangle zone shape"
+       points="0,1440 720,1440 360,1080" stroke="none"/>
+       <polygon
+       id="zone-06"
+       class="rect zone shape"
+       points="0,720 360,360 720,720 360,1080" stroke="none" fill="yellow" />
+       <polygon
+       id="zone-07"
+       class="triangle zone shape"
+       points="720,0 1440,0 1080,360" stroke="none"/>
+       <polygon
+       id="zone-08"
+       class="rect zone shape"
+       points="720,1440 360,1080 720,720 1080,1080" stroke="none" fill="yellow" />
+      <polygon
+       id="zone-09"
+       class="triangle zone shape"
+       points="1440,720 1440,0 1080,360" stroke="none"/>
+       <polygon
+       id="zone-10"
+       class="rect zone shape"
+       points="1440,720 1080,360 720,720 1080,1080" stroke="none" fill="yellow" />
+       <polygon
+       id="zone-11"
+       class="triangle zone shape"
+       points="1440,720 1440,1440 1080,1080" stroke="none"/>
+       <polygon
+       id="zone-12"
+       class="triangle zone shape"
+       points="720,1440 1440,1440 1080,1080" stroke="none"/>
+    </g>
+</svg>
