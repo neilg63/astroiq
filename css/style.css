@@ -218,10 +218,10 @@ line.solid {
 }
 
 #gmap {
-    padding-top: 2em;
+    padding-top: 1.5em;
     width: 25vw;
-    height: 17vw;
-    min-width: 15em;
+    height: 18vw;
+    min-width: 25em;
 }
 
 #control-panel p {
