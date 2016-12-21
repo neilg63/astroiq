@@ -124,19 +124,14 @@ app.use('/css', express.static('css'));
 app.use('/svgs', express.static('svgs'));
 
 app.get('/', function(req, res) {
-    res.sendfile('./chart.html');
+   const page = pug.compileFile(__dirname + '/templates/index.pug');
+    res.send(page({
+    	title: "AstroIQ Demo"
+    }));
 });
 
 app.get('/zodiac', function(req, res) {
-    res.sendfile('./chart.html');
-});
-
-app.get('/snap', function(req, res) {
-    res.sendfile('./chart.html');
-});
-
-app.get('/pug', function(req, res) {
-	const page = pug.compileFile(__dirname + '/templates/pug.pug');
+    const page = pug.compileFile(__dirname + '/templates/index.pug');
     res.send(page({
     	title: "AstroIQ Demo"
     }));

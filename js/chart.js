@@ -116,6 +116,8 @@ function initMap() {
             topCircles: null,
             lines: null,
 
+            planetarium: null,
+
             outer: null,
             inner: null,
             disc: null,
@@ -250,6 +252,7 @@ function initMap() {
                             y: yd
                         });
                    }
+                   this.planetarium.append(this.bodies[bodyName].image);
                     
                 }
             },
@@ -370,6 +373,8 @@ function initMap() {
                     neptune: { lng: 196, lat: 1.806, ecl: -0.011241, house: 2.699 },
                     pluto: { lng: 134, lat: 12.669, ecl: 0.020179944444444445, house: 12.531 },
                 };
+                this.planetarium = this.snap.select('#planetarium');
+
                 this.placeBodies();
 
    
@@ -710,6 +715,16 @@ function initMap() {
             it.addClass('active');
         });
 
+        setTimeout(function(){
+            var gMapApi = $('#gmap-api-key');
+            if (gMapApi.length>0) {
+                var gMapApiKey = gMapApi.attr('data-key'),st;
+                if (gMapApiKey) {
+                   st = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&callback=initMap"></script>');
+                    $('body').append(st); 
+                }
+            }
+        },250);
 
     });
 })(jQuery);
