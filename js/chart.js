@@ -322,7 +322,7 @@ function initMap() {
                 });
                 this.central.append(this.outer)
                 this.addSegments();
-                var i=0, ofs = this.offset, c = r+ofs, ln, th, len, lc, st;
+                var i=0, ofs = this.offset, c = r+ofs, ln, lbl,th, len, lc, st;
                 for (;i<180;i++) {
                     if (i%10 == 0) {
                         len = (r*2)+(ofs*2);
@@ -347,6 +347,18 @@ function initMap() {
                     });
                     this.degreeLines[i] = ln;
                     this.lines.append(ln);
+                    if (i%30 == 0) {
+                        var matrix = new Snap.Matrix();
+                        if (startDeg) {
+                            matrix.rotate(startDeg,0,r);
+                        }
+                        var lbl = this.snap.text(0, r, i).attr({
+                            transform: matrix,
+                            class: 'degree-label'
+                        });
+                        
+                        this.lines.append(lbl);
+                    }
   
                 }
                 this.topCircles = this.snap.select('#top-circles');
