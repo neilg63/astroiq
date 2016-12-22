@@ -348,15 +348,12 @@ function initMap() {
                     this.degreeLines[i] = ln;
                     this.lines.append(ln);
                     if (i%30 == 0) {
-                        var matrix = new Snap.Matrix();
-                        if (startDeg) {
-                            matrix.rotate(i,0,r);
-                        }
+                        var m = new Snap.Matrix();
+                        m.rotate(i,0,r);
                         var lbl = this.snap.text(0, r, i).attr({
-                            transform: matrix,
+                            transform: m,
                             class: 'degree-label'
                         });
-                        
                         this.lines.append(lbl);
                     }
   
