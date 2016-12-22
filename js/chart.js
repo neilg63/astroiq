@@ -350,7 +350,7 @@ function initMap() {
                     if (i%30 == 0) {
                         var matrix = new Snap.Matrix();
                         if (startDeg) {
-                            matrix.rotate(startDeg,0,r);
+                            matrix.rotate(i,0,r);
                         }
                         var lbl = this.snap.text(0, r, i).attr({
                             transform: matrix,
