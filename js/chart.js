@@ -251,6 +251,9 @@ function initMap() {
                     this.degreeOverlay.animate({
                         transform: m
                     },500);
+                    this.planetarium.animate({
+                        transform: m
+                    },500);
                     var numHouses = newBounds.length-1, i=0, hb = [],
                         hv, spanDeg, startDeg, endDeg;
                     for (;i<(newBounds.length+1);i++) {
