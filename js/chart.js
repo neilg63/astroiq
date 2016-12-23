@@ -283,7 +283,7 @@ function initMap() {
                 var r= this.radius, c = r + this.offset,
                     ofs=30,xd = r - ofs, yd = (r * 0.4) - ofs;
                 if (this.orientation == 'counter') {
-                    lng = 0 -lng;
+                    lng = 360-lng - (360/6);
                 }
                 var matrix = new Snap.Matrix();
                     matrix.rotate(lng,c,c);
