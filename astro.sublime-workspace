@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"tra",
+				"transform"
+			],
+			[
+				"top",
+				"topCircles"
+			],
+			[
+				"marg",
+				"margin-bottom"
+			],
+			[
+				"fot",
+				"font-size"
+			],
+			[
+				"Long",
+				"longitude"
+			],
+			[
+				"Lat",
+				"latitude"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
 				"trans",
 				"transform"
 			],
@@ -16,24 +44,12 @@
 				"font-size"
 			],
 			[
-				"tra",
-				"transform"
-			],
-			[
 				"geo",
 				"geobirth"
 			],
 			[
-				"marg",
-				"margin-top"
-			],
-			[
 				"pa",
 				"padding"
-			],
-			[
-				"padd",
-				"padding-left"
 			],
 			[
 				"text",
@@ -498,14 +514,6 @@
 			[
 				"def",
 				"default"
-			],
-			[
-				"stop",
-				"stopImmediatePropagation"
-			],
-			[
-				"inline",
-				"inline-block"
 			]
 		]
 	},
@@ -530,17 +538,10 @@
 			}
 		},
 		{
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "app.js",
 			"settings":
 			{
-				"buffer_size": 3763,
+				"buffer_size": 3784,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -583,7 +584,25 @@
 			"file": "chart.html",
 			"settings":
 			{
-				"buffer_size": 15678,
+				"buffer_size": 14293,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "zodiac.html",
+			"settings":
+			{
+				"buffer_size": 36599,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "svgs/bodies/vesta-sign.svg",
+			"settings":
+			{
+				"buffer_size": 2288,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -592,7 +611,7 @@
 			"file": "css/style.css",
 			"settings":
 			{
-				"buffer_size": 3934,
+				"buffer_size": 6204,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -601,17 +620,34 @@
 			"file": "js/chart.js",
 			"settings":
 			{
-				"buffer_size": 18410,
+				"buffer_size": 26259,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "snap.html",
+			"file": "svgs/charts/astro-chart.svg",
 			"settings":
 			{
-				"buffer_size": 13916,
+				"buffer_size": 2345,
 				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/index.pug",
+			"settings":
+			{
+				"buffer_size": 1243,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/neilg/Dropbox/p3-neil/The Khera Retreat/notes on the Khera.txt",
+			"settings":
+			{
+				"buffer_size": 1464,
 				"line_ending": "Unix"
 			}
 		},
@@ -712,11 +748,16 @@
 		"/home/neilg/Apps/swisseph/astroapp/svgs/bodies",
 		"/home/neilg/Apps/swisseph/astroapp/svgs/charts",
 		"/home/neilg/Apps/swisseph/astroapp/svgs/indian",
+		"/home/neilg/Apps/swisseph/astroapp/templates",
+		"/home/neilg/Apps/swisseph/astroapp/templates/includes",
 		"/home/neilg/Apps/swisseph/astroapp/views",
 		"/home/neilg/Apps/swisseph/astroapp/views/partials"
 	],
 	"file_history":
 	[
+		"/home/neilg/Apps/swisseph/astroapp/snap.html",
+		"/home/neilg/Sites/platform3/drupal-7.52/includes/common.inc",
+		"/home/neilg/Sites/platform3/drupal-7.53/includes/common.inc",
 		"/home/neilg/Apps/swisseph/astroapp/js/chart.js",
 		"/home/neilg/Apps/swisseph/astroapp/svgs/bodies/sun-sign.svg",
 		"/home/neilg/Apps/swisseph/astroapp/svgs/bodies/uranus-sign.svg",
@@ -828,6 +869,90 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"placeBo",
+			"central",
+			"group",
+			"svg #seg",
+			": rotate(",
+			"rotate(",
+			"ascend",
+			"stroke=\"b",
+			"stroke=\"blue\" stroke-width=\"3\" ",
+			"<polyg",
+			"180deg",
+			"180",
+			"<polyg",
+			"<path",
+			"lines\"",
+			"indian",
+			"buildN",
+			"ascend",
+			"astroDisc =",
+			"TweenLi",
+			"ion l(",
+			"json_ou",
+			"tweenl",
+			".animate",
+			"Kute",
+			"TweenLite",
+			"Kute",
+			"placeBody:",
+			".num",
+			"positionB",
+			"placeBody",
+			"rotate",
+			"}\n",
+			".animate({",
+			"his.ascendant",
+			".animate",
+			"astroDisc",
+			".rotate",
+			"line(",
+			"circle(",
+			"form-lng",
+			"console.",
+			"document.getElementById('form-la",
+			"conso",
+			"zodiac-pane",
+			"svg",
+			"zodiac-pane",
+			"hor-tab",
+			"> .acti",
+			"behind",
+			"absol",
+			"</div",
+			"zodiac-p",
+			"hidden",
+			"li {",
+			".zodiac-pane",
+			"#main",
+			"control-",
+			"console.lo",
+			"xd",
+			"tweenLite.to",
+			"tween.to",
+			"tweeen.to",
+			"placeBody",
+			"this.disc",
+			"circle",
+			"placeBody",
+			"symb",
+			"snap",
+			"this.rd",
+			"Math.Pi",
+			"@ke",
+			"twee",
+			"ults-pane",
+			"symbol-p",
+			"results-p",
+			"result-p",
+			"c",
+			"<svg",
+			"\"planet",
+			"/kute.js/",
+			"/js/kutejs/([a-z0-9-]+)\\.min",
+			"kute",
+			"./src/ku",
 			"house_b",
 			"== 0",
 			"snap dem",
@@ -871,91 +996,7 @@
 			"addSegment(",
 			"addSegment:",
 			"tthis",
-			"housesToSeg",
-			"houseToSeg",
-			"debug",
-			"plus-min",
-			"-sign",
-			"placeBody",
-			"this.",
-			"matchHouseData",
-			"neg",
-			" else {\n\t\t\t\t\tm.bodies[k].house = 1 + diff;\n\t\t\t\t}",
-			"snap.h",
-			"m-or",
-			"\"boundary\" />",
-			"\"boundary\"/>",
-			"<line",
-			"transform-origin",
-			".plane",
-			"planet",
-			"houses.",
-			"-sign\"",
-			"saturn-s",
-			"<form",
-			"console",
-			"border",
-			".zodiac-",
-			"<obj",
-			"iac-pane",
-			"500px",
-			"href=\"../sig",
-			"href",
-			"02-gr",
-			"01_",
-			"house-0",
-			"house-02",
-			"<imag",
-			"house-02",
-			"house-2",
-			"<imag",
-			"data.ayana",
-			"ayana",
-			"fixed",
-			"help",
-			"m-cmd",
-			"results-",
-			"m-cmd",
-			"form",
-			"</p>([^<]*\\w[^<]*)<p>",
-			"</p>[^<]*\\w[^<]*<p>",
-			"^\\s+(\\d\\s+\\w+)\\s*$",
-			"</?p>",
-			"</li>\n<p>",
-			"^\\s+(-\\w+)\\b(.*?)$",
-			"^\\s+(-\\w)\\b(.*?)$",
-			"^\\s+([A-Z].*?)$",
-			"^(\\w.*?\\w)$",
-			"exec",
-			"topoc",
-			"console",
-			"sid",
-			"<selec",
-			"margin-l",
-			"mode",
-			"radios",
-			"14em",
-			"topoce",
-			"<style",
-			"topoce",
-			"house_",
-			"36",
-			"topo",
-			"objToString",
-			"buildBo",
-			"toDateInfo",
-			"toDateInfo:",
-			"'date'",
-			"parseDateInfo",
-			"toDateInfo",
-			"parseDateInfo",
-			"date",
-			"geopos",
-			"buildDataView",
-			"hsy",
-			"hsy'",
-			"objTo",
-			"object"
+			"housesToSeg"
 		],
 		"highlight": false,
 		"in_selection": false,
@@ -963,6 +1004,10 @@
 		"regex": false,
 		"replace_history":
 		[
+			"stroke=\"none\"",
+			"/js/kt/",
+			"/kute.js/$1.",
+			"/js/kutejs/ku",
 			"$1: { $2 }",
 			"$1: function",
 			"astroDisc.",
@@ -1086,11 +1131,7 @@
 			"body",
 			"\\1,",
 			",",
-			"body",
-			"text",
-			"artist_description",
-			"show_description",
-			"NPZ"
+			"body"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1101,7 +1142,7 @@
 	"groups":
 	[
 		{
-			"selected": 10,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1131,7 +1172,7 @@
 						"translation.y": 276.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
@@ -1159,51 +1200,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "app.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3763,
+						"buffer_size": 3784,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3145,
-								3145
+								3784,
+								3784
 							]
 						],
 						"settings":
@@ -1212,14 +1226,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3762.0,
+						"translation.y": 4801.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "views/snap.hbs",
 					"semi_transient": false,
 					"settings":
@@ -1245,11 +1259,11 @@
 						"translation.y": 693.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "views/partials/navbar.hbs",
 					"semi_transient": false,
 					"settings":
@@ -1273,11 +1287,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 5,
 					"file": "js/swetest.js",
 					"semi_transient": false,
 					"settings":
@@ -1303,11 +1317,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 6,
 					"file": "swetest.html",
 					"semi_transient": false,
 					"settings":
@@ -1330,27 +1344,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4579.0,
+						"translation.y": 1609.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 7,
 					"file": "chart.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15678,
+						"buffer_size": 14293,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								848,
-								848
+								13756,
+								13756
 							]
 						],
 						"settings":
@@ -1360,87 +1374,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 578.0,
+						"translation.y": 10247.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
-					"file": "css/style.css",
+					"buffer": 8,
+					"file": "zodiac.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3934,
+						"buffer_size": 36599,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1501,
-								1501
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "js/chart.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 18410,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14071,
-								14071
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 12103.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "snap.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 13916,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								12572,
-								12572
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1450,14 +1404,190 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 11633.0,
+						"translation.y": 21186.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "svgs/bodies/vesta-sign.svg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2288,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								324,
+								324
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "css/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6204,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5219,
+								5219
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 11107.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "js/chart.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 26259,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8860,
+								8860
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 5.0,
+						"translation.y": 7681.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 12,
+					"file": "svgs/charts/astro-chart.svg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2345,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								569,
+								569
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "templates/index.pug",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1243,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15,
+								15
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "/home/neilg/Dropbox/p3-neil/The Khera Retreat/notes on the Khera.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1464,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								902,
+								902
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 594.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
 					"file": "/home/neilg/Dropbox/code/swisseph/designs/segment-2.html",
 					"semi_transient": false,
 					"settings":
@@ -1481,11 +1611,11 @@
 						"translation.y": 266.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 16,
 					"file": "test-svg.html",
 					"semi_transient": false,
 					"settings":
@@ -1511,11 +1641,11 @@
 						"translation.y": 1089.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 17,
 					"file": "astroapp.js",
 					"semi_transient": false,
 					"settings":
@@ -1541,11 +1671,11 @@
 						"translation.y": 24841.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 18,
 					"file": "geocode/geocode.js",
 					"semi_transient": false,
 					"settings":
@@ -1570,11 +1700,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 19,
 					"file": "svgs/indian/chart_north.svg",
 					"semi_transient": false,
 					"settings":
@@ -1600,7 +1730,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 18,
 					"type": "text"
 				}
 			]

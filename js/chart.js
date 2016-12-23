@@ -115,7 +115,8 @@ function initMap() {
             central: null,
             topCircles: null,
             lines: null,
-
+            houseSymbols: [],
+            degreeOverlay: null,
             planetarium: null,
 
             outer: null,
@@ -123,6 +124,8 @@ function initMap() {
             disc: null,
             ascendant: null,
             rd: 57,
+
+            orientation: 'counter',
 
             calcArcX: function(degs) {
                 return (1- Math.sin((90-degs)/this.rd)) * this.radius;
@@ -140,7 +143,9 @@ function initMap() {
             },
 
             addSegment: function(spanDeg,startDeg,color,index) {
-                var r =this.radius, d = this.calcSegmentD(spanDeg,startDeg);
+                var r =this.radius, 
+                    c = r + this.offset,
+                    d = this.calcSegmentD(spanDeg,startDeg);
                 var path = this.snap.path(d).attr({
                     "fill": color,
                     'class': "segment",
@@ -156,14 +161,36 @@ function initMap() {
                 path.attr({
                     transform: matrix
                 });
+                var num = index+1;
+                if (num < 10) {
+                    num = '0' + num.toString();
+                } else {
+                    num = num.toString();
+                }
+                var matrix = new Snap.Matrix();
+                
+                matrix.rotate(startDeg + (spanDeg/2),c,c);
+                matrix.translate(r/24,r/24);
+                var sym = this.snap.image('/svgs/signs/glyph/'+num+'.svg',r/24,r,(r/12),(r/12)).attr({
+                    transform: matrix,
+                    class: 'house-symbol',
+                    id: 'house-symbol-'+num 
+                });
+                this.degreeOverlay.append(sym);
+                this.houseSymbols[index] = sym;
                 return path;
             },
 
-            tweenSegment: function(segment,spanDeg,startDeg) {
-                var r = this.radius, matrix = new Snap.Matrix();
+            tweenSegment: function(spanDeg,startDeg,index) {
+                var r = this.radius, c = r + this.offset,
+                segment = this.segments[index],
+                matrix = new Snap.Matrix();
                 matrix.translate(r,0);
                 if (startDeg) {
                     matrix.rotate(startDeg,0,r);
+                }
+                if (this.orientation == 'counter') {
+                    startDeg = 360-startDeg-spanDeg;
                 }
                 segment.attr({
                     d: this.calcSegmentD(spanDeg,startDeg)
@@ -171,6 +198,12 @@ function initMap() {
                 segment.animate({
                     transform: matrix
                 },500,mina.easein);
+                matrix = new Snap.Matrix();
+                matrix.rotate(startDeg + (spanDeg/2),c,c);
+                matrix.translate(r/24,r/24);
+                this.houseSymbols[index].attr({
+                    transform: matrix
+                });
             },
             
             addSegments: function() {
@@ -181,6 +214,9 @@ function initMap() {
                 for (; i < numHouses;i++) {
                     spanDeg = (hb[(i+1)]-hb[i]);
                     startDeg = hb[i];
+                    if (this.orientation == 'counter') {
+                        startDeg = 360-startDeg-spanDeg;
+                    }
                     seg = this.addSegment(spanDeg,startDeg,this.colors[i%this.colors.length],i);
                     this.central.append(seg);
                     this.segments.push(seg);
@@ -198,13 +234,18 @@ function initMap() {
                     }
                 }
                 if (valid) {
-                    var m = new Snap.Matrix();
-                    m.rotate(newBounds[0],r+this.offset,r+this.offset);
+                    var m = new Snap.Matrix(),
+                    startDeg = newBounds[0];
+                    if (this.orientation == 'counter') {
+                        startDeg = 360-startDeg;
+                    }
+                    m.rotate(startDeg,r+this.offset,r+this.offset);
                     m.translate(this.offset,this.offset);
                     this.central.animate({
                         transform: m
                     },500,mina.easein);
-                    this.ascendant.animate({
+                    m.translate(0-this.offset,0-this.offset);
+                    this.lines.animate({
                         transform: m
                     },500);
                     var numHouses = newBounds.length-1, i=0, hb = [],
@@ -225,7 +266,7 @@ function initMap() {
                         }
                         spanDeg = endDeg - startDeg;
                         if (i < this.segments.length) {
-                            this.tweenSegment(this.segments[i],spanDeg,startDeg);
+                            this.tweenSegment(spanDeg,startDeg,i);
                         }
                     }
                 }
@@ -310,66 +351,52 @@ function initMap() {
 
             init: function() {
                 this.radius = 720;
-                var r = this.radius;
+                var r = this.radius, c = r + this.offset;
                 this.snap = new Snap('#astro-disc');
                 this.central = this.snap.select('#segments');
                 this.lines = this.snap.select('#degree-lines');
+                this.degreeOverlay = this.snap.select('#degree-overlay');
                 this.rd = 180/Math.PI;
                 
-                this.outer = this.snap.circle(r,r,r).attr({
-                    fill: "blue",
-                    stroke: 'none'
-                });
-                this.central.append(this.outer)
+                this.outer = this.inner = this.snap.select('circle.outer');
                 this.addSegments();
-                var i=0, ofs = this.offset, c = r+ofs, ln, lbl,th, len, lc, st;
+                var i=0, ofs = this.offset, c = r+ofs,clNames, ln, lbl, len, lc, st;
                 for (;i<180;i++) {
+                    clNames='degree-line';
                     if (i%10 == 0) {
                         len = (r*2)+(ofs*2);
-                        th = 3;
-                        lc = '#994444';
+                        clNames += ' ten-degrees';
                         st = 0;
                     } else if (i%5 == 0) {
                         len = (r*2)+(ofs*1.75);
-                        th = 2;
-                        lc = '#006699';
+                        clNames += ' five-degrees';
                         st = ofs * 0.125;
                     } else {
                         len = (r*2) + (ofs*1.5);
-                        th = 1;
-                        lc = '#999999';
+                        clNames += ' one-degree';
                         st = ofs * 0.25;
                     }
                     ln = this.snap.line(c, st, c, len).attr({
-                        stroke: lc,
-                        'stroke-width': th + 'px',
+                        class: clNames,
                         transform: "rotate("+i+"deg)"
                     });
                     this.degreeLines[i] = ln;
                     this.lines.append(ln);
                     if (i%30 == 0) {
                         var m = new Snap.Matrix();
-                        m.rotate(i,0,r);
-                        var lbl = this.snap.text(0, r, i).attr({
+                        m.rotate(i,c,c);
+                        var lbl = this.snap.text(0, r, i.toString()).attr({
                             transform: m,
                             class: 'degree-label'
                         });
-                        this.lines.append(lbl);
+                        this.degreeOverlay.append(lbl);
                     }
   
                 }
                 this.topCircles = this.snap.select('#top-circles');
 
-                this.inner = this.snap.circle(r, r,(r*.8)).attr({
-                    fill: "blue"
-                });
-                this.topCircles.append(this.inner);
-                this.disc = this.snap.circle(r, r,(r*.5)).attr({
-                    fill: "none",
-                    stroke: "white",
-                    'stroke-width': '3px'
-                });
-                this.topCircles.append(this.disc);
+                this.inner = this.snap.select('circle.inner');
+                
                 this.bodies = {
                     sun: { lng: 72, lat: -0.0015, ecl: 0.9472557500000001, house: 10.668 },
                     moon: { lng: 250, lat: 3.353, ecl: 17.1252025, house: 4.640 },
@@ -562,6 +589,42 @@ function initMap() {
             });
         }
 
+        var kuteMorph = function() {
+            var morph1 = KUTE.allFromTo('#symbol-path',
+            { path: '#path-a', fill: "#990000" },{ path: '#path-b', fill: "#009900" }, {
+                duration: 2000,
+                keepHex: true
+            });
+            var morph2 = KUTE.fromTo('#symbol-path',
+            { path: '#path-b',fill: "#009900" },{ path: '#path-c',fill: "#000099" }, {
+                duration: 2000,
+                keepHex: true,
+                delay: 4000,
+            });
+            var morph3 = KUTE.fromTo('#symbol-path',
+            { path: '#path-c', fill: "#000099" },{ path: '#path-d',fill: "#660066" }, {
+                duration: 2000,
+                delay: 7000,
+                keepHex: true
+            });
+            var morph4 = KUTE.fromTo('#symbol-path',
+            { path: '#path-d', fill: "#660066" },{ path: '#path-a',fill: "#990000" }, {
+                duration: 2000,
+                delay: 11000,
+                keepHex: true
+            });
+            morph1.start();
+            morph2.start();
+            morph3.start();
+            morph4.start();
+            $('#tween-symbol').on('click',function(){
+                morph1.start();
+                morph2.start();
+                morph3.start();
+                morph4.start();
+            });
+        }
+
         var geofinder = $('#geobirth-finder');
         if (geofinder.length>0) {
             geofinder.on('click', function(e){
@@ -660,39 +723,7 @@ function initMap() {
             }
 
         });
-        var morph1 = KUTE.allFromTo('#symbol-path',
-        { path: '#path-a', fill: "#990000" },{ path: '#path-b', fill: "#009900" }, {
-            duration: 2000,
-            keepHex: true
-        });
-        var morph2 = KUTE.fromTo('#symbol-path',
-        { path: '#path-b',fill: "#009900" },{ path: '#path-c',fill: "#000099" }, {
-            duration: 2000,
-            keepHex: true,
-            delay: 4000,
-        });
-        var morph3 = KUTE.fromTo('#symbol-path',
-        { path: '#path-c', fill: "#000099" },{ path: '#path-d',fill: "#660066" }, {
-            duration: 2000,
-            delay: 7000,
-            keepHex: true
-        });
-        var morph4 = KUTE.fromTo('#symbol-path',
-        { path: '#path-d', fill: "#660066" },{ path: '#path-a',fill: "#990000" }, {
-            duration: 2000,
-            delay: 11000,
-            keepHex: true
-        });
-        morph1.start();
-        morph2.start();
-        morph3.start();
-        morph4.start();
-        $('#tween-symbol').on('click',function(){
-            morph1.start();
-            morph2.start();
-            morph3.start();
-            morph4.start();
-        });
+        
 
         $('#main .hor-tabs li').on('click',function(e){
             e.stopImmediatePropagation();
@@ -730,10 +761,11 @@ function initMap() {
                 var gMapApiKey = gMapApi.attr('data-key'),st;
                 if (gMapApiKey) {
                    st = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&callback=initMap"></script>');
-                    $('body').append(st); 
+                    $('body').append(st);
                 }
             }
         },250);
 
+        kuteMorph();
     });
 })(jQuery);

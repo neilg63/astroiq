@@ -30,6 +30,11 @@ body, input, textarea, select, option {
     min-height: 50vh;
     padding: 2vw;
     left: 36vw;
+    opacity: 0;
+}
+
+#results-pane.active {
+    opacity: 1;
 }
 
 #control-panel object#tween-symbol-container svg {
@@ -373,9 +378,46 @@ ul.hor-tabs li:hover {
     fill: rgba(255,0,0,0.5);
 }
 
+#astro-disc .house-symbol,
+#astro-disc #degree-overlay,
+#astro-disc #degree-overlay .degree-label,
+#astro-disc #degree-lines {
+    transform-origin: 750px 750px;
+}
+
+#astro-disc circle.solid {
+    fill: white;
+}
+
+#astro-disc circle.disc {
+    fill: none;
+    stroke: blue;
+    stroke-width: 3px;
+}
+
+#degree-lines line.ten-degrees {
+    stroke: black;
+    stroke-width: 3px;
+}
+
+#degree-lines line.five-degrees {
+    stroke: #3366ff;
+    stroke-width: 1px;
+}
+
+#degree-lines line.one-degree {
+    stroke: #cccccc;
+    stroke-width: 1px;
+}
+
+#degree-overlay .degree-label {
+    font-size: 20px;
+    color: black;
+}
+
 #astro-disc #segments,
 #astro-disc #top-circles {
-    transform: rotate(180deg);
+    transform: translate(30px) rotate(-90deg);
     transform-origin: 735px 735px;
 }
 
