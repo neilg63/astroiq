@@ -198,12 +198,12 @@ function initMap() {
                 segment.animate({
                     transform: matrix
                 },500,mina.easein);
-                matrix = new Snap.Matrix();
+                /*matrix = new Snap.Matrix();
                 matrix.rotate(startDeg + (spanDeg/2),c,c);
                 matrix.translate(r/24,r/24);
                 this.houseSymbols[index].attr({
                     transform: matrix
-                });
+                });*/
             },
             
             addSegments: function() {
@@ -246,6 +246,9 @@ function initMap() {
                     },500,mina.easein);
                     m.translate(0-this.offset,0-this.offset);
                     this.lines.animate({
+                        transform: m
+                    },500);
+                    this.degreeOverlay.animate({
                         transform: m
                     },500);
                     var numHouses = newBounds.length-1, i=0, hb = [],
