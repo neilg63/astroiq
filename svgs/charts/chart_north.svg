@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg-chart"
+   version="1.0"
+   width="500pt"
+   height="500pt"
+   viewBox="0 0 500 500"
+   preserveAspectRatio="xMidYMid meet"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="chart_north.svg">
+  <metadata
+     id="metadata3159">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3157" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     id="namedview3155"
+     showgrid="false"
+     inkscape:zoom="1.0680141"
+     inkscape:cx="317.58949"
+     inkscape:cy="147.58745"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg-chart" />
+  <style
+     id="style3117">
+      #main { width: 95%; border: 1px solid red; padding: 10px; max-height: 500px; }
+      #svg-chart, chart-image { height: 500px; width: 500px; border: 1px solid black; }
+      #birth-chart { position: relative; margin: 0 auto; }
+      #outer-frame, .inner-lines { stroke: blue; stroke-width: 3; fill:none; z-index: -1; }
+      .house { fill:yellow; opacity: 0.3 }
+      #backgr { fill:#cccccc; opacity: 0.5; }
+      .bc, .bck {  opacity:0.0; z-index: 0; }
+      .bc:hover, .bck:hover { opacity:0.3;  fill:red; }
+  </style>
+  <g
+     id="chart-background">
+    <!-- chart background -->
+    <rect
+       id="backgr"
+       width="500"
+       height="500"
+       x="0"
+       y="0"
+       rx="0"
+       ry="0" />
+    <!-- start background for individual houses -->
+    <rect
+       id="bck-01"
+       class="bck"
+       x="0"
+       y="0"
+       width="175"
+       height="175"
+       transform="translate(250, 1) rotate(45 0 0)" />
+    <polygon
+       id="bck-02"
+       class="bck"
+       points="0,0 250,0 125,125" />
+    <polygon
+       id="bck-03"
+       class="bck"
+       points="0,0 0,250 125,125" />
+    <rect
+       id="bck-04"
+       class="bck"
+       x="0"
+       y="0"
+       width="175"
+       height="175"
+       transform="translate(125, 126) rotate(45 0 0)" />
+    <polygon
+       id="bck-05"
+       class="bck"
+       points="0,250 125,375 0,500" />
+    <polygon
+       id="bck-06"
+       class="bck"
+       points="0,500 125,375 250,500" />
+    <rect
+       id="bck-07"
+       class="bck"
+       x="0"
+       y="0"
+       width="175"
+       height="175"
+       transform="translate(250, 251) rotate(45 0 0)" />
+    <polygon
+       id="bck-08"
+       class="bck"
+       points="250,500 375,375 500,500" />
+    <polygon
+       id="bck-09"
+       class="bck"
+       points="500,250 375,375 500,500" />
+    <rect
+       id="bck-10"
+       class="bck"
+       x="0"
+       y="0"
+       width="175"
+       height="175"
+       transform="translate(375, 126) rotate(45 0 0)" />
+    <polygon
+       id="bck-11"
+       class="bck"
+       points="375,125 500,0 500,250" />
+    <polygon
+       id="bck-12"
+       class="bck"
+       points="250,0 500,0 375,125" />
+  </g>
+  <g
+     id="chart-lines">
+    <!-- start frame and lines -->
+    <rect
+       id="outer-frame"
+       width="500"
+       height="500"
+       x="0"
+       y="0"
+       rx="0"
+       ry="0" />
+    <line
+       id="top-l_bott-r"
+       class="inner-lines"
+       x1="0"
+       y1="0"
+       x2="500"
+       y2="500" />
+    <line
+       id="top-r_bott-l"
+       class="inner-lines"
+       x1="500"
+       y1="0"
+       x2="0"
+       y2="500" />
+    <line
+       id="cen-l_cen-top"
+       class="inner-lines"
+       x1="250"
+       y1="0"
+       x2="0"
+       y2="250" />
+    <line
+       id="cen-r_cen-top"
+       class="inner-lines"
+       x1="250"
+       y1="0"
+       x2="500"
+       y2="250" />
+    <line
+       id="cen-r_cen-bottom"
+       class="inner-lines"
+       x1="500"
+       y1="250"
+       x2="250"
+       y2="500" />
+    <line
+       id="cen-l_cen-bottom"
+       class="inner-lines"
+       x1="250"
+       y1="500"
+       x2="0"
+       y2="250" />
+  </g>
+  <!-- container for sign glyph for each house -->
+  <g
+     id="house-sign-glyphs">
+    <rect
+       id="house-01"
+       class="house"
+       width="30"
+       height="30"
+       x="235"
+       y="200"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-02"
+       class="house"
+       width="30"
+       height="30"
+       x="110"
+       y="75"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-03"
+       class="house"
+       width="30"
+       height="30"
+       x="75"
+       y="110"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-04"
+       class="house"
+       width="30"
+       height="30"
+       x="200"
+       y="235"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-05"
+       class="house"
+       width="30"
+       height="30"
+       x="75"
+       y="360"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-06"
+       class="house"
+       width="30"
+       height="30"
+       x="110"
+       y="395"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-07"
+       class="house"
+       width="30"
+       height="30"
+       x="235"
+       y="270"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-08"
+       class="house"
+       width="30"
+       height="30"
+       x="360"
+       y="395"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-09"
+       class="house"
+       width="30"
+       height="30"
+       x="395"
+       y="360"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-10"
+       class="house"
+       width="30"
+       height="30"
+       x="270"
+       y="235"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-11"
+       class="house"
+       width="30"
+       height="30"
+       x="395"
+       y="110"
+       rx="0"
+       ry="0" />
+    <rect
+       id="house-12"
+       class="house"
+       width="30"
+       height="30"
+       x="360"
+       y="75"
+       rx="0"
+       ry="0" />
+  </g>
+  <g
+     id="planet-containers">
+    <!-- container for planets in each house -->
+  </g>
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161"
+     width="51.497448"
+     height="168.53711"
+     x="14.981076"
+     y="70.700195"
+     transform="scale(0.8,0.8)" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-1"
+     width="41.19796"
+     height="134.82968"
+     x="446.81058"
+     y="56.560158" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-1-7"
+     width="41.19796"
+     height="134.82968"
+     x="11.99145"
+     y="-441.94174"
+     transform="matrix(0,1,-1,0,0,0)" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-1-7-4"
+     width="41.19796"
+     height="134.82968"
+     x="12.027256"
+     y="-193.39554"
+     transform="matrix(0,1,-1,0,0,0)" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.89626455px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-1-7-4-0"
+     width="41.19796"
+     height="169.23024"
+     x="103.37601"
+     y="-335.17361"
+     transform="matrix(0,1,-1,0,0,0)" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.89626455px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-1-7-4-0-9"
+     width="41.19796"
+     height="169.23024"
+     x="355.05811"
+     y="-334.05002"
+     transform="matrix(0,1,-1,0,0,0)" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.89626455px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-1-7-4-0-9-4"
+     width="41.19796"
+     height="169.23024"
+     x="353.17883"
+     y="164.45184" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.89626455px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-1-7-4-0-9-4-8"
+     width="41.19796"
+     height="169.23024"
+     x="103.74395"
+     y="162.95375" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-8"
+     width="41.19796"
+     height="134.82968"
+     x="14.41928"
+     y="308.24222" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-1-2"
+     width="41.19796"
+     height="134.82968"
+     x="449.24503"
+     y="308.24222" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-1-7-45"
+     width="41.19796"
+     height="134.82968"
+     x="448.67191"
+     y="-441.87192"
+     transform="matrix(0,1,-1,0,0,0)" />
+  <rect
+     style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3161-1-7-4-5"
+     width="41.19796"
+     height="134.82968"
+     x="448.70773"
+     y="-193.32571"
+     transform="matrix(0,1,-1,0,0,0)" />
+</svg>
