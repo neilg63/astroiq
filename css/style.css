@@ -378,7 +378,8 @@ ul.hor-tabs li:hover {
     fill: rgba(255,0,0,0.5);
 }
 
-#astro-disc .house-symbol,
+#astro-disc image.house-symbol,
+#astro-disc image.body,
 #astro-disc #degree-overlay,
 #astro-disc #degree-overlay .degree-label,
 #astro-disc #degree-lines {

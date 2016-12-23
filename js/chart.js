@@ -274,9 +274,13 @@ function initMap() {
             },
 
             placeBody: function(bodyName,lng,pos) {
-                var r= this.radius, ofs=30,xd = r - ofs, yd = (r * 0.4) - ofs;
+                var r= this.radius, c = r + this.offset,
+                    ofs=30,xd = r - ofs, yd = (r * 0.4) - ofs;
+                if (this.orientation == 'counter') {
+                    lng = 0 -lng;
+                }
                 var matrix = new Snap.Matrix();
-                    matrix.rotate(lng,r,r);
+                    matrix.rotate(lng,c,c);
                 if (this.bodies[bodyName]) {
                     if (this.bodies[bodyName].image) {
                         this.bodies[bodyName].image.animate({
