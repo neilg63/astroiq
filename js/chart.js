@@ -404,7 +404,7 @@ function initMap() {
                     this.lines.append(ln);
                     if (i%30 == 0) {
                         var pos = this.calcCircPos(i,(this.radius + (this.offset/2)),-5,5);
-                        var lbl = this.snap.text(0, r, i.toString()).attr({
+                        var lbl = this.snap.text(pos.x, pos.y, i.toString()).attr({
                             class: 'degree-label'
                         });
                         this.degreeOverlay.append(lbl);
