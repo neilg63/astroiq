@@ -196,8 +196,7 @@ function initMap() {
                 var r = this.radius, c = r + this.offset,
                 segment = this.segments[index],
                 matrix = new Snap.Matrix();
-                matrix.translate(r,0),
-                
+                matrix.translate(r,0);
                 if (startDeg) {
                     matrix.rotate(startDeg,0,r);
                 }
@@ -210,11 +209,10 @@ function initMap() {
                 segment.animate({
                     transform: matrix
                 },500,mina.easein);
-                pos = this.calcCircPos(startDeg,r*0.75,-10,10);
+                var pos = this.calcCircPos(startDeg,r*0.75,-10,10);
                 if (index < this.houseLabels.length) {
                     this.houseLabels[index].attr(pos);
                 }
-                
             },
             
             addSegments: function() {
