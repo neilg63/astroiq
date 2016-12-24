@@ -142,6 +142,15 @@ function initMap() {
                 return "M0,0 A"+r+","+r+" 0 0,1 "+rx+","+ry+" L0,"+r+" Z";
             },
 
+            calcCircPos: function(deg,r,xo,yo) {
+                var y = Math.sin(deg/this.rd), x = Math.cos(deg/this.rd);
+                x *= r;
+                y *= r;
+                x = ((this.radius+this.offset)-y) +xo;
+                y = ((this.radius+this.offset)-y) + yo;
+                return {x:x,y:y};
+            },
+
             addSegment: function(spanDeg,startDeg,color,index) {
                 var r =this.radius, 
                     c = r + this.offset,
@@ -220,8 +229,9 @@ function initMap() {
                     seg = this.addSegment(spanDeg,startDeg,this.colors[i%this.colors.length],i);
                     this.central.append(seg);
                     this.segments.push(seg);
-                    /*this.snap.text(r + calcArcX(startDeg),(r - this.calcArcY(startDeg)),(i+1)).attr({
-                        'class': 'label'
+                    /*var pos = this.calcCircPos(startDeg,(this.radius + this.offset),-10,10);
+                    this.snap.text(pos.x,pos.y,(i+1).toString()).attr({
+                        'class': 'house-label'
                     });*/
                 }
             },
@@ -393,10 +403,8 @@ function initMap() {
                     this.degreeLines[i] = ln;
                     this.lines.append(ln);
                     if (i%30 == 0) {
-                        var m = new Snap.Matrix();
-                        m.rotate(i,c,c);
+                        var pos = this.calcCircPos(i,(this.radius + (this.offset/2)),-5,5);
                         var lbl = this.snap.text(0, r, i.toString()).attr({
-                            transform: m,
                             class: 'degree-label'
                         });
                         this.degreeOverlay.append(lbl);

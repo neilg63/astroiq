@@ -15,7 +15,7 @@
 }
 
 #snap-pane {
-    position: fixed;
+    position: absolute;
     top: 4em;
     left: 0;
     right: 0;
@@ -49,6 +49,14 @@
     transform-origin: 50% 50% 50%;    
 }
 
+#snap-pane .large-label {
+    font-size: 2em;
+}
+
+#snap-pane text.white {
+    fill: white;
+}
+
 </style>
 
 
@@ -60,93 +68,7 @@
 </head>
 <body>
 
-<header id="navbar">
-    <h1>astroIQ Demo</h1>
-    <nav class="horizontal"><ul>
-        <li><a href="/">Command Test</a></li>   
-        <li><a href="/zodiac">Zodiac Demo</a></li>
-        <li><a href="/snap">Snap Demo</a></li>
-    </ul></nav>
-</header>
-<aside id="control-panel">
-    <form id="control-form" action="/sweph" method="post">
-        <p>
-            <label>Date of birth:</label><input type="date" id="form-dob" name="dob" size="10" value="1961-06-28" />
-        </p>
-        <p>
-            <label>Time of birth:</label><input type="time" id="form-tob" name="tob" size="5" value="11:25"/>
-        </p>
-        <p>
-            <label for="form-geobirth">Place of birth:</label><input type="text" id="form-geobirth" name="geobirth" size="48" value="" /><input type="submit" id="geobirth-finder" value="Find" />
-            <div class="hidden" id="geo-address"></div>
-        </p>
-        <p>
-            <label>Co-ordinates (longitude/latitude):</label><input type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="8" value="-13.6667" /><input type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="8" value="65.15"/>
-        </p>
-        <p>
-            <label for="form-alt">Altitude (metres):</label><input type="number" id="form-alt" name="alt" size="8" value="30" steps="10" min="0" max="9000"/>
-        </p>
-        <p>
-            <label for="form-hsy">House system:</label><select id="form-hsy" name="hsy">
-                <option value="W">Whole house equal</option>
-                <option value="E">Equal = A</option>
-                <option value="D">Equal / MC</option>
-                <option value="S">Sripati (Jyotish)</option>
-                <option value="O">Porphyry</option>
-                <option value="K">Koch</option>
-                <option value="B">Alcabitius</option>
-                <option value="C">Campanus</option>
-                <option value="M">Morinus</option>
-                <option value="P">Placidus</option>
-                <option value="H">Horizon / azimuth</option>
-                <option value="R">Regiomontanus</option>
-                <option value="T">Topocentric</option>
-                <option value="A">Equal</option>
-                <option value="X">Meridian houses</option>
-                <option value="G">36 Gauquelin sectors</option>
-            </select>
-        </p>
-        <p>
-            <label for="form-ayanamsa">Ayanamsa</label>
-            <select id="form-ayanamsa" name="ayanamsa">
-                <option value="-">Tropical</option>
-                <option value="1">Lahiri</option>
-                <option value="3">Raman</option>
-                <option value="4">Ushashashi</option>
-                <option value="5">Krishnamurti</option>
-                <option value="6">Djwhal Khul</option>
-                <option value="7">Yukteshwar</option>
-                <option value="8">J.N. Bhasin</option>
-                <option value="0">Fagan/Bradley</option>
-                <option value="2">De Luce</option>
-                <option value="15">Hipparchos</option>
-                <option value="16">Sassanian</option>
-                <option value="21">Suryasiddhanta</option>
-                <option value="22">Suryasiddhanta, mean Sun</option>
-                <option value="23">Aryabhata</option>
-                <option value="25">SS Citra</option>
-                <option value="26">SS Revati</option>
-                <option value="27">True Citra</option>
-                <option value="28">True Revati</option>
-                <option value="29">True Pushya</option>
-                <option value="30">Galactic (Gil Brand)</option>
-                <option value="34">Skydram (Mardyks)</option>
-                <option value="35">True Mula (Chandra Hari)</option>
-                <option value="36">Dhruva/Gal.Center/Mula (Wilhelm)</option> 
-            </select>
-        </p>
-        <p class="radios" id="form-mode">
-            
-             <input type="radio" value="topo" name="mode" id="form-mode-topo" class="mode" checked="true" />
-            <label for="form-mode-topo">Topocentric</label>
-            <input type="radio" value="geo" name="mode" id="form-mode-geo" class="mode"/>
-            <label for="form-mode-geo">Geocentric</label>
-        </p>
 
-        <div id="form-actions"><input type="submit" value="Go" id="form-submit" /></div>
-    </form>
-    
-</aside>
 <div id="main">
     <div id="results-pane"></div>
     <div class="plus-minus">+</div>
@@ -171,8 +93,8 @@ var astroDisc;
             snap: null,
             radius: 360,
             element: '#zodiac-svg',
-            /*houses: [0,30,60,90,120,150,180,210,240,270,300,330],*/
-            houses: [152,187,214,237,276,294,321,0,32,65,91,118],
+            houses: [0,30,60,90,120,150,180,210,240,270,300,330],
+            /*houses: [152,187,214,237,276,294,321,0,32,65,91,118],*/
             segments: [],
             bodies: {},
             addSegment: function(fillColor,startDeg,endDeg,index) {
@@ -305,6 +227,15 @@ var astroDisc;
                 });
             },
 
+            calcCircPos: function(deg,r,xo,yo) {
+                var rd = 180/Math.PI, y = Math.sin(deg/rd), x = Math.cos(deg/rd);
+                x *= r;
+                y *= r;
+                x = (720-x) +xo;
+                y = (720-y) + yo;
+                return {x:x,y:y};
+            },
+
             updateBody: function(bodyName,lng,lat) {
                 var rd = 180/Math.PI, pos=0.9;
                 var mx = Math.cos(lng/rd),
@@ -343,7 +274,14 @@ var astroDisc;
                 this.bodies.neptune = this.placeBody('neptune',-0.4,-0.23);
                 var rd = 180/Math.PI, degs=45, pos=.9;
                 this.bodies.uranus = astroDisc.placeBody('uranus',Math.sin(degs/rd),Math.cos(45/degs));
-                this.snap.path("M720,720L720,0 C60,120 120,120 110,250");
+                var i=0, deg,pos;
+                for (; i < 12;i++) {
+                    deg = i * 30;
+                    pos = this.calcCircPos(deg,680,-10,10)
+                    this.snap.text(pos.x,pos.y,deg.toString() + 'º').attr({
+                    class:"large-label white"
+                })
+                }
             }
         }
 
