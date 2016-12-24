@@ -209,7 +209,7 @@ function initMap() {
                 segment.animate({
                     transform: matrix
                 },500,mina.easein);
-                var pos = calcCircPos(startDeg,r*0.75,-10,10);
+                var pos = this.calcCircPos(startDeg,r*0.75,-10,10);
                 if (index < this.houseLabels.length) {
                     this.houseLabels[index].attr(pos);
                 }
