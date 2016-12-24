@@ -228,8 +228,8 @@ function initMap() {
                     }
                     seg = this.addSegment(spanDeg,startDeg,this.colors[i%this.colors.length],i);
                     this.central.append(seg);
-                    this.segments.push(seg);
-                    var pos = this.calcCircPos(startDeg,(r + this.offset),-10,10);
+                    this.segments.push(seg);    
+                    var pos = this.calcCircPos(hb[i],(r + this.offset),-10,10);
                     this.snap.text(pos.x,pos.y,(i+1).toString()).attr({
                         'class': 'house-label'
                     });
