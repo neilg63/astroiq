@@ -110,6 +110,8 @@ function initMap() {
 
             degreeLines: [],
 
+            houseLabels: [],
+
             indian: null,
 
             central: null,
@@ -207,12 +209,10 @@ function initMap() {
                 segment.animate({
                     transform: matrix
                 },500,mina.easein);
-                /*matrix = new Snap.Matrix();
-                matrix.rotate(startDeg + (spanDeg/2),c,c);
-                matrix.translate(r/24,r/24);
-                this.houseSymbols[index].attr({
-                    transform: matrix
-                });*/
+                var pos = this.calcCircPos(startDeg,r*0.75,-10,10);
+                if (index < this.houseLabels.length) {
+                    this.houseLabels[index].attr(pos);
+                }
             },
             
             addSegments: function() {
@@ -229,10 +229,11 @@ function initMap() {
                     seg = this.addSegment(spanDeg,startDeg,this.colors[i%this.colors.length],i);
                     this.central.append(seg);
                     this.segments.push(seg);    
-                    var pos = this.calcCircPos(hb[i],(r + this.offset),-10,10);
-                    this.snap.text(pos.x,pos.y,(i+1).toString()).attr({
+                    var pos = this.calcCircPos(startDeg,(r * 0.75),-10,10);
+                    var segLbl = this.snap.text(pos.x,pos.y,(i+1).toString()).attr({
                         'class': 'house-label'
                     });
+                    this.houseLabels.push(segLbl);
                 }
             },
             
@@ -403,8 +404,13 @@ function initMap() {
                     this.degreeLines[i] = ln;
                     this.lines.append(ln);
                     if (i%30 == 0) {
-                        var pos = this.calcCircPos(i,(this.radius + (this.offset/2)),-5,5);
-                        var lbl = this.snap.text(pos.x, pos.y, i.toString()).attr({
+                        var pos = this.calcCircPos((360-i,(this.radius + (this.offset/2)),-5,5),
+                        lbl = this.snap.text(pos.x, pos.y, i.toString()).attr({
+                            class: 'degree-label'
+                        });
+                        this.degreeOverlay.append(lbl);
+                        pos = this.calcCircPos((180-i),(this.radius + (this.offset/2)),-5,5);
+                        lbl = this.snap.text(pos.x, pos.y, i.toString()).attr({
                             class: 'degree-label'
                         });
                         this.degreeOverlay.append(lbl);
