@@ -386,6 +386,11 @@ ul.hor-tabs li:hover {
     transform-origin: 750px 750px;
 }
 
+#astro-disc text {
+    fill: orange;
+    font-size: 1.5em;   
+}
+
 #astro-disc circle.solid {
     fill: white;
 }
