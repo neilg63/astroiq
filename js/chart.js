@@ -86,7 +86,6 @@ var GeoMap = {
 };
 
 function initMap() {
-    console.log('pp');
     return GeoMap.init();
 }
 
@@ -124,7 +123,7 @@ function initMap() {
             outer: null,
             inner: null,
             disc: null,
-            ascendant: null,
+            ascendant: 0,
             rd: 57,
 
             orientation: 'counter',
@@ -247,7 +246,7 @@ function initMap() {
                 }
                 if (valid) {
                     var m = new Snap.Matrix(),
-                    startDeg = newBounds[0];
+                    startDeg = this.ascendant;
                     if (this.orientation == 'counter') {
                         startDeg = 360-startDeg;
                     }
@@ -437,16 +436,6 @@ function initMap() {
                 this.planetarium = this.snap.select('#planetarium');
 
                 this.placeBodies();
-
-   
-                this.ascendant = this.snap.line(r, 0, r, r).attr({
-                    'stroke': "white",
-                    'stroke-width': '3px'
-                });
-                this.topCircles.append(this.ascendant);
-
-
-
             }
         };
         
@@ -570,6 +559,7 @@ function initMap() {
             }
             $('#results-pane .inner').html(dl);
             $('#results-pane .inner').append(info);
+            $('.hor-tabs li.results').removeClass('disabled');
         };
 
         var updateChart = function(data) {
@@ -589,6 +579,7 @@ function initMap() {
                         end = 360;
                     }
                     houses.push(end);
+                    astroDisc.ascendant = data.astro.ascendant;
                     astroDisc.tweenSegments(houses);
                 }
                 if (data.bodies) {
@@ -682,6 +673,7 @@ function initMap() {
                             } else if (data.message) {
                                 msg = data.message;
                             }
+
                             if (msg.length > 1) {
                                 $('#geo-address').html(msg).removeClass('hidden');
                                 if (data.message && !data.valid) {
@@ -689,6 +681,7 @@ function initMap() {
                                         $('#geo-address').addClass('hidden');
                                     },5000);
                                 }
+
                             }
                         }
                     });
@@ -764,20 +757,16 @@ function initMap() {
                         it.addClass('active');
                    }
                 }
-               
             }
-        });
-
-        $('#chart-mode li').on('click',function(e) {
-            var it = $(this);
-            if (it.hasClass('indian')) {
-                $('#astro-disc').addClass('show-indian').removeClass('show-european');
-
-            } else {
-                $('#astro-disc').addClass('show-european').removeClass('show-indian');
+            if (it.hasClass('chart')) {
+                if (it.hasClass('indian')) {
+                    $('#astro-disc').addClass('show-indian').removeClass('show-european');
+                } else if (it.hasClass('european')) {
+                    $('#astro-disc').addClass('show-european').removeClass('show-indian');
+                }
+                it.parent().find('li.active').removeClass('active');
+                it.addClass('active');
             }
-            it.parent().find('li.active').removeClass('active');
-            it.addClass('active');
         });
 
         setTimeout(function(){

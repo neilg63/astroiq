@@ -18,15 +18,13 @@ body
         include ../svgs/charts/tween-symbols.svg
   div#main
     ul.hor-tabs
-      li(class="zodiac active") Chart
-      li(class="results") Results
-    object#zodiac-pane(class="zodiac-pane active")
-      ul#chart-mode.ver-tabs
-        li(class="european active") European
-        li(class="indian") Indian
+      li(class="chart european active") Western
+      li(class="chart indian") Indian
+      li(class="results disabled") Results
+    object#chart-pane(class="large-pane active")
       include ../svgs/charts/astro-chart.svg
 
-    div#results-pane(class="zodiac-pane")
+    div#results-pane(class="large-pane")
       div.inner
 
   script(src="/js/kutejs/kute.min.js")

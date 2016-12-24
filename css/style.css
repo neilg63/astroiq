@@ -10,7 +10,7 @@ body, input, textarea, select, option {
     font-family: genlight, Helvetica, Arial, sans-serif;
 }
 
-.zodiac-pane,
+.large-pane,
 #main {
     position: relative;
     margin: 0 auto;
@@ -90,7 +90,7 @@ body, input, textarea, select, option {
     padding: 0;
 }
 
-#main > .zodiac-pane {
+#main > .large-pane {
     transition: opacity 0.25s ease-in;
 }
 
@@ -100,19 +100,19 @@ body, input, textarea, select, option {
     z-index: 40;
 }
 
-.zodiac-pane {
+.large-pane {
     position: absolute;
     top: 8em;
     left: 20vw;
     right: 0;
 }
 
-object.zodiac-pane {
+object.large-pane {
   left: 20vw;
 }
 
 
-.zodiac-pane svg {
+.large-pane svg {
     position: relative;
     width: 60vw;
     max-width: 100%;
@@ -122,11 +122,11 @@ object.zodiac-pane {
     margin-left: 5vw;
 }
 
-.zodiac-pane svg .planet {
+.large-pane svg .planet {
     transition: transform 1s ease-in, opacity .5s ease-in;
 }
 
-.zodiac-pane svg .body {
+.large-pane svg .body {
     transition: transform 1s ease-in, opacity .5s ease-in;
 }
 
@@ -134,12 +134,8 @@ object.zodiac-pane {
     opacity: 0;
 }
 
-.zodiac-pane svg.planets-assigned .planet {
+.large-pane svg.planets-assigned .planet {
     opacity: 1;
-}
-
-#indian-zodiac-pane {
-    margin-top: 2vh;
 }
 
 .line-label,
@@ -277,6 +273,11 @@ line.solid {
     display: none;
 }
 
+.disabled {
+    opacity: 0.3333;
+    pointer-events: none;
+}
+
 .behind {
     opacity:0;
     pointer-events: none;
@@ -366,7 +367,7 @@ ul.hor-tabs li {
 }
 
 ul.ver-tabs li:hover,
-ul.hor-tabs li:hover {
+ul.hor-tabs li:not(.disabled):hover {
     transform: scale(1.125);
 }
 
