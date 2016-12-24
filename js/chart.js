@@ -110,6 +110,8 @@ function initMap() {
 
             degreeLines: [],
 
+            houseLabels: [],
+
             indian: null,
 
             central: null,
@@ -207,12 +209,10 @@ function initMap() {
                 segment.animate({
                     transform: matrix
                 },500,mina.easein);
-                /*matrix = new Snap.Matrix();
-                matrix.rotate(startDeg + (spanDeg/2),c,c);
-                matrix.translate(r/24,r/24);
-                this.houseSymbols[index].attr({
-                    transform: matrix
-                });*/
+                var pos = calcCircPos(startDeg,r*0.75,-10,10);
+                if (index < this.houseLabels.length) {
+                    this.houseLabels[index].attr(pos);
+                }
             },
             
             addSegments: function() {
@@ -230,9 +230,10 @@ function initMap() {
                     this.central.append(seg);
                     this.segments.push(seg);    
                     var pos = this.calcCircPos(hb[i],(r * 0.75),-10,10);
-                    this.snap.text(pos.x,pos.y,(i+1).toString()).attr({
+                    var segLbl = this.snap.text(pos.x,pos.y,(i+1).toString()).attr({
                         'class': 'house-label'
                     });
+                    this.houseLabels.push(segLbl);
                 }
             },
             
