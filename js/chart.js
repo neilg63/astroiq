@@ -197,6 +197,7 @@ function initMap() {
                 segment = this.segments[index],
                 matrix = new Snap.Matrix();
                 matrix.translate(r,0);
+                
                 if (startDeg) {
                     matrix.rotate(startDeg,0,r);
                 }
@@ -209,8 +210,8 @@ function initMap() {
                 segment.animate({
                     transform: matrix
                 },500,mina.easein);
-                var pos = this.calcCircPos(startDeg,r*0.75,-10,10);
                 if (index < this.houseLabels.length) {
+                    var pos = this.calcCircPos(startDeg,r*0.75,-10,10);
                     this.houseLabels[index].attr(pos);
                 }
             },
@@ -404,7 +405,7 @@ function initMap() {
                     this.degreeLines[i] = ln;
                     this.lines.append(ln);
                     if (i%30 == 0) {
-                        var pos = this.calcCircPos((360-i,(this.radius + (this.offset/2)),-5,5),
+                        var pos = this.calcCircPos((360-i),(this.radius + (this.offset/2)),-5,5),
                         lbl = this.snap.text(pos.x, pos.y, i.toString()).attr({
                             class: 'degree-label'
                         });
