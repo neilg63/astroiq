@@ -211,7 +211,7 @@ function initMap() {
                     transform: matrix
                 },500,mina.easein);
                 if (index < this.houseLabels.length) {
-                    var pos = this.calcCircPos(startDeg,r*0.75,-10,10);
+                    var pos = this.calcCircPos((startDeg+spanDeg),r*0.75,-10,10);
                     this.houseLabels[index].attr(pos);
                 }
             },
@@ -230,7 +230,7 @@ function initMap() {
                     seg = this.addSegment(spanDeg,startDeg,this.colors[i%this.colors.length],i);
                     this.central.append(seg);
                     this.segments.push(seg);    
-                    var pos = this.calcCircPos(startDeg,(r * 0.75),-10,10);
+                    var pos = this.calcCircPos((startDeg+spanDeg),(r * 0.75),-10,10);
                     var segLbl = this.snap.text(pos.x,pos.y,(i+1).toString()).attr({
                         'class': 'house-label'
                     });
