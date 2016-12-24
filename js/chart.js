@@ -146,7 +146,7 @@ function initMap() {
                 var y = Math.sin(deg/this.rd), x = Math.cos(deg/this.rd);
                 x *= r;
                 y *= r;
-                x = ((this.radius+this.offset)-y) + xo;
+                x = ((this.radius+this.offset)-x) + xo;
                 y = ((this.radius+this.offset)-y) + yo;
                 return {x:x,y:y};
             },
