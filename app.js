@@ -131,7 +131,11 @@ app.get('/geocode/:address', (req,res) => {
       var data = {};
       data.lat = doc.location.lat;
       data.lng = doc.location.lng;
-      data.address = doc.string.capitalize();
+      if (doc.address) {
+        data.address = doc.address;
+      } else {
+        data.address = doc.string.capitalize();
+      }
       data.type = doc.location_type;
       data.components = doc.address_components;
       matched = true;
