@@ -1,3 +1,6 @@
+const {mongoose} = require('./server/db/mongoose');
+const {Nested} = require('./server/models/nested');
+const exec = require('child_process').exec;
 var astro = {};
 
 function toItem(columns) {
@@ -185,9 +188,10 @@ function toDateInfo(columns,type) {
 				case (0+offset):
 					var parts = val.split('.');
 					
-					dt = parts.reverse().join('-')
+					dt = parts.reverse().join('-');
 					if (parts.length==3 && isNumeric(parts[2])) {
 						data.date = new Date(dt);
+            data.date.setUTCDate(parts[2]);
 					}
 					break;
 				case (1+offset):
@@ -646,11 +650,11 @@ astro.parseOutput = (stdout,debug) => {
   return data;
 }
 
-astro.matchHouse = (model,key,houseData) => {
+astro.matchHouse = (model,key) => {
 	if (model.bodies[key]) {
 		var v = model.bodies[key].lng,hs;
-		for (i in houseData) {
-			hs = houseData[i];
+		for (i in model.house_bounds) {
+			hs = model.house_bounds[i];
 			if (v >= hs.lng && v < hs.end) {
 				var frac = calcDegreeSpan(hs.lng,v) / hs.spn;
 				model.bodies[key].house = parseInt(hs.num) + frac;
@@ -666,6 +670,64 @@ var calcDegreeSpan = (startDeg,endDeg) => {
 	} else {
 		return Math.abs(endDeg - (360-startDeg));
 	}
+}
+
+astro.calcHouseBounds = (houses) => {
+  var arrHouses = Object.keys(houses).map((key) => houses[key]),
+    houseKeys = Object.keys(houses).map((key) => key),
+    maxHouseValue = Math.max.apply(null,arrHouses),
+    firstHouse = arrHouses[0],
+    secondHouse = arrHouses[1],
+    lastHouse = arrHouses[(arrHouses.length-1)];
+
+	var houseData = [],lng=0, lastLng=false,prevKey,firstKey,index=0;
+
+	for (bv in houses) {
+		lng = houses[bv];
+		if (lastLng !== false) {
+			houseData.push({
+				num: prevKey,
+				lng: lastLng,
+				spn: calcDegreeSpan(lastLng,lng),
+				end: lng
+			});
+		}
+    if (index === 0) {
+      firstHouse = lng;
+      firstKey = bv;
+    }
+    index++;
+		lastLng = lng;
+		prevKey = bv;
+	}
+
+	houseData.push({
+		num: prevKey,
+		lng: lastLng,
+		spn: calcDegreeSpan(lastLng,firstHouse),
+		end: firstHouse
+	});
+  return houseData;
+};
+
+astro.calcHouseData = (m) => {
+	//var b, hv, v, nxHv, hvStart, hvEnd,neg,diff, mh,diffDegs;
+	m.house_bounds = astro.calcHouseBounds(m.houses);
+	for (k in m.bodies) {
+		astro.matchHouse(m,k);
+	}
+	return m.house_bounds;
+};
+
+astro.mapHouses = (arrHouses) => {
+  var data={}, i=0,num = arrHouses.length, key;
+  if (arrHouses instanceof Array) {
+    for (;i<num;i++) {
+      key = (i+1) . toString();
+      data[key] = arrHouses[i];
+    } 
+  }
+  return data;
 }
 
 astro.fetchData = (stdout,debug) => {
@@ -748,42 +810,101 @@ astro.fetchData = (stdout,debug) => {
 		}
 	}
 	if (m.bodies) {
-		var b, hv, v, nxHv, hvStart, hvEnd,neg,diff, mh,diffDegs;
-		var arrHouses = Object.keys(m.houses).map((key) => m.houses[key])
-			houseKeys = Object.keys(m.houses).map((key) => key),
-			maxHouseValue = Math.max.apply(null,arrHouses),
-			firstHouse = arrHouses[0],
-			secondHouse = arrHouses[1],
-			lastHouse = arrHouses[(arrHouses.length-1)];
-		var houseData = [],lng=0, lastLng=false,prevKey;
-
-		for (bv in m.houses) {
-			lng = m.houses[bv];
-			if (lastLng !== false) {
-				houseData.push({
-					num: prevKey,
-					lng: lastLng,
-					spn: calcDegreeSpan(lastLng,lng),
-					end: lng
-				});
-			}
-			lastLng = lng;
-			prevKey = bv;
-		}
-		
-		houseData.push({
-			num: prevKey,
-			lng: lastLng,
-			spn: calcDegreeSpan(lastLng,firstHouse),
-			end: firstHouse
-		});
-		m.house_bounds = houseData;
-		for (k in m.bodies) {
-			astro.matchHouse(m,k,houseData);
-		}
+		astro.calcHouseData(m);
 	}
 	return m;
 }
+
+astro.saveData = (model) => {
+  var data = {};
+  if (typeof model == 'object') {
+    if (model.cmd && model.geo) {
+       
+       data.cmd = model.cmd;
+       data.date = {
+        date: model.date.date,
+        calendar: model.date.calendar,
+        zone: model.date.zone
+       };
+       data.geo = model.geo;
+       data.astro = model.astro;
+       data.bodies = model.bodies;
+       data.houseData = model.houseData;
+       if (model.ayanamsa) {
+           data.ayanamsa = model.ayanamsa;
+       } else {
+          data.ayanamsa = 0;
+       }
+       data.houses = Object.keys(model.houses).map((key) => model.houses[key]);
+       var nested = new Nested(data);
+        nested.save().then((doc) => {
+          //
+      }, (e) => {
+          console.log(e);
+      });
+    }
+  }
+  return data;
+}
+
+astro.fetch = (cmd, res, query, debug) => {
+  const cmdId = cmd.trim().replace(/^swetest\s+/i,'').replace(/\s+/g,'_');
+  Nested.findOne({
+    cmd: cmdId
+  }).then((doc) => {
+    var matched = false;
+    if (typeof doc == 'object') {
+      var data = {};
+      if (data.houses) {
+        data.date = doc.date;
+        data.geo = doc.geo;
+        data.astro = doc.astro;
+        data.houseData = doc.houseData;
+        data.houses = astro.mapHouses(data.houses);
+        data.house_bounds = astro.calcHouseBounds(data.houses);
+        data.bodies = doc.bodies;
+        data.ayanamsa = doc.ayanamsa;
+        data.stored = true;
+        matched = true;
+        res.send(data);
+      } 
+    }
+    if (!matched) {
+      astro.fetchFromCommand(cmd, cmdId, res, query, debug);
+    }
+  }).catch((e) => {
+    res.status(400).send();
+  });
+};
+
+astro.fetchFromCommand = (cmd, cmdId, res, query, debug) => {
+  var child = exec(cmd, (error, stdout, stderr) => {
+    
+    var data = astro.fetchData(stdout,debug);
+    if (debug) {
+      data.swetest.cmd = cmd;
+      data.swetest.raw = `<pre>${stdout}</pre>`;
+    }
+
+    if (error !== null) {
+      data = {"valid": false,"msg": "Server error"};
+    } else {
+      data.valid = true;
+    }
+    var ayCmd = astro.composeSwetestQueryAyanamsa(query);
+    if (ayCmd.length > 4) {
+
+      ayCmd = ayCmd.cleanCommand();
+      child = exec(ayCmd, (error, stdout, stderr) => {
+        var ayData =  astro.parseOutput(stdout,debug);
+        data.ayanamsa = ayData.ayanamsa;
+        data.cmd = cmdId;
+        var saved = astro.saveData(data);
+        res.send(data);
+      });
+    }
+  });
+};
 
 
 module.exports = astro;

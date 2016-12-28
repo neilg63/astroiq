@@ -1,4 +1,6 @@
 const request = require('request');
+const {mongoose} = require('./../server/db/mongoose');
+const {Geo} = require('./../server/models/geo');
 const googleApiKey = 'AIzaSyAOeXTgZTB_cJUyV9B2DOiZI_6LoVU2vs8';
 
 var geocode = {
@@ -26,7 +28,9 @@ var geocode = {
 		  			data = {
 		  				address: result.formatted_address,
 		  				lat: geo.location.lat,
-		  				lng: geo.location.lng
+		  				lng: geo.location.lng,
+		  				components: result.address_components[0],
+		  				type: geo.location_type
 		  			};
 				callback(undefined,data);
 		  	}
@@ -40,8 +44,32 @@ var geocode = {
 			geocode.handleResponse(error,body, callback);
 		});
 	}
+};
 
-
+geocode.fetchData = (searchString,res) => {
+	geocode.geocodeAddress(searchString, (errorMessage, result) => {
+		if (errorMessage){
+			res.status(404).send({valid:false,message:errorMessage});
+		} else {
+      var geo = new Geo({
+        string: searchString.toLowerCase(),
+        address: result.address,
+        location: {
+          lat: result.lat,
+          lng: result.lng
+        },
+        location_type: result.type,
+        address_components: result.components
+      });
+      geo.save().then((doc) => {
+          //
+      }, (e) => {
+          console.log(e);
+      })
+			result.valid = true;
+			res.send(result);
+		}
+	});
 };
 
 module.exports = geocode;
