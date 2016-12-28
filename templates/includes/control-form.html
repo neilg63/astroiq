@@ -1,45 +1,49 @@
 <form id="control-form" action="/sweph" method="post">
   <p>
-      <label for="form-dob">Date/time of birth:</label><input type="date" id="form-dob" name="dob" size="10" value="1961-06-28" title="Date of birth" /><input type="time" id="form-tob" name="tob" size="5" value="11:25" title="Time of birth"/>
+      <label>Date of birth:</label><input type="date" id="form-dob" name="dob" size="10" value="1961-06-28" />
+  </p>
+  <p>
+      <label>Time of birth:</label><input type="time" id="form-tob" name="tob" size="5" value="11:25"/>
   </p>
   <p>
       <label for="form-geobirth">Place of birth:</label><input type="text" id="form-geobirth" name="geobirth" size="48" value="" /><input type="submit" id="geobirth-finder" value="Find" />
       <div class="hidden" id="geo-address"></div>
   </p>
+
   <p>
       <label title="Geolocation as latitude/longitude/altitude">Location (lat/long/alt):</label><input type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="8" value="65.15" title="latitude" /><input type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="8" value="-13.6667" title="longitude" /><input type="number" id="form-alt" name="alt" size="5" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" />
   </p>
   <p>
-      <label for="form-hsy">House system:</label><select id="form-hsy" name="hsy">
-          <option value="W">Whole house equal</option>
-          <option value="E">Equal = A</option>
-          <option value="D">Equal / MC</option>
-          <option value="S">Sripati (Jyotish)</option>
-          <option value="O">Porphyry</option>
-          <option value="K">Koch</option>
-          <option value="B">Alcabitius</option>
-          <option value="C">Campanus</option>
-          <option value="M">Morinus</option>
-          <option value="P">Placidus</option>
-          <option value="H">Horizon / azimuth</option>
-          <option value="R">Regiomontanus</option>
-          <option value="T">Topocentric</option>
-          <option value="A">Equal</option>
-          <option value="X">Meridian houses</option>
-          <option value="G">36 Gauquelin sectors</option>
+    <label for="form-hsy">House system:</label><select id="form-hsy" name="hsy">
+        <option value="W">Equal (Rāśi-Bhāva)</option>
+        <option value="E">Equal (from ASC)</option>
+        <option value="D">Equal (from MC)</option>
+        <option value="S">Śrīpati Bhāva</option>
+        <option value="O">Porphyry</option>
+        <option value="P">Placidus</option>
+        <option value="K">Koch</option>
+        <option value="B">Alcabitius</option>
+        <option value="C">Campanus</option>
+        <option value="M">Morinus</option>
+        <option value="R">Regiomontanus</option>
+        <option value="T">Topocentric</option>
+        <option value="A">Equal</option>
+        <option value="X">Meridian houses</option>
+        <option value="G">36 Gauquelin sectors</option>
+        <option value="H">Horizon / azimuth</option>
       </select>
   </p>
   <p>
       <label for="form-ayanamsa">Ayanamsa</label>
       <select id="form-ayanamsa" name="ayanamsa">
-          <option value="-">Tropical</option>
+          <option value="-">Tropical / Sāyana</option>
           <option value="1">Lahiri</option>
           <option value="3">Raman</option>
           <option value="4">Ushashashi</option>
           <option value="5">Krishnamurti</option>
-          <option value="6">Djwhal Khul</option>
           <option value="7">Yukteshwar</option>
           <option value="8">J.N. Bhasin</option>
+          <option value="6">Djwhal Khul</option>
           <option value="0">Fagan/Bradley</option>
           <option value="2">De Luce</option>
           <option value="15">Hipparchos</option>
@@ -55,10 +59,10 @@
           <option value="30">Galactic (Gil Brand)</option>
           <option value="34">Skydram (Mardyks)</option>
           <option value="35">True Mula (Chandra Hari)</option>
-          <option value="36">Dhruva/Gal.Center/Mula (Wilhelm)</option> 
+          <option value="36">Dhruva/Mula (Wilhelm)</option>
       </select>
   </p>
-  <p class="radios" id="form-mode">   
+  <p class="radios" id="form-mode">
        <input type="radio" value="topo" name="mode" id="form-mode-topo" class="mode" checked="true" />
       <label for="form-mode-topo">Topocentric</label>
       <input type="radio" value="geo" name="mode" id="form-mode-geo" class="mode"/>
