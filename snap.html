@@ -57,6 +57,12 @@
     fill: white;
 }
 
+#snap-pane polygon {
+    cursor: pointer;
+    fill: yellow;
+    pointer-events: auto;
+}
+
 </style>
 
 
@@ -121,6 +127,7 @@ var astroDisc;
                     'data-end': ed,
                     'data-span': data.span,  
                 });
+                
                 this.segments[index] = {
                     triangle: triangle,
                     circle: bigCircle
@@ -263,7 +270,7 @@ var astroDisc;
                     }
                 }
                 this.housesToSegments();
-                this.drawDiscs();
+                //this.drawDiscs();
                 this.bodies.sun = this.placeBody('sun',0.1,0.-.1);
                 this.bodies.moon = this.placeBody('moon',0.6,0.-.6);
                 this.bodies.mercury = this.placeBody('mercury',0.25,0.25);
@@ -282,6 +289,37 @@ var astroDisc;
                     class:"large-label white"
                 })
                 }
+
+                var hex = this.snap.polygon({
+                    points: [60,60,60,300,240,300,300,240,270,130,170,20]
+                });
+
+                hex.drag(function(ms){
+                    var cm = this.transform().localMatrix.split();
+                    var m = new Snap.Matrix(), r = 0;
+                    if (cm.rotate) {
+                        r = cm.rotate;
+                    }
+                    r + 0.5;
+                    m.rotate(r);
+                    this.transform(m);
+                    },function(){
+                        console.log(this)
+                    },function(){
+
+                });
+
+                setTimeout(function(){
+                    var cm = hex.transform().localMatrix.split();
+                    var m = new Snap.Matrix(), r = 0;
+                    if (cm.rotate) {
+                        r = cm.rotate;
+                    }
+                    r + 6.5;
+                    m.rotate(r);
+                    hex.transform(m);
+                },2000)
+
             }
         }
 
@@ -304,6 +342,5 @@ var astroDisc;
 })(jQuery);
 
 </script>
-<script data-source="internal" type="text/javascript" src="/js/chart.js"></script>
 </body>
 </html>
