@@ -799,6 +799,7 @@ function initMap() {
                 it.addClass('active');
             }
             if (it.hasClass('map')) {
+                GeoMap.zoom = GeoMap.map.getZoom();
                 GeoMap.showSatellite();
                 if (GeoMap.zoom < 15) {
                     if (GeoMap.zoom < 10) {
