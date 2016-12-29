@@ -43,33 +43,34 @@ var geocode = {
 		request(geocode.buildRequest(address), (error, response, body) => {
 			geocode.handleResponse(error,body, callback);
 		});
-	}
-};
+	},
 
-geocode.fetchData = (searchString,res) => {
-	geocode.geocodeAddress(searchString, (errorMessage, result) => {
+	fetchData: (searchString,res) => {
+		geocode.geocodeAddress(searchString, (errorMessage, result) => {
 		if (errorMessage){
 			res.status(404).send({valid:false,message:errorMessage});
 		} else {
       var geo = new Geo({
         string: searchString.toLowerCase(),
         address: result.address,
-        location: {
-          lat: result.lat,
-          lng: result.lng
-        },
-        location_type: result.type,
-        address_components: result.components
-      });
-      geo.save().then((doc) => {
-          //
-      }, (e) => {
-          console.log(e);
-      })
-			result.valid = true;
-			res.send(result);
-		}
-	});
+          location: {
+            lat: result.lat,
+            lng: result.lng
+          },
+          location_type: result.type,
+          address_components: result.components
+        });
+        geo.save().then((doc) => {
+            //
+        }, (e) => {
+            console.log(e);
+        })
+  			result.valid = true;
+  			res.send(result);
+  		}
+  	});
+  }
 };
+
 
 module.exports = geocode;
