@@ -123,12 +123,13 @@ app.get('/geocode/:address', (req,res) => {
     string: searchString.toLowerCase()
   }).then((doc) => {
     var matched = false;
+
     if (doc !== null) {
       var data = {};
       data.lat = doc.location.lat;
       data.lng = doc.location.lng;
       if (doc.address) {
-        data.address = doc.server.address();
+        data.address = doc.address;
       } else {
         data.address = doc.string.capitalize();
       }

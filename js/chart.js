@@ -4,13 +4,15 @@ var GeoMap = {
 
     marker: null,
 
+    zoom: 9,
+
     buildMap: function(lat, lng) {
         var loc = {lat: lat, lng: lng}, hasMap = this.map === null;
         this.map = new google.maps.Map(document.getElementById('gmap'), {
-          zoom: 13,
-          center: loc,
-          mapOptions: [{mapTypeId: google.maps.MapTypeId.SATELLITE}]
+          zoom: 6,
+          center: loc
         });
+
         this.marker = new google.maps.Marker({
           position: loc,
           draggable: true,
@@ -18,6 +20,7 @@ var GeoMap = {
           map: this.map
         });
         this.addDragendEvent(this.marker);
+        
     },
 
     addDragendEvent: function(marker) {
@@ -35,10 +38,30 @@ var GeoMap = {
            lng: lng 
         };
         this.map.setCenter(pos);
+        this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+        GeoMap.zoom = 15;
+        this.map.setZoom(GeoMap.zoom)
+
+        setTimeout(function(){
+            if (GeoMap.zoom < 16) {
+                GeoMap.zoom = 16;
+                GeoMap.map.setZoom(GeoMap.zoom);
+            }
+        }, 500);
+        setTimeout(function(){
+            if (GeoMap.zoom < 17) {
+                GeoMap.zoom = 17;
+                GeoMap.map.setZoom(GeoMap.zoom);
+            }
+        }, 1000);
         if (updateMarker) {
             this.marker.setPosition(pos);
             this.addDragendEvent(this.marker);
         }
+    },
+
+    showSatellite: function() {
+        this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
     },
 
     matchLocation: function(position) {
@@ -644,6 +667,11 @@ function initMap() {
 
         var geofinder = $('#geobirth-finder');
         if (geofinder.length>0) {
+            var adEl = $('#form-geobirth');
+            adEl.on('click',function() {
+                $('#main .hor-tabs li.map').trigger('click');
+                GeoMap.showSatellite();
+            });
             geofinder.on('click', function(e){
                 e.preventDefault();
                 var adEl = $('#form-geobirth');
@@ -651,6 +679,7 @@ function initMap() {
                 if (adEl.length>0) {
                     var adStr = adEl.val();
                     var href = '/geocode/' + adStr;
+
                     $.ajax({
                         url: href,
                         success: function(data) {
