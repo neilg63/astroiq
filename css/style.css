@@ -58,6 +58,53 @@ body, input, textarea, select, option {
     border-bottom: solid 0.25em #F87431;
 }
 
+#control-panel fieldset {
+    border: none;
+    padding: 1em 0;
+    margin: 0;
+}
+
+#control-panel fieldset .toggle {
+    cursor: pointer;
+    color: #999999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2em;
+    height: 1em;
+}
+
+#control-panel fieldset.closed .toggle:before {
+    content: "+";
+}
+
+#control-panel fieldset.open .toggle:before {
+    content: "-";
+}
+
+#control-panel fieldset.closed {
+    max-height: 2em;
+}
+
+#control-panel fieldset.closed p {
+    opacity: 0;
+}
+
+#control-panel fieldset {
+    transition: max-height .5s ease-in;
+}
+
+#control-panel fieldset.open {
+    max-height: 100em;
+    overflow: visible;
+    
+}
+
+#control-panel fieldset.open p {
+    opacity: 1;
+}
+
+
 #tween-symbol-container .symbol {
     fill: none;
     stroke: #990000;
@@ -251,14 +298,18 @@ line.solid {
     font-size: 0.9em;
 }
 
-#contol-panel p label.form-gender-female,
+#control-panel p label.sub-label {
+    width: auto;
+}
+
+/*#contol-panel p label.form-gender-female,
 #contol-panel p label.form-gender-unknown {
     width: 64px;
 }
 
 #contol-panel p label.form-gender-male {
     width: 47px;
-}
+}*/
 
 #contol-panel p label.degree,
 #contol-panel p label.minute,

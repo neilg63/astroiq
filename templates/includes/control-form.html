@@ -22,14 +22,14 @@
       <label for="form-name">Name:</label><!--Change according to type: Name, event, question, election -->
       <input type="text" id="form-name" name="name" size="10" value="Andri" />
   </p>
-  <p>
-      <label for="form-gender">Gender:</label><!--Hide if not birth type -->
+  <p class="genders">
+      <label for="form-gender">Gender:</label>
       <input type="radio" id="form-gender-female" name="gender" class="gender female"  />
       <label for="form-gender-female">Female</label>
       <input type="radio" id="form-gender-male" name="gender" class="gender male"  />
-      <label for="form-gender-male">Male</label>
+      <label for="form-gender-male" class="sub-label">Male</label>
       <input type="radio" id="form-gender-unknown" name="gender" class="gender unknown"  />
-      <label for="form-gender-unknown">Unknown</label>
+      <label for="form-gender-unknown" class="sub-label">Unknown</label>
   </p>
   <p>
       <label for="form-dob">Date of birth:</label><!-- change 'birth' according to type -->
@@ -45,7 +45,8 @@
       <input type="submit" id="geobirth-finder" value="Find" />
       <div class="hidden" id="geo-address"></div>
   </p>
-  <p>
+  <fieldset class="collapsible closed">
+    <div class="toggle">+</div>
     <p>
       <label for="form-timezone">Time Zone:</label>
       <input type="time" id="form-timezone" name="timezone" size="5" value="00:00"/>
@@ -57,8 +58,9 @@
       <label for="form-daylightsavings">Daylight Savings:</label>
       <input type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00"/>
     </p>
-  </p>
-  <p>
+  </fieldset>
+  <fieldset class="collapsible closed">
+    <div class="toggle">+</div>
       <!--label title="Geolocation as latitude/longitude/altitude">Location (lat/long/alt):</label-->
      <p>
       <label for="form-lat" title="latitude">Latitude: </label>
@@ -83,6 +85,8 @@
       <input type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" />
       <label for="form-alt" title="altitude"> meters</label>
     </p>
+    </fieldset>
+    <fieldset class="collapsible collapsed">
     <p>
       <label for="form-rodden" title="Rodden Birth Time Accuracy Scale">Rodden Scale: </label>
       <select id="form-rodden" name="rodden">
@@ -101,13 +105,15 @@
         <option value="XX2">XX - Undetermioned</option>
       </select>
     </p>
-  </p>
+  </fieldset>
   <div id="form-actions"><input type="submit" value="Calculate & Save" id="form-submit" /></div>
   <hr />
   <h3>Open Chart</h3>
   <hr >
   <h3>Settings / Preferences</h3>
   <hr class="grey" />
+  <fieldset class="collapsible closed">
+    <div class="toggle">+</div>
   <p>
     <label for="form-hsy">House system:</label>
       <select id="form-hsy" name="hsy">
@@ -168,5 +174,5 @@
       <label for="form-mode-geo">Geocentric</label>
   </p>
   <hr />
-
+  </fieldset>
 </form>
