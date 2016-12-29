@@ -357,13 +357,13 @@ nav.horizontal ul {
 ul.hor-tabs li,
 nav.horizontal li {
     display: inline-block;
-    margin: 0 2em;
+    margin: 0 1.5em;
     font-weight: bold;
 }
 
 ul.hor-tabs li {
     padding: 0 1em;
-    font-size: 2em;
+    font-size: 1.5em;
     cursor: pointer;
 }
 

@@ -198,7 +198,7 @@ var astroDisc;
                     endHouse = 360 - endHouse;
                 }
                 this.houses.push(endHouse);
-                console.log(this.houses)
+                
                 var index=0,start, end;
                 for (d in this.houses) {
                     if (start == null) {
@@ -252,7 +252,7 @@ var astroDisc;
                 mx *= pos;
                 if (astroDisc.bodies[bodyName]) {
                     var body = astroDisc.bodies[bodyName];
-                    console.log(lng,k,mx,my,pos,lat);
+                    
                     astroDisc.positionBody(body,mx,my);
                 }
             },
@@ -290,24 +290,40 @@ var astroDisc;
                 })
                 }
 
-                var hex = this.snap.polygon({
+                var s=this.snap, hex = this.snap.polygon({
                     points: [60,60,60,300,240,300,300,240,270,130,170,20]
                 });
 
-                hex.drag(function(ms){
-                    var cm = this.transform().localMatrix.split();
-                    var m = new Snap.Matrix(), r = 0;
-                    if (cm.rotate) {
-                        r = cm.rotate;
-                    }
-                    r + 0.5;
-                    m.rotate(r);
-                    this.transform(m);
-                    },function(){
-                        console.log(this)
-                    },function(){
+                var g = s.group().attr({class:'draggable'});
+                var bigSquare = s.rect(100,20,150,150).attr({fill:"#ff6600"}); 
+                g.append(bigSquare);
+                var startx, starty; 
 
-                });
+                var t = bigSquare.transform().localMatrix;
+                    t.rotate(45);
+                bigSquare.transform(t);
+                var degrees=0;
+                var moveFunc = function (dx, dy, posx, posy) {
+                   var xadj = startx - (0 - dx);
+                   var yadj = starty - (0 - dy);
+                   this.attr('x',xadj);
+                   this.attr('y',yadj);
+                   var m = new Snap.Matrix();
+                   if (!degrees) {
+                    degrees = 0;
+                   }
+                   degrees += 0.1;
+                   m.rotate(degrees,posx,posy);
+                   this.transform(m)
+                };
+
+                var startFunc = function(){
+                    startx = this.attr('x');
+                    starty = this.attr('y');
+                };
+                var stopFunc = function(){};
+
+                bigSquare.drag( moveFunc,startFunc,stopFunc );
 
                 setTimeout(function(){
                     var cm = hex.transform().localMatrix.split();
@@ -315,9 +331,11 @@ var astroDisc;
                     if (cm.rotate) {
                         r = cm.rotate;
                     }
-                    r + 6.5;
+                    r += 13.5;
                     m.rotate(r);
-                    hex.transform(m);
+                    hex.animate({
+                        transform: m
+                    },1000,mina.easein);
                 },2000)
 
             }
