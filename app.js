@@ -12,10 +12,6 @@ const exec = require('child_process').exec;
 var child;
 
 
-String.prototype.cleanCommand = function() {
-	return this.split("|").shift().split(">").shift().split('&').shift().split("<").shift();
-}
-
 app.get('/sweph', function(req, res){ 
   var cmd = astro.composeSwetestQuery(req.query);
   var debug = false;
@@ -132,7 +128,7 @@ app.get('/geocode/:address', (req,res) => {
       data.lat = doc.location.lat;
       data.lng = doc.location.lng;
       if (doc.address) {
-        data.address = doc.address;
+        data.address = doc.server.address();
       } else {
         data.address = doc.string.capitalize();
       }

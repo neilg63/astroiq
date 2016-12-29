@@ -18,6 +18,16 @@ body, input, textarea, select, option {
     width: 75vw;
 }
 
+.large-pane {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#main .large-pane.active {
+    opacity: 1;
+    transition: opacity .5s ease-in;
+}
+
 #main {
     padding: 4em 0 0 25vw;
     z-index: 1;
@@ -41,6 +51,11 @@ body, input, textarea, select, option {
     position: relative;
     max-width: 6vw;
     margin-top: 1em;
+}
+
+#control-panel hr {
+    border:none;
+    border-bottom: solid 0.25em #F87431;
 }
 
 #tween-symbol-container .symbol {
@@ -220,9 +235,9 @@ line.solid {
 
 #gmap {
     padding-top: 1.5em;
-    width: 25vw;
-    height: 18vw;
-    min-width: 25em;
+    margin-left: 10vw;
+    width: 60vw;
+    height: 60vh;
 }
 
 #control-panel p {

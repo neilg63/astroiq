@@ -7,8 +7,9 @@ var GeoMap = {
     buildMap: function(lat, lng) {
         var loc = {lat: lat, lng: lng}, hasMap = this.map === null;
         this.map = new google.maps.Map(document.getElementById('gmap'), {
-          zoom: 9,
-          center: loc
+          zoom: 13,
+          center: loc,
+          mapOptions: [{mapTypeId: google.maps.MapTypeId.SATELLITE}]
         });
         this.marker = new google.maps.Marker({
           position: loc,
@@ -668,6 +669,7 @@ function initMap() {
                                     } else {
                                         GeoMap.buildMap(data.lat, data.lng);
                                     }
+                                    $('#main .hor-tabs li.map').trigger('click');
                                 }
                                 msg = data.address;
                             } else if (data.message) {
