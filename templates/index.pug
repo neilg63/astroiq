@@ -11,8 +11,6 @@ body
   aside#control-panel
     include includes/control-form.html
 
-    div#gmap
-
     footer#mini-anim
       object#tween-symbol-container
         include ../svgs/charts/tween-symbols.svg
@@ -20,11 +18,15 @@ body
     ul.hor-tabs
       li(class="chart european active") Western
       li(class="chart indian") Indian
+      li(class="map") Map
       li(class="results disabled") Results
     object#chart-pane(class="large-pane active")
       include ../svgs/charts/astro-chart.svg
 
-    div#results-pane(class="large-pane")
+    div#map-pane.large-pane
+      div#gmap
+
+    div#results-pane.large-pane
       div.inner
 
   script(src="/js/kutejs/kute.min.js")

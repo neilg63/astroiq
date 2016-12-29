@@ -255,6 +255,14 @@ String.prototype.titleCase = function(smart) {
 }
 
 /*
+Clean strings that will be translated to Unix commands to avoid
+writing to files, appending or piping other commands
+*/
+String.prototype.cleanCommand = function() {
+	return this.split("|").shift().split(">").shift().split('&').shift().split("<").shift();
+}
+
+/*
 Simply Word object
 */
 var Word = function(str) {
