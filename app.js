@@ -1,5 +1,8 @@
 const sys = require('util');
 const express = require("express");
+const {mongoose} = require('./server/db/mongoose');
+const {Nested} = require('./server/models/nested');
+const {Geo} = require('./server/models/geo');
 const pug = require('pug');
 const app = express();
 const geocode = require('./geocode/geocode.js');
@@ -14,40 +17,17 @@ String.prototype.cleanCommand = function() {
 }
 
 app.get('/sweph', function(req, res){ 
-
-     var cmd = astro.composeSwetestQuery(req.query);
-     if (cmd.length > 4) {
-	  	  cmd = cmd.cleanCommand();
-	  	  if (cmd.length > 4) {
-		     child = exec(cmd, function (error, stdout, stderr) {
-			  var debug = false;
-			  if (req.query.debug) {
-			  	if (req.query.debug == 1) {
-			  		debug = true;
-			  	}
-			  }
-			  var data = astro.fetchData(stdout,debug);
-			  if (debug) {
-			  	data.swetest.cmd = cmd;
-			  	data.swetest.raw = `<pre>${stdout}</pre>`;
-			  }
-
-			  if (error !== null) {
-			    data = {"valid": false,"msg": "Server error"};
-			  } else {
-			  	data.valid = true;
-			  }
-			  var ayCmd = astro.composeSwetestQueryAyanamsa(req.query);
-			  if (ayCmd.length > 4) {
-			  	  ayCmd = ayCmd.cleanCommand();
-				  child = exec(ayCmd, function (error, stdout, stderr) {
-				  	var ayData =  astro.parseOutput(stdout,debug);
-				  	data.ayanamsa = ayData.ayanamsa;
-				  	res.send(data);
-				  });
-			  }
-			  
-			});
+  var cmd = astro.composeSwetestQuery(req.query);
+  var debug = false;
+  if (req.query.debug) {
+    if (req.query.debug == 1) {
+      debug = true;
+    }
+  }
+  if (cmd.length > 4) {
+	  cmd = cmd.cleanCommand();
+	  if (cmd.length > 4) {
+      astro.fetch(cmd,res,req.query, debug);
 		}
 	}
 });
@@ -142,14 +122,33 @@ app.get('/command', function(req, res) {
 });
 
 app.get('/geocode/:address', (req,res) => {
-	geocode.geocodeAddress(req.params.address, (errorMessage, result) => {
-		if (errorMessage){
-			res.status(404).send({valid:false,message:errorMessage});
-		} else {
-			result.valid = true;
-			res.send(result);
-		}
-	});
+  var searchString = req.params.address.despace();
+  Geo.findOne({
+    string: searchString.toLowerCase()
+  }).then((doc) => {
+    var matched = false;
+    if (doc !== null) {
+      var data = {};
+      data.lat = doc.location.lat;
+      data.lng = doc.location.lng;
+      if (doc.address) {
+        data.address = doc.address;
+      } else {
+        data.address = doc.string.capitalize();
+      }
+      data.type = doc.location_type;
+      data.components = doc.address_components;
+      matched = true;
+      data.valid = true;
+      res.send(data);
+    }
+    if (!matched) {
+      geocode.fetchData(searchString, res);
+    }
+  }).catch((e) => {
+    res.send(e);
+  });
+	
 });
 
 var port = process.env.PORT || 9862;
