@@ -800,6 +800,16 @@ function initMap() {
             }
         });
 
+        $('#control-panel fieldset .toggle').on('click',function(e){
+            var par = $(this).parent();
+            e.stopImmediatePropagation();
+            if (par.hasClass('closed')) {
+                par.removeClass('closed').addClass('open');
+            } else {
+                par.removeClass('open').addClass('closed');
+            }
+        });
+
         setTimeout(function(){
             var gMapApi = $('#gmap-api-key');
             if (gMapApi.length>0) {
