@@ -1,18 +1,89 @@
 <form id="control-form" action="/sweph" method="post">
-  <p>
-      <label>Date of birth:</label><input type="date" id="form-dob" name="dob" size="10" value="1961-06-28" />
+  <h3>New Chart</h3>
+  <p class="radios" id="form-type">
+    <label for="form-type">Type of Chart:</label>
+      <input type="radio" value="birth" name="type" id="form-type-birth" class="type" checked="true" />
+      <label for="form-type-birth">Birth</label>
+      <input type="radio" value="event" name="type" id="form-type-event" class="type"/>
+      <label for="form-type-event">Event</label>
+      <input type="radio" value="question" name="type" id="form-type-question" class="type"/>
+      <label for="form-type-question">Question</label>
+      <input type="radio" value="electional" name="type" id="form-type-electional" class="type"/>
+      <label for="form-type-electional">Electional</label>
   </p>
   <p>
-      <label>Time of birth:</label><input type="time" id="form-tob" name="tob" size="5" value="11:25"/>
+      <label for="form-name">Name:</label><!--Change according to type: Name, event, question, election -->
+      <input type="text" id="form-name" name="name" size="10" value="Andri" />
   </p>
   <p>
-      <label for="form-geobirth">Place of birth:</label><input type="text" id="form-geobirth" name="geobirth" size="48" value="" /><input type="submit" id="geobirth-finder" value="Find" />
+      <label for="form-gender">Gender:</label><!--Hide if not birth type -->
+      <input type="radio" id="form-gender-female" name="gender" class="gender female"  />
+      <label for="form-gender-female">Female</label>
+      <input type="radio" id="form-gender-male" name="gender" class="gender male"  />
+      <label for="form-gender-male">Male</label>
+      <input type="radio" id="form-gender-unknown" name="gender" class="gender unknown"  />
+      <label for="form-gender-unknown">Unknown</label>
+  </p>
+  <p>
+      <label for="form-dob">Date of birth:</label><!-- change 'birth' according to type -->
+      <input type="date" id="form-dob" name="dob" size="10" value="1961-06-28" />
+  </p>
+  <p>
+      <label for="form-tob">Time of birth:</label><!-- change 'birth' according to type -->
+      <input type="time" id="form-tob" name="tob" size="5" value="11:25"/>
+  </p>
+  <p>
+      <label for="form-geobirth">Place of birth:</label><!-- change 'birth' according to type -->
+      <input type="text" id="form-geobirth" name="geobirth" size="48" value="" />
+      <input type="submit" id="geobirth-finder" value="Find" />
       <div class="hidden" id="geo-address"></div>
   </p>
-
+  <p> ----- Place Google map here ------- </p>
   <p>
-      <label title="Geolocation as latitude/longitude/altitude">Location (lat/long/alt):</label><input type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="8" value="65.15" title="latitude" /><input type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="8" value="-13.6667" title="longitude" /><input type="number" id="form-alt" name="alt" size="5" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" />
+    <p>
+      <label for="form-timezone">Time Zone:</label>
+      <input type="time" id="form-timezone" name="timezone" size="5" value="00:00"/>
+      <label for="form-tz-east">East</label><input type="radio" value="event" name="tz-east" id="form-tz-east" class="type"/>
+      <label for="form-tz-west">West</label><input type="radio" value="event" name="tz-west" id="form-tz-west" class="type"/>
+      <label for="form-timezone"> of Greenwich</label>
+    </p>
+    <p>
+      <label for="form-daylightsavings">Daylight Savings:</label>
+      <input type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00"/>
+    </p>
   </p>
+  <p>
+      <!--label title="Geolocation as latitude/longitude/altitude">Location (lat/long/alt):</label-->
+     <p>
+      <label for="form-lat" title="latitude">Latitude: </label>
+      <input type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" />
+      <label for="form-lat" title="latitude">° </label>
+      <input type="text" pattern="[0-9.-]+" id="form-lat-min" name="lat-min" size="1" value="" title="latitude-minute" />
+      <label for="form-lat" title="latitude">' </label>
+      <input type="text" pattern="[0-9.-]+" id="form-lat-sec" name="lat-sec" size="1" value="" title="latitude-second" />
+      <label for="form-lat" title="latitude">" </label>
+    </p>
+    <p>
+      <label for="form-lng" title="longitude">Longitude: </label>
+      <input type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" />
+      <label for="form-lng" title="longitude">° </label>
+      <input type="text" pattern="[0-9.-]+" id="form-lng-min" name="lat-min" size="1" value="" title="longitude-minute" />
+      <label for="form-lng" title="longitude">' </label>
+      <input type="text" pattern="[0-9.-]+" id="form-lng-sec" name="lat-sec" size="1" value="" title="longitude-second" />
+      <label for="form-lng" title="longitude">" </label>
+    </p>
+    <p>
+      <label for="form-alt" title="altitude">Altitude: </label>
+      <input type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" />
+      <label for="form-alt" title="altitude"> meters</label>
+    </p>
+  </p>
+  <div id="form-actions"><input type="submit" value="Calculate & Save" id="form-submit" /></div>
+  <hr style="background:#F87431; border:0; height:7px" />
+  <h3>Open Chart</h3>
+  <hr style="background:#F87431; border:0; height:7px" />
+  <h3>Settings / Preferences</h3>
+  <hr style="background:#ccc; border:0; height:4px" />
   <p>
     <label for="form-hsy">House system:</label><select id="form-hsy" name="hsy">
         <option value="W">Equal (Rāśi-Bhāva)</option>
@@ -33,6 +104,7 @@
         <option value="H">Horizon / azimuth</option>
       </select>
   </p>
+  <hr style="background:#ccc; border:0; height:4px" />
   <p>
       <label for="form-ayanamsa">Ayanamsa</label>
       <select id="form-ayanamsa" name="ayanamsa">
@@ -62,12 +134,14 @@
           <option value="36">Dhruva/Mula (Wilhelm)</option>
       </select>
   </p>
+  <hr style="background:#ccc; border:0; height:4px" />
   <p class="radios" id="form-mode">
-       <input type="radio" value="topo" name="mode" id="form-mode-topo" class="mode" checked="true" />
+      <label for="form-mode">Topo/Geo:</label>
+      <input type="radio" value="topo" name="mode" id="form-mode-topo" class="mode" checked="true" />
       <label for="form-mode-topo">Topocentric</label>
       <input type="radio" value="geo" name="mode" id="form-mode-geo" class="mode"/>
       <label for="form-mode-geo">Geocentric</label>
   </p>
+  <hr style="background:#ccc; border:0; height:4px" />
 
-  <div id="form-actions"><input type="submit" value="Go" id="form-submit" /></div>
 </form>
