@@ -798,6 +798,21 @@ function initMap() {
                 it.parent().find('li.active').removeClass('active');
                 it.addClass('active');
             }
+            if (it.hasClass('map')) {
+                if (GeoMap.zoom < 15) {
+                    if (GeoMap.zoom < 10) {
+                        GeoMap.zoom = 10;
+                    }
+                    GeoMap.zoom += 1;
+                    GeoMap.map.setZoom(GeoMap.zoom);
+                }
+                setTimeout(function(){
+                    if (GeoMap.zoom < 16) {
+                        GeoMap.zoom += 1;
+                        GeoMap.map.setZoom(GeoMap.zoom);
+                    }
+                }, 500);
+            }
         });
 
         $('#control-panel fieldset .toggle').on('click',function(e){
