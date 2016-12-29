@@ -38,7 +38,7 @@ var GeoMap = {
            lng: lng 
         };
         this.map.setCenter(pos);
-        this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+        this.showSatellite();
         GeoMap.zoom = 15;
         this.map.setZoom(GeoMap.zoom)
 
@@ -799,6 +799,7 @@ function initMap() {
                 it.addClass('active');
             }
             if (it.hasClass('map')) {
+                GeoMap.showSatellite();
                 if (GeoMap.zoom < 15) {
                     if (GeoMap.zoom < 10) {
                         GeoMap.zoom = 10;
