@@ -89,7 +89,7 @@ body, input, textarea, select, option {
 }
 
 #control-panel fieldset.closed {
-    max-height: 2em;
+    max-height: 0;
 }
 
 #control-panel fieldset.closed p {
