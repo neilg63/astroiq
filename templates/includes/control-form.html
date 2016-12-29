@@ -2,14 +2,21 @@
   <h3>New Chart</h3>
   <p class="radios" id="form-type">
     <label for="form-type">Type of Chart:</label>
-      <input type="radio" value="birth" name="type" id="form-type-birth" class="type" checked="true" />
+      <!-- <fieldset> -->
+      <select id="form-chart-type" name="chart-type">
+        <option value="type-birth">Birth</option>
+        <option value="type-event">Event</option>
+        <option value="type-question">Question</option>
+        <option value="type-electional">Electional</option>
+      </select>
+      <!-- <input type="radio" value="birth" name="type" id="form-type-birth" class="type" checked="true" />
       <label for="form-type-birth">Birth</label>
       <input type="radio" value="event" name="type" id="form-type-event" class="type"/>
       <label for="form-type-event">Event</label>
       <input type="radio" value="question" name="type" id="form-type-question" class="type"/>
       <label for="form-type-question">Question</label>
       <input type="radio" value="electional" name="type" id="form-type-electional" class="type"/>
-      <label for="form-type-electional">Electional</label>
+      <label for="form-type-electional">Electional</label> -->
   </p>
   <p>
       <label for="form-name">Name:</label><!--Change according to type: Name, event, question, election -->
@@ -56,25 +63,43 @@
      <p>
       <label for="form-lat" title="latitude">Latitude: </label>
       <input type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" />
-      <label for="form-lat" title="latitude">° </label>
+      <label for="form-lat" class="degree" title="latitude">° </label>
       <!-- <input type="text" pattern="[0-9.-]+" id="form-lat-min" name="lat-min" size="1" value="" title="latitude-minute" />
-      <label for="form-lat" title="latitude">' </label>
+      <label for="form-lat" class="minute" title="latitude">' </label>
       <input type="text" pattern="[0-9.-]+" id="form-lat-sec" name="lat-sec" size="1" value="" title="latitude-second" />
-      <label for="form-lat" title="latitude">" </label> -->
+      <label for="form-lat" class="second" title="latitude">" </label> -->
     </p>
     <p>
       <label for="form-lng" title="longitude">Longitude: </label>
       <input type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" />
-      <label for="form-lng" title="longitude">° </label>
+      <label for="form-lng" class="degree" title="longitude">° </label>
       <!-- <input type="text" pattern="[0-9.-]+" id="form-lng-min" name="lat-min" size="1" value="" title="longitude-minute" />
-      <label for="form-lng" title="longitude">' </label>
+      <label for="form-lng" class="minute" title="longitude">' </label>
       <input type="text" pattern="[0-9.-]+" id="form-lng-sec" name="lat-sec" size="1" value="" title="longitude-second" />
-      <label for="form-lng" title="longitude">" </label> -->
+      <label for="form-lng" class="second" title="longitude">" </label> -->
     </p>
     <p>
       <label for="form-alt" title="altitude">Altitude: </label>
       <input type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" />
       <label for="form-alt" title="altitude"> meters</label>
+    </p>
+    <p>
+      <label for="form-rodden" title="Rodden Birth Time Accuracy Scale">Rodden Scale: </label>
+      <select id="form-rodden" name="rodden">
+        <option value="AA1">AA - Birth Certificate/Record in hand</option>
+        <option value="AA2">AA - Quoted Birth Certificate/Record</option>
+        <option value="A1">A - From memory</option>
+        <option value="A2">A - News report</option>
+        <option value="B">B - Bio/autobiography</option>
+        <option value="C1">C - Accuracy in question</option>
+        <option value="C2">C - Original source not known</option>
+        <option value="C3">C - Rectified from approximate time</option>
+        <option value="DD">DD - Confliction/unverified</option>
+        <option value="X1">X - Date without time of birth</option>
+        <option value="X2">X - Rectified without time of birth</option>
+        <option value="XX1">XX - Date in question</option>
+        <option value="XX2">XX - Undetermioned</option>
+      </select>
     </p>
   </p>
   <div id="form-actions"><input type="submit" value="Calculate & Save" id="form-submit" /></div>
@@ -84,7 +109,8 @@
   <h3>Settings / Preferences</h3>
   <hr class="grey" />
   <p>
-    <label for="form-hsy">House system:</label><select id="form-hsy" name="hsy">
+    <label for="form-hsy">House system:</label>
+      <select id="form-hsy" name="hsy">
         <option value="W">Equal (Rāśi-Bhāva)</option>
         <option value="E">Equal (from ASC)</option>
         <option value="D">Equal (from MC)</option>

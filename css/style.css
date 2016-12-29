@@ -251,6 +251,22 @@ line.solid {
     font-size: 0.9em;
 }
 
+#contol-panel p label.form-gender-female,
+#contol-panel p label.form-gender-unknown {
+    width: 64px;
+}
+
+#contol-panel p label.form-gender-male {
+    width: 47px;
+}
+
+#contol-panel p label.degree,
+#contol-panel p label.minute,
+#contol-panel p label.second {
+    width: 0.5em;
+    margin-left: -0.25em;
+}
+
 #control-panel p.radios label {
     width: auto;
     margin-right: 1.5em;
@@ -265,8 +281,8 @@ line.solid {
 }
 
 #control-panel #form-submit {
-    font-size: 1.25em;
-    transform: scaleX(1.25);
+    font-size: 1em;
+    margin-right: 1.5em;
 }
 
 #form-dob {
@@ -274,7 +290,7 @@ line.solid {
 }
 
 #control-panel select {
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 #geo-address {
@@ -408,7 +424,7 @@ ul.hor-tabs li:not(.disabled):hover {
 
 #astro-disc text {
     fill: #777777;
-    font-size: 1.5em;   
+    font-size: 1.5em;
 }
 
 #astro-disc text.house-label {
