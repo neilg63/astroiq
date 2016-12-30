@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Week Selection</title>
+
+    <!-- Mobiscroll JS and CSS Includes -->
+    <link rel="stylesheet" href="https://trial.mobiscroll.com/42979bdc/mobiscroll.javascript.min.css">
+    <script src="https://trial.mobiscroll.com/42979bdc/mobiscroll.javascript.min.js"></script>
+
+    <style type="text/css">
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 0.8em 2.6em;
+            margin: 20px 10px 0 0;
+            outline: 0;
+            border: 0;
+            overflow: visible;
+            cursor: pointer;
+            color: #fff;
+            background: #5185a8;
+            font-family: Arial, sans-serif, verdana;
+            font-size: 14px;
+            font-weight: 100;
+            -webkit-transition: background 0.3s ease-out;
+            -moz-transition: background 0.3s ease-out;
+            -o-transition: background 0.3s ease-out;
+            transition: background 0.3s ease-out;
+        }
+        
+        button:hover {
+            background: #34566d;
+        }
+
+        input {
+            width: 100%;
+            margin: 0 0 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 0;
+            background: #fff;
+            font-family: Arial, sans-serif,verdana;
+            text-shadow: none;
+            color: #000;
+            font-size: 15px;
+            -webkit-appearance: none;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .demo-main-cont {
+            height: 100%;
+        }
+
+    </style>
+
+</head>
+<body class="demo-main-cont demo-comp-calendar demo-display-bottom demo-theme-mobiscroll">
+
+    <input id="demo" placeholder="Please Select..." />
+
+    <button id="clear">Clear</button>
+    <button id="show">Show</button>
+
+    <script type="text/javascript">
+    var instance,
+        now = new Date(),
+        year = now.getFullYear(),
+        month = now.getMonth(),
+        date = now.getDate(),
+        day = now.getDay(),
+        diff = day === 0 ? day : day - 1,
+        currWeekDays = [],
+        i = 0;
+    
+    for (i; i < 7; i++) {
+        currWeekDays.push(new Date(year, month, date - diff + i));
+    }
+
+    instance = mobiscroll.calendar('#demo', {
+        theme: 'mobiscroll',         // Specify theme like: theme: 'ios' or omit setting to use default
+        lang: 'en',                  // Specify language like: lang: 'pl' or omit setting to use default
+        display: 'bottom',           // Specify display mode like: display: 'bottom' or omit setting to use default
+        headerText: false,           // More info about headerText: https://docs.mobiscroll.com/3-0-0/javascript/calendar#!opt-headerText
+        selectType: 'week',          // More info about selectType: https://docs.mobiscroll.com/3-0-0/javascript/calendar#!opt-selectType
+        firstSelectDay: 1,           // More info about firstSelectDay: https://docs.mobiscroll.com/3-0-0/javascript/calendar#!opt-firstSelectDay
+        defaultValue: currWeekDays,  // More info about defaultValue: https://docs.mobiscroll.com/3-0-0/javascript/calendar#!opt-defaultValue
+        firstDay: 1                  // More info about firstDay: https://docs.mobiscroll.com/3-0-0/javascript/calendar#!localization-firstDay
+    });
+
+    document
+        .getElementById('show')
+        .addEventListener('click', function () {
+            instance.show();
+        }, false);
+    
+    document
+        .getElementById('clear')
+        .addEventListener('click', function () {
+            instance.clear();
+        }, false);
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+﻿Copy CSS folder from downloaded package. Go to https://download.mobiscroll.com to download.
