@@ -847,6 +847,18 @@ astro.saveData = (model) => {
   return data;
 }
 
+astro.results = (res,page) => {
+  Nested.find().then((data) => {
+    res.send({
+      num: data.length,
+      page: page,
+      items: data
+    });
+  }).catch((e) => {
+    res.status(400).send();
+  });
+};
+
 astro.fetch = (cmd, res, query, debug) => {
   const cmdId = cmd.trim().replace(/^swetest\s+/i,'').replace(/\s+/g,'_');
   Nested.findOne({

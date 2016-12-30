@@ -28,6 +28,11 @@ app.get('/sweph', function(req, res){
 	}
 });
 
+app.get('/results/:page', function(req, res){ 
+  var page = req.params.page.toInt();
+  astro.results(res,page);
+});
+
 app.get('/swetest-backend',function(req,res) {
 	if (req.query.cmd) {
 		var cmd = req.query.cmd,
