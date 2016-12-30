@@ -32,6 +32,27 @@ var GeoMap = {
         });
     },
 
+    zoomIn: function(target) {
+        if (GeoMap.zoom < target) {
+            if (GeoMap.map) {
+                GeoMap.zoom = target;
+                GeoMap.map.setZoom(GeoMap.zoom);
+            }
+        }
+        /*var bounds = GeoMap.map.getBounds();
+        var ne = bounds.getNorthEast(), sw = bounds.getSouthWest();
+        var diffLat = (ne.lat() - sw.lat()),diffLng = (ne.lng() - sw.lng());
+        var bLat1 = ne.lat()+ (diffLat * (1/4)),bLng1 = ne.lng()+ (diffLng * (1/4));
+        var bLat2 = ne.lat()+ (diffLat * (3/4)),bLng2 = ne.lng()+ (diffLng * (3/4));
+        var nb = new google.maps.LatLngBounds(
+            new google.maps.LatLng(bLat2, bLng2),
+            new google.maps.LatLng(bLat1, bLng1)
+        );
+        console.log(ne.lat(), ne.lng(),sw.lat(), sw.lng());
+        console.log(diffLat,bLat1, bLng1,bLat2, bLng2);
+        this.map.panToBounds(nb);*/
+    },
+
     updateMap: function(lat,lng,updateMarker) {
         var pos = {
            lat: lat,
@@ -39,21 +60,20 @@ var GeoMap = {
         };
         this.map.setCenter(pos);
         this.showSatellite();
-        GeoMap.zoom = 15;
+        GeoMap.zoom = 14;
         this.map.setZoom(GeoMap.zoom)
-
-        setTimeout(function(){
-            if (GeoMap.zoom < 16) {
-                GeoMap.zoom = 16;
-                GeoMap.map.setZoom(GeoMap.zoom);
-            }
-        }, 500);
-        setTimeout(function(){
-            if (GeoMap.zoom < 17) {
-                GeoMap.zoom = 17;
-                GeoMap.map.setZoom(GeoMap.zoom);
-            }
-        }, 1000);
+        setTimeout(function() {
+            GeoMap.zoomIn(15);
+        }, 750);
+        setTimeout(function() {
+            GeoMap.zoomIn(16);
+        }, 1250);
+        setTimeout(function() {
+            GeoMap.zoomIn(17);
+        }, 1750);
+        setTimeout(function() {
+            GeoMap.zoomIn(18);
+        }, 2250);
         if (updateMarker) {
             this.marker.setPosition(pos);
             this.addDragendEvent(this.marker);
@@ -121,9 +141,9 @@ function initMap() {
 
             bounds: [0,30,60,90,120,150,180,210,240,270,300,330,360],
 
-            radius: 720,
+            radius: 600,
 
-            offset: 30,
+            offset: 150,
 
             colors: ['#882222','#228822','#222288','#777711','#117777','#996633','#669933','#339966','#aa1122','#11aa22','#2211aa','#55aa55'],
 
@@ -132,6 +152,8 @@ function initMap() {
             bodies: [],
 
             degreeLines: [],
+
+            houseLines: [],
 
             houseLabels: [],
 
@@ -219,20 +241,25 @@ function initMap() {
                 var r = this.radius, c = r + this.offset,
                 segment = this.segments[index],
                 matrix = new Snap.Matrix();
-                matrix.translate(r,0);
+                //matrix.translate(r,0);
                 
                 if (startDeg) {
-                    matrix.rotate(startDeg,0,r);
+                    matrix.rotate(startDeg,c,c);
                 }
                 if (this.orientation == 'counter') {
                     startDeg = 360-startDeg-spanDeg;
                 }
-                segment.attr({
+                /*segment.attr({
                     d: this.calcSegmentD(spanDeg,startDeg)
-                });
-                segment.animate({
+                });*/
+                /*segment.animate({
                     transform: matrix
-                },500,mina.easein);
+                },500,mina.easein);*/
+                if (index < this.houseLines.length) {
+                    this.houseLines[index].animate({
+                        transform: matrix
+                    },500,mina.easin);
+                }
                 if (index < this.houseLabels.length) {
                     var pos = this.calcCircPos((startDeg+spanDeg),r*0.75,-10,10);
                     this.houseLabels[index].attr(pos);
@@ -240,7 +267,7 @@ function initMap() {
             },
             
             addSegments: function() {
-                var hb = this.bounds, r = this.radius,
+                var hb = this.bounds, r = this.radius, c = r+this.offset,
                     i=0, seg, spanDeg, startDeg;
                 this.segments = [],
                 numHouses = hb.length -1;
@@ -257,6 +284,14 @@ function initMap() {
                     var segLbl = this.snap.text(pos.x,pos.y,(i+1).toString()).attr({
                         'class': 'house-label'
                     });
+                    var m = new Snap.Matrix();
+                    m.rotate(startDeg,c,c);
+                    var ln = this.snap.line(c, 0, c, 750).attr({
+                        class: "house-line",
+                        id: 'house-line-' + (i+1),
+                        transform: m
+                    });
+                    this.houseLines.push(ln);
                     this.houseLabels.push(segLbl);
                 }
             },
@@ -395,7 +430,6 @@ function initMap() {
             },
 
             init: function() {
-                this.radius = 720;
                 var r = this.radius, c = r + this.offset;
                 this.snap = new Snap('#astro-disc');
                 this.central = this.snap.select('#segments');
@@ -403,23 +437,23 @@ function initMap() {
                 this.degreeOverlay = this.snap.select('#degree-overlay');
                 this.rd = 180/Math.PI;
                 
-                this.outer = this.inner = this.snap.select('circle.outer');
+                this.outer = this.snap.select('circle.outer');
                 this.addSegments();
-                var i=0, ofs = this.offset, c = r+ofs,clNames, ln, lbl, len, lc, st;
+                var i=0, ofs = this.offset, c = r+ofs,dn=r*2, clNames, ln, lbl, len, lc, st;
                 for (;i<180;i++) {
                     clNames='degree-line';
                     if (i%10 == 0) {
-                        len = (r*2)+(ofs*2);
+                        len = dn+(ofs*1.25);
                         clNames += ' ten-degrees';
-                        st = 0;
+                        st = ofs*.75;
                     } else if (i%5 == 0) {
-                        len = (r*2)+(ofs*1.75);
+                        len = dn+ (ofs * 1.128);
                         clNames += ' five-degrees';
-                        st = ofs * 0.125;
+                        st = ofs * .872;
                     } else {
-                        len = (r*2) + (ofs*1.5);
+                        len = dn + (ofs*1.12);
                         clNames += ' one-degree';
-                        st = ofs * 0.25;
+                        st = ofs * .88;
                     }
                     ln = this.snap.line(c, st, c, len).attr({
                         class: clNames,
@@ -805,15 +839,13 @@ function initMap() {
                     if (GeoMap.zoom < 10) {
                         GeoMap.zoom = 10;
                     }
-                    GeoMap.zoom += 1;
-                    GeoMap.map.setZoom(GeoMap.zoom);
+                    setTimeout(function() {
+                        GeoMap.zoomIn(15);
+                    }, 500);
                 }
                 setTimeout(function(){
-                    if (GeoMap.zoom < 16) {
-                        GeoMap.zoom += 1;
-                        GeoMap.map.setZoom(GeoMap.zoom);
-                    }
-                }, 500);
+                    GeoMap.zoomIn(16);
+                }, 1000);
             }
         });
 

@@ -84,16 +84,28 @@ body, input, textarea, select, option {
     content: "+";
 }
 
+#control-panel fieldset h3 {
+    color: #999999;
+    position: absolute;
+    top: 0;
+    left: 2em;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+}
+
 #control-panel fieldset.open .toggle:before {
     content: "-";
 }
 
 #control-panel fieldset.closed {
     max-height: 0;
+    overflow: hidden;
 }
 
 #control-panel fieldset.closed p {
     opacity: 0;
+    pointer-events: none;
 }
 
 #control-panel fieldset {
@@ -101,6 +113,7 @@ body, input, textarea, select, option {
 }
 
 #control-panel fieldset.open {
+    padding: 1.5em 0 1em 0;
     max-height: 100em;
     overflow: visible;
     
@@ -108,6 +121,11 @@ body, input, textarea, select, option {
 
 #control-panel fieldset.open p {
     opacity: 1;
+    pointer-events: auto;
+}
+
+#control-panel .form-actions {
+    clear: both;
 }
 
 
@@ -182,11 +200,9 @@ object.large-pane {
 
 .large-pane svg {
     position: relative;
-    width: 60vw;
+    width: 50vw;
     max-width: 100%;
-    height: 60vw;
-    max-height: 60vw;
-    max-height: 80vh;
+    height: 50vw;
     margin-left: 5vw;
 }
 
@@ -248,7 +264,7 @@ line.solid {
 }
 
 .jupiter path {
-    fill: #996600;
+    fill: #996000;
 }
 
 .mercury path {
@@ -467,12 +483,18 @@ ul.hor-tabs li:not(.disabled):hover {
     fill: rgba(255,0,0,0.5);
 }
 
+#astro-disc .house-line,
 #astro-disc image.house-symbol,
 #astro-disc image.body,
 #astro-disc #degree-overlay,
 #astro-disc #degree-overlay .degree-label,
 #astro-disc #degree-lines {
     transform-origin: 750px 750px;
+}
+
+#astro-disc .house-line {
+    stroke: black;
+    stroke-width: 1px;
 }
 
 #astro-disc {
@@ -518,10 +540,29 @@ ul.hor-tabs li:not(.disabled):hover {
     color: black;
 }
 
-#astro-disc #segments,
-#astro-disc #top-circles {
-    transform: translate(30px) rotate(-90deg);
-    transform-origin: 735px 735px;
+#astro-disc {
+    border: dashed 1px #999999;
+}
+
+#astro-disc #segments {
+    transform: translate(150px,150px) rotate(-90deg);
+    transform-origin: 600px 600px;
+}
+
+#top-circles {
+    transform: translate(0px,0px);
+}
+
+/*#degree-lines {
+    transform: translate(0,60px);
+}*/
+
+#degree-lines .ten-degrees {
+
+}
+
+#top-circles circle {
+    transform-origin: 600px 600px;
 }
 
 #indian-chart {

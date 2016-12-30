@@ -1,8 +1,9 @@
 <form id="control-form" action="/sweph" method="post">
   <h3>New Chart</h3>
+  <fieldset class="open">
   <p class="radios" id="form-type">
     <label for="form-type">Type of Chart:</label>
-      <!-- <fieldset> -->
+      
       <select id="form-chart-type" name="chart-type">
         <option value="type-birth">Birth</option>
         <option value="type-event">Event</option>
@@ -45,7 +46,9 @@
       <input type="submit" id="geobirth-finder" value="Find" />
       <div class="hidden" id="geo-address"></div>
   </p>
+  </fieldset>
   <fieldset class="collapsible closed">
+    <h3>Date &amp; time settings</h3>
     <div class="toggle"></div>
     <p>
       <label for="form-timezone">Time Zone:</label>
@@ -60,6 +63,7 @@
     </p>
   </fieldset>
   <fieldset class="collapsible closed">
+    <h3>Geolocation</h3>
     <div class="toggle"></div>
       <!--label title="Geolocation as latitude/longitude/altitude">Location (lat/long/alt):</label-->
      <p>
@@ -87,6 +91,7 @@
     </p>
     </fieldset>
     <fieldset class="collapsible closed">
+    <h3>Certificates</h3>
       <div class="toggle"></div>
     <p>
       <label for="form-rodden" title="Rodden Birth Time Accuracy Scale">Rodden Scale: </label>
@@ -107,13 +112,9 @@
       </select>
     </p>
   </fieldset>
-  <div id="form-actions"><input type="submit" value="Calculate & Save" id="form-submit" /></div>
-  <hr />
-  <h3>Open Chart</h3>
-  <hr >
-  <h3>Settings / Preferences</h3>
-  
+
   <fieldset class="collapsible closed">
+  <h3>House system</h3>
     <div class="toggle"></div>
   <p>
     <label for="form-hsy">House system:</label>
@@ -175,4 +176,12 @@
       <label for="form-mode-geo">Geocentric</label>
   </p>
   </fieldset>
+  <div class="form-actions">
+    <input type="submit" value="Calculate & Save" id="form-submit" /></div>
+  <div class="preferences">
+    <hr />
+  <h3>Open Chart</h3>
+  <hr >
+  <h3>Settings / Preferences</h3>
+  </div>
 </form>
