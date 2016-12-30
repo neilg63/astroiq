@@ -70,31 +70,33 @@ body, input, textarea, select, option {
     padding: 0;
 }
 
+
+
 #control-panel fieldset .toggle {
-    cursor: pointer;
-    color: #999999;
     position: absolute;
     top: 0;
+    cursor: pointer;
+    color: #999999;
+}
+
+#control-panel fieldset .toggle-icon {
     left: 0;
-    width: 2em;
+    width: 1em;
     height: 1em;
 }
 
-#control-panel fieldset.closed .toggle:before {
+#control-panel fieldset.closed .toggle-icon:before {
     content: "+";
 }
 
-#control-panel fieldset h3 {
-    color: #999999;
-    position: absolute;
-    top: 0;
-    left: 2em;
+#control-panel fieldset h3.toggle {
+    left: 1.5em;
     margin: 0;
     padding: 0;
     font-size: 1em;
 }
 
-#control-panel fieldset.open .toggle:before {
+#control-panel fieldset.open .toggle-icon:before {
     content: "-";
 }
 
