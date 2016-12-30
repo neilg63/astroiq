@@ -128,6 +128,7 @@ body, input, textarea, select, option {
 
 #control-panel .form-actions {
     clear: both;
+    margin: 1em 0;
 }
 
 

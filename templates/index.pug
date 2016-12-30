@@ -12,9 +12,6 @@ body
   aside#control-panel
     include includes/control-form.html
 
-    footer#mini-anim
-      object#tween-symbol-container
-        include ../svgs/charts/tween-symbols.svg
   div#main
     ul.hor-tabs
       li(class="chart european active") Western
@@ -31,9 +28,7 @@ body
       div.inner
 
   script(src="/js/kutejs/kute.min.js")
-  
-  script(src="/js/kutejs/kute-attr.min.js")
-  
+  script(src="/js/kutejs/kute-attr.min.js") 
   script(src="/js/kutejs/kute-svg.min.js")
   
   script(data-source="internal" type="text/javascript" src="/js/chart.js")

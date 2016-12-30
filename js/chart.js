@@ -663,7 +663,7 @@ function initMap() {
             });
         }
 
-        var kuteMorph = function() {
+        /*var kuteMorph = function() {
             var morph1 = KUTE.allFromTo('#symbol-path',
             { path: '#path-a', fill: "#990000" },{ path: '#path-b', fill: "#009900" }, {
                 duration: 2000,
@@ -697,7 +697,7 @@ function initMap() {
                 morph3.start();
                 morph4.start();
             });
-        }
+        }*/
 
         var geofinder = $('#geobirth-finder');
         if (geofinder.length>0) {
@@ -802,7 +802,6 @@ function initMap() {
                         }
                     }
                 });
-
             }
 
         });
@@ -870,6 +869,6 @@ function initMap() {
             }
         },250);
 
-        kuteMorph();
+        //kuteMorph();
     });
 })(jQuery);
