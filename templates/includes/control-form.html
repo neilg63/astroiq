@@ -108,7 +108,7 @@
   <h3 class="toggle">Calculation Settings</h3>
     <fieldset class="collapsible closed">
     <h4 class="toggle">Default House System</h4>
-	  <p>
+	  <p class="sub-section">
 		<label for="form-hsy">House system:</label>
 		  <select id="form-hsy" name="hsy">
 			<option value="W">Equal (Rāśi-Bhāva)</option>
@@ -133,7 +133,7 @@
   </fieldset>
   <fieldset class="collapsible closed">
   <h4 class="toggle">Tropical vs. Sidereal (Ayanamśa)</h4>
-  <p>
+  <p class="sub-section">
       <label for="form-ayanamsa">Ayanamśa</label>
       <select id="form-ayanamsa" name="ayanamsa">
           <option value="-">Tropical / Sāyana</option>
@@ -165,7 +165,7 @@
   </fieldset>
   <fieldset class="collapsible closed">
   <h4 class="toggle">Celestial Calculations</h4>
-	  <p class="radios" id="form-mode">
+	  <p class="sub-section radios" id="form-mode">
 		  <label for="form-mode">Topo/Geo:</label>
 		  <input type="radio" value="topo" name="mode" id="form-mode-topo" class="mode" checked="true" />
 		  <label for="form-mode-topo">Topocentric</label>
@@ -174,47 +174,52 @@
 	  </p>
   </fieldset>
   <fieldset class="collapsible closed">
-  <h4 class="toggle">Solar Year & Lunar Month Definitions</h4>
+  <h4 class="toggle">Solar Year & Lunar Month</h4>
     <fieldset class="collapsible open">
+    <p class="sub-section">
 	  <h5 class="toggle">Astronomical Solar Year</h5>
-  	  <p>
-          <input type="radio" value="365.242199" name="solar-t" id="form-solar-t" class="solar" checked="true" />
-          <label for="form-solar-t">Tropical Year</label>
-          <input type="radio" value="365.256366" name="solar-t" id="form-solar-s" class="solar" />
-          <label for="form-solar-s">Sidereal Year</label>
-          <input type="radio" value="365.259636" name="solar-t" id="form-solar-a" class="solar" />
-          <label for="form-solar-a">Anomalistic Year</label>
-          <p>A <em>Tropical</em> year (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.</p>
-          <p>A <em>Sidereal</em> year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.</p>
-          <p>An <em>Anomalistic</em> year (365.259636) is a measure of earth's passage from one perihelion to another.</p>
+  	  <p class="sub-sub-section">
+          <p><input type="radio" value="365.242199" name="solar-t" id="form-solar-t" class="solar" checked="true" />
+          <label for="form-solar-t">Tropical Year</label></p>
+          <p><input type="radio" value="365.256366" name="solar-t" id="form-solar-s" class="solar" />
+          <label for="form-solar-s">Sidereal Year</label></p>
+          <p><input type="radio" value="365.259636" name="solar-t" id="form-solar-a" class="solar" />
+          <label for="form-solar-a">Anomalistic Year</label></p>
+          <p class="text">A <em>Tropical</em> year (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.</p>
+          <p class="text">A <em>Sidereal</em> year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.</p>
+          <p class="text">An <em>Anomalistic</em> year (365.259636) is a measure of earth's passage from one perihelion to another.</p>
   	  </p>
       </fieldset>
       <fieldset class="collapsible closed">
 	       <h5 class="toggle">Time Period (Daśa) Year Definition</h5>
-        <input type="radio" value="" name="year-astron" id="form-year-astron" class="solar-dasha" checked="true" />
-        <label for="form-year-astron">Astronomical Solar Year (select above)</label>
-        <input type="radio" value="" name="year-calendar" id="form-year-calendar" class="solar-dasha" />
-        <label for="form-year-calendar">Year = 365 (Calendar Year)</label>
-        <input type="radio" value="" name="year-360" id="form-year-360" class="solar-dasha" />
-        <label for="form-year-360">Year = 360 (Origin unknown)</label>
-        <input type="radio" value="" name="year-solilunar" id="form-year-solilunar" class="solar-dasha" />
-        <label for="form-year-solilunar">Synodic SoliLunar year = 354.36708</label>
+         <p class="sub-sub-section">
+          <p><input type="radio" value="" name="year-astron" id="form-year-astron" class="solar-dasha" checked="true" />
+          <label for="form-year-astron">Astronomical Year (select above)</label></p>
+          <p><input type="radio" value="365" name="year-calendar" id="form-year-calendar" class="solar-dasha" />
+          <label for="form-year-calendar">365 Calendar Year</label></p>
+          <p><input type="radio" value="360" name="year-360" id="form-year-360" class="solar-dasha" />
+          <label for="form-year-360">360 Day Year</label></p>
+          <p><input type="radio" value="354.36708" name="year-solilunar" id="form-year-solilunar" class="solar-dasha" />
+          <label for="form-year-solilunar">Synodic SoliLunar Year</label></p>
+        </p>
       </fieldset>
       <fieldset class="collapsible closed">
-	    <h5 class="toggle">Astronomical Lunar Month</h5>
-        <input type="radio" value="27.321582" name="lunar-t" id="form-lunar-t" class="lunar" />
-        <label for="form-solar-t">Tropical month: 27.321582</label>
-        <input type="radio" value="27.321662" name="lunar-s" id="form-lunar-s" class="lunar" />
-        <label for="form-solar-s">Sidereal month: 27.321662</label>
-        <input type="radio" value="27.321582" name="lunar-a" id="form-lunar-a" class="lunar" />
-        <label for="form-solar-a">Anomalistic month: 27.321582</label>
-        <input type="radio" value="29.5305888531" name="lunar-syn" id="form-lunar-syn" class="lunar" checked="true"/>
-        <label for="form-solar-syn">Synodic month: 29.5305888531</label>
-        <p>A <em>Tropical</em> month (27.321582) is a measure of the Moon's passage from one mean vernal equinox to the next.</p>
-        <p>A <em>Sidereal</em> month (27.321662) is a measure of Moon's complete orbit around the Earth relative to fixed stars.</p>
-        <p>An <em>Anomalistic</em> month (27.321582) is a measure of Moon's passage from one perihelion to another.</p>
-        <p>A <em>Synodic</em> month (29.530588) is a measure of Moon's passage from one New Moon to another.</p>
+	       <h5 class="toggle">Astronomical Lunar Month</h5>
+         <p class="sub-sub-section">
+          <p><input type="radio" value="27.321582" name="lunar-t" id="form-lunar-t" class="lunar" />
+          <label for="form-solar-t">Tropical month</label></p>
+          <p><input type="radio" value="27.321662" name="lunar-s" id="form-lunar-s" class="lunar" />
+          <label for="form-solar-s">Sidereal month</label></p>
+          <p><input type="radio" value="27.321582" name="lunar-a" id="form-lunar-a" class="lunar" />
+          <label for="form-solar-a">Anomalistic month</label></p>
+          <p><input type="radio" value="29.5305888531" name="lunar-syn" id="form-lunar-syn" class="lunar" checked="true"/>
+          <label for="form-solar-syn">Synodic month</label></p>
+          <p class="text">A <em>Tropical</em> month (27.321582) is a measure of the Moon's passage from one mean vernal equinox to the next.</p>
+          <p class="text">A <em>Sidereal</em> month (27.321662) is a measure of Moon's complete orbit around the Earth relative to fixed stars.</p>
+          <p class="text">An <em>Anomalistic</em> month (27.321582) is a measure of Moon's passage from one perihelion to another.</p>
+          <p class="text">A <em>Synodic</em> month (29.530588) is a measure of Moon's passage from one New Moon to another.</p>
+        </p><!-- sub-sub-section -->
       </fieldset>
-    </p>
+    </p><!-- sub-section -->
   </fieldset>
 </form>
