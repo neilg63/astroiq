@@ -72,42 +72,62 @@ body, input, textarea, select, option {
 
 
 
-#control-panel fieldset .toggle {
+#control-panel fieldset > .toggle {
     position: absolute;
     top: 0;
     cursor: pointer;
     color: #999999;
 }
 
-#control-panel fieldset .toggle-icon {
+#control-panel fieldset > .toggle-icon {
     left: 0;
     width: 1em;
     height: 1em;
 }
 
-#control-panel fieldset.closed .toggle-icon:before {
+#control-panel fieldset.closed > .toggle-icon:before {
     content: "+";
 }
 
+#control-panel fieldset h5.toggle,
+#control-panel fieldset h4.toggle,
 #control-panel fieldset h3.toggle {
     left: 1.5em;
     margin: 0;
     padding: 0;
+}
+
+#control-panel fieldset h3.toggle {
     font-size: 1em;
 }
 
-#control-panel fieldset.open .toggle-icon:before {
+#control-panel fieldset h4.toggle {
+    font-size: .9em;
+}
+
+#control-panel fieldset {
+  margin: 1em 0;
+}
+
+#control-panel fieldset.open > .toggle-icon:before {
     content: "-";
 }
 
+#control-panel fieldset.open fieldset.closed,
 #control-panel fieldset.closed {
     max-height: 0;
     overflow: hidden;
 }
 
-#control-panel fieldset.closed p {
+#control-panel fieldset.open fieldset.open fieldset.closed > p,
+#control-panel fieldset.open fieldset.closed > p,
+#control-panel fieldset.closed > p {
     opacity: 0;
     pointer-events: none;
+}
+
+#control-panel fieldset.closed fieldset.closed {
+    display: none;
 }
 
 #control-panel fieldset {
@@ -118,7 +138,6 @@ body, input, textarea, select, option {
     padding: 1.5em 0 1em 0;
     max-height: 100em;
     overflow: visible;
-    
 }
 
 #control-panel fieldset.open p {
