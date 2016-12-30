@@ -540,10 +540,6 @@ ul.hor-tabs li:not(.disabled):hover {
     color: black;
 }
 
-#astro-disc {
-    border: dashed 1px #999999;
-}
-
 #astro-disc #segments {
     transform: translate(150px,150px) rotate(-90deg);
     transform-origin: 600px 600px;
