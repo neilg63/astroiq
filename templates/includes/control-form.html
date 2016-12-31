@@ -3,7 +3,7 @@
   <h3 class="toggle">New Chart</h3>
   <p class="radios" id="form-type">
     <label for="form-type">Type of Chart:</label>
-      <select id="form-chart-type" name="chart-type">
+      <select id="form-chart-type" class="select-input" name="chart-type">
         <option value="type-birth">Birth</option>
         <option value="type-event">Event</option>
         <option value="type-question">Question</option>
@@ -27,9 +27,9 @@
       <span class="symbol-radio icon-female-sign">
       <input type="radio" id="form-gender-female" name="gender" class="gender female"  />
       <label for="form-gender-female" class="sub">Female</label>
-      
+
       </span>
-      <span class="symbol-radio   icon-male-sign">
+      <span class="symbol-radio icon-male-sign">
       <input type="radio" id="form-gender-male" name="gender" class="gender male"  />
       <label for="form-gender-male" class="sub">Male</label>
       </span>
@@ -87,18 +87,18 @@
     </p>
     <p class="rodden">
       <label for="form-rodden" title="Rodden Birth Time Accuracy Scale">Rodden Scale: </label>
-      <select id="form-rodden" name="rodden">
-        <option value="AA1">AA - Birth Certificate/Record in hand</option>
-        <option value="AA2">AA - Quoted Birth Certificate/Record</option>
+      <select id="form-rodden" class="select-input" name="rodden">
+        <option value="AA1">AA - Birth Certificate in hand</option>
+        <option value="AA2">AA - Quoted Birth Record</option>
         <option value="A1">A - From memory</option>
         <option value="A2">A - News report</option>
         <option value="B">B - Bio/autobiography</option>
         <option value="C1">C - Accuracy in question</option>
-        <option value="C2">C - Original source not known</option>
-        <option value="C3">C - Rectified from approximate time</option>
+        <option value="C2">C - Source not known</option>
+        <option value="C3">C - Rectified from approx. time</option>
         <option value="DD">DD - Confliction/unverified</option>
         <option value="X1">X - Date without time of birth</option>
-        <option value="X2">X - Rectified without time of birth</option>
+        <option value="X2">X - Rectified w/o time of birth</option>
         <option value="XX1">XX - Date in question</option>
         <option value="XX2">XX - Undetermioned</option>
       </select>
@@ -115,7 +115,7 @@
     <h4 class="toggle">Default House System</h4>
 	  <p class="sub-section">
 		<label for="form-hsy">House system:</label>
-		  <select id="form-hsy" name="hsy">
+		  <select id="form-hsy" class="select-input" name="hsy">
 			<option value="W">Equal (Rāśi-Bhāva)</option>
 			<option value="E">Equal (from ASC)</option>
 			<option value="D">Equal (from MC)</option>
@@ -140,7 +140,7 @@
   <h4 class="toggle">Tropical vs. Sidereal (Ayanāṃśa)</h4>
   <p class="sub-section">
       <label for="form-ayanamsa">Ayanāṃśa</label>
-      <select id="form-ayanamsa" name="ayanamsa">
+      <select id="form-ayanamsa" class="select-input" name="ayanamsa">
           <option value="-">Tropical / Sāyana</option>
           <option value="1">Lāhiḍī (Lahiri)</option>
           <option value="3">Rāman</option>
@@ -190,9 +190,9 @@
           <label for="form-solar-s">Sidereal Year</label></p>
           <p><input type="radio" value="365.259636" name="solar-t" id="form-solar-a" class="solar" />
           <label for="form-solar-a">Anomalistic Year</label></p>
-          <p class="text">A <em>Tropical</em> year (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.</p>
-          <p class="text">A <em>Sidereal</em> year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.</p>
-          <p class="text">An <em>Anomalistic</em> year (365.259636) is a measure of earth's passage from one perihelion to another.</p>
+          <p class="text">A <b>Tropical</b> year (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.</p>
+          <p class="text">A <b>Sidereal</b> year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.</p>
+          <p class="text">An <b>Anomalistic</b> year (365.259636) is a measure of earth's passage from one perihelion to another.</p>
   	  </p>
       </fieldset>
       <fieldset class="collapsible closed">
@@ -219,10 +219,10 @@
           <label for="form-solar-a">Anomalistic month</label></p>
           <p><input type="radio" value="29.5305888531" name="lunar-syn" id="form-lunar-syn" class="lunar" checked="true"/>
           <label for="form-solar-syn">Synodic month</label></p>
-          <p class="text">A <em>Tropical</em> month (27.321582) is a measure of the Moon's passage from one mean vernal equinox to the next.</p>
-          <p class="text">A <em>Sidereal</em> month (27.321662) is a measure of Moon's complete orbit around the Earth relative to fixed stars.</p>
-          <p class="text">An <em>Anomalistic</em> month (27.321582) is a measure of Moon's passage from one perihelion to another.</p>
-          <p class="text">A <em>Synodic</em> month (29.530588) is a measure of Moon's passage from one New Moon to another.</p>
+          <p class="text">A <b>Tropical</b> month (27.321582) is a measure of the Moon's passage from one mean vernal equinox to the next.</p>
+          <p class="text">A <b>Sidereal</b> month (27.321662) is a measure of Moon's complete orbit around the Earth relative to fixed stars.</p>
+          <p class="text">An <b>Anomalistic</b> month (27.321582) is a measure of Moon's passage from one perihelion to another.</p>
+          <p class="text">A <b>Synodic</b> month (29.530588) is a measure of Moon's passage from one New Moon to another.</p>
         </p><!-- sub-sub-section -->
       </fieldset>
     </p><!-- sub-section -->
