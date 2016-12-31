@@ -18,6 +18,7 @@
                     data: params,
                     success: function(data) {
                         if (data.valid) {
+                            $('form#control-form input.password').val('');
                             $('#results-pane pre').html(data.output);
                         }
                     }

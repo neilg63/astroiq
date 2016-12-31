@@ -10,6 +10,7 @@ const geocode = require('./geocode/geocode.js');
 const textutils = require('./text-utils.js');
 const astro = require('./astroapp.js');
 const exec = require('child_process').exec;
+const spawn = require('child_process').spawn;
 var child;
 
 app.use(bodyParser());
@@ -58,6 +59,7 @@ app.get('/swetest-backend',function(req,res) {
 			}
 		}
 		if (valid) {
+
 			child = exec(cmd, function (error, stdout, stderr) {
 			  var data = {};
 			  if (!stderr) {
@@ -93,6 +95,7 @@ app.get('/server-datetime', (req,res) => {
 });
 
 app.post('/git-pull', (req,res) => {
+  console.log(req.body)
   if (req.body.password) {
     var password = req.body.password,
       cmd = 'git pull origin dev',
@@ -101,13 +104,26 @@ app.post('/git-pull', (req,res) => {
     
     var compPass = 'vimshottari',
       dt = new Date(),
-      dtStr = (dt.getHours() +30 ) + '.' + dt.getDate() + '.' + (dt.getMonth() + 1) + '.' + dt.getFullYear(),
+      dtStr = (dt.getHours() + 30 ) + '.' + dt.getDate() + ';',
       matchedStr = compPass + dtStr,
       valid = password === matchedStr;
 
     if (valid) {
+      /*var process = spawn('git',['pull','origin','dev']);
+      var buf='';
+      process.on('data', (data) => {
+        buf += data;
+        console.log(data);
+      });
+      process.on('close', (data) => {
+        res.send({
+          valid: true,
+          output: buf
+        });
+      });*/
       child = exec(cmd, function (error, stdout, stderr) {
         var data = {};
+        var buf = '';
         if (!stderr) {
           data.output = stdout;
           data.valid = true;
