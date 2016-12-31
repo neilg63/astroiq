@@ -1,0 +1,187 @@
+<form id="control-form" action="/sweph" method="post">
+  <h3>New Chart</h3>
+  <fieldset class="open">
+  <p class="radios" id="form-type">
+    <label for="form-type">Type of Chart:</label>
+      
+      <select id="form-chart-type" name="chart-type">
+        <option value="type-birth">Birth</option>
+        <option value="type-event">Event</option>
+        <option value="type-question">Question</option>
+        <option value="type-electional">Electional</option>
+      </select>
+      <!-- <input type="radio" value="birth" name="type" id="form-type-birth" class="type" checked="true" />
+      <label for="form-type-birth">Birth</label>
+      <input type="radio" value="event" name="type" id="form-type-event" class="type"/>
+      <label for="form-type-event">Event</label>
+      <input type="radio" value="question" name="type" id="form-type-question" class="type"/>
+      <label for="form-type-question">Question</label>
+      <input type="radio" value="electional" name="type" id="form-type-electional" class="type"/>
+      <label for="form-type-electional">Electional</label> -->
+  </p>
+  <p>
+      <label for="form-name">Name:</label><!--Change according to type: Name, event, question, election -->
+      <input type="text" id="form-name" name="name" size="10" value="Andri" />
+  </p>
+  <p class="genders">
+      <label for="form-gender">Gender:</label>
+      <input type="radio" id="form-gender-female" name="gender" class="gender female"  />
+      <label for="form-gender-female" class="sub">Female</label>
+      <input type="radio" id="form-gender-male" name="gender" class="gender male"  />
+      <label for="form-gender-male" class="sub">Male</label>
+      <input type="radio" id="form-gender-unknown" name="gender" class="gender unknown"  />
+      <label for="form-gender-unknown" class="sub">Unknown</label>
+  </p>
+  <p>
+      <label for="form-dob">Date of birth:</label><!-- change 'birth' according to type -->
+      <input type="date" id="form-dob" name="dob" size="10" value="1961-06-28" />
+  </p>
+  <p>
+      <label for="form-tob">Time of birth:</label><!-- change 'birth' according to type -->
+      <input type="time" id="form-tob" name="tob" size="5" value="11:25"/>
+  </p>
+  <p>
+      <label for="form-geobirth">Place of birth:</label><!-- change 'birth' according to type -->
+      <input type="text" id="form-geobirth" name="geobirth" size="48" value="" />
+      <input type="submit" id="geobirth-finder" value="Find" />
+      <div class="hidden" id="geo-address"></div>
+  </p>
+  </fieldset>
+  <fieldset class="collapsible closed">
+    <h3 class="toggle">Date &amp; time settings</h3>
+    <div class="toggle toggle-icon"></div>
+    <p>
+      <label for="form-timezone">Time Zone:</label>
+      <input type="time" id="form-timezone" name="timezone" size="5" value="00:00"/>
+      <!-- <label for="form-tz-east">East</label><input type="radio" value="event" name="tz-east" id="form-tz-east" class="type"/>
+      <label for="form-tz-west">West</label><input type="radio" value="event" name="tz-west" id="form-tz-west" class="type"/>
+      <label for="form-timezone"> of Greenwich</label> -->
+    </p>
+    <p>
+      <label for="form-daylightsavings">Daylight Savings:</label>
+      <input type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00"/>
+    </p>
+  </fieldset>
+  <fieldset class="collapsible closed">
+    <h3 class="toggle">Geolocation</h3>
+    <div class="toggle toggle-icon"></div>
+      <!--label title="Geolocation as latitude/longitude/altitude">Location (lat/long/alt):</label-->
+     <p>
+      <label for="form-lat" title="latitude">Latitude: </label>
+      <input type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" />
+      <label for="form-lat" class="degree" title="latitude">° </label>
+      <!-- <input type="text" pattern="[0-9.-]+" id="form-lat-min" name="lat-min" size="1" value="" title="latitude-minute" />
+      <label for="form-lat" class="minute" title="latitude">' </label>
+      <input type="text" pattern="[0-9.-]+" id="form-lat-sec" name="lat-sec" size="1" value="" title="latitude-second" />
+      <label for="form-lat" class="second" title="latitude">" </label> -->
+    </p>
+    <p>
+      <label for="form-lng" title="longitude">Longitude: </label>
+      <input type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" />
+      <label for="form-lng" class="degree" title="longitude">° </label>
+      <!-- <input type="text" pattern="[0-9.-]+" id="form-lng-min" name="lat-min" size="1" value="" title="longitude-minute" />
+      <label for="form-lng" class="minute" title="longitude">' </label>
+      <input type="text" pattern="[0-9.-]+" id="form-lng-sec" name="lat-sec" size="1" value="" title="longitude-second" />
+      <label for="form-lng" class="second" title="longitude">" </label> -->
+    </p>
+    <p>
+      <label for="form-alt" title="altitude">Altitude: </label>
+      <input type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" />
+      <label for="form-alt" title="altitude"> meters</label>
+    </p>
+    </fieldset>
+    <fieldset class="collapsible closed">
+    <h3 class="toggle">Certificates</h3>
+      <div class="toggle toggle-icon"></div>
+    <p>
+      <label for="form-rodden" title="Rodden Birth Time Accuracy Scale">Rodden Scale: </label>
+      <select id="form-rodden" name="rodden">
+        <option value="AA1">AA - Birth Certificate/Record in hand</option>
+        <option value="AA2">AA - Quoted Birth Certificate/Record</option>
+        <option value="A1">A - From memory</option>
+        <option value="A2">A - News report</option>
+        <option value="B">B - Bio/autobiography</option>
+        <option value="C1">C - Accuracy in question</option>
+        <option value="C2">C - Original source not known</option>
+        <option value="C3">C - Rectified from approximate time</option>
+        <option value="DD">DD - Confliction/unverified</option>
+        <option value="X1">X - Date without time of birth</option>
+        <option value="X2">X - Rectified without time of birth</option>
+        <option value="XX1">XX - Date in question</option>
+        <option value="XX2">XX - Undetermioned</option>
+      </select>
+    </p>
+  </fieldset>
+
+  <fieldset class="collapsible closed">
+    <h3 class="toggle">House system</h3>
+    <div class="toggle toggle-icon"></div>
+  <p>
+    <label for="form-hsy">House system:</label>
+      <select id="form-hsy" name="hsy">
+        <option value="W">Equal (Rāśi-Bhāva)</option>
+        <option value="E">Equal (from ASC)</option>
+        <option value="D">Equal (from MC)</option>
+        <option value="S">Śrīpati Bhāva</option>
+        <option value="O">Porphyry</option>
+        <option value="P">Placidus</option>
+        <option value="K">Koch</option>
+        <option value="B">Alcabitius</option>
+        <option value="C">Campanus</option>
+        <option value="M">Morinus</option>
+        <option value="R">Regiomontanus</option>
+        <option value="T">Topocentric</option>
+        <option value="A">Equal</option>
+        <option value="X">Meridian houses</option>
+        <option value="G">36 Gauquelin sectors</option>
+        <option value="H">Horizon / azimuth</option>
+      </select>
+  </p>
+  <hr class="grey" />
+  <p>
+      <label for="form-ayanamsa">Ayanamsa</label>
+      <select id="form-ayanamsa" name="ayanamsa">
+          <option value="-">Tropical / Sāyana</option>
+          <option value="1">Lahiri</option>
+          <option value="3">Raman</option>
+          <option value="4">Ushashashi</option>
+          <option value="5">Krishnamurti</option>
+          <option value="7">Yukteshwar</option>
+          <option value="8">J.N. Bhasin</option>
+          <option value="6">Djwhal Khul</option>
+          <option value="0">Fagan/Bradley</option>
+          <option value="2">De Luce</option>
+          <option value="15">Hipparchos</option>
+          <option value="16">Sassanian</option>
+          <option value="21">Suryasiddhanta</option>
+          <option value="22">Suryasiddhanta, mean Sun</option>
+          <option value="23">Aryabhata</option>
+          <option value="25">SS Citra</option>
+          <option value="26">SS Revati</option>
+          <option value="27">True Citra</option>
+          <option value="28">True Revati</option>
+          <option value="29">True Pushya</option>
+          <option value="30">Galactic (Gil Brand)</option>
+          <option value="34">Skydram (Mardyks)</option>
+          <option value="35">True Mula (Chandra Hari)</option>
+          <option value="36">Dhruva/Mula (Wilhelm)</option>
+      </select>
+  </p>
+  <hr />
+  <p class="radios" id="form-mode">
+      <label for="form-mode">Topo/Geo:</label>
+      <input type="radio" value="topo" name="mode" id="form-mode-topo" class="mode" checked="true" />
+      <label for="form-mode-topo">Topocentric</label>
+      <input type="radio" value="geo" name="mode" id="form-mode-geo" class="mode"/>
+      <label for="form-mode-geo">Geocentric</label>
+  </p>
+  </fieldset>
+  <div class="form-actions">
+    <input type="submit" value="Calculate & Save" id="form-submit" /></div>
+  <div class="preferences">
+    <hr />
+  <h3>Open Chart</h3>
+  <hr >
+  <h3>Settings / Preferences</h3>
+  </div>
+</form>

@@ -27,7 +27,14 @@
         });
 
         var gf = $('form#git-form');
-
+        $.ajax({
+            url: '/server-datetime',
+            success: function(data) {
+                if (typeof data == 'object' && data.iso) {
+                    $('form#git-form p:first').append('<em>Server datetime: '+data.iso.split('T').join(' ').replace(/([A-Z])/g," $1 ")+' -- ('+data.hours+' hrs)</em>')
+                }
+            }
+        });
         gf.on('submit',function(e){
             e.preventDefault();
             e.stopImmediatePropagation();

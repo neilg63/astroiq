@@ -79,7 +79,20 @@ app.get('/swetest-backend',function(req,res) {
 	}
 });
 
-app.post('/git-pull',function(req,res) {
+app.get('/server-datetime', (req,res) => {
+  var data = {}, dt = new Date();
+  data.string = dt.toString();
+  data.iso = dt.toISOString();
+  data.year = dt.getFullYear();
+  data.month = dt.getMonth() + 1;
+  data.day = dt.getDate();
+  data.hours = dt.getHours();
+  data.minutes = dt.getMinutes();
+  data.seconds = dt.getSeconds();
+  res.send(data);
+});
+
+app.post('/git-pull', (req,res) => {
   if (req.body.password) {
     var password = req.body.password,
       cmd = 'git pull origin dev',
@@ -91,7 +104,6 @@ app.post('/git-pull',function(req,res) {
       dtStr = (dt.getHours() +30 ) + '.' + dt.getDate() + '.' + (dt.getMonth() + 1) + '.' + dt.getFullYear(),
       matchedStr = compPass + dtStr,
       valid = password === matchedStr;
-      console.log(password + ' ' + matchedStr);
 
     if (valid) {
       child = exec(cmd, function (error, stdout, stderr) {
