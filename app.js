@@ -102,7 +102,7 @@ app.use('/js', express.static('js'));
 
 app.use('/css', express.static('css'));
 
-app.use('/icomoon', express.static('css'));
+app.use('/icomoon', express.static('icomoon'));
 
 app.use('/svgs', express.static('svgs'));
 
