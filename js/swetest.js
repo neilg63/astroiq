@@ -25,5 +25,25 @@
 
             }
         });
+
+        var gf = $('form#git-form');
+
+        gf.on('submit',function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var passwd =$('#form-password'),pw;
+            if (passwd.length>0) {
+                pw = $.trim(passwd.val());
+                if (pw.length > 8) {
+                   $.post('/git-pull',{
+                        password: pw
+                    },function(data) {
+                        if (data.valid) {
+                            $('#results-pane pre').html(data.output);
+                        }
+                    }); 
+                }
+            }
+        });
     });
 })(jQuery);

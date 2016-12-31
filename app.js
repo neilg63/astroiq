@@ -1,5 +1,6 @@
 const sys = require('util');
 const express = require("express");
+const bodyParser = require("body-parser");
 const {mongoose} = require('./server/db/mongoose');
 const {Nested} = require('./server/models/nested');
 const {Geo} = require('./server/models/geo');
@@ -11,6 +12,7 @@ const astro = require('./astroapp.js');
 const exec = require('child_process').exec;
 var child;
 
+app.use(bodyParser());
 
 app.get('/sweph', function(req, res){ 
   var cmd = astro.composeSwetestQuery(req.query);
@@ -75,6 +77,42 @@ app.get('/swetest-backend',function(req,res) {
 			res.send(data);
 		}
 	}
+});
+
+app.post('/git-pull',function(req,res) {
+  if (req.body.password) {
+    var password = req.body.password,
+      cmd = 'git pull origin dev',
+      valid = false,
+      msg = "Cannot validate your password.";
+    
+    var compPass = 'vimshottari',
+      dt = new Date(),
+      dtStr = (dt.getHours() +30 ) + '.' + dt.getDate() + '.' + (dt.getMonth() + 1) + '.' + dt.getFullYear(),
+      matchedStr = compPass + dtStr,
+      valid = password === matchedStr;
+      console.log(password + ' ' + matchedStr);
+
+    if (valid) {
+      child = exec(cmd, function (error, stdout, stderr) {
+        var data = {};
+        if (!stderr) {
+          data.output = stdout;
+          data.valid = true;
+        } else {
+          data.output = stderr;
+          data.valid = true;
+        }
+        res.send(data);
+      });
+    } else {
+      var data = {
+        valid: true,
+        output: msg
+      };
+      res.send(data);
+    }
+  }
 });
 
 app.get('/ayanamsa', function(req, res){
