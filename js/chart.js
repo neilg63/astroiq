@@ -858,6 +858,20 @@ function initMap() {
             }
         });
 
+        $('#control-panel .symbol-radio').on('click',function(e){
+            var it = $(this), radio = it.find('input[type=radio]');
+            e.stopImmediatePropagation();
+            if (radio.length > 0) {
+                if (radio.is(':checked') == false) {
+                    it.parent().find('span.checked').removeClass('checked');
+                    it.addClass('checked');
+                    it.parent().find('input[type=radio]').prop('checked',false);
+                    radio.prop('checked',true);
+                }
+                
+            } 
+        });
+
         setTimeout(function(){
             var gMapApi = $('#gmap-api-key');
             if (gMapApi.length>0) {
