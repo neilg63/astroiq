@@ -356,7 +356,7 @@ line.solid {
 
 
 #control-panel {
-    position: fixed;
+    position: absolute;
     top: 1em;
     left: 0;
     min-width: 25em;
@@ -367,6 +367,11 @@ line.solid {
     border-right: solid 1px #999999;
     border-bottom: solid 1px #999999;
     height: 100vh;
+}
+
+#control-panel .ui-input-btn {
+    display: inline-block;
+    width: auto;
 }
 
 #gmap {
