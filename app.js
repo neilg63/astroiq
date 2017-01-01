@@ -109,9 +109,9 @@ app.post('/git-pull', (req,res) => {
       valid = password === matchedStr;
 
     if (valid) {
-      /*var process = spawn('git',['pull','origin','dev']);
+      var process = spawn('git',['pull','origin','dev']);
       var buf='';
-      process.on('data', (data) => {
+      process.stdout.on('data', (data) => {
         buf += data;
         console.log(data);
       });
@@ -120,8 +120,8 @@ app.post('/git-pull', (req,res) => {
           valid: true,
           output: buf
         });
-      });*/
-      child = exec(cmd, function (error, stdout, stderr) {
+      });
+      /*child = exec(cmd, function (error, stdout, stderr) {
         var data = {};
         var buf = '';
         if (!stderr) {
@@ -132,7 +132,7 @@ app.post('/git-pull', (req,res) => {
           data.valid = true;
         }
         res.send(data);
-      });
+      });*/
     } else {
       var data = {
         valid: true,
