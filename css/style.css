@@ -377,6 +377,10 @@ line.solid {
     margin: 0;
 }
 
+#control-panel .ui-input-btn {
+    padding: 0.25em;
+}
+
 #control-panel .ui-input-text input,
 #control-panel .ui-input-btn input {
     margin: 0;
