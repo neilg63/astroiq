@@ -1,6 +1,7 @@
 // Flipbox
 jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, {
   'en': {
+    timeFormat: 24,
     dateFieldOrder: ["d", "m", "y"],
     timeFieldOrder: ["h", "i", "a"],
     slideFieldOrder: ["y", "m", "d"],
