@@ -3,9 +3,13 @@ head
   link(type="text/css" href="//unpkg.com/purecss@0.6.1/build/pure-min.css" rel="stylesheet")
   link(type="text/css" href="/css/style.css" rel="stylesheet")
   link(type="text/css" href="/icomoon/style.css" rel="stylesheet")
-  script(src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous")
+  script(src="//code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
+  script(src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" crossorigin="anonymous")
+  script(src="/js/datebox/js/jtsage-datebox.min.js")
   script(type="text/javascript" source="internal" src="/js/snap/dist/snap.svg-min.js")
+  link(type="text/css" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" rel="stylesheet")
+  link(type="text/css" href="/js/datebox/css/jtsage-datebox.min.css" rel="stylesheet")
 body
   include includes/header.pug
 
@@ -14,11 +18,11 @@ body
 
   div#main
     ul.hor-tabs
-      li(class="chart european active") Western
-      li(class="chart indian") Indian
-      li(class="map") Map
-      li(class="results disabled") Results
-    object#chart-pane(class="large-pane active")
+      li.chart.european.active Western
+      li.chart.indian Indian
+      li.map Map
+      li.results.disabled Results
+    object#chart-pane.large-pane.active
       include ../svgs/charts/astro-chart.svg
 
     div#map-pane.large-pane
@@ -32,4 +36,4 @@ body
   script(src="/js/kutejs/kute-svg.min.js")
   
   script(data-source="internal" type="text/javascript" src="/js/chart.js")
-  div(id="gmap-api-key" data-key="AIzaSyCGq1eIKwzv92oPoBGzxhIkp4C8anr0_Ow")
+  div#gmap-api-key(data-key="AIzaSyCGq1eIKwzv92oPoBGzxhIkp4C8anr0_Ow")
