@@ -36,14 +36,18 @@
                 }
             }
         });
-        gf.on('submit',function(e){
+        $('#form-password').val('');
+        gf.find('button').on('click',function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
-            var passwd =$('#form-password'),pw;
+            var passwd =$('#form-password'),
+            it = $(this),
+            cmd = it.attr('id').split('-').pop(),
+            pw;
             if (passwd.length>0) {
                 pw = $.trim(passwd.val());
                 if (pw.length > 8) {
-                   $.post('/git-pull',{
+                   $.post('/git/' + cmd,{
                         password: pw
                     },function(data) {
                         if (data.valid) {
@@ -51,6 +55,9 @@
                         }
                     }); 
                 }
+                setTimeout(function(){
+                    $('#form-password').val('');
+                },(5*60*1000));
             }
         });
     });

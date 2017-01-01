@@ -94,26 +94,42 @@ app.get('/server-datetime', (req,res) => {
   res.send(data);
 });
 
-app.post('/git-pull', (req,res) => {
-  console.log(req.body)
+app.post('/git/:cmd', (req,res) => {
   if (req.body.password) {
     var password = req.body.password,
-      cmd = 'git pull origin dev',
+      cmd = req.params.cmd,
       valid = false,
       msg = "Cannot validate your password.";
     
     var compPass = 'vimshottari',
       dt = new Date(),
-      dtStr = (dt.getHours() + 30 ) + '.' + dt.getDate() + ';',
+      dtStr = ';' + ( dt.getHours() + dt.getDate() ),
       matchedStr = compPass + dtStr,
       valid = password === matchedStr;
 
     if (valid) {
-      var process = spawn('git',['pull','origin','dev']);
-      var buf='';
+      var cmds = [];
+      switch (cmd) {
+        case 'pull':
+          cmds = ['pull','origin','dev'];
+          break;
+        case 'log':
+          cmds = ['log'];
+          break;
+        case 'status':
+          cmds = ['status'];
+          break;
+      }
+      var process = spawn('git',cmds);
+      var buf='', tmp='';
       process.stdout.on('data', (data) => {
-        buf += data;
-        console.log(data);
+        tmp = data.toString();
+        if (typeof tmp == 'string') {
+          if (tmp.length>0) {
+            buf += tmp.split('<').join('&lt;').split('>').join('&gt;');
+          }
+        }
+        
       });
       process.on('close', (data) => {
         res.send({
@@ -121,18 +137,6 @@ app.post('/git-pull', (req,res) => {
           output: buf
         });
       });
-      /*child = exec(cmd, function (error, stdout, stderr) {
-        var data = {};
-        var buf = '';
-        if (!stderr) {
-          data.output = stdout;
-          data.valid = true;
-        } else {
-          data.output = stderr;
-          data.valid = true;
-        }
-        res.send(data);
-      });*/
     } else {
       var data = {
         valid: true,
