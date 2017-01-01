@@ -369,10 +369,22 @@ line.solid {
     height: 100vh;
 }
 
+#control-panel .ui-input-text,
 #control-panel .ui-input-btn {
     display: inline-block;
     width: auto;
+    max-width: 10vw;
+    margin: 0;
 }
+
+#control-panel .ui-input-text input,
+#control-panel .ui-input-btn input {
+    margin: 0;
+    line-height: 1;
+    min-height: auto;
+    padding: 0.375em;
+}
+
 
 #gmap {
     padding-top: 1.5em;
