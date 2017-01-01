@@ -1,3 +1,16 @@
+// Flipbox
+jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, {
+  'en': {
+    dateFieldOrder: ["d", "m", "y"],
+    timeFieldOrder: ["h", "i", "a"],
+    slideFieldOrder: ["y", "m", "d"],
+    dateFormat: "%Y-%m-%d",
+  }
+});
+jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+  useLang: 'en'
+});
+
 var GeoMap = {
 
     map: null,
