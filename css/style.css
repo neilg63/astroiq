@@ -6,6 +6,10 @@
     font-style: normal;
 }
 
+ul {
+    -webkit-padding-start: 0;
+}
+
 body, input, textarea, select, option,
 span.symbol-radio label {
     font-family: genlight, Helvetica, Arial, sans-serif;
