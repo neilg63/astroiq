@@ -1,9 +1,9 @@
 (function($) {
     $( document ).ready(function() {
         var cf = $('form#control-form');
-        if ($('#jqm-tag').length > 0) {
+/*        if ($('#jqm-tag').length > 0) {
             window.location = '/command';
-        }
+        }*/
         cf.on('submit',function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
