@@ -10,6 +10,35 @@ ul {
     -webkit-padding-start: 0;
 }
 
+#astro-disc,
+html {
+    font-size: 16px;
+}
+
+@media screen and (min-width: 1280px) {
+    html {
+        font-size: 17px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    html {
+        font-size: 19px;
+    }
+}
+
+@media screen and (min-width: 1800px) {
+    html {
+        font-size: 20px;
+    }
+}
+
 body, input, textarea, select, option,
 span.symbol-radio label {
     font-family: genlight, Helvetica, Arial, sans-serif;
@@ -384,7 +413,6 @@ line.solid {
     background-color: white;
     border-right: solid 1px #999999;
     border-bottom: solid 1px #999999;
-    height: 100vh;
 }
 
 #control-panel .input-group {
@@ -596,10 +624,6 @@ ul.hor-tabs li:not(.disabled):hover {
 #astro-disc .house-line {
     stroke: black;
     stroke-width: 1px;
-}
-
-#astro-disc {
-    font-size: 16px;
 }
 
 #astro-disc text {

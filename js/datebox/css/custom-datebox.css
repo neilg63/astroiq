@@ -36,11 +36,10 @@ div.ui-datebox-inline.ui-datebox-inline-has-input {
 	float: none;
 	clear: both;
 	position: relative;
-	top: 5px;
+	top: 0;
 }
 div.ui-datebox-container.ui-datebox-inline {
-	width: 290px;
-
+	width: 16em;
 }
 
 /* 
@@ -54,7 +53,7 @@ div.ui-datebox-container.ui-datebox-inline {
 }
 
 .ui-datebox-gridheader a {
-	margin: 3px;
+	margin: 0.125em;
 }
 
 .ui-datebox-gridheader h4 { 
@@ -63,7 +62,7 @@ div.ui-datebox-container.ui-datebox-inline {
 
 .ui-datebox-grid { 
 	clear: both; 
-	margin-bottom: 5px; 
+	margin-bottom: .25em; 
 }
 .ui-datebox-inline .ui-datebox-gridrow .ui-controlgroup-controls {
 	width: 100%;
@@ -78,10 +77,10 @@ div.ui-datebox-container.ui-datebox-inline {
 	margin-left: auto; 
 	margin-right: auto;
 	display: table;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 .ui-datebox-gridrow-last {
-	margin-bottom: 5px;
+	margin-bottom: .25em;
 }
 
 .ui-datebox-controls {
@@ -212,29 +211,33 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 	text-align: center;
 }
 .ui-datebox-flipcenter {
-	width: 260px;
-	height: 40px;
+	width: 14em;
+	height: 2.25em;
 	border: 1px solid #EEEEEE;
+	background-color: rgba(0,0,0,0.25);
 	margin-right: auto;
 	margin-left: auto;
 	position: relative;
-	-webkit-box-shadow: 0 0 12px rgba(0,0,0,.6);
-    -moz-box-shadow: 0 0 12px rgba(0,0,0,.6);
-    box-shadow: 0 0 12px rgba(0,0,0,.6);
+	-webkit-box-shadow: 0 0 .25em rgba(0,0,0,.6);
+    -moz-box-shadow: 0 0 .25em rgba(0,0,0,.6);
+    box-shadow: 0 0 .25em rgba(0,0,0,.6);
 }
 
 .ui-datebox-flipcontent {
+	position: relative;
+	margin-top: 0.5em;
 	text-align: center;
-	height: 7em;
-	margin-bottom: -3em;
+	height: 6em;
+	margin-bottom: -2.5em;
 }
 .ui-datebox-flipcontent li {
 	border: 1px solid #ccc;
 }
 
 .ui-datebox-flipcontent div {
-	margin-left: 0.25em;
-	margin-right: 0.25em;
+	position: relative;
+	margin: 0;
+	top: 0
 	width: 4em;
 	height: 6em;
 	display: inline-block;
@@ -246,15 +249,17 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 	width: 3em;
 }
 .ui-datebox-flipcontent ul {
+	position: relative;
 	list-style-type: none;
-	display: inline;
+	display: inline-block;
 	border:1px solid rgba(0,0,0,0);
 }
 .ui-datebox-flipcontent li {
-	height: 30px;
+	height: 2em;
+	width: 3em;
 }
 .ui-datebox-flipcontent li span {
-	margin-top: 7px;
+	margin-top: 0;
 	display: block;
 }
 
@@ -265,7 +270,7 @@ div.ui-datebox-datebox-button.glyphicon-minus {
  */
 
 .ui-datebox-slide { 
-	width: 290px;
+	width: 16em;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -275,10 +280,10 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 }
 
 .ui-datebox-sliderow {
-	margin-bottom: 5px;
+	margin-bottom: .25em;
 	text-align: center;
 	overflow: hidden;
-	width: 290px;
+	width: 16em;
 }
 .ui-datebox-slide .ui-btn {
 	margin: 0;

@@ -23,7 +23,7 @@ form#control-form(action="/sweph" method="post")
       label(for="form-name") Name:
       input(type="text" id="form-name" name="name" size="10" value="Andri" )
   
-  p.genders
+    p.genders
       label(for="form-gender") Gender:
       span.symbol-radio.icon-female-bust
         input#form-gender-female.gender.female(type="radio" name="gender")
@@ -31,66 +31,66 @@ form#control-form(action="/sweph" method="post")
       span.symbol-radio.icon-male-bust
         input#form-gender-male.gender.male(type="radio" name="gender")
         label.sub(for="form-gender-male") Male
-      //- input#form-gender-unknown.gender.unknown(type="radio" name="gender")
-      //-label.sub(for="form-gender-unknown") Unknown 
-  p.dob
-    //- change 'birth' according to type
-    label(for="form-dob") Date of birth:
-    input(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;}" )
-  p.tob
-    //- change 'birth' according to type
-    label(for="form-tob") Time of birth:
-    input(type="time" id="form-tob" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;}")
-  p.pob
-    //- change 'birth' according to type
-    label(for="form-geobirth") Place of birth:
-    input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
-    input#geobirth-finder(type="submit" value="Find")
-  div#geo-address.hidden
-  
-  p.tz
-    label(for="form-timezone") Time Zone:
-    input(type="time" id="form-timezone" name="timezone" size="5" value="00:00")
-    //- label(for="form-tz-east") Eastinput(type="radio" value="event" name="tz-east" id="form-tz-east" class="type")
-    label(for="form-tz-west") West
-    //- input(type="radio" value="event" name="tz-west" id="form-tz-west" class="type")
-    label(for="form-timezone")  of Greenwich
-  
-  p.ds
-    label(for="form-daylightsavings") Daylight Savings:
-    input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
-  p.lat
-    label(for="form-lat" title="latitude") Latitude: 
-    input(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
-    label.degree(for="form-lat" title="latitude") 
-  p.lng
-    label.degree(for="form-lng" title="longitude") Longitude: 
-    input(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
-  p.alt
-    label(for="form-alt" title="altitude") Altitude: 
-    input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" ) 
-  p.rodden
-    label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale: 
-    select#form-rodden.select-input(name="rodden")
-      option(value="AA1") AA - Birth Certificate in hand
-      option(value="AA2") AA - Quoted Birth Record
-      option(value="A1") A - From memory
-      option(value="A2") A - News report
-      option(value="B") B - Bio/autobiography
-      option(value="C1") C - Accuracy in question
-      option(value="C2") C - Source not known
-      option(value="C3") C - Rectified from approx. time
-      option(value="DD") DD - Confliction/unverified
-      option(value="X1") X - Date without time of birth
-      option(value="X2") X - Rectified w/o time of birth
-      option(value="XX1") XX - Date in question
-      option(value="XX2") XX - Undetermioned
+        //- input#form-gender-unknown.gender.unknown(type="radio" name="gender")
+        //-label.sub(for="form-gender-unknown") Unknown 
+    p.dob
+      //- change 'birth' according to type
+      label(for="form-dob") Date of birth:
+      input(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;}" )
+    p.tob
+      //- change 'birth' according to type
+      label(for="form-tob") Time of birth:
+      input(type="time" id="form-tob" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;}")
+    p.pob
+      //- change 'birth' according to type
+      label(for="form-geobirth") Place of birth:
+      input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
+      input#geobirth-finder(type="submit" value="Find")
+    div#geo-address.hidden
+    
+    p.tz
+      label(for="form-timezone") Time Zone:
+      input(type="time" id="form-timezone" name="timezone" size="5" value="00:00")
+      //- label(for="form-tz-east") Eastinput(type="radio" value="event" name="tz-east" id="form-tz-east" class="type")
+      label(for="form-tz-west") West
+      //- input(type="radio" value="event" name="tz-west" id="form-tz-west" class="type")
+      label(for="form-timezone")  of Greenwich
+    
+    p.ds
+      label(for="form-daylightsavings") Daylight Savings:
+      input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
+    p.lat
+      label(for="form-lat" title="latitude") Latitude: 
+      input(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
+      label.degree(for="form-lat" title="latitude") 
+    p.lng
+      label.degree(for="form-lng" title="longitude") Longitude: 
+      input(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
+    p.alt
+      label(for="form-alt" title="altitude") Altitude: 
+      input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" ) 
+    p.rodden
+      label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale: 
+      select#form-rodden.select-input(name="rodden")
+        option(value="AA1") AA - Birth Certificate in hand
+        option(value="AA2") AA - Quoted Birth Record
+        option(value="A1") A - From memory
+        option(value="A2") A - News report
+        option(value="B") B - Bio/autobiography
+        option(value="C1") C - Accuracy in question
+        option(value="C2") C - Source not known
+        option(value="C3") C - Rectified from approx. time
+        option(value="DD") DD - Confliction/unverified
+        option(value="X1") X - Date without time of birth
+        option(value="X2") X - Rectified w/o time of birth
+        option(value="XX1") XX - Date in question
+        option(value="XX2") XX - Undetermioned
  
   div#form-actions
     input(type="submit" value="Calculate & Save" id="form-submit" )
   
   fieldset.collapsible.closed
-   h3.toggle Open Chart
+    h3.toggle Open Chart
     p Open chart dialog
   
   fieldset.collapsible.closed
@@ -103,7 +103,8 @@ form#control-form(action="/sweph" method="post")
           option(value="W") Equal (Rāśi-Bhāva)
           option(value="E") Equal (from ASC)
           option(value="D") Equal (from MC)
-          option(value="CB") Caleta Bhāva<!-- not in Swiss Ephemeris -->
+          //- not in Swiss Ephemeris
+          option(value="CB") Caleta Bhāva
           option(value="S") Śrīpati Bhāva
           option(value="O") Porphyry
           option(value="P") Placidus
@@ -193,22 +194,22 @@ form#control-form(action="/sweph" method="post")
 
       fieldset.collapsible.closed
         h5.toggle Astronomical Lunar Month
-          p
-            input#form-lunar-t.lunar(type="radio" value="27.321582" name="lunar-t")
-            label(for="form-solar-t") Tropical month
-          p
-            input#form-lunar-s.lunar(type="radio" value="27.321662" name="lunar-s")
-            label(for="form-solar-s") Sidereal month
-          p
-            input.lunar(type="radio" value="27.321582" name="lunar-a" id="form-lunar-a" class="" )
-            label(for="form-solar-a") Anomalistic month
-          p
-            input#form-lunar-syn.lunar(type="radio" value="29.5305888531" name="lunar-syn" checked="true")
-            label(for="form-solar-syn") Synodic month
-          p.textA.strong Tropical month (27.321582) is a measure of the Moon's passage from one mean vernal equinox to the next.
-          p.textA.strong Sidereal month (27.321662) is a measure of Moon's complete orbit around the Earth relative to fixed stars.
-          p.textAn.strong Anomalistic month (27.321582) is a measure of Moon's passage from one perihelion to another.
-          p.textA.strong Synodic month (29.530588) is a measure of Moon's passage from one New Moon to another.
+        p
+          input#form-lunar-t.lunar(type="radio" value="27.321582" name="lunar-t")
+          label(for="form-solar-t") Tropical month
+        p
+          input#form-lunar-s.lunar(type="radio" value="27.321662" name="lunar-s")
+          label(for="form-solar-s") Sidereal month
+        p
+          input.lunar(type="radio" value="27.321582" name="lunar-a" id="form-lunar-a" class="" )
+          label(for="form-solar-a") Anomalistic month
+        p
+          input#form-lunar-syn.lunar(type="radio" value="29.5305888531" name="lunar-syn" checked="true")
+          label(for="form-solar-syn") Synodic month
+        p.text A #[strong Tropical] month (27.321582) is a measure of the Moon's passage from one mean vernal equinox to the next.
+        p.text A #[strong Sidereal] month (27.321662) is a measure of Moon's complete orbit around the Earth relative to fixed stars.
+        p.text An #[strong Anomalistic] month (27.321582) is a measure of Moon's passage from one perihelion to another.
+        p.text A #[strong Synodic] month (29.530588) is a measure of Moon's passage from one New Moon to another.
         //-sub-sub-section
       
     //- sub-section
