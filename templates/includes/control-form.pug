@@ -1,187 +1,214 @@
-<form id="control-form" action="/sweph" method="post">
-  <h3>New Chart</h3>
-  <fieldset class="open">
-  <p class="radios" id="form-type">
-    <label for="form-type">Type of Chart:</label>
+form#control-form(action="/sweph" method="post")
+  h2.toggle-aside New Chart
+  fieldset.collapsible.open
+    p#form-type.radios
+      label(for="form-type") Type of Chart:
+        select#form-chart-type.select-input(name="chart-type")
+          option(value="type-birth") Birth
+          option(value="type-event") Event
+          option(value="type-question") Question
+          option(value="type-electional") Electional
       
-      <select id="form-chart-type" name="chart-type">
-        <option value="type-birth">Birth</option>
-        <option value="type-event">Event</option>
-        <option value="type-question">Question</option>
-        <option value="type-electional">Electional</option>
-      </select>
-      <!-- <input type="radio" value="birth" name="type" id="form-type-birth" class="type" checked="true" />
-      <label for="form-type-birth">Birth</label>
-      <input type="radio" value="event" name="type" id="form-type-event" class="type"/>
-      <label for="form-type-event">Event</label>
-      <input type="radio" value="question" name="type" id="form-type-question" class="type"/>
-      <label for="form-type-question">Question</label>
-      <input type="radio" value="electional" name="type" id="form-type-electional" class="type"/>
-      <label for="form-type-electional">Electional</label> -->
-  </p>
-  <p>
-      <label for="form-name">Name:</label><!--Change according to type: Name, event, question, election -->
-      <input type="text" id="form-name" name="name" size="10" value="Andri" />
-  </p>
-  <p class="genders">
-      <label for="form-gender">Gender:</label>
-      <input type="radio" id="form-gender-female" name="gender" class="gender female"  />
-      <label for="form-gender-female" class="sub">Female</label>
-      <input type="radio" id="form-gender-male" name="gender" class="gender male"  />
-      <label for="form-gender-male" class="sub">Male</label>
-      <input type="radio" id="form-gender-unknown" name="gender" class="gender unknown"  />
-      <label for="form-gender-unknown" class="sub">Unknown</label>
-  </p>
-  <p>
-      <label for="form-dob">Date of birth:</label><!-- change 'birth' according to type -->
-      <input type="date" id="form-dob" name="dob" size="10" value="1961-06-28" />
-  </p>
-  <p>
-      <label for="form-tob">Time of birth:</label><!-- change 'birth' according to type -->
-      <input type="time" id="form-tob" name="tob" size="5" value="11:25"/>
-  </p>
-  <p>
-      <label for="form-geobirth">Place of birth:</label><!-- change 'birth' according to type -->
-      <input type="text" id="form-geobirth" name="geobirth" size="48" value="" />
-      <input type="submit" id="geobirth-finder" value="Find" />
-      <div class="hidden" id="geo-address"></div>
-  </p>
-  </fieldset>
-  <fieldset class="collapsible closed">
-    <h3 class="toggle">Date &amp; time settings</h3>
-    <div class="toggle toggle-icon"></div>
-    <p>
-      <label for="form-timezone">Time Zone:</label>
-      <input type="time" id="form-timezone" name="timezone" size="5" value="00:00"/>
-      <!-- <label for="form-tz-east">East</label><input type="radio" value="event" name="tz-east" id="form-tz-east" class="type"/>
-      <label for="form-tz-west">West</label><input type="radio" value="event" name="tz-west" id="form-tz-west" class="type"/>
-      <label for="form-timezone"> of Greenwich</label> -->
-    </p>
-    <p>
-      <label for="form-daylightsavings">Daylight Savings:</label>
-      <input type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00"/>
-    </p>
-  </fieldset>
-  <fieldset class="collapsible closed">
-    <h3 class="toggle">Geolocation</h3>
-    <div class="toggle toggle-icon"></div>
-      <!--label title="Geolocation as latitude/longitude/altitude">Location (lat/long/alt):</label-->
-     <p>
-      <label for="form-lat" title="latitude">Latitude: </label>
-      <input type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" />
-      <label for="form-lat" class="degree" title="latitude">° </label>
-      <!-- <input type="text" pattern="[0-9.-]+" id="form-lat-min" name="lat-min" size="1" value="" title="latitude-minute" />
-      <label for="form-lat" class="minute" title="latitude">' </label>
-      <input type="text" pattern="[0-9.-]+" id="form-lat-sec" name="lat-sec" size="1" value="" title="latitude-second" />
-      <label for="form-lat" class="second" title="latitude">" </label> -->
-    </p>
-    <p>
-      <label for="form-lng" title="longitude">Longitude: </label>
-      <input type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" />
-      <label for="form-lng" class="degree" title="longitude">° </label>
-      <!-- <input type="text" pattern="[0-9.-]+" id="form-lng-min" name="lat-min" size="1" value="" title="longitude-minute" />
-      <label for="form-lng" class="minute" title="longitude">' </label>
-      <input type="text" pattern="[0-9.-]+" id="form-lng-sec" name="lat-sec" size="1" value="" title="longitude-second" />
-      <label for="form-lng" class="second" title="longitude">" </label> -->
-    </p>
-    <p>
-      <label for="form-alt" title="altitude">Altitude: </label>
-      <input type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" />
-      <label for="form-alt" title="altitude"> meters</label>
-    </p>
-    </fieldset>
-    <fieldset class="collapsible closed">
-    <h3 class="toggle">Certificates</h3>
-      <div class="toggle toggle-icon"></div>
-    <p>
-      <label for="form-rodden" title="Rodden Birth Time Accuracy Scale">Rodden Scale: </label>
-      <select id="form-rodden" name="rodden">
-        <option value="AA1">AA - Birth Certificate/Record in hand</option>
-        <option value="AA2">AA - Quoted Birth Certificate/Record</option>
-        <option value="A1">A - From memory</option>
-        <option value="A2">A - News report</option>
-        <option value="B">B - Bio/autobiography</option>
-        <option value="C1">C - Accuracy in question</option>
-        <option value="C2">C - Original source not known</option>
-        <option value="C3">C - Rectified from approximate time</option>
-        <option value="DD">DD - Confliction/unverified</option>
-        <option value="X1">X - Date without time of birth</option>
-        <option value="X2">X - Rectified without time of birth</option>
-        <option value="XX1">XX - Date in question</option>
-        <option value="XX2">XX - Undetermioned</option>
-      </select>
-    </p>
-  </fieldset>
+      //- input#form-type-birth.type(type="radio" value="birth" name="type" checked="true")
+      //- label(for="form-type-birth") Birth
+      //- input#form-type-event.type(type="radio" value="event" name="type")
+      //- label(for="form-type-event") Event
+      //- input#form-type-question.type(type="radio" value="question" name="type")
+      //- label(for="form-type-question") Question
+      //- input#form-type-electional.type(type="radio" value="electional" name="type")
+      //- label(for="form-type-electional") Electional
+  
+    p
+      //-Change according to type: Name, event, question, election
+      label(for="form-name") Name:
+      input(type="text" id="form-name" name="name" size="10" value="Andri" )
+  
+  p.genders
+      label(for="form-gender") Gender:
+      span.symbol-radio.icon-female-bust
+        input#form-gender-female.gender.female(type="radio" name="gender")
+        label.sub(for="form-gender-female") Female
+      span.symbol-radio.icon-male-bust
+        input#form-gender-male.gender.male(type="radio" name="gender")
+        label.sub(for="form-gender-male") Male
+      //- input#form-gender-unknown.gender.unknown(type="radio" name="gender")
+      //-label.sub(for="form-gender-unknown") Unknown 
+  p.dob
+    //- change 'birth' according to type
+    label(for="form-dob") Date of birth:
+    input(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;}" )
+  p.tob
+    //- change 'birth' according to type
+    label(for="form-tob") Time of birth:
+    input(type="time" id="form-tob" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;}")
+  p.pob
+    //- change 'birth' according to type
+    label(for="form-geobirth") Place of birth:
+    input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
+    input#geobirth-finder(type="submit" value="Find")
+  div#geo-address.hidden
+  
+  p.tz
+    label(for="form-timezone") Time Zone:
+    input(type="time" id="form-timezone" name="timezone" size="5" value="00:00")
+    //- label(for="form-tz-east") Eastinput(type="radio" value="event" name="tz-east" id="form-tz-east" class="type")
+    label(for="form-tz-west") West
+    //- input(type="radio" value="event" name="tz-west" id="form-tz-west" class="type")
+    label(for="form-timezone")  of Greenwich -->
+  
+  p.ds
+    label(for="form-daylightsavings") Daylight Savings:
+    input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
+  p.lat
+    label(for="form-lat" title="latitude") Latitude: 
+    input(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
+    label.degree(for="form-lat" title="latitude") 
+  p.lng
+    label.degree(for="form-lng" title="longitude") Longitude: 
+    input(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
+  p.alt
+    label(for="form-alt" title="altitude") Altitude: 
+    input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" ) 
+  p.rodden
+    label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale: 
+    select#form-rodden.select-input(name="rodden")
+      option(value="AA1") AA - Birth Certificate in hand
+      option(value="AA2") AA - Quoted Birth Record
+      option(value="A1") A - From memory
+      option(value="A2") A - News report
+      option(value="B") B - Bio/autobiography
+      option(value="C1") C - Accuracy in question
+      option(value="C2") C - Source not known
+      option(value="C3") C - Rectified from approx. time
+      option(value="DD") DD - Confliction/unverified
+      option(value="X1") X - Date without time of birth
+      option(value="X2") X - Rectified w/o time of birth
+      option(value="XX1") XX - Date in question
+      option(value="XX2") XX - Undetermioned
+ 
+  div#form-actions
+    input(type="submit" value="Calculate & Save" id="form-submit" )
+  
+  fieldset.collapsible.closed
+   h3.toggle Open Chart
+    p Open chart dialog
+  
+  fieldset.collapsible.closed
+    h3.toggle Calculation Settings
+    fieldset.collapsible.closed
+      h4.toggle Default House System
+      p.sub-section
+        label(for="form-hsy") House system:
+          select#form-hsy.select-input(name="hsy")
+          option(value="W") Equal (Rāśi-Bhāva)
+          option(value="E") Equal (from ASC)
+          option(value="D") Equal (from MC)
+          option(value="CB") Caleta Bhāva<!-- not in Swiss Ephemeris -->
+          option(value="S") Śrīpati Bhāva
+          option(value="O") Porphyry
+          option(value="P") Placidus
+          option(value="K") Koch
+          option(value="B") Alcabitius
+          option(value="C") ampanus
+          option(value="M") Morinus
+          option(value="R") Regiomontanus
+          option(value="T") Topocentric
+          option(value="A") Equal
+          option(value="X") Meridian houses
+          option(value="G") 36 Gauquelin sectors
+          option(value="H") Horizon / azimuth
 
-  <fieldset class="collapsible closed">
-    <h3 class="toggle">House system</h3>
-    <div class="toggle toggle-icon"></div>
-  <p>
-    <label for="form-hsy">House system:</label>
-      <select id="form-hsy" name="hsy">
-        <option value="W">Equal (Rāśi-Bhāva)</option>
-        <option value="E">Equal (from ASC)</option>
-        <option value="D">Equal (from MC)</option>
-        <option value="S">Śrīpati Bhāva</option>
-        <option value="O">Porphyry</option>
-        <option value="P">Placidus</option>
-        <option value="K">Koch</option>
-        <option value="B">Alcabitius</option>
-        <option value="C">Campanus</option>
-        <option value="M">Morinus</option>
-        <option value="R">Regiomontanus</option>
-        <option value="T">Topocentric</option>
-        <option value="A">Equal</option>
-        <option value="X">Meridian houses</option>
-        <option value="G">36 Gauquelin sectors</option>
-        <option value="H">Horizon / azimuth</option>
-      </select>
-  </p>
-  <hr class="grey" />
-  <p>
-      <label for="form-ayanamsa">Ayanamsa</label>
-      <select id="form-ayanamsa" name="ayanamsa">
-          <option value="-">Tropical / Sāyana</option>
-          <option value="1">Lahiri</option>
-          <option value="3">Raman</option>
-          <option value="4">Ushashashi</option>
-          <option value="5">Krishnamurti</option>
-          <option value="7">Yukteshwar</option>
-          <option value="8">J.N. Bhasin</option>
-          <option value="6">Djwhal Khul</option>
-          <option value="0">Fagan/Bradley</option>
-          <option value="2">De Luce</option>
-          <option value="15">Hipparchos</option>
-          <option value="16">Sassanian</option>
-          <option value="21">Suryasiddhanta</option>
-          <option value="22">Suryasiddhanta, mean Sun</option>
-          <option value="23">Aryabhata</option>
-          <option value="25">SS Citra</option>
-          <option value="26">SS Revati</option>
-          <option value="27">True Citra</option>
-          <option value="28">True Revati</option>
-          <option value="29">True Pushya</option>
-          <option value="30">Galactic (Gil Brand)</option>
-          <option value="34">Skydram (Mardyks)</option>
-          <option value="35">True Mula (Chandra Hari)</option>
-          <option value="36">Dhruva/Mula (Wilhelm)</option>
-      </select>
-  </p>
-  <hr />
-  <p class="radios" id="form-mode">
-      <label for="form-mode">Topo/Geo:</label>
-      <input type="radio" value="topo" name="mode" id="form-mode-topo" class="mode" checked="true" />
-      <label for="form-mode-topo">Topocentric</label>
-      <input type="radio" value="geo" name="mode" id="form-mode-geo" class="mode"/>
-      <label for="form-mode-geo">Geocentric</label>
-  </p>
-  </fieldset>
-  <div class="form-actions">
-    <input type="submit" value="Calculate & Save" id="form-submit" /></div>
-  <div class="preferences">
-    <hr />
-  <h3>Open Chart</h3>
-  <hr >
-  <h3>Settings / Preferences</h3>
-  </div>
-</form>
+    fieldset.collapsible.closed
+      h4.toggle Tropical vs. Sidereal (Ayanāṃśa)
+        p.sub-section
+          label(for="form-ayanamsa") Ayanāṃśa
+          select#form-ayanamsa.select-input(name="ayanamsa")
+              option(value="-") Tropical / Sāyana
+              option(value="1") Lāhiḍī (Lahiri)
+              option(value="3") Rāman
+              option(value="4") Uśaśaśī
+              option(value="5") Krishnamurti
+              option(value="7") Yukteshwar
+              option(value="8") J.N. Bhasin
+              option(value="21") Sūrya Siddhānta
+              option(value="22") Sūrya Siddhānta, mean Sun
+              option(value="25") Sūrya Siddhānta Citrā
+              option(value="26") Sūrya Siddhānta Revatī
+              option(value="23") Āryabhaṭa
+              option(value="27") True Citrā
+              option(value="28") True Revatī
+              option(value="29") True Puṣya
+              option(value="35") True Mūla (Chandra Hari)
+              option(value="36") Dhruva/Mūla (E. Wilhelm)
+              option(value="6") Djwhal Khul
+              option(value="0") Fagan/Bradley
+              option(value="2") De Luce
+              option(value="30") Galactic (Gil Brand)
+              option(value="34") Skydram (Mardyks)
+              option(value="15") Hipparchos
+              option(value="16") Sassanian
+    fieldset.collapsible.closed
+      h4.toggle Celestial Calculations
+      p#form-mode.sub-sectio.radios
+        label(for="form-mode") Topo/Geo:
+        input#form-mode-topo.mode(type="radio" value="topo" name="mode" checked="true" )
+      label(for="form-mode-topo") Topocentric
+      input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode")
+      label(for="form-mode-geo") Geocentric
+    
+  
+    fieldset.collapsible.closed
+      h4.toggle Solar Year & Lunar Month
+      fieldset.collapsible.open
+        h5.toggle Astronomical Solar Year
+          p.sub-sub-section
+              p
+                input#form-solar-t.solar(type="radio" value="365.242199" name="solar-t" checked="true" )
+                label(for="form-solar-t") Tropical Year
+              p
+                input#form-solar-s.solar(type="radio" value="365.256366" name="solar-t")
+                label(for="form-solar-s") Sidereal Year
+              p
+                input#form-solar-a.solar(type="radio" value="365.259636" name="solar-t")
+                label(for="form-solar-a") Anomalistic year
+              p.textA.strong Tropical year (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.
+              p.textA.strong Sidereal year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.
+              p.textAn.strong Anomalistic year (365.259636) is a measure of earth's passage from one perihelion to another.
+      
+      
+      fieldset.collapsible.closed
+        h5.toggle Time Period (Daśa) Year Definition
+        p
+          input(type="radio" value="" name="year-astron" id="form-year-astron" class="solar-dasha" checked="true" )
+          label(for="form-year-astron") Astronomical Year (select above)
+        p
+          input(type="radio" value="365" name="year-calendar" id="form-year-calendar" class="solar-dasha" )
+          label(for="form-year-calendar") 365 Calendar Year
+        p
+          input(type="radio" value="360" name="year-360" id="form-year-360" class="solar-dasha" )
+          label(for="form-year-360") 360 Day Year
+        p
+          input#form-year-solilunar.solar-dasha(type="radio" value="354.36708" name="year-solilunar")
+          label(for="form-year-solilunar") Synodic SoliLunar Year
+
+      fieldset.collapsible.closed
+        h5.toggle Astronomical Lunar Month
+          p
+            input#form-lunar-t.lunar(type="radio" value="27.321582" name="lunar-t")
+            label(for="form-solar-t") Tropical month
+          p
+            input#form-lunar-s.lunar(type="radio" value="27.321662" name="lunar-s")
+            label(for="form-solar-s") Sidereal month
+          p
+            input.lunar(type="radio" value="27.321582" name="lunar-a" id="form-lunar-a" class="" )
+            label(for="form-solar-a") Anomalistic month
+          p
+            input#form-lunar-syn.lunar(type="radio" value="29.5305888531" name="lunar-syn" checked="true")
+            label(for="form-solar-syn") Synodic month
+          p.textA.strong Tropical month (27.321582) is a measure of the Moon's passage from one mean vernal equinox to the next.
+          p.textA.strong Sidereal month (27.321662) is a measure of Moon's complete orbit around the Earth relative to fixed stars.
+          p.textAn.strong Anomalistic month (27.321582) is a measure of Moon's passage from one perihelion to another.
+          p.textA.strong Synodic month (29.530588) is a measure of Moon's passage from one New Moon to another.
+        //-sub-sub-section
+      
+    //- sub-section
