@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?naxuqu');
-  src:  url('fonts/icomoon.eot?naxuqu#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.woff2?naxuqu') format('woff2'),
-    url('fonts/icomoon.ttf?naxuqu') format('truetype'),
-    url('fonts/icomoon.woff?naxuqu') format('woff'),
-    url('fonts/icomoon.svg?naxuqu#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?kqtxpt');
+  src:  url('fonts/icomoon.eot?kqtxpt#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.woff2?kqtxpt') format('woff2'),
+    url('fonts/icomoon.ttf?kqtxpt') format('truetype'),
+    url('fonts/icomoon.woff?kqtxpt') format('woff'),
+    url('fonts/icomoon.svg?kqtxpt#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -25,6 +25,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-lightbulb:before {
+  content: "\e90e";
+}
+.icon-gearwheel:before {
+  content: "\e90f";
+}
+.icon-male-bust:before {
+  content: "\e910";
+}
+.icon-female-bust:before {
+  content: "\e911";
+}
+.icon-magnifier:before {
+  content: "\e912";
+}
 .icon-male-sign:before {
   content: "\e90c";
 }
@@ -82,10 +97,25 @@
 .icon-cog:before {
   content: "\e994";
 }
+.icon-menu:before {
+  content: "\e9bd";
+}
 .icon-cross:before {
   content: "\ea0f";
 }
 .icon-checkmark:before {
   content: "\ea10";
+}
+.icon-arrow-up:before {
+  content: "\ea32";
+}
+.icon-arrow-right:before {
+  content: "\ea34";
+}
+.icon-arrow-down:before {
+  content: "\ea36";
+}
+.icon-arrow-left:before {
+  content: "\ea38";
 }
 

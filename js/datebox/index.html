@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="http://cdn.jtsage.com/jtsage-datebox/4.0.0/jtsage-datebox-4.0.0.jqm.min.css" />
+   <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="http://dev.jtsage.com/DateBox/js/doc.js"></script>
+    <script type="text/javascript" src="http://cdn.jtsage.com/jtsage-datebox/4.0.0/jtsage-datebox-4.0.0.bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
+	<title></title>
+	<style type="text/css" media="screen">
+
+		.ui-datebox-container {
+			max-height: 0;
+			overflow:hidden;
+			transition: max-height 1s ease-in;
+			padding: 0;
+		}
+		.expanded .ui-datebox-container {
+			max-height: 20em;
+			padding: 1em 0 2em 0;
+		}
+		.ui-datebox-controls {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+
+		.flipbox-wrapper .ui-datebox-flipcenter {
+			background-color: rgba(0,0,0,0.25);
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="col-sm-4" style="position:absolute; right:0; width:25%; top:100px">
+    <div class="dob-wrapper flipbox-wrapper">
+      <label for="db">Date</label>
+      <input class="form-control" id="db" type="text" data-role="datebox" data-options="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInline&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;}" />
+    </div>
+    <div class="tob-wrapper flipbox-wrapper">
+      <label for="db">Time</label>
+      <input class="form-control" id="db" type="text" data-role="datebox" data-options="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInline&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;}" />
+    </div>
+  </div>
+
+	<script type="text/javascript" charset="utf-8" async defer>
+		
+(function($) {
+
+    $( document ).ready(function() {
+    	var lbl = $('.flipbox-wrapper label');
+    	lbl.on('click',function(e){
+    		e.stopImmediatePropagation();
+    		var par = $(this).parent();
+    		if (par.hasClass('expanded')) {
+    			par.removeClass('expanded');
+    		} else {
+    			par.addClass('expanded');
+    		}
+    	});
+    });
+
+})(jQuery);
+
+	</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /*
  * JTSage-DateBox
- * For: jqm; With: flipbox
- * Date: 2017-01-01T13:42:00.462Z
+ * For: bootstrap; With: flipbox
+ * Date: 2017-01-01T21:51:29.898Z
  * http://dev.jtsage.com/DateBox/
  * https://github.com/jtsage/jquery-mobile-datebox
  *
@@ -23,7 +23,7 @@
             themeDefault: "a",
             themeHeader: "a",
             themeSetButton: "a",
-            themeCloseButton: "a",
+            themeCloseButton: "default",
             mode: false,
             transition: "fade",
             useAnimation: true,
@@ -31,7 +31,7 @@
             hideContainer: false,
             lockInput: true,
             zindex: "1100",
-            clickEvent: "vclick",
+            clickEvent: "click",
             clickEventAlt: "click",
             defaultValue: false,
             showInitialValue: false,
@@ -130,33 +130,38 @@
                     calHeaderFormat: "%B %Y"
                 }
             },
-            themeDateToday: "b",
-            themeDayHigh: "b",
-            themeDatePick: "b",
-            themeDateHigh: "b",
-            themeDateHighAlt: "b",
-            themeDateHighRec: "b",
-            themeDate: "a",
-            themeButton: "a",
-            themeInput: "",
-            themeClearButton: "a",
-            themeCancelButton: "a",
-            themeTomorrowButton: "a",
-            themeTodayButton: "a",
+            themeDateToday: "info",
+            themeDayHigh: "warning",
+            themeDatePick: "success",
+            themeDateHigh: "warning",
+            themeDateHighAlt: "danger",
+            themeDateHighRec: "warning",
+            themeDate: "default",
+            themeButton: "default",
+            themeInput: "default",
+            themeClearButton: "default",
+            themeCancelButton: "default",
+            themeTomorrowButton: "default",
+            themeTodayButton: "default",
             buttonIconDate: "calendar",
-            buttonIconTime: "clock",
-            disabledState: "ui-state-disabled",
+            buttonIconTime: "time",
+            disabledState: "disabled",
+            bootstrapDropdown: true,
+            bootstrapDropdownRight: true,
+            bootstrapModal: false,
             calNextMonthIcon: "plus",
             calPrevMonthIcon: "minus",
-            btnCls: " ui-corner-all ui-btn ui-btn-",
-            icnCls: " ui-btn-icon-notext ui-icon-",
+            useInlineAlign: "left",
+            btnCls: " btn btn-sm btn-",
+            icnCls: " glyphicon glyphicon-",
             s: {
                 cal: {
-                    prevMonth: "{text}",
-                    nextMonth: "{text}",
-                    botButton: "<a href='#' class='{cls} {icon}' role='button'>{text}</a>"
+                    prevMonth: "<span title='{text}' class='glyphicon glyphicon-{icon}'></span>",
+                    nextMonth: "<span title='{text}' class='glyphicon glyphicon-{icon}'></span>",
+                    botButton: "<a href='#' class='{cls}' role='button'><span class='{icon}'></span> {text}</a>"
                 }
             },
+            tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
             validHours: false,
             flen: {
                 y: 15,
@@ -1553,11 +1558,11 @@
                 return repl[oper];
             });
         },
-        baseMode: "jqm",
+        baseMode: "bootstrap",
         _stdBtn: {
             cancel: function() {
                 var w = this, o = this.options;
-                return $("<a href='#' role='button'>" + w.__("cancelButton") + "</a>").addClass("ui-btn ui-btn-" + o.themeCancelButton + " ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all").on(o.clickEventAlt, function(e) {
+                return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeCancelButton + "'><span class='" + o.icnCls + "remove'></span> " + w.__("cancelButton") + "</a>").on(o.clickEventAlt, function(e) {
                     e.preventDefault();
                     w._t({
                         method: "close",
@@ -1567,7 +1572,7 @@
             },
             clear: function() {
                 var w = this, o = this.options;
-                return $("<a href='#' role='button'>" + w.__("clearButton") + "</a>").addClass("ui-btn ui-btn-" + o.themeClearButton + " ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all").on(o.clickEventAlt, function(e) {
+                return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeClearButton + "'><span class='" + o.icnCls + "erase'></span> " + w.__("clearButton") + "</a>").on(o.clickEventAlt, function(e) {
                     e.preventDefault();
                     w.d.input.val("");
                     w._t({
@@ -1584,7 +1589,7 @@
                 if (typeof trigger === "undefined") {
                     trigger = false;
                 }
-                return $("<a href='#' role='button'>" + txt + "</a>").addClass("ui-btn ui-btn-" + o.themeSetButton + " ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" + (w.dateOK === true ? "" : " ui-state-disabled")).on(o.clickEventAlt, function(e) {
+                return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeCloseButton + "'><span class='" + o.icnCls + "ok'></span> " + txt + "</a>").addClass("" + (w.dateOK === true ? "" : "disabled")).on(o.clickEventAlt, function(e) {
                     e.preventDefault();
                     if (w.dateOK === true) {
                         if (trigger === false) {
@@ -1604,7 +1609,7 @@
             },
             today: function() {
                 var w = this, o = this.options;
-                return $("<a href='#' role='button'>" + w.__("todayButtonLabel") + "</a>").addClass("ui-btn ui-btn-" + o.themeTodayButton + " ui-icon-navigation ui-btn-icon-left ui-shadow ui-corner-all").on(o.clickEventAlt, function(e) {
+                return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeTodayButton + "'><span class='" + o.icnCls + "send'></span> " + w.__("todayButtonLabel") + "</a>").on(o.clickEventAlt, function(e) {
                     e.preventDefault();
                     w.theDate = w._pa([ 0, 0, 0 ], new w._date());
                     w.calBackDate = false;
@@ -1615,7 +1620,7 @@
             },
             tomorrow: function() {
                 var w = this, o = this.options;
-                return $("<a href='#' role='button'>" + w.__("tomorrowButtonLabel") + "</a>").addClass("ui-btn ui-btn-" + o.themeTomorrowButton + " ui-icon-navigation ui-btn-icon-left ui-shadow ui-corner-all").on(o.clickEventAlt, function(e) {
+                return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeTomorrowButton + "'><span class='" + o.icnCls + "send'></span> " + w.__("tomorrowButtonLabel") + "</a>").on(o.clickEventAlt, function(e) {
                     e.preventDefault();
                     w.theDate = w._pa([ 0, 0, 0 ], new w._date()).adj(2, 1);
                     w.calBackDate = false;
@@ -1626,23 +1631,24 @@
             }
         },
         _destroy: function() {
-            var w = this, o = this.options, button = this.d.wrap.find("a");
-            w.d.wrap.removeClass("ui-input-has-clear");
-            button.remove();
+            var w = this, o = this.options, button = this.d.wrap.find(".input-group-addon");
+            if (o.useButton === true) {
+                button.remove();
+                w.d.input.unwrap();
+            }
             if (o.lockInput) {
                 w.d.input.removeAttr("readonly");
             }
             w.d.input.off("datebox").off("focus.datebox").off("blur.datebox").off("change.datebox");
-            w.d.mainWrap.popup("destroy");
             $(document).off(w.drag.eMove).off(w.drag.eEnd).off(w.drag.eEndA);
         },
         _create: function() {
             $(document).trigger("dateboxcreate");
-            var w = this, o = $.extend(this.options, this._getLongOptions(this.element), this.element.data("options")), thisTheme = o.theme === false ? $.mobile.getInheritedTheme(this.element) : o.theme, trans = o.useAnimation ? o.transition : "none", d = {
+            var w = this, o = $.extend(this.options, this._getLongOptions(this.element), this.element.data("options")), thisTheme = o.theme === false ? "default" : o.theme, d = {
                 input: this.element,
                 wrap: this.element.parent(),
                 mainWrap: $("<div>", {
-                    "class": "ui-datebox-container ui-overlay-shadow " + "ui-corner-all ui-datebox-hidden " + trans + " ui-body-" + thisTheme
+                    "class": "ui-datebox-container"
                 }).css("zIndex", o.zindex),
                 intHTML: false
             }, evtid = ".datebox" + this.uuid, touch = typeof window.ontouchstart !== "undefined", drag = {
@@ -1690,29 +1696,31 @@
             if (o.showInitialValue) {
                 w.d.input.val(w._formatter(w.__fmt(), w.theDate));
             }
+            w.d.wrap = w.d.input.wrap("<div class='input-group'>").parent();
+            if (o.mode !== false) {
+                if (o.buttonIcon === false) {
+                    if (o.mode.substr(0, 4) === "time" || o.mode.substr(0, 3) === "dur") {
+                        o.buttonIcon = o.buttonIconTime;
+                    } else {
+                        o.buttonIcon = o.buttonIconDate;
+                    }
+                }
+            }
             if (o.useButton) {
-                if (o.mode !== false) {
-                    w.d.wrap.addClass("ui-input-has-clear");
-                    if (o.buttonIcon === false) {
-                        if (o.mode.substr(0, 4) === "time" || o.mode.substr(0, 3) === "dur") {
-                            o.buttonIcon = o.buttonIconTime;
-                        } else {
-                            o.buttonIcon = o.buttonIconDate;
+                $("<div class='input-group-addon'>" + "<span class='" + o.icnCls + o.buttonIcon + "'></span>" + "</div>").attr("title", w.__("tooltip")).on(o.clickEvent, function(e) {
+                    e.preventDefault();
+                    if (o.useFocus) {
+                        w.d.input.focus();
+                    } else {
+                        if (!w.disabled) {
+                            w._t({
+                                method: "open"
+                            });
                         }
                     }
-                    $("<a href='#' class='ui-input-clear ui-btn ui-icon-" + o.buttonIcon + " ui-btn-icon-notext ui-corner-all'></a>").attr("title", w.__("tooltip")).text(w.__("tooltip")).appendTo(w.d.wrap).on(o.clickEvent, function(e) {
-                        e.preventDefault();
-                        if (o.useFocus) {
-                            w.d.input.focus();
-                        } else {
-                            if (!w.disabled) {
-                                w._t({
-                                    method: "open"
-                                });
-                            }
-                        }
-                    });
-                }
+                }).appendTo(w.d.wrap);
+            } else {
+                w.d.wrap.css("width", "100%");
             }
             if (o.hideInput) {
                 w.d.wrap.hide();
@@ -1749,12 +1757,7 @@
             $(document).trigger("dateboxaftercreate");
         },
         open: function() {
-            var w = this, o = this.options, popopts = {
-                transition: o.useAnimation ? o.transition : "none"
-            }, basepop = {
-                history: false,
-                transition: o.useAnimation ? o.transition : "none"
-            };
+            var w = this, o = this.options, basepop = {};
             if (o.useFocus && w.fastReopen === true) {
                 w.d.input.blur();
                 return false;
@@ -1783,11 +1786,38 @@
                 w.d.mainWrap.append(w.d.intHTML);
                 if (o.hideContainer) {
                     if (o.useHeader) {
-                        w.d.mainWrap.prepend($("<div class='ui-header ui-bar-" + o.themeHeader + "'>" + "<h1 class='ui-title'>" + w.d.headerText + "</h1>" + "</div>"));
+                        w.d.mainWrap.prepend($(w._spf("<div class='{c1}'><h4 class='{c2}'>{text}</h4></div>", {
+                            c1: "modal-header",
+                            c2: "modal-title text-center",
+                            text: w.d.headerText
+                        })));
                     }
                     w.d.wrap.parent().after(w.d.mainWrap);
                 } else {
                     w.d.wrap.parent().append(w.d.mainWrap);
+                }
+                switch (o.useInlineAlign) {
+                  case "right":
+                    w.d.mainWrap.css({
+                        marginRight: 0,
+                        marginLeft: "auto"
+                    });
+                    break;
+
+                  case "left":
+                    w.d.mainWrap.css({
+                        marginLeft: 0,
+                        marginRight: "auto"
+                    });
+                    break;
+
+                  case "center":
+                  case "middle":
+                    w.d.mainWrap.css({
+                        marginLeft: "auto",
+                        marginRight: "auto"
+                    });
+                    break;
                 }
                 w.d.mainWrap.removeClass("ui-datebox-hidden ui-overlay-shadow");
                 if (o.useInline) {
@@ -1829,37 +1859,23 @@
             }
             w.d.mainWrap.empty();
             if (o.useHeader) {
-                w.d.mainWrap.append($("<a href='#'>Close</a>").addClass("ui-btn-" + o.popupButtonPosition + " ui-link ui-btn ui-btn-" + (o.themeCloseButton === false ? o.themeHeader : o.themeCloseButton) + " ui-icon-delete " + "ui-btn-icon-notext ui-shadow ui-corner-all").on(o.clickEventAlt, function(e) {
+                w.d.mainWrap.append($(w._spf("<div class='{c1}'><h4 class='{c2}'>" + "<span class='{c3}'></span>{text}</h4></div>", {
+                    c1: "modal-header",
+                    c2: "modal-title text-center",
+                    c3: "closer" + o.icnCls + "remove pull-" + o.popupButtonPosition,
+                    text: w.d.headerText
+                }))).find(".closer").on(o.clickEventAlt, function(e) {
                     e.preventDefault();
                     w._t({
                         method: "close",
                         closeCancel: true
                     });
-                }));
-                w.d.mainWrap.append($("<div class='ui-header ui-bar-" + o.themeHeader + "'>" + "<h1 class='ui-title'>" + w.d.headerText + "</h1>" + "</div>"));
+                });
             }
             w.d.mainWrap.append(w.d.intHTML).css("zIndex", o.zindex);
             w._t({
                 method: "postrefresh"
             });
-            if (o.popupPosition !== false) {
-                popopts.positionTo = o.popupPosition;
-            } else {
-                if (typeof w.baseID !== "undefined") {
-                    popopts.positionTo = "#" + w.baseID;
-                } else {
-                    popopts.positionTo = "window";
-                }
-            }
-            if (o.popupForceX !== false && o.popupForceY !== false) {
-                popopts.x = parseInt(o.popupForceX, 10);
-                popopts.y = parseInt(o.popupForceY, 10);
-                popopts.positionTo = "origin";
-            }
-            if (o.useModal) {
-                basepop.overlayTheme = o.useModalTheme;
-                basepop.dismissible = false;
-            }
             if (o.openCallback !== false) {
                 if (!$.isFunction(o.openCallback)) {
                     if (typeof window[o.openCallback] === "function") {
@@ -1888,22 +1904,6 @@
                     });
                 };
             }
-            if (o.closeCallback !== false) {
-                if (!$.isFunction(o.closeCallback)) {
-                    if (typeof window[o.closeCallback] === "function") {
-                        o.closeCallback = window[o.closeCallback];
-                    }
-                }
-                basepop.afterclose = function() {
-                    o.closeCallback.apply(w, $.merge([ {
-                        custom: w.customCurrent,
-                        initDate: w.initDate,
-                        date: w.theDate,
-                        duration: w.lastDuration,
-                        cancelClose: w.cancelClose
-                    } ], o.closeCallbackArgs));
-                };
-            }
             if (o.beforeOpenCallback !== false) {
                 if (!$.isFunction(o.beforeOpenCallback)) {
                     if (typeof window[o.beforeOpenCallback] === "function") {
@@ -1919,10 +1919,36 @@
                     return false;
                 }
             }
-            w.d.mainWrap.removeClass("ui-datebox-hidden").popup(basepop).popup("open", popopts);
+            if (o.bootstrapDropdown === true && o.bootstrapModal === false) {
+                w.d.mainWrap.addClass("dropdown-menu").addClass(o.useAnimation ? o.transition : "").addClass(o.bootstrapDropdownRight === true ? "dropdown-menu-right" : "").appendTo(w.d.wrap).on(o.tranDone, function() {
+                    if (w.d.mainWrap.is(":visible")) {
+                        basepop.afteropen.call();
+                    } else {
+                        basepop.afterclose.call();
+                        w.d.wrap.removeClass("open");
+                    }
+                });
+                w.d.wrap.addClass("open");
+                w.d.backdrop = $("<div></div>").css({
+                    position: "fixed",
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                    right: 0
+                }).appendTo("body").on(o.clickEvent, function(e) {
+                    e.preventDefault();
+                    w._t({
+                        method: "close",
+                        closeCancel: true
+                    });
+                });
+                window.setTimeout(function() {
+                    w.d.mainWrap.addClass("in");
+                }, 0);
+            }
         },
         close: function() {
-            var w = this, o = this.options;
+            var w = this, o = this.options, basepop = {};
             w.calBackDate = false;
             if (o.useInlineBlind) {
                 w.d.mainWrap.slideUp();
@@ -1931,7 +1957,40 @@
             if (o.useInline || w.d.intHTML === false) {
                 return true;
             }
-            w.d.mainWrap.popup("close");
+            if (o.closeCallback !== false) {
+                if (!$.isFunction(o.closeCallback)) {
+                    if (typeof window[o.closeCallback] === "function") {
+                        o.closeCallback = window[o.closeCallback];
+                    }
+                }
+                basepop.afterclose = function() {
+                    o.closeCallback.apply(w, $.merge([ {
+                        custom: w.customCurrent,
+                        initDate: w.initDate,
+                        date: w.theDate,
+                        duration: w.lastDuration,
+                        cancelClose: w.cancelClose
+                    } ], o.closeCallbackArgs));
+                };
+            } else {
+                basepop.afterclose = function() {
+                    return true;
+                };
+            }
+            if (o.bootstrapDropdown === true && o.bootstrapModal === false) {
+                if (o.useAnimation === true) {
+                    w.d.mainWrap.removeClass("in");
+                    w.d.backdrop.remove();
+                    window.setTimeout(function() {
+                        w.d.wrap.removeClass("open");
+                        basepop.afterclose.call();
+                    }, 0);
+                } else {
+                    w.d.wrap.removeClass("open");
+                    w.d.backdrop.remove();
+                    basepop.afterclose.call();
+                }
+            }
             $(document).off(w.drag.eMove).off(w.drag.eEnd).off(w.drag.eEndA);
             if (o.useFocus) {
                 w.fastReopen = true;
@@ -1945,9 +2004,7 @@
         disable: function() {
             var w = this;
             w.d.input.attr("disabled", true);
-            w.d.wrap.addClass("ui-state-disabled").blur();
             w.disabled = true;
-            w.d.mainWrap.addClass("ui-state-disabled");
             w._t({
                 method: "disable"
             });
@@ -1955,9 +2012,7 @@
         enable: function() {
             var w = this;
             w.d.input.attr("disabled", false);
-            w.d.wrap.removeClass("ui-state-disabled");
             w.disabled = false;
-            w.d.mainWrap.removeClass("ui-state-disabled");
             w._t({
                 method: "enable"
             });
@@ -1965,12 +2020,12 @@
         _controlGroup: function(element) {
             var o = this.options;
             if (o.useCollapsedBut) {
-                element.controlgroup({
-                    type: "horizontal"
+                element.find("a").css({
+                    width: "auto"
                 });
-                element.addClass("ui-datebox-collapse");
+                element.addClass("btn-group btn-group-justified");
             } else {
-                element.controlgroup();
+                element.addClass("btn-group-vertical");
             }
             return element;
         },
@@ -2038,5 +2093,13 @@
                 return this._zPad(this.theDate.copy([ 0, 0, 0, 0, i ]).get(4));
             }
         }
+    });
+})(jQuery);
+
+(function($) {
+    $(document).ready(function() {
+        $("[data-role='datebox']").each(function() {
+            $(this).datebox();
+        });
     });
 })(jQuery);

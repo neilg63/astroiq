@@ -139,11 +139,25 @@ span.symbol-radio label {
     filter: grayscale(0%);
 }
 
-#control-panel span.icon-female-sign {
+#control-form .glyphicon-time,
+#control-form .glyphicon-calendar {
+    font-family: "icomoon";
+    font-size: 1.3333em;
+}
+
+#control-form .glyphicon-calendar:before {
+    content: "\e953";
+}
+
+#control-form .glyphicon-time:before {
+    content: "\e94e";
+}
+
+#control-panel span.icon-female-bust {
     color: #ff5555;
 }
 
-#control-panel span.icon-male-sign {
+#control-panel span.icon-male-bust {
     color: #3333ff;
 }
 
@@ -369,24 +383,19 @@ line.solid {
     height: 100vh;
 }
 
-#control-panel .ui-input-text,
-#control-panel .ui-input-btn {
+#control-panel .input-group {
     display: inline-block;
+    position: relative;
     width: auto;
-    max-width: 10vw;
-    margin: 0;
+    padding-right: 1.5em;
 }
 
-#control-panel .ui-input-btn {
-    padding: 0.25em;
-}
-
-#control-panel .ui-input-text input,
-#control-panel .ui-input-btn input {
-    margin: 0;
-    line-height: 1;
-    min-height: auto;
-    padding: 0.375em;
+#control-panel .input-group-addon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 1em;
+    width: 1em;
 }
 
 

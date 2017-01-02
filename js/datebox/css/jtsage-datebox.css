@@ -21,22 +21,16 @@
 	width: 290px;
 	-webkit-transform:translate3d(0,0,0);
 }
-.ui-popup-container .ui-datebox-gridrow { 
-	display: table;
-	margin-left: auto; 
-	margin-right: auto;
+.ui-datebox-container .modal-header {
+	padding: 8px 15px;
 }
+
+
+
 .ui-datebox-collapse { 
 	text-align: center;
 }
-.ui-datebox-collapse .ui-controlgroup-controls a { 
-	max-width: 40%;
-}
 
-.ui-datebox-controls.ui-controlgroup-vertical {
-	margin-bottom: 5px;
-	margin-top: 5px;
-}
 
 div.ui-datebox-inline.ui-datebox-inline-has-input {
 	float: none;
@@ -44,18 +38,9 @@ div.ui-datebox-inline.ui-datebox-inline-has-input {
 	position: relative;
 	top: 5px;
 }
-.ui-field-contain div.ui-datebox-container.ui-datebox-inline {
-	margin-right: auto;
-	margin-left: auto;
-}
 div.ui-datebox-container.ui-datebox-inline {
 	width: 290px;
 
-}
-.ui-datebox-inline .ui-controlgroup-controls {
-	float: none;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 /* 
@@ -64,36 +49,21 @@ div.ui-datebox-container.ui-datebox-inline {
  * These are specific to CalBox
  */
 
-.ui-datebox-pickicon {
-	display: inline-block; width: 216px;
-}
 .ui-datebox-gridheader { 
 	text-align: center;
 }
-.ui-datebox-gridheader .ui-btn-inline { 
-	margin-right: 5px;
-	margin-left: 5px;
-}
-.ui-datebox-gridheader .ui-datebox-nomargbtn { 
-	margin-right: 0px;
-	margin-left: 0px;
+
+.ui-datebox-gridheader a {
+	margin: 3px;
 }
 
 .ui-datebox-gridheader h4 { 
-	text-align: center;
 	display: inline-block;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	zoom: 1;
-	*display: inline;
 }
+
 .ui-datebox-grid { 
 	clear: both; 
 	margin-bottom: 5px; 
-}
-.ui-datebox-inline .ui-datebox-gridrow.ui-controlgroup-horizontal {
-	margin-left: auto;
-	margin-right: auto;
 }
 .ui-datebox-inline .ui-datebox-gridrow .ui-controlgroup-controls {
 	width: 100%;
@@ -103,20 +73,24 @@ div.ui-datebox-container.ui-datebox-inline {
 	float: none;
 	clear: both;
 }
+
 .ui-datebox-gridrow { 
 	margin-left: auto; 
 	margin-right: auto;
 	display: table;
-	margin-bottom: -7px;
+	margin-bottom: 0px;
 }
 .ui-datebox-gridrow-last {
-	margin-bottom: 0;
-}
-.ui-datebox-inline .ui-controlgroup.ui-datebox-gridrow-last {
 	margin-bottom: 5px;
 }
+
+.ui-datebox-controls {
+	padding: 0px 3px;
+	width: 100%;
+}
+
 .ui-datebox-griddate { 
-	width: 36px;
+	width: 40px;
 	height: 30px;
 	line-height: 30px;
 	padding: 0;
@@ -128,8 +102,9 @@ div.ui-datebox-container.ui-datebox-inline {
 	zoom: 1;
 	*display: inline;
 }
+
 .ui-datebox-griddate-week { 
-	width: 31px;
+	width: 35px;
 	height: 30px;
 	line-height: 30px; 
 	display: inline-block;
@@ -149,10 +124,6 @@ div.ui-datebox-container.ui-datebox-inline {
 	height: 15px;
 	line-height: 15px;
 }
-.ui-datebox-gridplus 		{ float: right; }
-.ui-datebox-gridminus 		{ float: left; }
-.ui-datebox-gridplus-rtl 	{ float: left; }
-.ui-datebox-gridminus-rtl 	{ float: right; }
 
 /* 
  * Android Mode Styles
@@ -160,47 +131,45 @@ div.ui-datebox-container.ui-datebox-inline {
  * These are specific to datebox, timebox, and durationbox
  */
 
-.ui-datebox-datebox-group input {
-	text-align: center;
-}
-.ui-datebox-datebox-group {
-	padding: 0px 2px;
-}
-.ui-datebox-datebox-group .ui-input-text {
-	width: 100%;
-}
-.ui-datebox-datebox-groups {
-	width: 97.5%;
-    margin-left: 1%;
+.ui-datebox-datebox-groups.row {
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-bottom: 10px;
 }
 
-.ui-datebox-datebox-group div {
+.ui-datebox-datebox-group.col-xs-3, .ui-datebox-datebox-group.col-xs-4 {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+div.ui-datebox-datebox-button {
+	width: 100%;
 	margin: 0;
 }
-.ui-datebox-datebox-group div label {
+
+.ui-datebox-datebox-groups input {
 	text-align: center;
-	margin: 0;
 }
-.ui-datebox-datebox-label {
+
+.ui-datebox-datebox-groups label {
+	text-align: center;
 	width: 100%;
+	margin-bottom: 0px;
+	border: 1px solid #ccc;
 }
-div.ui-datebox-datebox-button.ui-btn.ui-corner-all {
-	width: 100%;
-	margin: 0;
-}
-div.ui-datebox-datebox-button.ui-btn.ui-corner-all.ui-icon-plus {
+div.ui-datebox-datebox-button.glyphicon-plus {
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
 	-webkit-border-bottom-right-radius: 0;
 	-webkit-border-bottom-left-radius: 0;
-	height: 40px;
+	top: 0px;
 }
-div.ui-datebox-datebox-button.ui-btn.ui-corner-all.ui-icon-minus {
+div.ui-datebox-datebox-button.glyphicon-minus {
 	border-top-right-radius: 0;
 	border-top-left-radius: 0;
 	-webkit-border-top-right-radius: 0;
 	-webkit-border-top-left-radius: 0;
-	height: 40px;
+	top: 0px;
 }
 .ui-datebox-header h4 {
 	text-align: center;
@@ -223,12 +192,20 @@ div.ui-datebox-datebox-button.ui-btn.ui-corner-all.ui-icon-minus {
 	margin-right: auto;
 	margin-left: auto;
 	position: relative;
+	-webkit-box-shadow: 0 0 12px rgba(0,0,0,.6);
+    -moz-box-shadow: 0 0 12px rgba(0,0,0,.6);
+    box-shadow: 0 0 12px rgba(0,0,0,.6);
 }
+
 .ui-datebox-flipcontent {
 	text-align: center;
 	height: 125px;
 	margin-bottom: -40px;
 }
+.ui-datebox-flipcontent li {
+	border: 1px solid #ccc;
+}
+
 .ui-datebox-flipcontent div {
 	margin-left: 3px;
 	margin-right: 3px;
@@ -290,35 +267,34 @@ div.ui-datebox-datebox-button.ui-btn.ui-corner-all.ui-icon-minus {
 	*display:inline;
 	vertical-align: middle;
 	font-weight: bold;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 .ui-datebox-slideyear {
 	width: 84px;
 	line-height: 30px;
-	height: 30px;
 	font-size: 14px;
 }
 .ui-datebox-slidemonth {
 	width: 51px;
 	line-height: 30px;
-	height: 30px;
 	font-size: 12px;
 }
 .ui-datebox-slideday {
-	width: 32px;
+	width: 40px; 
 	line-height: 20px;
-	height: 38px;
 	font-size: 14px;
 }
 .ui-datebox-slidehour {
-	width: 32px;
+	width: 60px;
 	line-height: 22px;
-	height: 24px;
 	font-size: 14px;
 }
 .ui-datebox-slidemins {
-	width: 32px;
+	width: 40px; 
 	line-height: 22px;
-	height: 24px;
 	font-size: 14px;
 }
 .ui-datebox-slidewday {
@@ -327,30 +303,3 @@ div.ui-datebox-datebox-button.ui-btn.ui-corner-all.ui-icon-minus {
 }
 
 span.ui-datebox-nopad { margin: 0 }
-.ui-datebox-repad { margin: .5em .4375em }
-
-/*
- * 6 Element Grid - Used for datebox w/ time only.
- */
-
-.ui-grid-e > .ui-block-a,
-.ui-grid-e > .ui-block-b,
-.ui-grid-e > .ui-block-c,
-.ui-grid-e > .ui-block-d,
-.ui-grid-e > .ui-block-e,
-.ui-grid-e > .ui-block-f {
-	width: 16.65%;
-}
-.ui-grid-e { 
-	overflow: hidden;
-}
-.ui-block-f {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	float: left;
-	min-height: 1px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
