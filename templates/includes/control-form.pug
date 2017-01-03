@@ -8,7 +8,7 @@ form#control-form(action="/sweph" method="post")
         option(value="type-event") Event
         option(value="type-question") Question
         option(value="type-electional") Electional
-      
+
       //- input#form-type-birth.type(type="radio" value="birth" name="type" checked="true")
       //- label(for="form-type-birth") Birth
       //- input#form-type-event.type(type="radio" value="event" name="type")
@@ -17,12 +17,12 @@ form#control-form(action="/sweph" method="post")
       //- label(for="form-type-question") Question
       //- input#form-type-electional.type(type="radio" value="electional" name="type")
       //- label(for="form-type-electional") Electional
-  
+
     p
       //-Change according to type: Name, event, question, election
       label(for="form-name") Name:
       input(type="text" id="form-name" name="name" size="10" value="Andri" )
-  
+
     p.genders
       label(for="form-gender") Gender:
       span.symbol-radio.icon-female-bust
@@ -32,7 +32,7 @@ form#control-form(action="/sweph" method="post")
         input#form-gender-male.gender.male(type="radio" name="gender")
         label.sub(for="form-gender-male") Male
         //- input#form-gender-unknown.gender.unknown(type="radio" name="gender")
-        //-label.sub(for="form-gender-unknown") Unknown 
+        //-label.sub(for="form-gender-unknown") Unknown
     p.dob
       //- change 'birth' according to type
       label(for="form-dob") Date of birth:
@@ -47,32 +47,32 @@ form#control-form(action="/sweph" method="post")
       input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
       input#geobirth-finder(type="submit" value="Find")
     div#geo-address.hidden
-    
+
     p.tz
       label(for="form-timezone") Time Zone:
       input(type="time" id="form-timezone" name="timezone" size="5" value="00:00")
       //- label(for="form-tz-east") Eastinput(type="radio" value="event" name="tz-east" id="form-tz-east" class="type")
       label(for="form-tz-west") West
       //- input(type="radio" value="event" name="tz-west" id="form-tz-west" class="type")
-      label(for="form-timezone")  of Greenwich
-    
+      label(for="form-timezone")
+
     p.ds
       label(for="form-daylightsavings") Daylight Savings:
       input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
     p.lat
-      label(for="form-lat" title="latitude") Latitude: 
+      label(for="form-lat" title="latitude") Latitude:
       input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
     p.lng
-      label.degree(for="form-lng" title="longitude") Longitude: 
+      label.degree(for="form-lng" title="longitude") Longitude:
       input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
     p.alt
-      label(for="form-alt" title="altitude") Altitude: 
+      label(for="form-alt" title="altitude") Altitude:
       input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" )
       select#form-height-unit.inline
         option(value="m") metres
         option(value="ft") feet
     p.rodden
-      label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale: 
+      label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale:
       select#form-rodden.select-input(name="rodden")
         option(value="AA1") AA - Birth Certificate in hand
         option(value="AA2") AA - Quoted Birth Record
@@ -87,14 +87,14 @@ form#control-form(action="/sweph" method="post")
         option(value="X2") X - Rectified w/o time of birth
         option(value="XX1") XX - Date in question
         option(value="XX2") XX - Undetermioned
- 
+
   div#form-actions
     input(type="submit" value="Calculate & Save" id="form-submit" )
-  
+
   //- fieldset.collapsible.closed
   //-   h3.toggle Open Chart
   //-   p Open chart dialog
-  
+
   fieldset.collapsible.closed
     h3.toggle Calculation Settings
     fieldset.collapsible.closed
@@ -158,8 +158,8 @@ form#control-form(action="/sweph" method="post")
       label(for="form-mode-topo") Topocentric
       input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode")
       label(for="form-mode-geo") Geocentric
-    
-  
+
+
     fieldset.collapsible.closed
       h4.toggle Solar Year & Lunar Month
       fieldset.collapsible.open
@@ -177,8 +177,8 @@ form#control-form(action="/sweph" method="post")
               p.textA.strong Tropical year (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.
               p.textA.strong Sidereal year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.
               p.textAn.strong Anomalistic year (365.259636) is a measure of earth's passage from one perihelion to another.
-      
-      
+
+
       fieldset.collapsible.closed
         h5.toggle Time Period (Daśa) Year Definition
         p
@@ -213,5 +213,5 @@ form#control-form(action="/sweph" method="post")
         p.text An #[strong Anomalistic] month (27.321582) is a measure of Moon's passage from one perihelion to another.
         p.text A #[strong Synodic] month (29.530588) is a measure of Moon's passage from one New Moon to another.
         //-sub-sub-section
-      
+
     //- sub-section
