@@ -99,6 +99,10 @@ span.symbol-radio label {
     position: relative;
 }
 
+#control-panel p.has-dms input.degree {
+    display: none;
+}
+
 #control-panel fieldset fieldset p {
     margin: 0;
     padding: 0;

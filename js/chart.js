@@ -24,7 +24,8 @@ var GeoMap = {
         var loc = {lat: lat, lng: lng}, hasMap = this.map === null;
         this.map = new google.maps.Map(document.getElementById('gmap'), {
           zoom: 6,
-          center: loc
+          center: loc,
+          streetViewControl: true,
         });
 
         this.marker = new google.maps.Marker({
@@ -739,6 +740,7 @@ function initMap() {
                                 if (data.lng) {
                                     $('#form-lng').val(data.lng);
                                 }
+                                updateDegreeValues();
                                 $('#form-geobirth').val("");
                                 if (GeoMap) {
                                    if (GeoMap.map !== null) {
@@ -767,6 +769,34 @@ function initMap() {
                 }
             });
         }
+
+        var updateDegreeValues = function() {
+            var degFields = $('input.degree'),
+            numDegFields = degFields.length,i=0,fd,par,vl,dv,dt;
+            if (numDegFields>0) {
+                for (;i<numDegFields;i++) {
+                    fd = degFields.eq(i);
+                    vl = fd.val();
+                    if (isNumeric(vl)) {
+                        par = fd.parent();
+                        if (fd.hasClass('latitude')) {
+                            dv = toLatitudeString(vl);
+                        } else {
+                            dv = toLongitudeString(vl);
+                        }
+                        dt = par.find('.degrees-dms');
+                        if (dt.length<1) {
+                            dt = $('<strong class="degrees-dms"></strong>');
+                            par.append(dt);
+                            par.addClass('has-dms');
+                        }
+                        dt.html(dv);
+                    }
+                }
+            }
+        }
+
+        $('input.degree').on('change keyup',updateDegreeValues);
 
         cf.on('submit',function(e){
             e.preventDefault();
@@ -885,6 +915,8 @@ function initMap() {
                 
             } 
         });
+
+        updateDegreeValues();
 
         setTimeout(function(){
             var gMapApi = $('#gmap-api-key');

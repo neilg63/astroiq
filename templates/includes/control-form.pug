@@ -36,11 +36,11 @@ form#control-form(action="/sweph" method="post")
     p.dob
       //- change 'birth' according to type
       label(for="form-dob") Date of birth:
-      input(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;}" )
+      input(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
     p.tob
       //- change 'birth' according to type
       label(for="form-tob") Time of birth:
-      input(type="time" id="form-tob" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;}")
+      input(type="time" id="form-tob" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
     p.pob
       //- change 'birth' according to type
       label(for="form-geobirth") Place of birth:
@@ -61,11 +61,10 @@ form#control-form(action="/sweph" method="post")
       input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
     p.lat
       label(for="form-lat" title="latitude") Latitude: 
-      input(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
-      label.degree(for="form-lat" title="latitude") 
+      input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
     p.lng
       label.degree(for="form-lng" title="longitude") Longitude: 
-      input(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
+      input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
     p.alt
       label(for="form-alt" title="altitude") Altitude: 
       input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" ) 

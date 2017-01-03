@@ -211,7 +211,7 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 	text-align: center;
 }
 .ui-datebox-flipcenter {
-	width: 14em;
+	width: 12em;
 	height: 2.25em;
 	border: 1px solid #EEEEEE;
 	background-color: rgba(0,0,0,0.25);
@@ -232,6 +232,10 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 }
 .ui-datebox-flipcontent li {
 	border: 1px solid #ccc;
+}
+
+li.bg-success {
+	font-weight: bold;
 }
 
 .ui-datebox-flipcontent div {
@@ -302,34 +306,4 @@ div.ui-datebox-datebox-button.glyphicon-minus {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.ui-datebox-slideyear {
-	width: 84px;
-	line-height: 30px;
-	font-size: 14px;
-}
-.ui-datebox-slidemonth {
-	width: 51px;
-	line-height: 30px;
-	font-size: 12px;
-}
-.ui-datebox-slideday {
-	width: 40px; 
-	line-height: 20px;
-	font-size: 14px;
-}
-.ui-datebox-slidehour {
-	width: 60px;
-	line-height: 22px;
-	font-size: 14px;
-}
-.ui-datebox-slidemins {
-	width: 40px; 
-	line-height: 22px;
-	font-size: 14px;
-}
-.ui-datebox-slidewday {
-	font-size: 10px;
-	font-weight: normal;
-}
-
 span.ui-datebox-nopad { margin: 0 }
