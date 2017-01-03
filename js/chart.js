@@ -43,7 +43,7 @@ var GeoMap = {
             var lat = e.latLng.lat(),
             lng = e.latLng.lng();
             GeoMap.updateCoords(lat,lng);
-            GeoMap.updateMap(lat,lng,false);
+            GeoMap.updateMap(lat,lng,false,false);
         });
     },
 
@@ -66,27 +66,29 @@ var GeoMap = {
         this.map.panToBounds(nb);*/
     },
 
-    updateMap: function(lat,lng,updateMarker) {
+    updateMap: function(lat,lng,updateMarker,animateZoom) {
         var pos = {
            lat: lat,
            lng: lng 
         };
         this.map.setCenter(pos);
         this.showSatellite();
-        GeoMap.zoom = 14;
-        this.map.setZoom(GeoMap.zoom)
-        setTimeout(function() {
-            GeoMap.zoomIn(15);
-        }, 750);
-        setTimeout(function() {
-            GeoMap.zoomIn(16);
-        }, 1250);
-        setTimeout(function() {
-            GeoMap.zoomIn(17);
-        }, 1750);
-        setTimeout(function() {
-            GeoMap.zoomIn(18);
-        }, 2250);
+        if (animateZoom !== false) {
+            GeoMap.zoom = 14;
+            this.map.setZoom(GeoMap.zoom)
+            setTimeout(function() {
+                GeoMap.zoomIn(15);
+            }, 750);
+            setTimeout(function() {
+                GeoMap.zoomIn(16);
+            }, 1250);
+            setTimeout(function() {
+                GeoMap.zoomIn(17);
+            }, 1750);
+            setTimeout(function() {
+                GeoMap.zoomIn(18);
+            }, 2250);
+        }
         if (updateMarker) {
             this.marker.setPosition(pos);
             this.addDragendEvent(this.marker);
@@ -112,8 +114,8 @@ var GeoMap = {
         }
         /*document.getElementById('form-lat').setAttribute('value',coords.latitude);
         document.getElementById('form-lng').setAttribute('value',coords.longitude);*/
-        document.getElementById('form-lat').value = coords.latitude;
-        document.getElementById('form-lng').value = coords.longitude;
+        jQuery('#form-lat').val(coords.latitude).trigger('change');
+        jQuery('#form-lng').val(coords.longitude).trigger('change');
 
     },
 
