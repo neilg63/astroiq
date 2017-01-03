@@ -348,7 +348,6 @@ function _toLatLngString(dec,degType) {
     } else if (dec <= min) {
       dec += (max*2);
     }
-    console.log(dec)
     var degree = convertDDToDMS(dec,isLng);
     return degree.deg + '&deg; ' + degree.min + '&apos; ' + degree.sec + '&quot; ' + degree.dir;
   } 

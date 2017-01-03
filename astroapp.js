@@ -819,7 +819,10 @@ astro.saveData = (model) => {
   var data = {};
   if (typeof model == 'object') {
     if (model.cmd && model.geo) {
-       
+       if (typeof model.date.date == 'string') {
+          model.date.date = new Date(model.date.date);
+          console.log(model.date.date);
+       }
        data.cmd = model.cmd;
        data.date = {
         date: model.date.date,
@@ -867,13 +870,14 @@ astro.fetch = (cmd, res, query, debug) => {
     var matched = false;
     if (typeof doc == 'object') {
       var data = {};
-      if (data.houses) {
+      if (doc.houses) {
         data.date = doc.date;
+
         data.geo = doc.geo;
         data.astro = doc.astro;
         data.houseData = doc.houseData;
-        data.houses = astro.mapHouses(data.houses);
-        data.house_bounds = astro.calcHouseBounds(data.houses);
+        data.houses = astro.mapHouses(doc.houses);
+        data.house_bounds = astro.calcHouseBounds(doc.houses);
         data.bodies = doc.bodies;
         data.ayanamsa = doc.ayanamsa;
         data.stored = true;

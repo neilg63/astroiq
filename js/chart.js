@@ -63,8 +63,6 @@ var GeoMap = {
             new google.maps.LatLng(bLat2, bLng2),
             new google.maps.LatLng(bLat1, bLng1)
         );
-        console.log(ne.lat(), ne.lng(),sw.lat(), sw.lng());
-        console.log(diffLat,bLat1, bLng1,bLat2, bLng2);
         this.map.panToBounds(nb);*/
     },
 
