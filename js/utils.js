@@ -174,7 +174,7 @@ String.prototype.isNumeric = function(allowCommas) {
 function isNumeric(scalarVal) {
   switch (typeof scalarVal) {
     case 'number':
-      return isNan(scalarVal);
+      return !isNaN(scalarVal);
     case 'string':
     return scalarVal.isNumeric();
   }

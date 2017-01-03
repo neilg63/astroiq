@@ -916,6 +916,25 @@ function initMap() {
             } 
         });
 
+        $('#form-height-unit').on('change',function(e){
+            var it = $(this), par = it.parent(),
+                vl = $(this).val(),ref = par.find('#form-alt');
+            if (ref.length>0) {
+                var mToFt = 0.3048, h = ref.val().toInt(),nh;
+                if (h !== 0) {
+                    if (vl == 'm' && par.hasClass('show-ft')) {
+                        nh = parseInt(h * mToFt);
+                    } else if (vl == 'ft' && par.hasClass('show-ft')==false) {
+                        nh = Math.ceil(h / mToFt);
+                    }
+                    par.removeClass('show-ft show-m').addClass('show-' + vl);
+                    if (isNumeric(nh)) {
+                        ref.val(nh);
+                    }
+                }
+            }    
+        });
+
         updateDegreeValues();
 
         setTimeout(function(){
