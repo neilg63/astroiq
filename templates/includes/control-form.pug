@@ -1,13 +1,13 @@
 form#control-form(action="/sweph" method="post")
   h2.toggle-aside New Chart
   fieldset.collapsible.open
-    p#form-type
+    p.chart-type
       label(for="form-type") Type of Chart:
-        select#form-chart-type.select-input(name="chart-type")
-          option(value="type-birth") Birth
-          option(value="type-event") Event
-          option(value="type-question") Question
-          option(value="type-electional") Electional
+      select#form-chart-type.select-input(name="chart-type")
+        option(value="type-birth") Birth
+        option(value="type-event") Event
+        option(value="type-question") Question
+        option(value="type-electional") Electional
       
       //- input#form-type-birth.type(type="radio" value="birth" name="type" checked="true")
       //- label(for="form-type-birth") Birth
