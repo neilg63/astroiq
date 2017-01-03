@@ -881,6 +881,7 @@ astro.fetch = (cmd, res, query, debug) => {
         data.bodies = doc.bodies;
         data.ayanamsa = doc.ayanamsa;
         data.stored = true;
+        data.valid = true;
         matched = true;
         res.send(data);
       } 
@@ -889,8 +890,9 @@ astro.fetch = (cmd, res, query, debug) => {
       astro.fetchFromCommand(cmd, cmdId, res, query, debug);
     }
   }).catch((e) => {
-    res.status(400).send();
+    astro.fetchFromCommand(cmd, cmdId, res, query, debug);
   });
+  
 };
 
 astro.fetchFromCommand = (cmd, cmdId, res, query, debug) => {
@@ -904,8 +906,6 @@ astro.fetchFromCommand = (cmd, cmdId, res, query, debug) => {
 
     if (error !== null) {
       data = {"valid": false,"msg": "Server error"};
-    } else {
-      data.valid = true;
     }
     var ayCmd = astro.composeSwetestQueryAyanamsa(query);
     if (ayCmd.length > 4) {
@@ -916,6 +916,7 @@ astro.fetchFromCommand = (cmd, cmdId, res, query, debug) => {
         data.ayanamsa = ayData.ayanamsa;
         data.cmd = cmdId;
         var saved = astro.saveData(data);
+        data.valid = true;
         res.send(data);
       });
     }

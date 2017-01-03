@@ -839,6 +839,7 @@ function initMap() {
                     data: params,
                     success: function(data) {
                         if (data.valid) {
+                            $('#main .hor-tabs li.chart').first().trigger('click');
                             buildDataView(data);
                             updateChart(data);
                         }
