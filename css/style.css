@@ -627,7 +627,9 @@ ul.hor-tabs li:not(.disabled):hover {
 #astro-disc #degree-overlay,
 #astro-disc #degree-overlay .degree-label,
 #astro-disc #degree-lines {
-    transform-origin: 750px 750px;
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    transform-origin: 0 0;
 }
 
 #astro-disc .house-line {
