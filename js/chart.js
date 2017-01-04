@@ -1062,6 +1062,12 @@ function initMap() {
             }
         });
 
+        var w = $(window), width=w.width();
+
+        if (width > 1280) {
+          $('body').addClass('show-control-panel');
+        }
+
         setTimeout(function(){
             var gMapApi = $('#gmap-api-key');
             if (gMapApi.length>0) {

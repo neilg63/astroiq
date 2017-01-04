@@ -334,14 +334,36 @@ object.large-pane {
   left: 20vw;
 }
 
-
 .large-pane svg {
     position: relative;
-    width: 50vw;
+    width: 60vw;
     max-width: 100%;
-    height: 50vw;
+    height: 60vw;
     margin-left: 5vw;
 }
+
+@media screen and (max-width: 959px) {
+    object.large-pane {
+      left: 5vw;
+    }
+    .large-pane svg {
+        width: 75vw;
+        height: 75vw;
+    }
+}
+
+@media screen and (min-width:960px) and (max-width: 1279px) {
+    object.large-pane {
+      left: 15vw;
+    }
+    .large-pane svg {
+        width: 66.667vw;
+        height: 66.67vw;
+    }
+}
+
+
+
 
 .large-pane svg .planet {
     transition: transform 1s ease-in, opacity .5s ease-in;
@@ -437,6 +459,40 @@ line.solid {
     border-bottom: solid 1px #999999;
     transition: width .5s ease-in;
     overflow: hidden;
+}
+
+#control-panel .toggle-aside {
+    position: absolute;
+    font-size: 0;
+    top: 2rem;
+    right: 0;
+    width: 2rem;
+    height: 4rem;
+    z-index: 40;
+}
+
+.show-control-panel #control-panel .toggle-aside {
+    right: 0.5rem;
+}
+
+#control-panel .toggle-aside:before {
+    font-family: "icomoon";
+    font-size: 2rem;
+    content: "\e994";
+    cursor:pointer;
+    position: absolute;
+    top: 0;
+    right:0;
+    color: #999999;
+    transition: transform .5s ease-in;
+}
+
+.toggle-aside:hover:before {
+    transform: rotate(-45deg);
+}
+
+.show-control-panel #control-panel .toggle-aside:before {
+    transform: rotate(45deg);
 }
 
 #control-panel p, #control-panel fieldset {
