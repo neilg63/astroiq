@@ -49,8 +49,9 @@ span.symbol-radio label {
     position: relative;
     margin: 0 auto;
     text-align: center;
-    width: 75vw;
+    width: 100vw;
 }
+
 
 .large-pane {
     opacity: 0;
@@ -63,7 +64,7 @@ span.symbol-radio label {
 }
 
 #main {
-    padding: 4em 0 0 25vw;
+    padding: 4em 0 0 0;
     z-index: 1;
 }
 
@@ -93,6 +94,15 @@ span.symbol-radio label {
       opacity: 1;
       pointer-events: auto;
     }
+
+    .large-pane,
+    #main {
+        width: 75vw;
+    }
+    #main {
+        padding: 4em 0 0 25vw;
+    }
+
 }
 
 #control-panel object#tween-symbol-container svg {

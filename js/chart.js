@@ -23,7 +23,7 @@ var GeoMap = {
 
     zoom: 9,
 
-    buildMap: function(lat, lng) {
+    buildMap: function(lat, lng,updateCoords) {
         var loc = {lat: lat, lng: lng}, hasMap = this.map === null;
         this.map = new google.maps.Map(document.getElementById('gmap'), {
           zoom: 6,
@@ -38,7 +38,9 @@ var GeoMap = {
           map: this.map
         });
         this.addDragendEvent(this.marker);
-        
+        if (updateCoords === true) {
+          this.updateCoords(coords);
+        }
     },
 
     addDragendEvent: function(marker) {
@@ -104,8 +106,8 @@ var GeoMap = {
 
     matchLocation: function(position) {
         var coords = position.coords; 
-        this.buildMap(coords.latitude,coords.longitude);
-        this.updateCoords(coords);
+        this.buildMap(coords.latitude,coords.longitude,true);
+        
     },
 
     updateCoords: function(coords,lng) {
@@ -824,8 +826,8 @@ function initMap() {
 
         });
         
-
-        $('#main .hor-tabs li').on('click',function(e){
+        p.horMenu = $('#main .hor-tabs');
+        p.horMenu.find('li').on('click',function(e){
             e.stopImmediatePropagation();
             var it = $(this), main = $('#main');
             if (it.hasClass('active') == false) {
@@ -850,19 +852,21 @@ function initMap() {
                 it.addClass('active');
             }
             if (it.hasClass('map')) {
-                GeoMap.zoom = GeoMap.map.getZoom();
-                GeoMap.showSatellite();
-                if (GeoMap.zoom < 15) {
-                    if (GeoMap.zoom < 10) {
-                        GeoMap.zoom = 10;
-                    }
-                    setTimeout(function() {
-                        GeoMap.zoomIn(15);
-                    }, 500);
-                }
-                setTimeout(function(){
-                    GeoMap.zoomIn(16);
-                }, 1000);
+                if (GeoMap.map) {
+                  GeoMap.zoom = GeoMap.map.getZoom();
+                  GeoMap.showSatellite();
+                  if (GeoMap.zoom < 15) {
+                      if (GeoMap.zoom < 10) {
+                          GeoMap.zoom = 10;
+                      }
+                      setTimeout(function() {
+                          GeoMap.zoomIn(15);
+                      }, 500);
+                  }
+                  setTimeout(function(){
+                      GeoMap.zoomIn(16);
+                  }, 1000);
+                } 
             }
         });
 
@@ -912,47 +916,51 @@ function initMap() {
         updateDegreeValues();
 
         $('p.has-mask input.main').on('click change',function(e){
-            var it=$(this),
-            par=it.parent();
-            if (par.hasClass('input-group')) {
-                par = par.parent();
+            var p=pDom;
+            if (p.width > p.mobileMax) {
+              var it=$(this),
+              par=it.parent()
+              if (par.hasClass('input-group')) {
+                  par = par.parent();
+              }
+              var id=it.attr('id'),
+              mask=par.find('#'+id+'-mask');
+              switch (e.type) {
+                  case 'click':
+                      if (mask.length>0) {
+                          var wdg = par.find('.ui-datebox-container');
+                          if (wdg.css('display') != 'block') {
+                             mask.removeClass('hidden');
+                              par.addClass('masked');
+                              var tg = mask[0], 
+                              vl = mask.val(),
+                              start = tg.selectionStart,
+                              end = tg.selectionEnd,
+                              len=vl.length; 
+                          }
+                          
+                          
+                          /*if (len == 5) {
+                              if (start < (len-1) && start===end) {
+                                  var sel = window.getSelection(),
+                                  range = document.createRange();
+                                  range.setStart(tg,start);
+                                  range.setEnd(tg,(end+1));
+                                  sel.addRange(range);
+                              }
+                          }*/
+                      }
+                      break;
+                  case 'change':
+                      var vl = it.val(),valid=false;
+                      if (mask.hasClass('date-mask')) {
+                          vl = vl.split('-').reverse().join('/');
+                      }
+                      mask.val(vl);
+                      break;
+              }
             }
-            var id=it.attr('id'),
-            mask=par.find('#'+id+'-mask');
-            switch (e.type) {
-                case 'click':
-                    if (mask.length>0) {
-                        var wdg = par.find('.ui-datebox-container');
-                        if (wdg.css('display') != 'block') {
-                           mask.removeClass('hidden');
-                            par.addClass('masked');
-                            var tg = mask[0], 
-                            vl = mask.val(),
-                            start = tg.selectionStart,
-                            end = tg.selectionEnd,
-                            len=vl.length; 
-                        }
-                        
-                        
-                        /*if (len == 5) {
-                            if (start < (len-1) && start===end) {
-                                var sel = window.getSelection(),
-                                range = document.createRange();
-                                range.setStart(tg,start);
-                                range.setEnd(tg,(end+1));
-                                sel.addRange(range);
-                            }
-                        }*/
-                    }
-                    break;
-                case 'change':
-                    var vl = it.val(),valid=false;
-                    if (mask.hasClass('date-mask')) {
-                        vl = vl.split('-').reverse().join('/');
-                    }
-                    mask.val(vl);
-                    break;
-            }
+            
         });
         $('p.has-mask input.mask').on('change',function(e){
             var it=$(this),par = it.parent(), main = par.find('.main');
