@@ -809,6 +809,7 @@ function initMap() {
             hsy = $('#form-hsy'),
             aya = $('#form-ayanamsa'),
             mod = $('#form-mode input.mode:checked');
+            console.log(dob.length)
             if (dob.length>0 && lng.length>0) {
                 var dobV = dob.val(),
                 tobV = tob.val(),
