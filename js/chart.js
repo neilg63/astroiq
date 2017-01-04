@@ -6,11 +6,14 @@ jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, {
     timeFieldOrder: ["h", "i", "a"],
     slideFieldOrder: ["y", "m", "d"],
     dateFormat: "%Y-%m-%d",
+    headerFormat: "%A, %-d %B %Y",
   }
 });
 jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
   useLang: 'en'
 });
+
+var pDom = {};
 
 var GeoMap = {
 
@@ -515,56 +518,21 @@ function initMap() {
 
         astroDisc.init();
 
-        var cf = $('form#control-form');
+        var p = pDom;
+        p.body = $('body');
+        p.window = $(window);
+        p.width = p.window.width();
+        p.height = p.window.height();
+        p.mobileMax = 959;
+        p.medDesktopMin = 1280;
 
+        p.window.on('resize',function() {
+          var p = pDom;
+          p.width = p.window.width();
+          p.height = p.window.height();
+        });
 
-        var toEuroDate = function(strDate) {
-            return strDate.split("-").reverse().join(".");
-        };
-
-        var zeroPad2 = function(num) {
-            var isString = typeof num == 'string',
-            isNum = typeof num == 'number', str;
-            if (isString || isNum) {
-               if (isNum && /^\s*\d+\s*$/.test(num)) {
-                    num = parseInt(num)
-               }
-               if (num < 10) {
-                    str = '0' + num;
-               } else {
-                    str = num.toString();
-               }
-            }
-            return str;
-        };
-
-        var toSwissEphTime = function(strTime) {
-            var parts = strTime.split(":"), t;
-            if (parts.length>1) {
-                t= zeroPad2(parts[0]) + '.' + zeroPad2(parts[1]);
-                if (parts.length>2) {
-                    t += zeroPad2(parts[2]);
-                }
-            }
-            return t;
-        };
-
-        function objToString(obj) {
-            if (typeof obj == 'object') {
-                var parts = [], tp;
-                for (var sk in obj) {
-                    tp = typeof obj[sk];
-                    switch (tp) {
-                        case 'string':
-                        case 'number':
-                            parts.push(sk + ': ' + obj[sk]);
-                            break;
-                    }
-                }
-                return parts.join(', ');
-            }
-        }
-
+        p.cForm = $('form#control-form');
 
         var buildBodyDataView = function(body,key) {
             var ul = $('<ul class="details-'+key+'"></ul>'),hasData=false,content, li, tp;
@@ -798,7 +766,7 @@ function initMap() {
 
         $('input.degree').on('change keyup',updateDegreeValues);
 
-        cf.on('submit',function(e){
+        p.cForm.on('submit',function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
             var dob =$('#form-dob'),
@@ -809,7 +777,7 @@ function initMap() {
             hsy = $('#form-hsy'),
             aya = $('#form-ayanamsa'),
             mod = $('#form-mode input.mode:checked');
-            console.log(dob.length)
+
             if (dob.length>0 && lng.length>0) {
                 var dobV = dob.val(),
                 tobV = tob.val(),
@@ -843,6 +811,10 @@ function initMap() {
                     success: function(data) {
                         if (data.valid) {
                             $('#main .hor-tabs li.chart').first().trigger('click');
+                            var p =pDom;
+                            if (p.width < p.medDesktopMin) {
+                              p.body.removeClass('show-control-panel');
+                            }
                             buildDataView(data);
                             updateChart(data);
                         }
@@ -1062,10 +1034,10 @@ function initMap() {
             }
         });
 
-        var w = $(window), width=w.width();
+        
 
-        if (width > 1280) {
-          $('body').addClass('show-control-panel');
+        if (p.width > p.medDesktopMin) {
+          p.body.addClass('show-control-panel');
         }
 
         setTimeout(function(){

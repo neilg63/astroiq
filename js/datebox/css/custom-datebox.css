@@ -225,10 +225,15 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 
 .ui-datebox-flipcontent {
 	position: relative;
-	margin-top: 0.5em;
+	margin: -.5em 0 1em 0;
 	text-align: center;
 	height: 6em;
-	margin-bottom: -2.5em;
+	margin-bottom: -2em;
+}
+
+.ui-datebox-header h4 {
+	margin: 0.25em 0;
+	padding:0;
 }
 
 li.bg-success {
@@ -255,9 +260,18 @@ li.bg-success {
 	display: inline-block;
 	border:1px solid rgba(0,0,0,0);
 }
+
+.ui-datebox-flipcontent .ui-overlay-shadow ul {
+	max-width: 3em;
+	padding: 0;
+	margin:0;
+	top: -.5em;
+}
 .ui-datebox-flipcontent li {
 	height: 2em;
 	width: 3em;
+	margin: 0;
+	padding:0;
 }
 .ui-datebox-flipcontent li span {
 	margin-top: 0;

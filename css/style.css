@@ -452,11 +452,7 @@ line.solid {
     position: absolute;
     top: 1em;
     left: 0;
-    width: 2em;
-    max-width: 2em;
-    background-color: white;
-    border-right: solid 1px #999999;
-    border-bottom: solid 1px #999999;
+    width: 2.75em;
     transition: width .5s ease-in;
     overflow: hidden;
 }
@@ -465,7 +461,7 @@ line.solid {
     position: absolute;
     font-size: 0;
     top: 2rem;
-    right: 0;
+    right: 0.5rem;
     width: 2rem;
     height: 4rem;
     z-index: 40;
@@ -504,12 +500,22 @@ line.solid {
 }
 
 .show-control-panel #control-panel {
-    max-width: 25vw;
-    min-width: 25em;
-    width: 50em;
+    max-width: 96vw;
+    width: 100%;
     padding: 3vh 2vw;
     overflow: auto;
-    transition: width .5s ease-in, opacity 0s linear .5s;
+    transition: width .5s ease-in, opacity 0s linear .5s,min-width 0s linear .5s;
+    background-color: white;
+    border-right: solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
+}
+
+@media screen and (min-width: 960px) {
+    .show-control-panel #control-panel {
+        width: 25vw;
+        max-width: 25em;
+        overflow: auto;
+    }
 }
 
 .show-control-panel #control-panel p,
@@ -532,6 +538,9 @@ line.solid {
     width: 1em;
 }
 
+#control-panel input.altitude {
+    max-width: 3.6em;
+}
 
 #gmap {
     padding-top: 1.5em;

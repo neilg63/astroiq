@@ -69,7 +69,7 @@ form#control-form(action="/sweph" method="post")
       input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
     p.alt
       label(for="form-alt" title="altitude") Altitude:
-      input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" )
+      input#form-alt.altitude(type="number" name="alt" size="1" value="30" steps="10" min="0" max="9000" maxlength="5" title="Height above sea level in metres")
       select#form-height-unit.inline
         option(value="m") metres
         option(value="ft") feet
