@@ -93,8 +93,8 @@ div.ui-datebox-container.ui-datebox-inline {
 .ui-datebox-controls a {
 	display: block;
 	color: transparent;
-	width: 7em;
-	height: 1em;
+	width: 8em;
+	height: 2em;
 	/*transition: transform .25s ease-in;*/
 }
 
