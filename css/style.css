@@ -81,6 +81,20 @@ span.symbol-radio label {
     opacity: 1;
 }
 
+#control-panel .input-group-addon,
+#control-panel .ui-datebox-container {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media screen and (min-width: 960px) {
+    #control-panel .input-group-addon,
+    #control-panel .ui-datebox-container {
+      opacity: 1;
+      pointer-events: auto;
+    }
+}
+
 #control-panel object#tween-symbol-container svg {
     position: relative;
     max-width: 6vw;
