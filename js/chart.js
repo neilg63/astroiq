@@ -1052,6 +1052,16 @@ function initMap() {
             par.removeClass('masked');
         });
 
+        $('#control-panel .toggle-aside').on('click',function(e) {
+            e.stopImmediatePropagation();
+            var b = $('body'), refCl='show-control-panel';
+            if (b.hasClass(refCl)) {
+               b.removeClass(refCl);
+            } else {
+               b.addClass(refCl);
+            }
+        });
+
         setTimeout(function(){
             var gMapApi = $('#gmap-api-key');
             if (gMapApi.length>0) {

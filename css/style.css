@@ -426,16 +426,39 @@ line.solid {
 
 
 #control-panel {
+    z-index: 10;
     position: absolute;
     top: 1em;
     left: 0;
-    min-width: 25em;
-    width: 25vw;
-    z-index: 10;
-    padding: 3vh 2vw;
+    width: 2em;
+    max-width: 2em;
     background-color: white;
     border-right: solid 1px #999999;
     border-bottom: solid 1px #999999;
+    transition: width .5s ease-in;
+    overflow: hidden;
+}
+
+#control-panel p, #control-panel fieldset {
+    opacity: 0;
+}
+
+#control-panel .toggle-aside {
+    cursor: pointer;
+}
+
+.show-control-panel #control-panel {
+    max-width: 25vw;
+    min-width: 25em;
+    width: 50em;
+    padding: 3vh 2vw;
+    overflow: auto;
+    transition: width .5s ease-in, opacity 0s linear .5s;
+}
+
+.show-control-panel #control-panel p,
+.show-control-panel #control-panel fieldset {
+    opacity: 1;
 }
 
 #control-panel .input-group {
