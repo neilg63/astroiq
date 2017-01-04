@@ -111,6 +111,8 @@ span.symbol-radio label {
     margin-top: 1em;
 }
 
+
+
 #control-panel hr {
     border:none;
     border-bottom: solid 0.25em #F87431;
@@ -536,7 +538,7 @@ line.solid {
 #control-panel .input-group {
     display: inline-block;
     position: relative;
-    width: auto;
+    width: 9em;
     padding-right: 1.5em;
 }
 
