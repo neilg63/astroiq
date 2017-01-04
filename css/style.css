@@ -143,6 +143,11 @@ span.symbol-radio label {
     font-size: .9em;
 }
 
+#control-panel .masked .input-group,
+#control-panel .masked .glyphicon {
+    display: none;
+}
+
 #control-panel fieldset {
   margin: 1em 0;
 }

@@ -938,6 +938,119 @@ function initMap() {
 
         updateDegreeValues();
 
+        $('p.has-mask input.main').on('click change',function(e){
+            var it=$(this),
+            par=it.parent();
+            if (par.hasClass('input-group')) {
+                par = par.parent();
+            }
+            var id=it.attr('id'),
+            mask=par.find('#'+id+'-mask');
+            switch (e.type) {
+                case 'click':
+                    if (mask.length>0) {
+                        var wdg = par.find('.ui-datebox-container');
+                        if (wdg.css('display') != 'block') {
+                           mask.removeClass('hidden');
+                            par.addClass('masked');
+                            var tg = mask[0], 
+                            vl = mask.val(),
+                            start = tg.selectionStart,
+                            end = tg.selectionEnd,
+                            len=vl.length; 
+                        }
+                        
+                        
+                        /*if (len == 5) {
+                            if (start < (len-1) && start===end) {
+                                var sel = window.getSelection(),
+                                range = document.createRange();
+                                range.setStart(tg,start);
+                                range.setEnd(tg,(end+1));
+                                sel.addRange(range);
+                            }
+                        }*/
+                    }
+                    break;
+                case 'change':
+                    var vl = it.val(),valid=false;
+                    if (mask.hasClass('date-mask')) {
+                        vl = vl.split('-').reverse().join('/');
+                    }
+                    mask.val(vl);
+                    break;
+            }
+        });
+        $('p.has-mask input.mask').on('change',function(e){
+            var it=$(this),par = it.parent(), main = par.find('.main');
+            if (main.length>0) {
+                var vl = it.val(),rs;
+                if (it.hasClass('time-mask')) {
+                    vl = vl.replace(/[.,]+/g,':');
+                    vl = vl.replace(/^(\d):/g,'0$1:');
+                    vl = vl.replace(/:(\d)$/g,':0$1');
+                    vl = vl.replace(/:$/g,':00');
+                    vl = vl.replace(/(:[0-9][0-9])[0-9]+/g,"$1");
+                } else {
+                    vl = vl.replace(/[ .,-]+/g,'/');
+                }
+                vl = vl.replace(/^:/,'0:');
+                if (it.hasClass('time-mask')) {
+                    rs = '^\\d\\d?:\\d\\d?$';
+                } else {
+                    rs = '^[0123]?\\d/[01]?\\d?/(1[789]|20)\\d\\d$';
+                }
+                var rgx = new RegExp(rs);
+                if (rgx.test(vl)) {
+                    if (it.hasClass('date-mask')) {
+                        vl = vl.split('/').reverse().join('-');
+                    }
+                    main.val(vl); 
+                }
+            }
+        }).on('keyup blur',function(e){
+            
+            var it=$(this),vl=it.val(),
+            /*start = e.target.selectionStart,
+            end = e.target.selectionEnd,*/
+            len=vl.length,
+            tp = it.hasClass('time-mask')? 'time' : 'date';
+            /*if (len == 5) {
+                if (start < (len-1) && start==end) {
+                    e.target.selectionEnd = end + 1;
+                }
+            }*/
+            if (e.type =='blur') {
+                if (tp == 'time') {
+                   vl = vl.replace(/[.,]+/g,':');
+                    vl = vl.replace(/:$/g,':00');
+                    vl = vl.replace(/(:[0-9][0-9])[0-9]+/g,"$1");
+                    vl = vl.replace(/^:/,'0:'); 
+                } else {
+                    vl = vl.replace(/[ .-]+/g,'/');
+                    vl = vl.replace(/[^0-9\/]+/g,'');
+                    vl = vl.replace(/\/$/g,':01');
+                    vl = vl.replace(/\b([0-9])\//g,"0$1");
+                    vl = vl.replace(/\/(\d\d)$/,'/19$1');
+                }
+                
+            }
+            if (e.type =='keyup') {
+                if (tp == 'time') {
+                    vl = vl.replace(/[^0-9:.,]/g,'');
+                    vl = vl.replace(/(\d)[.,](\d)/g,'$1:$2');
+                    vl = vl.replace(/:[6-9]([0-9])$/g,'5$1');
+                    vl = vl.replace(/^[3-9]([0-9]):/g,'1$1');
+                }
+            }
+            it.val(vl);
+        });
+        $('p.has-mask').on('mouseleave',function(e) {
+            var par = $(this), mask = par.find('.mask');
+            mask.addClass('hidden');
+            par.removeClass('masked');
+        });
+
         setTimeout(function(){
             var gMapApi = $('#gmap-api-key');
             if (gMapApi.length>0) {

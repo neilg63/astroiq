@@ -33,14 +33,16 @@ form#control-form(action="/sweph" method="post")
         label.sub(for="form-gender-male") Male
         //- input#form-gender-unknown.gender.unknown(type="radio" name="gender")
         //-label.sub(for="form-gender-unknown") Unknown
-    p.dob
+    p.dob.has-mask
       //- change 'birth' according to type
       label(for="form-dob") Date of birth:
-      input(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
-    p.tob
+      input#form-dob.main(type="date" name="dob" size="10" value="1961-06-28" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
+      input#form-dob-mask.mask.date-mask.hidden(type="text" name="dob_mask" size="10" value="28/06/1961" maxlength="10" pattern="[123]?[0-9]/[01][0-9]/(1[789]|20)")
+    p.tob.has-mask
       //- change 'birth' according to type
       label(for="form-tob") Time of birth:
-      input(type="time" id="form-tob" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
+      input#form-tob.main(type="time" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
+      input#form-tob-mask.mask.time-mask.hidden(type="text" name="tob_mask" size="5" value="11:25" maxlength="5" pattern="[012]?[0-9]:[0-5]?[0-9]" )
     p.pob
       //- change 'birth' according to type
       label(for="form-geobirth") Place of birth:
