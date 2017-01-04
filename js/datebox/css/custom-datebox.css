@@ -187,14 +187,14 @@ div.ui-datebox-datebox-button.glyphicon-plus {
 	border-bottom-left-radius: 0;
 	-webkit-border-bottom-right-radius: 0;
 	-webkit-border-bottom-left-radius: 0;
-	top: 0px;
+	top: 0;
 }
 div.ui-datebox-datebox-button.glyphicon-minus {
 	border-top-right-radius: 0;
 	border-top-left-radius: 0;
 	-webkit-border-top-right-radius: 0;
 	-webkit-border-top-left-radius: 0;
-	top: 0px;
+	top: 0;
 }
 .ui-datebox-header h4 {
 	text-align: center;
@@ -212,8 +212,9 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 }
 .ui-datebox-flipcenter {
 	width: 12em;
-	height: 2.25em;
+	height: 2em;
 	border: 1px solid #EEEEEE;
+	border-radius: 1em;
 	background-color: rgba(0,0,0,0.25);
 	margin-right: auto;
 	margin-left: auto;
@@ -229,9 +230,6 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 	text-align: center;
 	height: 6em;
 	margin-bottom: -2.5em;
-}
-.ui-datebox-flipcontent li {
-	border: 1px solid #ccc;
 }
 
 li.bg-success {
