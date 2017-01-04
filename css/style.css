@@ -6,7 +6,41 @@
     font-style: normal;
 }
 
-body, input, textarea, select, option {
+ul {
+    -webkit-padding-start: 0;
+}
+
+#astro-disc,
+html {
+    font-size: 16px;
+}
+
+@media screen and (min-width: 1280px) {
+    html {
+        font-size: 17px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    html {
+        font-size: 19px;
+    }
+}
+
+@media screen and (min-width: 1800px) {
+    html {
+        font-size: 20px;
+    }
+}
+
+body, input, textarea, select, option,
+span.symbol-radio label {
     font-family: genlight, Helvetica, Arial, sans-serif;
 }
 
@@ -65,8 +99,12 @@ body, input, textarea, select, option {
     position: relative;
 }
 
-#control-panel fieldset p {
-    margin: 0;
+#control-panel p.has-dms input.degree {
+    display: none;
+}
+
+#control-panel fieldset fieldset p {
+    margin: 0.25em 0;
     padding: 0;
 }
 
@@ -117,6 +155,64 @@ body, input, textarea, select, option {
 #control-panel fieldset.closed {
     max-height: 0;
     overflow: hidden;
+}
+#control-panel fieldset p.text {
+    font-size: 0.9em;
+    margin: 0.5em 0 0 0.9em;
+}
+#control-panel span.symbol-radio {
+    display: inline-block;
+    position: relative;
+    font-size: 1.5em;
+    width: 1em;
+    height: 1em;
+    margin: 0 1em 0 0;
+    cursor: pointer;
+    filter: grayscale(90%);
+}
+
+#control-panel span.symbol-radio:hover,
+#control-panel span.symbol-radio.checked {
+    filter: grayscale(0%);
+}
+
+#control-form .glyphicon-time,
+#control-form .glyphicon-calendar {
+    font-family: "icomoon";
+    font-size: 1.3333em;
+}
+
+#control-form .glyphicon-calendar:before {
+    content: "\e953";
+}
+
+#control-form .glyphicon-time:before {
+    content: "\e94e";
+}
+
+#control-panel span.icon-female-bust {
+    color: #ff5555;
+}
+
+#control-panel span.icon-male-bust {
+    color: #3333ff;
+}
+
+#control-panel span.symbol-radio input {
+    display: none;
+}
+
+#control-panel span.symbol-radio label {
+    opacity: 0;
+    position: absolute;
+    top: -0.75em;
+    left: 1.25em;
+    font-size: 0.5em;
+    color: #999999;
+}
+
+#control-panel span.symbol-radio:hover label {
+    opacity: 1;
 }
 
 #control-panel fieldset.open fieldset.open fieldset.closed > p,
@@ -311,7 +407,7 @@ line.solid {
 
 
 #control-panel {
-    position: fixed;
+    position: absolute;
     top: 1em;
     left: 0;
     min-width: 25em;
@@ -321,8 +417,23 @@ line.solid {
     background-color: white;
     border-right: solid 1px #999999;
     border-bottom: solid 1px #999999;
-    height: 100vh;
 }
+
+#control-panel .input-group {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    padding-right: 1.5em;
+}
+
+#control-panel .input-group-addon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 1em;
+    width: 1em;
+}
+
 
 #gmap {
     padding-top: 1.5em;
@@ -517,10 +628,6 @@ ul.hor-tabs li:not(.disabled):hover {
 #astro-disc .house-line {
     stroke: black;
     stroke-width: 1px;
-}
-
-#astro-disc {
-    font-size: 16px;
 }
 
 #astro-disc text {

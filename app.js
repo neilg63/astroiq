@@ -1,5 +1,6 @@
 const sys = require('util');
 const express = require("express");
+const bodyParser = require("body-parser");
 const {mongoose} = require('./server/db/mongoose');
 const {Nested} = require('./server/models/nested');
 const {Geo} = require('./server/models/geo');
@@ -9,8 +10,10 @@ const geocode = require('./geocode/geocode.js');
 const textutils = require('./text-utils.js');
 const astro = require('./astroapp.js');
 const exec = require('child_process').exec;
+const spawn = require('child_process').spawn;
 var child;
 
+app.use(bodyParser());
 
 app.get('/sweph', function(req, res){ 
   var cmd = astro.composeSwetestQuery(req.query);
@@ -56,6 +59,7 @@ app.get('/swetest-backend',function(req,res) {
 			}
 		}
 		if (valid) {
+
 			child = exec(cmd, function (error, stdout, stderr) {
 			  var data = {};
 			  if (!stderr) {
@@ -75,6 +79,72 @@ app.get('/swetest-backend',function(req,res) {
 			res.send(data);
 		}
 	}
+});
+
+app.get('/server-datetime', (req,res) => {
+  var data = {}, dt = new Date();
+  data.string = dt.toString();
+  data.iso = dt.toISOString();
+  data.year = dt.getFullYear();
+  data.month = dt.getMonth() + 1;
+  data.day = dt.getDate();
+  data.hours = dt.getHours();
+  data.minutes = dt.getMinutes();
+  data.seconds = dt.getSeconds();
+  res.send(data);
+});
+
+app.post('/git/:cmd', (req,res) => {
+  if (req.body.password) {
+    var password = req.body.password,
+      cmd = req.params.cmd,
+      valid = false,
+      msg = "Cannot validate your password.";
+    
+    var compPass = 'vimshottari',
+      dt = new Date(),
+      dtStr = ';' + ( dt.getHours() + dt.getDate() ),
+      matchedStr = compPass + dtStr,
+      valid = password === matchedStr;
+
+    if (valid) {
+      var cmds = [];
+      switch (cmd) {
+        case 'pull':
+          cmds = ['pull','origin','dev'];
+          break;
+        case 'log':
+          cmds = ['log'];
+          break;
+        case 'status':
+          cmds = ['status'];
+          break;
+      }
+      var process = spawn('git',cmds);
+      var buf='', tmp='';
+      process.stdout.on('data', (data) => {
+        tmp = data.toString();
+        if (typeof tmp == 'string') {
+          if (tmp.length>0) {
+            buf += tmp.split('<').join('&lt;').split('>').join('&gt;');
+          }
+        }
+        
+      });
+      process.on('close', (data) => {
+        res.send({
+          valid: true,
+          output: buf
+        });
+      });
+    } else {
+      var data = {
+        valid: true,
+        output: msg
+      };
+      res.send(data);
+    }
+  }
 });
 
 app.get('/ayanamsa', function(req, res){
@@ -102,7 +172,7 @@ app.use('/js', express.static('js'));
 
 app.use('/css', express.static('css'));
 
-app.use('/icomoon', express.static('css'));
+app.use('/icomoon', express.static('icomoon'));
 
 app.use('/svgs', express.static('svgs'));
 

@@ -819,7 +819,10 @@ astro.saveData = (model) => {
   var data = {};
   if (typeof model == 'object') {
     if (model.cmd && model.geo) {
-       
+       if (typeof model.date.date == 'string') {
+          model.date.date = new Date(model.date.date);
+          console.log(model.date.date);
+       }
        data.cmd = model.cmd;
        data.date = {
         date: model.date.date,
@@ -867,16 +870,18 @@ astro.fetch = (cmd, res, query, debug) => {
     var matched = false;
     if (typeof doc == 'object') {
       var data = {};
-      if (data.houses) {
+      if (doc.houses) {
         data.date = doc.date;
+
         data.geo = doc.geo;
         data.astro = doc.astro;
         data.houseData = doc.houseData;
-        data.houses = astro.mapHouses(data.houses);
-        data.house_bounds = astro.calcHouseBounds(data.houses);
+        data.houses = astro.mapHouses(doc.houses);
+        data.house_bounds = astro.calcHouseBounds(doc.houses);
         data.bodies = doc.bodies;
         data.ayanamsa = doc.ayanamsa;
         data.stored = true;
+        data.valid = true;
         matched = true;
         res.send(data);
       } 
@@ -885,8 +890,9 @@ astro.fetch = (cmd, res, query, debug) => {
       astro.fetchFromCommand(cmd, cmdId, res, query, debug);
     }
   }).catch((e) => {
-    res.status(400).send();
+    astro.fetchFromCommand(cmd, cmdId, res, query, debug);
   });
+  
 };
 
 astro.fetchFromCommand = (cmd, cmdId, res, query, debug) => {
@@ -900,8 +906,6 @@ astro.fetchFromCommand = (cmd, cmdId, res, query, debug) => {
 
     if (error !== null) {
       data = {"valid": false,"msg": "Server error"};
-    } else {
-      data.valid = true;
     }
     var ayCmd = astro.composeSwetestQueryAyanamsa(query);
     if (ayCmd.length > 4) {
@@ -912,6 +916,7 @@ astro.fetchFromCommand = (cmd, cmdId, res, query, debug) => {
         data.ayanamsa = ayData.ayanamsa;
         data.cmd = cmdId;
         var saved = astro.saveData(data);
+        data.valid = true;
         res.send(data);
       });
     }

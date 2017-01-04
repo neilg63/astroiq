@@ -1,3 +1,17 @@
+// Flipbox
+jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, {
+  'en': {
+    timeFormat: 24,
+    dateFieldOrder: ["d", "m", "y"],
+    timeFieldOrder: ["h", "i", "a"],
+    slideFieldOrder: ["y", "m", "d"],
+    dateFormat: "%Y-%m-%d",
+  }
+});
+jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+  useLang: 'en'
+});
+
 var GeoMap = {
 
     map: null,
@@ -10,7 +24,8 @@ var GeoMap = {
         var loc = {lat: lat, lng: lng}, hasMap = this.map === null;
         this.map = new google.maps.Map(document.getElementById('gmap'), {
           zoom: 6,
-          center: loc
+          center: loc,
+          streetViewControl: true,
         });
 
         this.marker = new google.maps.Marker({
@@ -28,7 +43,7 @@ var GeoMap = {
             var lat = e.latLng.lat(),
             lng = e.latLng.lng();
             GeoMap.updateCoords(lat,lng);
-            GeoMap.updateMap(lat,lng,false);
+            GeoMap.updateMap(lat,lng,false,false);
         });
     },
 
@@ -48,32 +63,32 @@ var GeoMap = {
             new google.maps.LatLng(bLat2, bLng2),
             new google.maps.LatLng(bLat1, bLng1)
         );
-        console.log(ne.lat(), ne.lng(),sw.lat(), sw.lng());
-        console.log(diffLat,bLat1, bLng1,bLat2, bLng2);
         this.map.panToBounds(nb);*/
     },
 
-    updateMap: function(lat,lng,updateMarker) {
+    updateMap: function(lat,lng,updateMarker,animateZoom) {
         var pos = {
            lat: lat,
            lng: lng 
         };
         this.map.setCenter(pos);
         this.showSatellite();
-        GeoMap.zoom = 14;
-        this.map.setZoom(GeoMap.zoom)
-        setTimeout(function() {
-            GeoMap.zoomIn(15);
-        }, 750);
-        setTimeout(function() {
-            GeoMap.zoomIn(16);
-        }, 1250);
-        setTimeout(function() {
-            GeoMap.zoomIn(17);
-        }, 1750);
-        setTimeout(function() {
-            GeoMap.zoomIn(18);
-        }, 2250);
+        if (animateZoom !== false) {
+            GeoMap.zoom = 14;
+            this.map.setZoom(GeoMap.zoom)
+            setTimeout(function() {
+                GeoMap.zoomIn(15);
+            }, 750);
+            setTimeout(function() {
+                GeoMap.zoomIn(16);
+            }, 1250);
+            setTimeout(function() {
+                GeoMap.zoomIn(17);
+            }, 1750);
+            setTimeout(function() {
+                GeoMap.zoomIn(18);
+            }, 2250);
+        }
         if (updateMarker) {
             this.marker.setPosition(pos);
             this.addDragendEvent(this.marker);
@@ -99,8 +114,8 @@ var GeoMap = {
         }
         /*document.getElementById('form-lat').setAttribute('value',coords.latitude);
         document.getElementById('form-lng').setAttribute('value',coords.longitude);*/
-        document.getElementById('form-lat').value = coords.latitude;
-        document.getElementById('form-lng').value = coords.longitude;
+        jQuery('#form-lat').val(coords.latitude).trigger('change');
+        jQuery('#form-lng').val(coords.longitude).trigger('change');
 
     },
 
@@ -725,6 +740,7 @@ function initMap() {
                                 if (data.lng) {
                                     $('#form-lng').val(data.lng);
                                 }
+                                updateDegreeValues();
                                 $('#form-geobirth').val("");
                                 if (GeoMap) {
                                    if (GeoMap.map !== null) {
@@ -753,6 +769,34 @@ function initMap() {
                 }
             });
         }
+
+        var updateDegreeValues = function() {
+            var degFields = $('input.degree'),
+            numDegFields = degFields.length,i=0,fd,par,vl,dv,dt;
+            if (numDegFields>0) {
+                for (;i<numDegFields;i++) {
+                    fd = degFields.eq(i);
+                    vl = fd.val();
+                    if (isNumeric(vl)) {
+                        par = fd.parent();
+                        if (fd.hasClass('latitude')) {
+                            dv = toLatitudeString(vl);
+                        } else {
+                            dv = toLongitudeString(vl);
+                        }
+                        dt = par.find('.degrees-dms');
+                        if (dt.length<1) {
+                            dt = $('<strong class="degrees-dms"></strong>');
+                            par.append(dt);
+                            par.addClass('has-dms');
+                        }
+                        dt.html(dv);
+                    }
+                }
+            }
+        }
+
+        $('input.degree').on('change keyup',updateDegreeValues);
 
         cf.on('submit',function(e){
             e.preventDefault();
@@ -797,6 +841,7 @@ function initMap() {
                     data: params,
                     success: function(data) {
                         if (data.valid) {
+                            $('#main .hor-tabs li.chart').first().trigger('click');
                             buildDataView(data);
                             updateChart(data);
                         }
@@ -857,6 +902,41 @@ function initMap() {
                 par.removeClass('open').addClass('closed');
             }
         });
+
+        $('#control-panel .symbol-radio').on('click',function(e){
+            var it = $(this), radio = it.find('input[type=radio]');
+            e.stopImmediatePropagation();
+            if (radio.length > 0) {
+                if (radio.is(':checked') == false) {
+                    it.parent().find('span.checked').removeClass('checked');
+                    it.addClass('checked');
+                    it.parent().find('input[type=radio]').prop('checked',false);
+                    radio.prop('checked',true);
+                }
+                
+            } 
+        });
+
+        $('#form-height-unit').on('change',function(e){
+            var it = $(this), par = it.parent(),
+                vl = $(this).val(),ref = par.find('#form-alt');
+            if (ref.length>0) {
+                var mToFt = 0.3048, h = ref.val().toInt(),nh;
+                if (h !== 0) {
+                    if (vl == 'm' && par.hasClass('show-ft')) {
+                        nh = parseInt(h * mToFt);
+                    } else if (vl == 'ft' && par.hasClass('show-ft')==false) {
+                        nh = Math.ceil(h / mToFt);
+                    }
+                    par.removeClass('show-ft show-m').addClass('show-' + vl);
+                    if (isNumeric(nh)) {
+                        ref.val(nh);
+                    }
+                }
+            }    
+        });
+
+        updateDegreeValues();
 
         setTimeout(function(){
             var gMapApi = $('#gmap-api-key');

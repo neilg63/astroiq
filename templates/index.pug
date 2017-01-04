@@ -1,24 +1,31 @@
 doctype html
 head
+  meta(name="viewport" content="width=device-width, initial-scale=1")
   link(type="text/css" href="//unpkg.com/purecss@0.6.1/build/pure-min.css" rel="stylesheet")
-  style(media="all") @import url('/css/style.css')
-  style(media="all") @import url('/iconmoon/css/style.css')
-  script(src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous")
+  link(type="text/css" href="/css/style.css" rel="stylesheet")
+  link(type="text/css" href="/icomoon/style.css" rel="stylesheet")
+  script(src="//code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
+  script(src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js")
+  script(src="//cdn.jtsage.com/external/jquery.mousewheel.min.js")
+  script(src="/js/datebox/js/jtsage-datebox.min.js")
   script(type="text/javascript" source="internal" src="/js/snap/dist/snap.svg-min.js")
+  script(data-source="internal" type="text/javascript" src="/js/utils.js")
+  link(type="text/css" href="/js/datebox/css/custom-datebox.css" rel="stylesheet")
+  title astroIQ
 body
   include includes/header.pug
 
   aside#control-panel
-    include includes/control-form.html
+    include includes/control-form.pug
 
   div#main
     ul.hor-tabs
-      li(class="chart european active") Western
-      li(class="chart indian") Indian
-      li(class="map") Map
-      li(class="results disabled") Results
-    object#chart-pane(class="large-pane active")
+      li.chart.european.active Western
+      li.chart.indian Indian
+      li.map Map
+      li.results.disabled Results
+    object#chart-pane.large-pane.active
       include ../svgs/charts/astro-chart.svg
 
     div#map-pane.large-pane
@@ -32,4 +39,4 @@ body
   script(src="/js/kutejs/kute-svg.min.js")
   
   script(data-source="internal" type="text/javascript" src="/js/chart.js")
-  div(id="gmap-api-key" data-key="AIzaSyCGq1eIKwzv92oPoBGzxhIkp4C8anr0_Ow")
+  div#gmap-api-key(data-key="AIzaSyCGq1eIKwzv92oPoBGzxhIkp4C8anr0_Ow")
