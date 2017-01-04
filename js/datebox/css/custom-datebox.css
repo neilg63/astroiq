@@ -85,20 +85,20 @@ div.ui-datebox-container.ui-datebox-inline {
 
 .ui-datebox-controls {
 	position: absolute;
-	top: -0.5em;
-	right: 0.5em;
+	top: -3em;
+	right: 0;
 	padding: 0;
 }
 
 .ui-datebox-controls a {
 	display: block;
 	color: transparent;
-	width: 1em;
+	width: 7em;
 	height: 1em;
-	transition: transform .25s ease-in;
+	/*transition: transform .25s ease-in;*/
 }
 
-.ui-datebox-controls a:before {
+/*.ui-datebox-controls a:before {
 	font-family: "icomoon";
 	content: "\ea10";
 	color: #00cc00;
@@ -112,7 +112,7 @@ div.ui-datebox-container.ui-datebox-inline {
 
 .ui-datebox-controls a:hover:before {
 	color: #00ff00;
-}
+}*/
 
 .ui-datebox-griddate { 
 	width: 3em;
