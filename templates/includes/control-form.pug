@@ -33,14 +33,16 @@ form#control-form(action="/sweph" method="post")
         label.sub(for="form-gender-male") Male
         //- input#form-gender-unknown.gender.unknown(type="radio" name="gender")
         //-label.sub(for="form-gender-unknown") Unknown
-    p.dob
+    p.dob.has-mask
       //- change 'birth' according to type
       label(for="form-dob") Date of birth:
-      input(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
-    p.tob
+      input#form-dob.main(type="date" name="dob" size="10" value="1961-06-28" data-date-format="DD/MM/YYYY" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
+      input#form-dob-mask.mask.date-mask.hidden(type="text" name="dob_mask" size="10" value="28/06/1961" maxlength="10" pattern="[123]?[0-9]/[01][0-9]/(1[789]|20)[0-9][0-9]")
+    p.tob.has-mask
       //- change 'birth' according to type
       label(for="form-tob") Time of birth:
-      input(type="time" id="form-tob" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
+      input#form-tob.main(type="time" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
+      input#form-tob-mask.mask.time-mask.hidden(type="text" name="tob_mask" size="5" value="11:25" maxlength="5" pattern="[012]?[0-9]:[0-5]?[0-9]" )
     p.pob
       //- change 'birth' according to type
       label(for="form-geobirth") Place of birth:
@@ -67,7 +69,7 @@ form#control-form(action="/sweph" method="post")
       input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
     p.alt
       label(for="form-alt" title="altitude") Altitude:
-      input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" )
+      input#form-alt.altitude(type="number" name="alt" size="1" value="30" steps="10" min="0" max="9000" maxlength="5" title="Height above sea level in metres")
       select#form-height-unit.inline
         option(value="m") metres
         option(value="ft") feet
@@ -101,25 +103,25 @@ form#control-form(action="/sweph" method="post")
       h4.toggle Default House System
       p.sub-section
         label(for="form-hsy") House system:
-          select#form-hsy.select-input(name="hsy")
-          option(value="W") Equal (Rāśi-Bhāva)
-          option(value="E") Equal (from ASC)
-          option(value="D") Equal (from MC)
-          //- not in Swiss Ephemeris
-          option(value="CB") Caleta Bhāva
-          option(value="S") Śrīpati Bhāva
-          option(value="O") Porphyry
-          option(value="P") Placidus
-          option(value="K") Koch
-          option(value="B") Alcabitius
-          option(value="C") ampanus
-          option(value="M") Morinus
-          option(value="R") Regiomontanus
-          option(value="T") Topocentric
-          option(value="A") Equal
-          option(value="X") Meridian houses
-          option(value="G") 36 Gauquelin sectors
-          option(value="H") Horizon / azimuth
+        select#form-hsy.select-input(name="hsy")
+         option(value="W") Equal (Rāśi-Bhāva)
+         option(value="E") Equal (from ASC)
+         option(value="D") Equal (from MC)
+         //- not in Swiss Ephemeris
+         option(value="CB") Caleta Bhāva
+         option(value="S") Śrīpati Bhāva
+         option(value="O") Porphyry
+         option(value="P") Placidus
+         option(value="K") Koch
+         option(value="B") Alcabitius
+         option(value="C") ampanus
+         option(value="M") Morinus
+         option(value="R") Regiomontanus
+         option(value="T") Topocentric
+         option(value="A") Equal
+         option(value="X") Meridian houses
+         option(value="G") 36 Gauquelin sectors
+         option(value="H") Horizon / azimuth
 
     fieldset.collapsible.closed
       h4.toggle Tropical vs. Sidereal (Ayanāṃśa)

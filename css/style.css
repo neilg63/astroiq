@@ -49,8 +49,9 @@ span.symbol-radio label {
     position: relative;
     margin: 0 auto;
     text-align: center;
-    width: 75vw;
+    width: 100vw;
 }
+
 
 .large-pane {
     opacity: 0;
@@ -63,7 +64,7 @@ span.symbol-radio label {
 }
 
 #main {
-    padding: 4em 0 0 25vw;
+    padding: 4em 0 0 0;
     z-index: 1;
 }
 
@@ -81,11 +82,36 @@ span.symbol-radio label {
     opacity: 1;
 }
 
+#control-panel .input-group-addon,
+#control-panel .ui-datebox-container {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media screen and (min-width: 960px) {
+    #control-panel .input-group-addon,
+    #control-panel .ui-datebox-container {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .large-pane,
+    #main {
+        width: 75vw;
+    }
+    #main {
+        padding: 4em 0 0 25vw;
+    }
+
+}
+
 #control-panel object#tween-symbol-container svg {
     position: relative;
     max-width: 6vw;
     margin-top: 1em;
 }
+
+
 
 #control-panel hr {
     border:none;
@@ -141,6 +167,11 @@ span.symbol-radio label {
 
 #control-panel fieldset h4.toggle {
     font-size: .9em;
+}
+
+#control-panel .masked .input-group,
+#control-panel .masked .glyphicon {
+    display: none;
 }
 
 #control-panel fieldset {
@@ -315,14 +346,36 @@ object.large-pane {
   left: 20vw;
 }
 
-
 .large-pane svg {
     position: relative;
-    width: 50vw;
+    width: 60vw;
     max-width: 100%;
-    height: 50vw;
+    height: 60vw;
     margin-left: 5vw;
 }
+
+@media screen and (max-width: 959px) {
+    object.large-pane {
+      left: 5vw;
+    }
+    .large-pane svg {
+        width: 75vw;
+        height: 75vw;
+    }
+}
+
+@media screen and (min-width:960px) and (max-width: 1279px) {
+    object.large-pane {
+      left: 15vw;
+    }
+    .large-pane svg {
+        width: 66.667vw;
+        height: 66.67vw;
+    }
+}
+
+
+
 
 .large-pane svg .planet {
     transition: transform 1s ease-in, opacity .5s ease-in;
@@ -407,22 +460,85 @@ line.solid {
 
 
 #control-panel {
+    z-index: 10;
     position: absolute;
     top: 1em;
     left: 0;
-    min-width: 25em;
-    width: 25vw;
-    z-index: 10;
+    width: 2.75em;
+    transition: width .5s ease-in;
+    overflow: hidden;
+}
+
+#control-panel .toggle-aside {
+    position: absolute;
+    font-size: 0;
+    top: 2rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 4rem;
+    z-index: 40;
+}
+
+.show-control-panel #control-panel .toggle-aside {
+    right: 0.5rem;
+}
+
+#control-panel .toggle-aside:before {
+    font-family: "icomoon";
+    font-size: 2rem;
+    content: "\e994";
+    cursor:pointer;
+    position: absolute;
+    top: 0;
+    right:0;
+    color: #999999;
+    transition: transform .5s ease-in;
+}
+
+.toggle-aside:hover:before {
+    transform: rotate(-45deg);
+}
+
+.show-control-panel #control-panel .toggle-aside:before {
+    transform: rotate(45deg);
+}
+
+#control-panel p, #control-panel fieldset {
+    opacity: 0;
+}
+
+#control-panel .toggle-aside {
+    cursor: pointer;
+}
+
+.show-control-panel #control-panel {
+    max-width: 96vw;
+    width: 100%;
     padding: 3vh 2vw;
+    overflow: auto;
+    transition: width .5s ease-in, opacity 0s linear .5s,min-width 0s linear .5s;
     background-color: white;
-    border-right: solid 1px #999999;
-    border-bottom: solid 1px #999999;
+    border-right: solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
+}
+
+@media screen and (min-width: 960px) {
+    .show-control-panel #control-panel {
+        width: 25vw;
+        max-width: 25em;
+        overflow: auto;
+    }
+}
+
+.show-control-panel #control-panel p,
+.show-control-panel #control-panel fieldset {
+    opacity: 1;
 }
 
 #control-panel .input-group {
     display: inline-block;
     position: relative;
-    width: auto;
+    width: 9em;
     padding-right: 1.5em;
 }
 
@@ -434,6 +550,9 @@ line.solid {
     width: 1em;
 }
 
+#control-panel input.altitude {
+    max-width: 3.6em;
+}
 
 #gmap {
     padding-top: 1.5em;
@@ -622,7 +741,9 @@ ul.hor-tabs li:not(.disabled):hover {
 #astro-disc #degree-overlay,
 #astro-disc #degree-overlay .degree-label,
 #astro-disc #degree-lines {
-    transform-origin: 750px 750px;
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    transform-origin: 0 0;
 }
 
 #astro-disc .house-line {

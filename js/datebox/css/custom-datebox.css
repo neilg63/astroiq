@@ -85,19 +85,17 @@ div.ui-datebox-container.ui-datebox-inline {
 
 .ui-datebox-controls {
 	position: absolute;
-	top: -3em;
+	top: -2em;
 	right: 0;
 	padding: 0;
+	height: 2em;
 }
 
 .ui-datebox-controls a {
 	display: block;
 	color: transparent;
-	width: 8em;
-	height: 2em;
-	outline: none;
-	/*transition: transform .25s ease-in;*/
-}
+	width: 6em;
+	height: 3em;
 
 /*.ui-datebox-controls a:before {
 	font-family: "icomoon";
@@ -226,10 +224,15 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 
 .ui-datebox-flipcontent {
 	position: relative;
-	margin-top: 0.5em;
+	margin: -.5em 0 1em 0;
 	text-align: center;
 	height: 6em;
-	margin-bottom: -2.5em;
+	margin-bottom: -2em;
+}
+
+.ui-datebox-header h4 {
+	margin: 0.25em 0;
+	padding:0;
 }
 
 li.bg-success {
@@ -256,9 +259,18 @@ li.bg-success {
 	display: inline-block;
 	border:1px solid rgba(0,0,0,0);
 }
+
+.ui-datebox-flipcontent .ui-overlay-shadow ul {
+	max-width: 3em;
+	padding: 0;
+	margin:0;
+	top: -.5em;
+}
 .ui-datebox-flipcontent li {
 	height: 2em;
 	width: 3em;
+	margin: 0;
+	padding:0;
 }
 .ui-datebox-flipcontent li span {
 	margin-top: 0;

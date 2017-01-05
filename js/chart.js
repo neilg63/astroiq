@@ -6,11 +6,14 @@ jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, {
     timeFieldOrder: ["h", "i", "a"],
     slideFieldOrder: ["y", "m", "d"],
     dateFormat: "%Y-%m-%d",
+    headerFormat: "%A, %-d %B %Y",
   }
 });
 jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
   useLang: 'en'
 });
+
+var pDom = {};
 
 var GeoMap = {
 
@@ -20,7 +23,7 @@ var GeoMap = {
 
     zoom: 9,
 
-    buildMap: function(lat, lng) {
+    buildMap: function(lat, lng,updateCoords) {
         var loc = {lat: lat, lng: lng}, hasMap = this.map === null;
         this.map = new google.maps.Map(document.getElementById('gmap'), {
           zoom: 6,
@@ -35,7 +38,9 @@ var GeoMap = {
           map: this.map
         });
         this.addDragendEvent(this.marker);
-        
+        if (updateCoords === true) {
+          this.updateCoords(coords);
+        }
     },
 
     addDragendEvent: function(marker) {
@@ -101,8 +106,8 @@ var GeoMap = {
 
     matchLocation: function(position) {
         var coords = position.coords; 
-        this.buildMap(coords.latitude,coords.longitude);
-        this.updateCoords(coords);
+        this.buildMap(coords.latitude,coords.longitude,true);
+        
     },
 
     updateCoords: function(coords,lng) {
@@ -515,56 +520,21 @@ function initMap() {
 
         astroDisc.init();
 
-        var cf = $('form#control-form');
+        var p = pDom;
+        p.body = $('body');
+        p.window = $(window);
+        p.width = p.window.width();
+        p.height = p.window.height();
+        p.mobileMax = 959;
+        p.medDesktopMin = 1280;
 
+        p.window.on('resize',function() {
+          var p = pDom;
+          p.width = p.window.width();
+          p.height = p.window.height();
+        });
 
-        var toEuroDate = function(strDate) {
-            return strDate.split("-").reverse().join(".");
-        };
-
-        var zeroPad2 = function(num) {
-            var isString = typeof num == 'string',
-            isNum = typeof num == 'number', str;
-            if (isString || isNum) {
-               if (isNum && /^\s*\d+\s*$/.test(num)) {
-                    num = parseInt(num)
-               }
-               if (num < 10) {
-                    str = '0' + num;
-               } else {
-                    str = num.toString();
-               }
-            }
-            return str;
-        };
-
-        var toSwissEphTime = function(strTime) {
-            var parts = strTime.split(":"), t;
-            if (parts.length>1) {
-                t= zeroPad2(parts[0]) + '.' + zeroPad2(parts[1]);
-                if (parts.length>2) {
-                    t += zeroPad2(parts[2]);
-                }
-            }
-            return t;
-        };
-
-        function objToString(obj) {
-            if (typeof obj == 'object') {
-                var parts = [], tp;
-                for (var sk in obj) {
-                    tp = typeof obj[sk];
-                    switch (tp) {
-                        case 'string':
-                        case 'number':
-                            parts.push(sk + ': ' + obj[sk]);
-                            break;
-                    }
-                }
-                return parts.join(', ');
-            }
-        }
-
+        p.cForm = $('form#control-form');
 
         var buildBodyDataView = function(body,key) {
             var ul = $('<ul class="details-'+key+'"></ul>'),hasData=false,content, li, tp;
@@ -798,7 +768,7 @@ function initMap() {
 
         $('input.degree').on('change keyup',updateDegreeValues);
 
-        cf.on('submit',function(e){
+        p.cForm.on('submit',function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
             var dob =$('#form-dob'),
@@ -809,6 +779,7 @@ function initMap() {
             hsy = $('#form-hsy'),
             aya = $('#form-ayanamsa'),
             mod = $('#form-mode input.mode:checked');
+
             if (dob.length>0 && lng.length>0) {
                 var dobV = dob.val(),
                 tobV = tob.val(),
@@ -842,6 +813,10 @@ function initMap() {
                     success: function(data) {
                         if (data.valid) {
                             $('#main .hor-tabs li.chart').first().trigger('click');
+                            var p =pDom;
+                            if (p.width < p.medDesktopMin) {
+                              p.body.removeClass('show-control-panel');
+                            }
                             buildDataView(data);
                             updateChart(data);
                         }
@@ -851,8 +826,8 @@ function initMap() {
 
         });
         
-
-        $('#main .hor-tabs li').on('click',function(e){
+        p.horMenu = $('#main .hor-tabs');
+        p.horMenu.find('li').on('click',function(e){
             e.stopImmediatePropagation();
             var it = $(this), main = $('#main');
             if (it.hasClass('active') == false) {
@@ -877,19 +852,21 @@ function initMap() {
                 it.addClass('active');
             }
             if (it.hasClass('map')) {
-                GeoMap.zoom = GeoMap.map.getZoom();
-                GeoMap.showSatellite();
-                if (GeoMap.zoom < 15) {
-                    if (GeoMap.zoom < 10) {
-                        GeoMap.zoom = 10;
-                    }
-                    setTimeout(function() {
-                        GeoMap.zoomIn(15);
-                    }, 500);
-                }
-                setTimeout(function(){
-                    GeoMap.zoomIn(16);
-                }, 1000);
+                if (GeoMap.map) {
+                  GeoMap.zoom = GeoMap.map.getZoom();
+                  GeoMap.showSatellite();
+                  if (GeoMap.zoom < 15) {
+                      if (GeoMap.zoom < 10) {
+                          GeoMap.zoom = 10;
+                      }
+                      setTimeout(function() {
+                          GeoMap.zoomIn(15);
+                      }, 500);
+                  }
+                  setTimeout(function(){
+                      GeoMap.zoomIn(16);
+                  }, 1000);
+                } 
             }
         });
 
@@ -937,6 +914,139 @@ function initMap() {
         });
 
         updateDegreeValues();
+
+        $('p.has-mask input.main').on('click change',function(e){
+            var p=pDom;
+            if (p.width > p.mobileMax) {
+              var it=$(this),
+              par=it.parent()
+              if (par.hasClass('input-group')) {
+                  par = par.parent();
+              }
+              var id=it.attr('id'),
+              mask=par.find('#'+id+'-mask');
+              switch (e.type) {
+                  case 'click':
+                      if (mask.length>0) {
+                          var wdg = par.find('.ui-datebox-container');
+                          if (wdg.css('display') != 'block') {
+                             mask.removeClass('hidden');
+                              par.addClass('masked');
+                              var tg = mask[0], 
+                              vl = mask.val(),
+                              start = tg.selectionStart,
+                              end = tg.selectionEnd,
+                              len=vl.length; 
+                          }
+                          
+                          
+                          /*if (len == 5) {
+                              if (start < (len-1) && start===end) {
+                                  var sel = window.getSelection(),
+                                  range = document.createRange();
+                                  range.setStart(tg,start);
+                                  range.setEnd(tg,(end+1));
+                                  sel.addRange(range);
+                              }
+                          }*/
+                      }
+                      break;
+                  case 'change':
+                      var vl = it.val(),valid=false;
+                      if (mask.hasClass('date-mask')) {
+                          vl = vl.split('-').reverse().join('/');
+                      }
+                      mask.val(vl);
+                      break;
+              }
+            }
+            
+        });
+        $('p.has-mask input.mask').on('change',function(e){
+            var it=$(this),par = it.parent(), main = par.find('.main');
+            if (main.length>0) {
+                var vl = it.val(),rs;
+                if (it.hasClass('time-mask')) {
+                    vl = vl.replace(/[.,]+/g,':');
+                    vl = vl.replace(/^(\d):/g,'0$1:');
+                    vl = vl.replace(/:(\d)$/g,':0$1');
+                    vl = vl.replace(/:$/g,':00');
+                    vl = vl.replace(/(:[0-9][0-9])[0-9]+/g,"$1");
+                } else {
+                    vl = vl.replace(/[ .,-]+/g,'/');
+                }
+                vl = vl.replace(/^:/,'0:');
+                if (it.hasClass('time-mask')) {
+                    rs = '^\\d\\d?:\\d\\d?$';
+                } else {
+                    rs = '^[0123]?\\d/[01]?\\d?/(1[789]|20)\\d\\d$';
+                }
+                var rgx = new RegExp(rs);
+                if (rgx.test(vl)) {
+                    if (it.hasClass('date-mask')) {
+                        vl = vl.split('/').reverse().join('-');
+                    }
+                    main.val(vl); 
+                }
+            }
+        }).on('keyup blur',function(e){
+            
+            var it=$(this),vl=it.val(),
+            /*start = e.target.selectionStart,
+            end = e.target.selectionEnd,*/
+            len=vl.length,
+            tp = it.hasClass('time-mask')? 'time' : 'date';
+            /*if (len == 5) {
+                if (start < (len-1) && start==end) {
+                    e.target.selectionEnd = end + 1;
+                }
+            }*/
+            if (e.type =='blur') {
+                if (tp == 'time') {
+                   vl = vl.replace(/[.,]+/g,':');
+                    vl = vl.replace(/:$/g,':00');
+                    vl = vl.replace(/(:[0-9][0-9])[0-9]+/g,"$1");
+                    vl = vl.replace(/^:/,'0:'); 
+                } else {
+                    vl = vl.replace(/[ .-]+/g,'/');
+                    vl = vl.replace(/[^0-9\/]+/g,'');
+                    vl = vl.replace(/\/$/g,':01');
+                    vl = vl.replace(/\b([0-9])\//g,"0$1");
+                    vl = vl.replace(/\/(\d\d)$/,'/19$1');
+                }
+                
+            }
+            if (e.type =='keyup') {
+                if (tp == 'time') {
+                    vl = vl.replace(/[^0-9:.,]/g,'');
+                    vl = vl.replace(/(\d)[.,](\d)/g,'$1:$2');
+                    vl = vl.replace(/:[6-9]([0-9])$/g,'5$1');
+                    vl = vl.replace(/^[3-9]([0-9]):/g,'1$1');
+                }
+            }
+            it.val(vl);
+        });
+        $('p.has-mask').on('mouseleave',function(e) {
+            var par = $(this), mask = par.find('.mask');
+            mask.addClass('hidden');
+            par.removeClass('masked');
+        });
+
+        $('#control-panel .toggle-aside').on('click',function(e) {
+            e.stopImmediatePropagation();
+            var b = $('body'), refCl='show-control-panel';
+            if (b.hasClass(refCl)) {
+               b.removeClass(refCl);
+            } else {
+               b.addClass(refCl);
+            }
+        });
+
+        
+
+        if (p.width > p.medDesktopMin) {
+          p.body.addClass('show-control-panel');
+        }
 
         setTimeout(function(){
             var gMapApi = $('#gmap-api-key');

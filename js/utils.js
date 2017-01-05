@@ -352,3 +352,50 @@ function _toLatLngString(dec,degType) {
     return degree.deg + '&deg; ' + degree.min + '&apos; ' + degree.sec + '&quot; ' + degree.dir;
   } 
 }
+
+var toEuroDate = function(strDate) {
+    return strDate.split("-").reverse().join(".");
+};
+
+var zeroPad2 = function(num) {
+    var isString = typeof num == 'string',
+    isNum = typeof num == 'number', str;
+    if (isString || isNum) {
+       if (isNum && /^\s*\d+\s*$/.test(num)) {
+            num = parseInt(num)
+       }
+       if (num < 10) {
+            str = '0' + num;
+       } else {
+            str = num.toString();
+       }
+    }
+    return str;
+};
+
+var toSwissEphTime = function(strTime) {
+    var parts = strTime.split(":"), t;
+    if (parts.length>1) {
+        t= zeroPad2(parts[0]) + '.' + zeroPad2(parts[1]);
+        if (parts.length>2) {
+            t += zeroPad2(parts[2]);
+        }
+    }
+    return t;
+};
+
+function objToString(obj) {
+    if (typeof obj == 'object') {
+        var parts = [], tp;
+        for (var sk in obj) {
+            tp = typeof obj[sk];
+            switch (tp) {
+                case 'string':
+                case 'number':
+                    parts.push(sk + ': ' + obj[sk]);
+                    break;
+            }
+        }
+        return parts.join(', ');
+    }
+}
