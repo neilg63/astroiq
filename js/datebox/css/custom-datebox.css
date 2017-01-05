@@ -310,7 +310,6 @@ li.bg-success {
 	text-align: center;
 	display: inline-block;
 	zoom:1;
-	*display:inline;
 	vertical-align: middle;
 	font-weight: bold;
 	border: 1px solid #ccc;
