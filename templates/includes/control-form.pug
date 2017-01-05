@@ -53,12 +53,14 @@ form#control-form(action="/sweph" method="post")
     div#geo-address.hidden
     p.tz
       label(for="form-timezone") Time Zone:
-      input(type="time" id="form-timezone" name="timezone" size="5" value="00:00")
-      //- label(for="form-tz-east") Eastinput(type="radio" value="event" name="tz-east" id="form-tz-east" class="type")
-      label(for="form-timezone" id="east-west") West
-    p.ds
-      label(for="form-daylightsavings") Daylight Savings:
-      input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
+      input.sub(type="number" id="form-tz" name="tz" size="2" value="0" min="-12" max="12")
+      input.sub(type="number" id="form-tzmin" name="tzmin" size="2" value="0" min="0" max="45" step)
+      select.inline(id="form-summerhours" name="summer_hours" title="Summer time / Daylight saving")
+        option(value="-2") -2
+        option(value="-1") -1
+        option(value="0") 0
+        option(value="1") +1
+        option(value="2") +2
     p.lat
       label(for="form-lat" title="latitude") Latitude:
       input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
