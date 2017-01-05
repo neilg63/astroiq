@@ -507,6 +507,8 @@ line.solid {
 #control-panel form {
     opacity: 0;
     min-width: 25em;
+    overflow: hidden;
+    transition: opacity 0.25s linear .5s;
 }
 
 #control-panel .toggle-aside {
@@ -517,23 +519,24 @@ line.solid {
     max-width: 96vw;
     width: 100%;
     padding: 3vh 2vw;
-    overflow: auto;
-    transition: width .5s ease-in, opacity 0s linear .5s,min-width 0s linear .5s;
+    transition: width .5s ease-in,min-width 0s linear .5s;
     background-color: white;
     border-right: solid 1px #cccccc;
     border-bottom: solid 1px #cccccc;
 }
 
+
+
 @media screen and (min-width: 960px) {
     .show-control-panel #control-panel {
         width: 25vw;
         max-width: 25em;
-        overflow: auto;
     }
 }
 
 .show-control-panel #control-panel form {
     opacity: 1;
+    transition: opacity 0.25s linear;
 }
 
 #control-panel .input-group {
