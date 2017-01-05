@@ -95,6 +95,7 @@ div.ui-datebox-container.ui-datebox-inline {
 	color: transparent;
 	width: 8em;
 	height: 2em;
+	outline: none;
 	/*transition: transform .25s ease-in;*/
 }
 
