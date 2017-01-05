@@ -416,6 +416,12 @@ line.solid {
     100% {transform: rotate(360deg);}
 }
 
+#control-panel:hover .toggle-aside:before {
+    animation: spin 1s infinite linear;
+}
+
+
+
 #dial {
     animation: spin 60s infinite;
     transform-origin: 50% 50% 0;
@@ -463,6 +469,7 @@ line.solid {
     width: 2.75em;
     transition: width .5s ease-in;
     overflow: hidden;
+    min-height: 100vh;
 }
 
 #control-panel .toggle-aside {
@@ -498,6 +505,7 @@ line.solid {
 
 .show-control-panel #control-panel .toggle-aside:before {
     transform: rotate(45deg);
+    animation: none;
 }
 
 .show-control-panel #control-panel .toggle-aside:hover:before {
@@ -508,9 +516,11 @@ line.solid {
     opacity: 0;
     min-width: 25em;
     overflow: hidden;
+    pointer-events: none;
     transition: opacity 0.25s linear .5s;
 }
 
+#control-panel,
 #control-panel .toggle-aside {
     cursor: pointer;
 }
@@ -523,8 +533,9 @@ line.solid {
     background-color: white;
     border-right: solid 1px #cccccc;
     border-bottom: solid 1px #cccccc;
+    pointer-events: auto;
+    cursor: auto;
 }
-
 
 
 @media screen and (min-width: 960px) {
