@@ -524,6 +524,7 @@ line.solid {
 #control-panel form {
     opacity: 0;
     min-width: 25em;
+    height:0;
     overflow: hidden;
     pointer-events: none;
     transition: opacity 0.25s linear .5s;
@@ -558,6 +559,7 @@ line.solid {
     opacity: 1;
     transition: opacity 0.25s linear;
     pointer-events: auto;
+    height: auto;
 }
 
 #control-panel .input-group {
