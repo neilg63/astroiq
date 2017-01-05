@@ -133,8 +133,17 @@ span.symbol-radio label {
     margin: 0.25em 0;
     padding: 0;
 }
-
-
+#control-panel input.gender {
+    margin-left: 0.5em;
+    width: 0.8em;
+}
+#control-panel label.gender {
+    font-size: 0.8em;
+}
+#control-panel .gender {
+    line-height: 24%;
+    height: 0.8em;
+}
 
 #control-panel fieldset > .toggle {
     position: absolute;
@@ -656,7 +665,9 @@ line.solid {
 #control-panel select {
     font-size: 0.9em;
 }
-
+#control-panel input#form-alt-height {
+    margin-right: 0.3em;
+}
 #geo-address {
     clear: both;
     color: #666699;
