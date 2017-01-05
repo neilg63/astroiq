@@ -60,15 +60,15 @@ form#control-form(action="/sweph" method="post")
     fieldset.collapsible.closed
       h5.toggle Time Zone
       p.tz
-      label(for="form-timezone" title="Hours relative to Universal Time") UTC &plusmn;:
-      input.sub(type="number" id="form-tz" name="tz" size="2" value="0" min="-12" max="12")
-      input.sub(type="number" id="form-tzmin" name="tzmin" size="2" value="0" min="0" max="45" step)
-      select.inline(id="form-summerhours" name="summer_hours" title="Summer time / Daylight saving")
-        option(value="-2") -2
-        option(value="-1") -1
-        option(value="0") 0
-        option(value="1") +1
-        option(value="2") +2
+        label(for="form-timezone" title="Hours relative to Universal Time") UTC &plusmn;:
+        input.sub(type="number" id="form-tz" name="tz" size="2" value="0" min="-12" max="12")
+        input.sub(type="number" id="form-tzmin" name="tzmin" size="2" value="0" min="0" max="45" step)
+        select.inline(id="form-summerhours" name="summer_hours" title="Summer time / Daylight saving")
+          option(value="-2") -2
+          option(value="-1") -1
+          option(value="0") 0
+          option(value="1") +1
+          option(value="2") +2
     p.alt
       label(for="form-alt" title="altitude") Altitude:
       input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" )
