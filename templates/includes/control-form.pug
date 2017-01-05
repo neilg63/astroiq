@@ -22,15 +22,18 @@ form#control-form(action="/sweph" method="post")
       //-Change according to type: Name, event, question, election
       label(for="form-name") Name:
       input(type="text" id="form-name" name="name" size="10" value="Andri" )
-
-    p.genders
+      input#form-gender-female.gender.female(type="radio" name="gender")
+      label.sub(for="form-gender-female") Female
+      input#form-gender-male.gender.male(type="radio" name="gender")
+      label.sub(for="form-gender-male") Male
+    //- p.genders
       label(for="form-gender") Gender:
-      span.symbol-radio.icon-female-bust
-        input#form-gender-female.gender.female(type="radio" name="gender")
-        label.sub(for="form-gender-female") Female
-      span.symbol-radio.icon-male-bust
-        input#form-gender-male.gender.male(type="radio" name="gender")
-        label.sub(for="form-gender-male") Male
+      //- span.symbol-radio.icon-female-bust
+      input#form-gender-female.gender.female(type="radio" name="gender")
+      label.sub(for="form-gender-female") Female
+      //- span.symbol-radio.icon-male-bust
+      input#form-gender-male.gender.male(type="radio" name="gender")
+      label.sub(for="form-gender-male") Male
         //- input#form-gender-unknown.gender.unknown(type="radio" name="gender")
         //-label.sub(for="form-gender-unknown") Unknown
     p.dob
@@ -51,7 +54,7 @@ form#control-form(action="/sweph" method="post")
       label(for="form-timezone") Time Zone:
       input(type="time" id="form-timezone" name="timezone" size="5" value="00:00")
       //- label(for="form-tz-east") Eastinput(type="radio" value="event" name="tz-east" id="form-tz-east" class="type")
-      label(for="form-timezone" id="east-west") West      
+      label(for="form-timezone" id="east-west") West
     p.ds
       label(for="form-daylightsavings") Daylight Savings:
       input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
