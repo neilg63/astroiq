@@ -654,8 +654,8 @@ line.solid {
 #control-panel select {
     font-size: 0.9em;
 }
-#control-panel select.form-height-unit {
-    margin-right: 0.5em;
+#control-panel input#form-alt-height {
+    margin-right: 0.3em;
 }
 #geo-address {
     clear: both;
