@@ -720,8 +720,9 @@ astro.calcHouseData = (m) => {
 };
 
 astro.mapHouses = (arrHouses) => {
-  var data={}, i=0,num = arrHouses.length, key;
+  var data={};
   if (arrHouses instanceof Array) {
+    var i=0,num = arrHouses.length, key;
     for (;i<num;i++) {
       key = (i+1) . toString();
       data[key] = arrHouses[i];
@@ -877,7 +878,7 @@ astro.fetch = (cmd, res, query, debug) => {
         data.astro = doc.astro;
         data.houseData = doc.houseData;
         data.houses = astro.mapHouses(doc.houses);
-        data.house_bounds = astro.calcHouseBounds(doc.houses);
+        data.house_bounds = astro.calcHouseBounds(data.houses);
         data.bodies = doc.bodies;
         data.ayanamsa = doc.ayanamsa;
         data.stored = true;
@@ -892,7 +893,7 @@ astro.fetch = (cmd, res, query, debug) => {
   }).catch((e) => {
     astro.fetchFromCommand(cmd, cmdId, res, query, debug);
   });
-  
+
 };
 
 astro.fetchFromCommand = (cmd, cmdId, res, query, debug) => {
