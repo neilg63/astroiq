@@ -1036,10 +1036,10 @@ function initMap() {
         });
 
         $('#control-panel').on('click',function(e) {
-            var tg = $(e.target);
-            if (tg.hasClass('toggle-aside') || tg.attr('id')=='control-panel') {
+            var tg = $(e.target), b = pDom.body, refCl='show-control-panel';
+            console.log(tg.attr('id'))
+            if (tg.hasClass('toggle-aside') || (b.hasClass(refCl)==false && tg.attr('id')=='control-panel')) {
               e.stopImmediatePropagation();
-              var b = $('body'), refCl='show-control-panel';
               if (b.hasClass(refCl)) {
                  b.removeClass(refCl);
               } else {

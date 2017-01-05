@@ -557,6 +557,7 @@ line.solid {
 .show-control-panel #control-panel form {
     opacity: 1;
     transition: opacity 0.25s linear;
+    pointer-events: auto;
 }
 
 #control-panel .input-group {
