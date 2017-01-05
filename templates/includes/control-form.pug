@@ -1,5 +1,5 @@
-h2.toggle-aside New Chart
 form#control-form(action="/sweph" method="post")
+  h2.toggle-aside New Chart
   fieldset.collapsible.open
     p.chart-type
       label(for="form-type") Type of Chart:
@@ -33,31 +33,25 @@ form#control-form(action="/sweph" method="post")
         label.sub(for="form-gender-male") Male
         //- input#form-gender-unknown.gender.unknown(type="radio" name="gender")
         //-label.sub(for="form-gender-unknown") Unknown
-    p.dob.has-mask
+    p.dob
       //- change 'birth' according to type
       label(for="form-dob") Date of birth:
-      input#form-dob.main(type="date" name="dob" size="10" value="1961-06-28" data-date-format="DD/MM/YYYY" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
-      input#form-dob-mask.mask.date-mask.hidden(type="text" name="dob_mask" size="10" value="28/06/1961" maxlength="10" pattern="[123]?[0-9]/[01][0-9]/(1[789]|20)[0-9][0-9]")
-    p.tob.has-mask
+      input(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
+    p.tob
       //- change 'birth' according to type
       label(for="form-tob") Time of birth:
-      input#form-tob.main(type="time" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
-      input#form-tob-mask.mask.time-mask.hidden(type="text" name="tob_mask" size="5" value="11:25" maxlength="5" pattern="[012]?[0-9]:[0-5]?[0-9]" )
+      input(type="time" id="form-tob" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
     p.pob
       //- change 'birth' according to type
       label(for="form-geobirth") Place of birth:
       input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
       input#geobirth-finder(type="submit" value="Find")
     div#geo-address.hidden
-
     p.tz
       label(for="form-timezone") Time Zone:
       input(type="time" id="form-timezone" name="timezone" size="5" value="00:00")
       //- label(for="form-tz-east") Eastinput(type="radio" value="event" name="tz-east" id="form-tz-east" class="type")
-      label(for="form-tz-west") West
-      //- input(type="radio" value="event" name="tz-west" id="form-tz-west" class="type")
-      label(for="form-timezone")
-
+      label(for="form-timezone" id="east-west") West      
     p.ds
       label(for="form-daylightsavings") Daylight Savings:
       input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
@@ -69,7 +63,7 @@ form#control-form(action="/sweph" method="post")
       input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
     p.alt
       label(for="form-alt" title="altitude") Altitude:
-      input#form-alt.altitude(type="number" name="alt" size="1" value="30" steps="10" min="0" max="9000" maxlength="5" title="Height above sea level in metres")
+      input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" )
       select#form-height-unit.inline
         option(value="m") metres
         option(value="ft") feet
@@ -176,9 +170,9 @@ form#control-form(action="/sweph" method="post")
               p
                 input#form-solar-a.solar(type="radio" value="365.259636" name="solar-t")
                 label(for="form-solar-a") Anomalistic year
-              p.textA.strong Tropical year (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.
-              p.textA.strong Sidereal year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.
-              p.textAn.strong Anomalistic year (365.259636) is a measure of earth's passage from one perihelion to another.
+              p.text A.strong Tropical year (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.
+              p.text A.strong Sidereal year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.
+              p.text An.strong Anomalistic year (365.259636) is a measure of earth's passage from one perihelion to another.
 
 
       fieldset.collapsible.closed
