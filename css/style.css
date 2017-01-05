@@ -133,7 +133,12 @@ span.symbol-radio label {
     margin: 0.25em 0;
     padding: 0;
 }
-
+#control-panel input.gender {
+    margin-left: 0.5em;
+}
+#control-panel label.gender {
+    font-size: 0.8em;
+}
 
 
 #control-panel fieldset > .toggle {
