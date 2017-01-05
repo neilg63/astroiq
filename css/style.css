@@ -133,8 +133,17 @@ span.symbol-radio label {
     margin: 0.25em 0;
     padding: 0;
 }
-
-
+#control-panel input.gender {
+    margin-left: 0.5em;
+    width: 0.8em;
+}
+#control-panel label.gender {
+    font-size: 0.8em;
+}
+#control-panel .gender {
+    line-height: 24%;
+    height: 0.8em;
+}
 
 #control-panel fieldset > .toggle {
     position: absolute;
@@ -338,12 +347,8 @@ span.symbol-radio label {
 .large-pane {
     position: absolute;
     top: 8em;
-    left: 20vw;
+    left: 0;
     right: 0;
-}
-
-object.large-pane {
-  left: 20vw;
 }
 
 .large-pane svg {
@@ -420,6 +425,12 @@ line.solid {
     100% {transform: rotate(360deg);}
 }
 
+#control-panel:hover .toggle-aside:before {
+    animation: spin 1s infinite linear;
+}
+
+
+
 #dial {
     animation: spin 60s infinite;
     transform-origin: 50% 50% 0;
@@ -467,6 +478,7 @@ line.solid {
     width: 2.75em;
     transition: width .5s ease-in;
     overflow: hidden;
+    min-height: 100vh;
 }
 
 #control-panel .toggle-aside {
@@ -495,18 +507,30 @@ line.solid {
     transition: transform .5s ease-in;
 }
 
-.toggle-aside:hover:before {
+#control-panel .toggle-aside:hover:before {
     transform: rotate(-45deg);
+    color: #3399ff;
 }
 
 .show-control-panel #control-panel .toggle-aside:before {
     transform: rotate(45deg);
+    animation: none;
 }
 
-#control-panel p, #control-panel fieldset {
+.show-control-panel #control-panel .toggle-aside:hover:before {
+    transform: rotate(-15deg);
+}
+
+#control-panel form {
     opacity: 0;
+    min-width: 25em;
+    height:0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s linear .5s;
 }
 
+#control-panel,
 #control-panel .toggle-aside {
     cursor: pointer;
 }
@@ -515,24 +539,27 @@ line.solid {
     max-width: 96vw;
     width: 100%;
     padding: 3vh 2vw;
-    overflow: auto;
-    transition: width .5s ease-in, opacity 0s linear .5s,min-width 0s linear .5s;
+    transition: width .5s ease-in,min-width 0s linear .5s;
     background-color: white;
     border-right: solid 1px #cccccc;
     border-bottom: solid 1px #cccccc;
+    pointer-events: auto;
+    cursor: auto;
 }
+
 
 @media screen and (min-width: 960px) {
     .show-control-panel #control-panel {
         width: 25vw;
         max-width: 25em;
-        overflow: auto;
     }
 }
 
-.show-control-panel #control-panel p,
-.show-control-panel #control-panel fieldset {
+.show-control-panel #control-panel form {
     opacity: 1;
+    transition: opacity 0.25s linear;
+    pointer-events: auto;
+    height: auto;
 }
 
 #control-panel .input-group {
@@ -556,9 +583,33 @@ line.solid {
 
 #gmap {
     padding-top: 1.5em;
-    margin-left: 10vw;
-    width: 60vw;
+    margin-left: 5vw;
+    width: 90vw;
     height: 60vh;
+}
+
+@media screen and (min-width:768px) {
+    #gmap {
+        margin-left: 10vw;
+        width: 80vw;
+    }
+}
+
+
+
+
+@media screen and (min-width:1280px) {
+    #gmap {
+        margin-left: 10vw;
+        width: 60vw;
+    }
+}
+@media screen and (min-width:1280px) {
+    #gmap {
+        margin-left: 10vw;
+        width: 60vw;
+        height: 60vh;
+    }
 }
 
 #control-panel p {
@@ -617,7 +668,9 @@ line.solid {
 #control-panel select {
     font-size: 0.9em;
 }
-
+#control-panel input#form-alt {
+    margin-right: 0.3em;
+}
 #geo-address {
     clear: both;
     color: #666699;
@@ -687,9 +740,22 @@ nav.horizontal li {
 }
 
 ul.hor-tabs li {
-    padding: 0 1em;
-    font-size: 1.5em;
+    padding: 0 0.75em;
+    font-size: 1em;
     cursor: pointer;
+}
+
+@media screen and (min-width:640px) {
+    ul.hor-tabs li {
+        font-size: 1.25em;
+    }
+}
+
+@media screen and (min-width:960px) {
+    ul.hor-tabs li {
+        padding: 0 1em;
+        font-size: 1.5em;
+    }
 }
 
 ul.hor-tabs li.active {

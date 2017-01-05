@@ -898,12 +898,15 @@ function initMap() {
             var it = $(this), par = it.parent(),
                 vl = $(this).val(),ref = par.find('#form-alt');
             if (ref.length>0) {
-                var mToFt = 0.3048, h = ref.val().toInt(),nh;
+                var mToFt = 0.3048, 
+                  ftRound = 25,
+                  mRound = 10,
+                h = ref.val().toInt(),nh;
                 if (h !== 0) {
                     if (vl == 'm' && par.hasClass('show-ft')) {
-                        nh = parseInt(h * mToFt);
+                        nh = parseInt(Math.ceil(h * mToFt) / mRound) * mRound;
                     } else if (vl == 'ft' && par.hasClass('show-ft')==false) {
-                        nh = Math.ceil(h / mToFt);
+                        nh = Math.ceil( (h/ftRound) / mToFt) * ftRound;
                     }
                     par.removeClass('show-ft show-m').addClass('show-' + vl);
                     if (isNumeric(nh)) {
@@ -1032,13 +1035,16 @@ function initMap() {
             par.removeClass('masked');
         });
 
-        $('#control-panel .toggle-aside').on('click',function(e) {
-            e.stopImmediatePropagation();
-            var b = $('body'), refCl='show-control-panel';
-            if (b.hasClass(refCl)) {
-               b.removeClass(refCl);
-            } else {
-               b.addClass(refCl);
+        $('#control-panel').on('click',function(e) {
+            var tg = $(e.target), b = pDom.body, refCl='show-control-panel';
+            console.log(tg.attr('id'))
+            if (tg.hasClass('toggle-aside') || (b.hasClass(refCl)==false && tg.attr('id')=='control-panel')) {
+              e.stopImmediatePropagation();
+              if (b.hasClass(refCl)) {
+                 b.removeClass(refCl);
+              } else {
+                 b.addClass(refCl);
+              }
             }
         });
 

@@ -19,6 +19,7 @@
 
 .ui-datebox-container { 
 	width: 16em;
+	font-size: 0.75rem;
 	-webkit-transform:translate3d(0,0,0);
 }
 .ui-datebox-container .modal-header {
@@ -85,33 +86,33 @@ div.ui-datebox-container.ui-datebox-inline {
 
 .ui-datebox-controls {
 	position: absolute;
-	top: -2em;
-	right: 0;
+	top: 0;
+	right: -3em;
 	padding: 0;
-	height: 2em;
+	min-height: 1.5em;
 }
 
 .ui-datebox-controls a {
 	display: block;
 	color: transparent;
-	width: 6em;
-	height: 3em;
-
-/*.ui-datebox-controls a:before {
-	font-family: "icomoon";
-	content: "\ea10";
-	color: #00cc00;
-	font-size: 1.5em;
+	width: 18em;
 }
 
-.ui-datebox-controls a:hover {
-	-webkit-transform: scale(1.25,1.25);
-	transform: scale(1.25,1.25);
+p.dob .ui-datebox-controls {
+	top: -2.5em;
 }
 
-.ui-datebox-controls a:hover:before {
-	color: #00ff00;
-}*/
+p.dob .ui-datebox-controls a {
+	height: 3.5em;
+}
+
+p.tob .ui-datebox-controls {
+	top: -2em;
+}
+
+p.tob .ui-datebox-controls a {
+	height: 2.5em;
+}
 
 .ui-datebox-griddate { 
 	width: 3em;
@@ -124,7 +125,6 @@ div.ui-datebox-container.ui-datebox-inline {
 	font-weight: bold;
 	font-size: 0.75em;
 	zoom: 1;
-	*display: inline;
 }
 
 .ui-datebox-griddate-week { 
@@ -137,7 +137,6 @@ div.ui-datebox-container.ui-datebox-inline {
 	font-weight: bold;
 	font-size: .75em;
 	zoom: 1;
-	*display: inline;
 }
 .ui-datebox-gridrow div.ui-datebox-griddate-empty { 
 	border: 1px solid transparent;
@@ -223,6 +222,7 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 }
 
 .ui-datebox-flipcontent {
+	font-size: 0.8rem;
 	position: relative;
 	margin: -.5em 0 1em 0;
 	text-align: center;
@@ -237,6 +237,7 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 
 li.bg-success {
 	font-weight: bold;
+	transform: scale(1.2,1.2);
 }
 
 .ui-datebox-flipcontent div {
@@ -264,13 +265,14 @@ li.bg-success {
 	max-width: 3em;
 	padding: 0;
 	margin:0;
-	top: -.5em;
+	top: 1.5em;
 }
 .ui-datebox-flipcontent li {
 	height: 2em;
 	width: 3em;
 	margin: 0;
 	padding:0;
+	transition: transform 250ms ease-in;
 }
 .ui-datebox-flipcontent li span {
 	margin-top: 0;
@@ -313,7 +315,7 @@ li.bg-success {
 	font-weight: bold;
 	border: 1px solid #ccc;
 	box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 span.ui-datebox-nopad { margin: 0 }
