@@ -8,17 +8,7 @@ form#control-form(action="/sweph" method="post")
         option(value="type-event") Event
         option(value="type-question") Question
         option(value="type-electional") Electional
-
-      //- input#form-type-birth.type(type="radio" value="birth" name="type" checked="true")
-      //- label(for="form-type-birth") Birth
-      //- input#form-type-event.type(type="radio" value="event" name="type")
-      //- label(for="form-type-event") Event
-      //- input#form-type-question.type(type="radio" value="question" name="type")
-      //- label(for="form-type-question") Question
-      //- input#form-type-electional.type(type="radio" value="electional" name="type")
-      //- label(for="form-type-electional") Electional
-
-    p
+    p.name-gender
       //-Change according to type: Name, event, question, election
       label(for="form-name") Name:
       input(type="text" id="form-name" name="name" size="10" value="Andri" )
@@ -31,14 +21,22 @@ form#control-form(action="/sweph" method="post")
       label.sub.gender(for="form-gender-male") Other
     //- p.genders
       label(for="form-gender") Gender:
-      //- span.symbol-radio.icon-female-bust
       input#form-gender-female.gender.female(type="radio" name="gender")
       label.sub(for="form-gender-female") Female
-      //- span.symbol-radio.icon-male-bust
       input#form-gender-male.gender.male(type="radio" name="gender")
       label.sub(for="form-gender-male") Male
-        //- input#form-gender-unknown.gender.unknown(type="radio" name="gender")
-        //-label.sub(for="form-gender-unknown") Unknown
+        input#form-gender-unknown.gender.unknown(type="radio" name="gender")
+        label.sub(for="form-gender-unknown") Unknown
+
+      div#name
+        label(for="form-name") Name:
+        input(type="text" id="form-name" name="name" size="10" value="Andri" )
+      div#gender.input-group
+        input#form-gender-female.gender.female(type="radio" name="gender")
+        label.sub.gender(for="form-gender-female") Female
+        input#form-gender-male.gender.male(type="radio" name="gender")
+        label.sub.gender(for="form-gender-male") Male
+
     p.dob
       //- change 'birth' according to type
       label(for="form-dob") Date of birth:
@@ -52,28 +50,24 @@ form#control-form(action="/sweph" method="post")
       label(for="form-geobirth") Place of birth:
       input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
       input#geobirth-finder(type="submit" value="Find")
-    div#geo-address.hidden
+      div#geo-address.hidden
+    p.tz
+      label(for="form-timezone") Time Zone:
+      input(type="time" id="form-timezone" name="timezone" size="5" value="00:00")
+      //- label(for="form-tz-east") Eastinput(type="radio" value="event" name="tz-east" id="form-tz-east" class="type")
+      label(for="form-timezone" id="east-west") West
+    p.ds
+      label(for="form-daylightsavings") Daylight Savings:
+      input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
     p.lat
       label(for="form-lat" title="latitude") Latitude:
       input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
     p.lng
       label.degree(for="form-lng" title="longitude") Longitude:
       input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
-    fieldset.collapsible.closed
-      h5.toggle Time Zone
-      p.tz
-        label(for="form-timezone" title="Hours relative to Universal Time") UTC &plusmn;:
-        input.sub(type="number" id="form-tz" name="tz" size="2" value="0" min="-12" max="12")
-        input.sub(type="number" id="form-tzmin" name="tzmin" size="2" value="0" min="0" max="45" step="15")
-        select.inline(id="form-summerhours" name="summer_hours" title="Summer time / Daylight saving")
-          option(value="-2") -2
-          option(value="-1") -1
-          option(value="0") 0
-          option(value="1") +1
-          option(value="2") +2
     p.alt
       label(for="form-alt" title="altitude") Altitude:
-      input(type="number" id="form-alt" name="alt" size="1" value="30" step="10" min="0" max="9000" title="Height above sea level in metres" )
+      input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" )
       select#form-height-unit.inline
         option(value="m") metres
         option(value="ft") feet
@@ -82,20 +76,20 @@ form#control-form(action="/sweph" method="post")
       select#form-rodden.select-input(name="rodden")
         option(value="AA1") AA - Birth Certificate in hand
         option(value="AA2") AA - Quoted Birth Record
-        option(value="A1") A - From memory
-        option(value="A2") A - News report
-        option(value="B") B - Bio/autobiography
-        option(value="C1") C - Accuracy in question
-        option(value="C2") C - Source not known
-        option(value="C3") C - Rectified from approx. time
+        option(value="A1")  A - From memory
+        option(value="A2")  A - News report
+        option(value="B")  B - Bio/autobiography
+        option(value="C1")  C - Accuracy in question
+        option(value="C2")  C - Source not known
+        option(value="C3")  C - Rectified from approx. time
         option(value="DD") DD - Confliction/unverified
-        option(value="X1") X - Date without time of birth
-        option(value="X2") X - Rectified w/o time of birth
+        option(value="X1")  X - Date without time of birth
+        option(value="X2")  X - Rectified w/o time of birth
         option(value="XX1") XX - Date in question
         option(value="XX2") XX - Undetermioned
 
-  div#form-actions
-    input(type="submit" value="Calculate & Save" id="form-submit" )
+    div#form-actions
+      input(type="submit" value="Calculate & Save" id="form-submit" )
 
   //- fieldset.collapsible.closed
   //-   h3.toggle Open Chart
