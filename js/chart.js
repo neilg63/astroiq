@@ -528,6 +528,8 @@ function initMap() {
         p.mobileMax = 959;
         p.medDesktopMin = 1280;
         p.queries = $('#queries');
+        p.infobox = $('#infobox');
+
         p.window.on('resize',function() {
           var p = pDom;
           p.width = p.window.width();
@@ -603,6 +605,7 @@ function initMap() {
             $('#results-pane .inner').html(dl);
             $('#results-pane .inner').append(info);
             $('.hor-tabs li.results').removeClass('disabled');
+            pDom.infobox.html('<p>Name:'+data.name+'</p><p>Date/time of birth:'+dateStringFormatted(data.datetime)+'</p>').addClass('has-data');
         };
 
         var updateChart = function(data) {

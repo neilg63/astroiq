@@ -359,6 +359,26 @@ span.symbol-radio label {
     margin-left: 5vw;
 }
 
+#infobox {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 1em;
+    background: rgba(0,0,0,0.25);
+    color: yellow;
+    padding: 1em;
+    text-align: left;
+}
+
+#infobox p {
+    padding: 0;
+    margin: 0 0 0.25em 0;
+}
+
+#infobox.has-data {
+    opacity: 1;
+}
+
 @media screen and (max-width: 959px) {
     object.large-pane {
       left: 5vw;
