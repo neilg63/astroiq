@@ -605,7 +605,12 @@ function initMap() {
             $('#results-pane .inner').html(dl);
             $('#results-pane .inner').append(info);
             $('.hor-tabs li.results').removeClass('disabled');
-            pDom.infobox.html('<p>Name:'+data.name+'</p><p>Date/time of birth:'+dateStringFormatted(data.datetime)+'</p>').addClass('has-data');
+            pDom.infobox.html('').addClass('has-data');
+            var p;
+            if (data.name && data.datetime) {
+              p = ('<p>Name: <strong class="person-name">'+data.name+'</strong>, <em class="datetime">'+dateStringFormatted(data.datetime)+'</em></p>');
+              pDom.infobox.append(p);
+            }
         };
 
         var updateChart = function(data) {
