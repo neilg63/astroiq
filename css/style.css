@@ -521,13 +521,14 @@ line.solid {
     transform: rotate(-15deg);
 }
 
+#queries,
 #control-panel form {
     opacity: 0;
     min-width: 25em;
-    height:0;
+    max-height:0;
     overflow: hidden;
     pointer-events: none;
-    transition: opacity 0.25s linear .5s;
+    transition: opacity 0.25s linear .5s,max-height 0 linear .5s;
 }
 
 #control-panel,
@@ -555,11 +556,13 @@ line.solid {
     }
 }
 
+.show-control-panel #queries,
 .show-control-panel #control-panel form {
     opacity: 1;
     transition: opacity 0.25s linear;
     pointer-events: auto;
     height: auto;
+    max-height: 400vh;
 }
 
 #control-panel .input-group {
