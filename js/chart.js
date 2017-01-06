@@ -914,12 +914,14 @@ function initMap() {
                 if (h !== 0) {
                     if (vl == 'm' && par.hasClass('show-ft')) {
                         nh = parseInt(Math.ceil(h * mToFt) / mRound) * mRound;
+                        step = 10;
                     } else if (vl == 'ft' && par.hasClass('show-ft')==false) {
                         nh = Math.ceil( (h/ftRound) / mToFt) * ftRound;
+                        step = 25;
                     }
                     par.removeClass('show-ft show-m').addClass('show-' + vl);
                     if (isNumeric(nh)) {
-                        ref.val(nh);
+                        ref.val(nh).attr('step',step);
                     }
                 }
             }    

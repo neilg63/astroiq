@@ -114,22 +114,6 @@ p.tob .ui-datebox-controls a {
 	height: 2.5em;
 }
 
-/*.ui-datebox-controls a:before {
-	font-family: "icomoon";
-	content: "\ea10";
-	color: #00cc00;
-	font-size: 1.5em;
-}
-
-.ui-datebox-controls a:hover {
-	-webkit-transform: scale(1.25,1.25);
-	transform: scale(1.25,1.25);
-}
-
-.ui-datebox-controls a:hover:before {
-	color: #00ff00;
-}*/
-
 .ui-datebox-griddate { 
 	width: 3em;
 	height: 2em;
@@ -141,7 +125,6 @@ p.tob .ui-datebox-controls a {
 	font-weight: bold;
 	font-size: 0.75em;
 	zoom: 1;
-	*display: inline;
 }
 
 .ui-datebox-griddate-week { 
@@ -154,7 +137,6 @@ p.tob .ui-datebox-controls a {
 	font-weight: bold;
 	font-size: .75em;
 	zoom: 1;
-	*display: inline;
 }
 .ui-datebox-gridrow div.ui-datebox-griddate-empty { 
 	border: 1px solid transparent;
@@ -328,12 +310,11 @@ li.bg-success {
 	text-align: center;
 	display: inline-block;
 	zoom:1;
-	*display:inline;
 	vertical-align: middle;
 	font-weight: bold;
 	border: 1px solid #ccc;
 	box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 span.ui-datebox-nopad { margin: 0 }
