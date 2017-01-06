@@ -18,15 +18,17 @@ form#control-form(action="/sweph" method="post")
       //- input#form-type-electional.type(type="radio" value="electional" name="type")
       //- label(for="form-type-electional") Electional
 
-    p
+    p.name-gender
       //-Change according to type: Name, event, question, election
-      label(for="form-name") Name:
-      input(type="text" id="form-name" name="name" size="10" value="Andri" )
-    p
-      input#form-gender-female.gender.female(type="radio" name="gender")
-      label.sub.gender(for="form-gender-female") Female
-      input#form-gender-male.gender.male(type="radio" name="gender")
-      label.sub.gender(for="form-gender-male") Male
+      div#name
+       label(for="form-name") Name:
+       input(type="text" id="form-name" name="name" size="10" value="Andri" )
+      div#gender.input-group
+       input#form-gender-female.gender.female(type="radio" name="gender")
+       label.sub.gender(for="form-gender-female") Female
+       br
+       input#form-gender-male.gender.male(type="radio" name="gender")
+       label.sub.gender(for="form-gender-male") Male
     //- p.genders
       label(for="form-gender") Gender:
       //- span.symbol-radio.icon-female-bust
@@ -51,27 +53,23 @@ form#control-form(action="/sweph" method="post")
       input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
       input#geobirth-finder(type="submit" value="Find")
     div#geo-address.hidden
+    p.tz
+      label(for="form-timezone") Time Zone:
+      input(type="time" id="form-timezone" name="timezone" size="5" value="00:00")
+      //- label(for="form-tz-east") Eastinput(type="radio" value="event" name="tz-east" id="form-tz-east" class="type")
+      label(for="form-timezone" id="east-west") West
+    p.ds
+      label(for="form-daylightsavings") Daylight Savings:
+      input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
     p.lat
       label(for="form-lat" title="latitude") Latitude:
       input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
     p.lng
       label.degree(for="form-lng" title="longitude") Longitude:
       input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
-    fieldset.collapsible.closed
-      h5.toggle Time Zone
-      p.tz
-        label(for="form-timezone" title="Hours relative to Universal Time") UTC &plusmn;:
-        input.sub(type="number" id="form-tz" name="tz" size="2" value="0" min="-12" max="12")
-        input.sub(type="number" id="form-tzmin" name="tzmin" size="2" value="0" min="0" max="45" step="15")
-        select.inline(id="form-summerhours" name="summer_hours" title="Summer time / Daylight saving")
-          option(value="-2") -2
-          option(value="-1") -1
-          option(value="0") 0
-          option(value="1") +1
-          option(value="2") +2
     p.alt
       label(for="form-alt" title="altitude") Altitude:
-      input(type="number" id="form-alt" name="alt" size="1" value="30" step="10" min="0" max="9000" title="Height above sea level in metres" )
+      input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" )
       select#form-height-unit.inline
         option(value="m") metres
         option(value="ft") feet
