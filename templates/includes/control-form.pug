@@ -23,10 +23,12 @@ form#control-form(action="/sweph" method="post")
       label(for="form-name") Name:
       input(type="text" id="form-name" name="name" size="10" value="Andri" )
     p
-      input#form-gender-female.gender.female(type="radio" name="gender")
+      input#form-gender-female.gender.female(type="radio" name="gender" value="female")
       label.sub.gender(for="form-gender-female") Female
-      input#form-gender-male.gender.male(type="radio" name="gender")
+      input#form-gender-male.gender.male(type="radio" name="gender" value="male")
       label.sub.gender(for="form-gender-male") Male
+      input#form-gender-male.gender.male(type="radio" name="gender" value="other")
+      label.sub.gender(for="form-gender-male") Other
     //- p.genders
       label(for="form-gender") Gender:
       //- span.symbol-radio.icon-female-bust

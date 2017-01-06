@@ -527,7 +527,7 @@ function initMap() {
         p.height = p.window.height();
         p.mobileMax = 959;
         p.medDesktopMin = 1280;
-
+        p.queries = $('#queries');
         p.window.on('resize',function() {
           var p = pDom;
           p.width = p.window.width();
@@ -766,6 +766,39 @@ function initMap() {
             }
         }
 
+        var addQueryList = function() {
+          var p = pDom;
+          if (p.queries) {
+            p.queryList = p.queries.find('ol.query-list');
+            if (p.queryList.length<1) {
+              p.queryList = $('<ol class="query-list"></ol>');
+              p.queries.append(p.queryList);
+            }
+          }
+        }
+
+        var buildQueryListItem = function(data,paramStr) {
+          var li = '<li><a href="/sweph?'+paramStr.replace(/^&/,'')+'">'+data.name + ': ' + dateStringFormatted(data.datetime) +'</a></li>';
+          return $(li);
+        }
+
+        var showData = function(data,paramStr) {
+          $('#main .hor-tabs li.chart').first().trigger('click');
+          var p =pDom;
+          if (p.width < p.medDesktopMin) {
+            p.body.removeClass('show-control-panel');
+          }
+          buildDataView(data);
+          updateChart(data);
+          if (paramStr) {
+            if (typeof paramStr == 'string') {
+              storeItem(paramStr,data);
+              addQueryList();
+              p.queryList.append(buildQueryListItem(data,paramStr));
+            }
+          }
+        }
+
         $('input.degree').on('change keyup',updateDegreeValues);
 
         p.cForm.on('submit',function(e){
@@ -787,13 +820,13 @@ function initMap() {
                 lngV = lng.val(),
                 latV = lat.val(),
                 altV = alt.val();
+                lngV = roundDecimal(lngV,5);
+                latV = roundDecimal(latV,5);
                 var href='/sweph',params={},
                 geopos = lngV + ',' + latV + ',' + altV,
                 isGeo = false;
-                lng = parseInt(lng * 10000) / 10000;
-                lat = parseInt(lat * 10000) / 10000;
-                params.b = toEuroDate(dob.val());
-                params.ut = toSwissEphTime(tob.val());
+                params.b = toEuroDate(dobV);
+                params.ut = toSwissEphTime(tobV);
                 params.elev = alt.val();
                 if (mod.length>0) {
                     isGeo = mod.val() == 'geo';
@@ -816,21 +849,22 @@ function initMap() {
                   genderVal = gender.val().trim();
                 }
                 params.gender = genderVal;
-                $.ajax({
-                    url: href,
-                    data: params,
-                    success: function(data) {
-                        if (data.valid) {
-                            $('#main .hor-tabs li.chart').first().trigger('click');
-                            var p =pDom;
-                            if (p.width < p.medDesktopMin) {
-                              p.body.removeClass('show-control-panel');
-                            }
-                            buildDataView(data);
-                            updateChart(data);
-                        }
-                    }
-                });
+                var paramStr = toParamString(params),
+                stored = getItem(paramStr);
+                if (stored.valid) {
+                  showData(stored.data);
+                } else {
+                  $.ajax({
+                      url: href,
+                      data: params,
+                      success: function(data) {
+                          if (data.valid) {
+                              showData(data,paramStr);
+                          }
+                      }
+                  });
+                }
+                
             }
 
         });
@@ -1048,7 +1082,6 @@ function initMap() {
 
         $('#control-panel').on('click',function(e) {
             var tg = $(e.target), b = pDom.body, refCl='show-control-panel';
-            console.log(tg.attr('id'))
             if (tg.hasClass('toggle-aside') || (b.hasClass(refCl)==false && tg.attr('id')=='control-panel')) {
               e.stopImmediatePropagation();
               if (b.hasClass(refCl)) {
@@ -1064,6 +1097,33 @@ function initMap() {
         if (p.width > p.medDesktopMin) {
           p.body.addClass('show-control-panel');
         }
+
+        if (localStorageSupported()) {
+          addQueryList();
+          var item,li;
+          for (k in window.localStorage) {
+            if (k.indexOf('b=') >= 0 && k.indexOf('b=') <= 2) {
+              item = getItem(k);
+              if (item.valid) {
+                li = buildQueryListItem(item.data,k);
+                p.queryList.append(li);
+              }
+            }
+          }
+        }
+
+        p.queries.on('click',function(e){
+          var tg = $(e.target);
+          if (tg.prop('tagName').toLowerCase() == 'a') {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var paramStr = tg.attr('href').split('/sweph?').pop(),
+            stored = getItem(paramStr);
+            if (stored.valid) {
+              showData(stored.data);
+            } 
+          }
+        });
 
         setTimeout(function(){
             var gMapApi = $('#gmap-api-key');

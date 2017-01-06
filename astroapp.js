@@ -304,7 +304,12 @@ function toHouse(columns) {
 			modeCaptured=false,longIndex=5,latIndex=7,val;
 		for (;i<numCols;i++) {
 			val = columns[i].trim();
-
+      if (/lat=/.test(val)) {
+        latIndex = i+1;
+      }
+      if (/long=/.test(val)) {
+        longIndex = i+1;
+      }
 			switch (i) {
 				case 1:
 					data.letter = val;
@@ -313,7 +318,7 @@ function toHouse(columns) {
 					data.lng = toDegrees(val).decimal;
 					break;
 				case latIndex:
-					data.lat = toDegrees(val).decimal;
+          data.lat = toDegrees(val).decimal;
 					break;
 				default:
 					if (i >= 2 && !modeCaptured) {
@@ -748,7 +753,11 @@ astro.fetchData = (stdout,debug) => {
 		} else {
 			switch (k) {
 				case 'date_dmy':
-					m.date = data[k];
+					m.datetime = data[k].date;
+          m.dateinfo = {
+            zone: data[k].zone,
+            calendar: data[k].calendar
+          };
 					break;
 				case 'houses':
 					m.houseData = data[k];
@@ -820,10 +829,6 @@ astro.saveData = (model) => {
   var data = {};
   if (typeof model == 'object') {
     if (model.cmd && model.geo) {
-       if (typeof model.date.date == 'string') {
-          model.date.date = new Date(model.date.date);
-          console.log(model.date.date);
-       }
        if (!model.name) {
           model.name = 'unknown';
        }
@@ -833,11 +838,8 @@ astro.saveData = (model) => {
        data.name = model.name;
        data.gender = model.gender;
        data.cmd = model.cmd;
-       data.date = {
-        date: model.date.date,
-        calendar: model.date.calendar,
-        zone: model.date.zone
-       };
+       data.datetime = model.datetime;
+       data.dateinfo = model.dateinfo;
        data.geo = model.geo;
        data.astro = model.astro;
        data.bodies = model.bodies;
@@ -848,10 +850,11 @@ astro.saveData = (model) => {
           data.ayanamsa = 0;
        }
        data.houses = Object.keys(model.houses).map((key) => model.houses[key]);
+
        var nested = new Nested(data);
         nested.save().then((doc) => {
           //
-      }, (e) => {
+        }, (e) => {
           console.log(e);
       });
     }
@@ -880,8 +883,10 @@ astro.fetch = (cmd, res, query, debug) => {
     if (typeof doc == 'object') {
       var data = {};
       if (doc.houses) {
-        data.date = doc.date;
-
+        data.datetime = doc.datetime;
+        data.dateinfo = doc.dateinfo;
+        data.name = doc.name;
+        data.gender = doc.gender;
         data.geo = doc.geo;
         data.astro = doc.astro;
         data.houseData = doc.houseData;
@@ -889,11 +894,12 @@ astro.fetch = (cmd, res, query, debug) => {
         data.house_bounds = astro.calcHouseBounds(data.houses);
         data.bodies = doc.bodies;
         data.ayanamsa = doc.ayanamsa;
+        data.cmd = doc.cmd;
         data.stored = true;
         data.valid = true;
         matched = true;
         res.send(data);
-      } 
+      }
     }
     if (!matched) {
       astro.fetchFromCommand(cmd, cmdId, res, query, debug);
@@ -924,6 +930,8 @@ astro.fetchFromCommand = (cmd, cmdId, res, query, debug) => {
         var ayData =  astro.parseOutput(stdout,debug);
         data.ayanamsa = ayData.ayanamsa;
         data.cmd = cmdId;
+        data.name = query.name;
+        data.gender = query.gender;
         var saved = astro.saveData(data);
         data.valid = true;
         res.send(data);

@@ -442,3 +442,31 @@ function getItem(key,maxAge) {
   }
   return obj;
 }
+
+var toParamString = function(obj) {
+  var str = '', parts=[];
+  if (typeof obj == 'object') {
+    var keys = Object.keys(obj),len=keys.length,i=0,k;
+    for (;i<len;i++) {
+      k = keys[i];
+      parts.push(k + '=' + obj[k].toString());
+    }
+    if (parts.length>0) {
+      str = parts.join('&');
+    }
+  }
+  return str;
+}
+
+var roundDecimal = function(num,decPlaces) {
+  if (isNumeric(num)) {
+    var m = Math.pow(10,decPlaces);
+    num = parseFloat(num);
+    return parseInt(num * m) / m;
+  }
+}
+
+var dateStringFormatted = function(dateStr) {
+  var d = new Date(dateStr);
+  return zeroPad2(d.getDate()) + '/' + zeroPad2(d.getMonth() + 1) +'/'+ d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
+}

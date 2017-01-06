@@ -43,11 +43,11 @@ var Nested = mongoose.model('Nested', {
     minlength: 1,
     trim: true
   },
-  date: {
-    date: {
-       type: Date,
-       required: true
-    },
+  datetime: {
+     type: Date,
+     required: true
+  },
+  dateinfo: {
     calendar: simpleStringType,
     zone: simpleStringType,
   },
