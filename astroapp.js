@@ -824,6 +824,14 @@ astro.saveData = (model) => {
           model.date.date = new Date(model.date.date);
           console.log(model.date.date);
        }
+       if (!model.name) {
+          model.name = 'unknown';
+       }
+       if (!model.gender) {
+          model.gender = 'unknown';
+       }
+       data.name = model.name;
+       data.gender = model.gender;
        data.cmd = model.cmd;
        data.date = {
         date: model.date.date,

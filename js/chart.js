@@ -772,6 +772,7 @@ function initMap() {
             e.preventDefault();
             e.stopImmediatePropagation();
             var dob =$('#form-dob'),
+            name = $('#form-name'),
             tob =$('#form-tob'),
             lng = $('#form-lng'),
             lat = $('#form-lat'),
@@ -789,6 +790,8 @@ function initMap() {
                 var href='/sweph',params={},
                 geopos = lngV + ',' + latV + ',' + altV,
                 isGeo = false;
+                lng = parseInt(lng * 10000) / 10000;
+                lat = parseInt(lat * 10000) / 10000;
                 params.b = toEuroDate(dob.val());
                 params.ut = toSwissEphTime(tob.val());
                 params.elev = alt.val();
@@ -806,7 +809,13 @@ function initMap() {
                 if (aya.length>0) {
                     params.sid = aya.val();
                 }
-                
+                params.name = name.val().trim();
+                var gender = $(this).find("input[name='gender']:checked"),
+                genderVal = 'unknown';
+                if (gender.length>0) {
+                  genderVal = gender.val().trim();
+                }
+                params.gender = genderVal;
                 $.ajax({
                     url: href,
                     data: params,

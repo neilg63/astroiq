@@ -31,6 +31,18 @@ var Nested = mongoose.model('Nested', {
     minlength: 5,
     trim: true
   },
+  name: {
+    type: String,
+    required: true,
+    minlength: 1,
+    trim: true
+  },
+  gender: {
+    type: String,
+    required: true,
+    minlength: 1,
+    trim: true
+  },
   date: {
     date: {
        type: Date,

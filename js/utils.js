@@ -399,3 +399,46 @@ function objToString(obj) {
         return parts.join(', ');
     }
 }
+
+function localStorageSupported() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
+
+function storeItem(key,data) {
+  if (localStorageSupported()) {
+    var ts = Date.now() / 1000,sd = ts + ':';
+    if (typeof data == 'object') {
+      sd += 'obj:' + JSON.stringify(data);
+    } else {
+      sd += 'sca:' + data;
+    }
+    localStorage.setItem(key,sd);
+  }
+}
+
+function getItem(key,maxAge) {
+  var ts = Date.now() / 1000,obj={expired:true,valid:false},data=localStorage.getItem(key);
+  if (localStorageSupported()) {
+    if (data) {
+      parts = data.split(':');
+      if (parts.length>2) {
+        obj.ts = parts.shift();
+        obj.ts = obj.ts - 0;
+        obj.type = parts.shift();
+        obj.data = parts.join(':');
+        if (obj.type == 'obj') {
+          obj.data = JSON.parse(obj.data); 
+        }
+        obj.valid = true;
+        if ((ts - maxAge) > obj.ts) {
+          obj.expired = false;
+        }
+      }
+    }
+  }
+  return obj;
+}
