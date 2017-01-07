@@ -155,7 +155,7 @@ var GeoMap = {
     init: function() {
         var geoOn = false;
         if (navigator.geolocation) {
-            if (/\bChrome\b/i.test(navigator.userAgent) == false) {
+            if (window.location.protocol === 'https' || /\bChrome\b/i.test(navigator.userAgent) == false) {
                 navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
                 geoOn = true;
             }  
