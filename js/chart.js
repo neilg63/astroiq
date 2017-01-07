@@ -166,8 +166,8 @@ var GeoMap = {
     init: function() {
         setTimeout(function() {
             if (document.getElementById('form-lat')) {
-                var lat = document.getElementById('form-lat').getAttribute('value'),
-                lng = document.getElementById('form-lng').getAttribute('value');
+                var lat = jQuery('#form-lat').val(),
+                lng = jQuery('#form-lng').val();
                 if (/^\s*-?\d+/.test(lat) && /^\s*-?\d+/.test(lng)) {
                     lat = parseFloat(lat);
                     lng = parseFloat(lng);
