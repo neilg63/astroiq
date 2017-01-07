@@ -25,6 +25,8 @@ var GeoMap = {
 
     setFocus: false,
 
+    hasMap: false,
+
     buildMap: function(lat, lng,updateCoords) {
         var loc = {lat: lat, lng: lng}, hasMap = this.map === null;
         this.map = new google.maps.Map(document.getElementById('gmap'), {
@@ -47,6 +49,7 @@ var GeoMap = {
           GeoMap.focus();
           GeoMap.setFocus = false;
         }
+        GeoMap.hasMap = true
     },
 
     addDragendEvent: function(marker) {
@@ -83,7 +86,8 @@ var GeoMap = {
            lng: lng 
         };
         this.map.setCenter(pos);
-        this.showSatellite();
+        var ts = GeoMap.hasMap? 25 : 500;
+        setTimeout(GeoMap.showSatellite, ts);
         if (animateZoom !== false) {
             GeoMap.zoom = 14;
             this.map.setZoom(GeoMap.zoom)
@@ -107,7 +111,9 @@ var GeoMap = {
     },
 
     showSatellite: function() {
+      if (GeoMap.hasMap) {
         this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+      }
     },
 
     matchLocation: function(position) {
@@ -635,6 +641,32 @@ function initMap() {
             }
         };
 
+        var updateGeoDetails = function(data,key) {
+          if (data.lat) {
+              $('#form-lat').val(data.lat);
+          }
+          if (data.lng) {
+              $('#form-lng').val(data.lng);
+          }
+          updateDegreeValues();
+          $('#form-geobirth').val("");
+          if (GeoMap) {
+             if (GeoMap.map !== null) {
+                  GeoMap.updateMap(data.lat, data.lng, true);
+              } else {
+                  GeoMap.buildMap(data.lat, data.lng);
+              }
+              $('#main .hor-tabs li.map').trigger('click');
+          }
+          $('#geo-address').html(data.address).removeClass('hidden');
+          if (key) {
+            if (typeof key == 'string') {
+              storeItem(key,data);
+            }
+          }
+          
+        }
+
         var updateChart = function(data) {
             if (astroDisc) {
                 if (data.house_bounds) {
@@ -727,30 +759,18 @@ function initMap() {
                 $('#geo-address').addClass('hidden');
                 if (adEl.length>0) {
                     var adStr = adEl.val();
-                    var href = '/geocode/' + adStr;
-
+                    var href = '/geocode/' + adStr,
+                      key = 'geocode' + adStr.replace(/\s+/g,'_');
+                    var stored = getItem(key);
+                    if (stored.valid) {
+                      updateGeoDetails(stored.data);
+                    }
                     $.ajax({
                         url: href,
                         success: function(data) {
                             var msg = '';
                             if (data.valid) {
-                                if (data.lat) {
-                                    $('#form-lat').val(data.lat);
-                                }
-                                if (data.lng) {
-                                    $('#form-lng').val(data.lng);
-                                }
-                                updateDegreeValues();
-                                $('#form-geobirth').val("");
-                                if (GeoMap) {
-                                   if (GeoMap.map !== null) {
-                                        GeoMap.updateMap(data.lat, data.lng, true);
-                                    } else {
-                                        GeoMap.buildMap(data.lat, data.lng);
-                                    }
-                                    $('#main .hor-tabs li.map').trigger('click');
-                                }
-                                msg = data.address;
+                                updateGeoDetails(data,key);
                             } else if (data.message) {
                                 msg = data.message;
                             }
@@ -762,8 +782,8 @@ function initMap() {
                                         $('#geo-address').addClass('hidden');
                                     },5000);
                                 }
-
                             }
+
                         }
                     });
                 }
