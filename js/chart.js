@@ -165,16 +165,13 @@ var GeoMap = {
 
     init: function() {
         setTimeout(function() {
-            if (GeoMap.geoOn !== true) {
-                if (document.getElementById('form-lat')) {
-                    var lat = document.getElementById('form-lat').getAttribute('value'),
-                    lng = document.getElementById('form-lng').getAttribute('value');
-                    if (/^\s*-?\d+/.test(lat) && /^\s*-?\d+/.test(lng)) {
-                        lat = parseFloat(lat);
-                        lng = parseFloat(lng);
-                        GeoMap.buildMap(lat,lng);
-                    }
-                    
+            if (document.getElementById('form-lat')) {
+                var lat = document.getElementById('form-lat').getAttribute('value'),
+                lng = document.getElementById('form-lng').getAttribute('value');
+                if (/^\s*-?\d+/.test(lat) && /^\s*-?\d+/.test(lng)) {
+                    lat = parseFloat(lat);
+                    lng = parseFloat(lng);
+                    GeoMap.buildMap(lat,lng);
                 }
             }
         },500);
