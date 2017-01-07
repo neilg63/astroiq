@@ -21,6 +21,8 @@ var GeoMap = {
 
     marker: null,
 
+    geoOn: false,
+
     zoom: 9,
 
     setFocus: false,
@@ -153,15 +155,15 @@ var GeoMap = {
     },
 
     init: function() {
-        var geoOn = false;
         if (navigator.geolocation) {
+            console.log(window.location.protocol)
             if (window.location.protocol === 'https' || /\bChrome\b/i.test(navigator.userAgent) == false) {
                 navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
-                geoOn = true;
+                GeoMap.geoOn = true;
             }  
         }
         setTimeout(function() {
-            if (!geoOn) {
+            if (GeoMap.geoOn !== true) {
                 if (document.getElementById('form-lat')) {
                     var lat = document.getElementById('form-lat').getAttribute('value'),
                     lng = document.getElementById('form-lng').getAttribute('value');
