@@ -119,9 +119,9 @@ var GeoMap = {
     },
 
     matchLocation: function(position) {
-        var coords = position.coords; 
-        this.buildMap(coords.latitude,coords.longitude,true);
-        
+        if (position.coords) {
+            GeoMap.updateCoords(position.coords);
+        }
     },
 
     updateCoords: function(coords,lng) {
@@ -154,13 +154,16 @@ var GeoMap = {
       }, 1000);
     },
 
-    init: function() {
+    geoLocAllowed: function() {
         if (navigator.geolocation) {
             if (window.location.protocol === 'https:' || /\bChrome\b/i.test(navigator.userAgent) == false) {
-                navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
-                GeoMap.geoOn = true;
+               navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
+               GeoMap.geoOn = true;
             }  
         }
+    },
+
+    init: function() {
         setTimeout(function() {
             if (GeoMap.geoOn !== true) {
                 if (document.getElementById('form-lat')) {
@@ -1180,7 +1183,7 @@ function initMap() {
             } 
           }
         });
-
+        GeoMap.geoLocAllowed();
         //kuteMorph();
     });
 })(jQuery);
