@@ -330,6 +330,10 @@ function toLongitudeString(decLng) {
   return _toLatLngString(decLng,'lng');
 }
 
+var numEntryWidget = function(name,value,decPlaces) {
+  return '<input type="number" name="degrees_'+name+'" value="' + value + '" size="3" maxlength=3" />';
+}
+
 function _toLatLngString(dec,degType) {
   if (isNumeric(dec)) {
     dec = parseFloat(dec);

@@ -1,0 +1,39 @@
+{
+  "name": "astroiq",
+  "version": "1.0.0",
+  "description": "Frontend for Swiss Ephemeris",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "hbs": "^4.0.1",
+    "jsonwebtoken": "^7.2.1",
+    "lodash": "^4.17.3",
+    "moment": "^2.17.1",
+    "mongoose": "^4.7.6",
+    "pug": "^2.0.0-beta6",
+    "validator": "^6.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neilg63/astroiq.git"
+  },
+  "keywords": [
+    "Astrology",
+    "Jyotish"
+  ],
+  "author": "Neil Gardner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neilg63/astroiq/issues"
+  },
+  "homepage": "https://github.com/neilg63/astroiq#readme"
+}

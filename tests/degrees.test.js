@@ -1,5 +1,5 @@
-const astro = require('./../astroapp.js'),
-textutils = require('./../text-utils.js');
+const astro = require('./../lib/astroapp.js'),
+textutils = require('./../lib/text-utils.js');
 
 
 var strDg = `-149°41'51.4839`;

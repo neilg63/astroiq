@@ -23,6 +23,8 @@ var GeoMap = {
 
     zoom: 9,
 
+    setFocus: false,
+
     buildMap: function(lat, lng,updateCoords) {
         var loc = {lat: lat, lng: lng}, hasMap = this.map === null;
         this.map = new google.maps.Map(document.getElementById('gmap'), {
@@ -40,6 +42,10 @@ var GeoMap = {
         this.addDragendEvent(this.marker);
         if (updateCoords === true) {
           this.updateCoords(coords);
+        }
+        if (GeoMap.setFocus==true) {
+          GeoMap.focus();
+          GeoMap.setFocus = false;
         }
     },
 
@@ -122,6 +128,22 @@ var GeoMap = {
         jQuery('#form-lat').val(coords.latitude).trigger('change');
         jQuery('#form-lng').val(coords.longitude).trigger('change');
 
+    },
+
+    focus: function() {
+      GeoMap.zoom = GeoMap.map.getZoom();
+      GeoMap.showSatellite();
+      if (GeoMap.zoom < 15) {
+          if (GeoMap.zoom < 10) {
+              GeoMap.zoom = 10;
+          }
+          setTimeout(function() {
+              GeoMap.zoomIn(15);
+          }, 500);
+      }
+      setTimeout(function(){
+          GeoMap.zoomIn(16);
+      }, 1000);
     },
 
     init: function() {
@@ -807,6 +829,21 @@ function initMap() {
           }
         }
 
+        var loadGMap = function(focus) {
+          var gMapApi = $('#gmap-api-key');
+            if (gMapApi.length>0) {
+                var gMapApiKey = gMapApi.attr('data-key'),
+                  st = $('#gmap-core');
+                if (st.length < 1 && gMapApiKey) {
+                   st = $('<script id="gmap-core" async defer src="https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&callback=initMap"></script>');
+                    $('body').append(st);
+                }
+                if (focus === true) {
+                  GeoMap.setFocus = true;
+                }
+            }
+        }
+
         $('input.degree').on('change keyup',updateDegreeValues);
 
         p.cForm.on('submit',function(e){
@@ -904,20 +941,10 @@ function initMap() {
             }
             if (it.hasClass('map')) {
                 if (GeoMap.map) {
-                  GeoMap.zoom = GeoMap.map.getZoom();
-                  GeoMap.showSatellite();
-                  if (GeoMap.zoom < 15) {
-                      if (GeoMap.zoom < 10) {
-                          GeoMap.zoom = 10;
-                      }
-                      setTimeout(function() {
-                          GeoMap.zoomIn(15);
-                      }, 500);
-                  }
-                  setTimeout(function(){
-                      GeoMap.zoomIn(16);
-                  }, 1000);
-                } 
+                  GeoMap.focus();
+                } else {
+                  loadGMap(true);
+                }
             }
         });
 
@@ -1132,17 +1159,6 @@ function initMap() {
             } 
           }
         });
-
-        setTimeout(function(){
-            var gMapApi = $('#gmap-api-key');
-            if (gMapApi.length>0) {
-                var gMapApiKey = gMapApi.attr('data-key'),st;
-                if (gMapApiKey) {
-                   st = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&callback=initMap"></script>');
-                    $('body').append(st);
-                }
-            }
-        },250);
 
         //kuteMorph();
     });
