@@ -148,5 +148,8 @@ vars.ayanamsas = [
   {value:"16", label: "Sassanian",selected:false}
 ];
 
+vars.solarYearOptionNotes = `<p><strong>Tropical year</strong> (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.</p>
+<p>A.strong Sidereal year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.</p>
+<p>An.strong Anomalistic year (365.259636) is a measure of earth's passage from one perihelion to another.</p>`;
 
 module.exports = vars;

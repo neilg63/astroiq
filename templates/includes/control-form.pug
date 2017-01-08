@@ -89,7 +89,6 @@ form#control-form(action="/sweph" method="post")
 
   fieldset.collapsible.closed
     h3.toggle Calculation Settings
-    fieldset.collapsible.closed
       h4.toggle Default House System
       p.sub-section
         label(for="form-hsy") House system:
@@ -129,9 +128,7 @@ form#control-form(action="/sweph" method="post")
               p
                 input#form-solar-a.solar(type="radio" value="365.259636" name="solar-t")
                 label(for="form-solar-a") Anomalistic year
-              p.text A.strong Tropical year (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.
-              p.text A.strong Sidereal year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.
-              p.text An.strong Anomalistic year (365.259636) is a measure of earth's passage from one perihelion to another.
+              div.notes= solarYearOptionNotes
 
 
       fieldset.collapsible.closed
