@@ -83,6 +83,22 @@ vars.timezone = {
   ds_options: generateSummerTimeOffsets()
 };
 
+vars.roddenOptions = [
+  {value="-", label: "Please select..",selected:true},
+  {value="AA1", label: "AA - Birth Certificate in hand",selected:false},
+  {value="AA2", label: "AA - Quoted Birth Record",selected:false},
+  {value="A1", label: "A - From memory",selected:false},
+  {value="A2", label: "A - News report",selected:false},
+  {value="B", label: "B - Bio/autobiography",selected:false},
+  {value="C1", label: "C - Accuracy in question",selected:false},
+  {value="C2", label: "C - Source not known",selected:false},
+  {value="C3", label: "C - Rectified from approx. time",selected:false},
+  {value="DD", label: "DD - Confliction/unverified",selected:false},
+  {value="X1", label: "X - Date without time of birth",selected:false},
+  {value="X2", label: "X - Rectified w/o time of birth",selected:false},
+  {value="XX1", label: "XX - Date in question",selected:false},
+  {value="XX2", label: "XX - Undetermioned",selected:false}
+];
 
 
 module.exports = vars;
