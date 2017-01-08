@@ -114,7 +114,7 @@ var GeoMap = {
 
     showSatellite: function() {
       if (GeoMap.hasMap) {
-        this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+        GeoMap.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
       }
     },
 
@@ -562,6 +562,24 @@ function initMap() {
         p.geoAddress = $('#geo-address');
         p.geoHospitals = $('#geo-hospitals');
 
+        p.geoHospitals.on('click',function(e){
+          var tg = $(e.target);
+          if (tg.prop('tagName').toLowerCase() == 'li') {
+            var coords = tg.attr('data-coords');
+            if (coords) {
+              var parts = coords.split(',');
+              if (isNumeric(parts[0]) && isNumeric(parts[1])) {
+                parts[0] = parseFloat(parts[0]);
+                parts[1] = parseFloat(parts[1]);
+                tg.parent().find('.selected').removeClass('selected');
+                tg.addClass('selected');
+                GeoMap.updateMap(parts[0],parts[1],true,false);
+              }
+              
+            }
+          }
+        });
+
         p.window.on('resize',function() {
           var p = pDom;
           p.width = p.window.width();
@@ -674,6 +692,7 @@ function initMap() {
                   if (i==0) {
                     lat = h.coords.lat;
                     lng = h.coords.lng;
+                    li.addClass('selected');
                   }
                 }
               }

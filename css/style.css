@@ -383,6 +383,17 @@ span.symbol-radio label {
     display: none;
 }
 
+ol.hospitals li {
+    cursor: pointer;
+}
+
+ol.hospitals li.selected {
+    color: #00ff00;
+}
+ol.hospitals li:hover {
+    color: #0000ff;
+}
+
 .query-list li:hover span.delete {
     display: inline-block;
     margin-left: .5em;
