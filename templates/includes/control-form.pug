@@ -94,54 +94,17 @@ form#control-form(action="/sweph" method="post")
       p.sub-section
         label(for="form-hsy") House system:
         select#form-hsy.select-input(name="hsy")
-         option(value="W") Equal (Rāśi-Bhāva)
-         option(value="E") Equal (from ASC)
-         option(value="D") Equal (from MC)
-         //- not in Swiss Ephemeris
-         option(value="CB") Caleta Bhāva
-         option(value="S") Śrīpati Bhāva
-         option(value="O") Porphyry
-         option(value="P") Placidus
-         option(value="K") Koch
-         option(value="B") Alcabitius
-         option(value="C") ampanus
-         option(value="M") Morinus
-         option(value="R") Regiomontanus
-         option(value="T") Topocentric
-         option(value="A") Equal
-         option(value="X") Meridian houses
-         option(value="G") 36 Gauquelin sectors
-         option(value="H") Horizon / azimuth
+          each opt,index in houseSystems
+            option(value = opt.value selected=opt.selected)= opt.label
 
     fieldset.collapsible.closed
       h4.toggle Tropical vs. Sidereal (Ayanāṃśa)
         p.sub-section
           label(for="form-ayanamsa") Ayanāṃśa
           select#form-ayanamsa.select-input(name="ayanamsa")
-              option(value="-") Tropical / Sāyana
-              option(value="1") Lāhiḍī (Lahiri)
-              option(value="3") Rāman
-              option(value="4") Uśaśaśī
-              option(value="5") Krishnamurti
-              option(value="7") Yukteshwar
-              option(value="8") J.N. Bhasin
-              option(value="21") Sūrya Siddhānta
-              option(value="22") Sūrya Siddhānta, mean Sun
-              option(value="25") Sūrya Siddhānta Citrā
-              option(value="26") Sūrya Siddhānta Revatī
-              option(value="23") Āryabhaṭa
-              option(value="27") True Citrā
-              option(value="28") True Revatī
-              option(value="29") True Puṣya
-              option(value="35") True Mūla (Chandra Hari)
-              option(value="36") Dhruva/Mūla (E. Wilhelm)
-              option(value="6") Djwhal Khul
-              option(value="0") Fagan/Bradley
-              option(value="2") De Luce
-              option(value="30") Galactic (Gil Brand)
-              option(value="34") Skydram (Mardyks)
-              option(value="15") Hipparchos
-              option(value="16") Sassanian
+            each opt,index in ayanamsas
+              option(value = opt.value selected=opt.selected)= opt.label
+            
     fieldset.collapsible.closed
       h4.toggle Celestial Calculations
       p#form-mode.sub-sectio.radios

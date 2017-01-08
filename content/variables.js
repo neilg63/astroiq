@@ -100,5 +100,53 @@ vars.roddenOptions = [
   {value:"XX2", label: "XX - Undetermioned",selected:false}
 ];
 
+vars.houseSystems = [
+   {value:"W", label: "Equal (Rāśi-Bhāva)",selected:true},
+   {value:"E", label: "Equal (from ASC)",selected:false},
+   {value:"D", label: "Equal (from MC)",selected:false},
+   //- not in Swiss Ephemeris
+   {value:"CB", label: "Caleta Bhāva",selected:false},
+   {value:"S", label: "Śrīpati Bhāva",selected:false},
+   {value:"O", label: "Porphyry",selected:false},
+   {value:"P", label: "Placidus",selected:false},
+   {value:"K", label: "Koch",selected:false},
+   {value:"B", label: "Alcabitius",selected:false},
+   {value:"C", label: "Campanus",selected:false},
+   {value:"M", label: "Morinus",selected:false},
+   {value:"R", label: "Regiomontanus",selected:false},
+   {value:"T", label: "Topocentric",selected:false},
+   {value:"A", label: "Equal",selected:false},
+   {value:"X", label: "Meridian houses",selected:false},
+   {value:"G", label: "36 Gauquelin sectors",selected:false},
+   {value:"H", label: "Horizon / azimuth",selected:false}
+];
+
+vars.ayanamsas = [
+  {value:"-", label: "Tropical / Sāyana",selected:true},
+  {value:"1", label: "Lāhiḍī (Lahiri)",selected:false},
+  {value:"3", label: "Rāman",selected:false},
+  {value:"4", label: "Uśaśaśī",selected:false},
+  {value:"5", label: "Krishnamurti",selected:false},
+  {value:"7", label: "Yukteshwar",selected:false},
+  {value:"8", label: "J.N. Bhasin",selected:false},
+  {value:"21", label: "Sūrya Siddhānta",selected:false},
+  {value:"22", label: "Sūrya Siddhānta, mean Sun",selected:false},
+  {value:"25", label: "Sūrya Siddhānta Citrā",selected:false},
+  {value:"26", label: "Sūrya Siddhānta Revatī",selected:false},
+  {value:"23", label: "Āryabhaṭa",selected:false},
+  {value:"27", label: "True Citrā",selected:false},
+  {value:"28", label: "True Revatī",selected:false},
+  {value:"29", label: "True Puṣya",selected:false},
+  {value:"35", label: "True Mūla (Chandra Hari)",selected:false},
+  {value:"36", label: "Dhruva/Mūla (E. Wilhelm)",selected:false},
+  {value:"6", label: "Djwhal Khul",selected:false},
+  {value:"0", label: "Fagan/Bradley",selected:false},
+  {value:"2", label: "De Luce",selected:false},
+  {value:"30", label: "Galactic (Gil Brand)",selected:false},
+  {value:"34", label: "Skydram (Mardyks)",selected:false},
+  {value:"15", label: "Hipparchos",selected:false},
+  {value:"16", label: "Sassanian",selected:false}
+];
+
 
 module.exports = vars;
