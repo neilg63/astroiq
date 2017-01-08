@@ -89,12 +89,13 @@ form#control-form(action="/sweph" method="post")
 
   fieldset.collapsible.closed
     h3.toggle Calculation Settings
-      h4.toggle Default House System
-      p.sub-section
-        label(for="form-hsy") House system:
-        select#form-hsy.select-input(name="hsy")
-          each opt,index in houseSystems
-            option(value = opt.value selected=opt.selected)= opt.label
+    fieldset.collapsible.closed
+    h4.toggle Default House System
+    p.sub-section
+      label(for="form-hsy") House system:
+      select#form-hsy.select-input(name="hsy")
+        each opt,index in houseSystems
+          option(value = opt.value selected=opt.selected)= opt.label
 
     fieldset.collapsible.closed
       h4.toggle Tropical vs. Sidereal (Ayanāṃśa)
