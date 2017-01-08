@@ -160,10 +160,7 @@ form#control-form(action="/sweph" method="post")
         p
           input#form-lunar-syn.lunar(type="radio" value="29.5305888531" name="lunar-syn" checked="true")
           label(for="form-solar-syn") Synodic month
-        p.text A #[strong Tropical] month (27.321582) is a measure of the Moon's passage from one mean vernal equinox to the next.
-        p.text A #[strong Sidereal] month (27.321662) is a measure of Moon's complete orbit around the Earth relative to fixed stars.
-        p.text An #[strong Anomalistic] month (27.321582) is a measure of Moon's passage from one perihelion to another.
-        p.text A #[strong Synodic] month (29.530588) is a measure of Moon's passage from one New Moon to another.
+        div.notes= lunarMonthsNoteOptions
         //-sub-sub-section
 
     //- sub-section
