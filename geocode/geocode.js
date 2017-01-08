@@ -19,7 +19,7 @@ var geocode = {
         } else {
           searchStr = data.toString();
         }
-        href = `${googlePlacesBaseUrl}?location=${searchStr}&type=hospital&keyword=maternity&radius=10000`;
+        href = `${googlePlacesBaseUrl}?location=${searchStr}&type=hospital&keyword=maternity&radius=5000`;
         break;
       default:
         searchStr = encodeURIComponent(data);
@@ -154,7 +154,7 @@ var geocode = {
         };
         var hd = new HospitalData({
             coords: coords,
-            radius: 10000,
+            radius: 5000,
             items: result.items
           });
           hd.save().then((doc) => {
@@ -217,13 +217,14 @@ var geocode = {
         data.components = doc.address_components;
         matched = true;
         data.valid = true;
-        if (data.type == 'APPROXIMATE') {
-          geocode.mergeHospitals(data,(error,data) => {
-            res.send(data);
-          });
+        geocode.mergeHospitals(data,(error,data) => {
+          res.send(data);
+        });
+        /*if (data.type == 'APPROXIMATE') {
+          
         } else {
           res.send(data);
-        }
+        }*/
       }
       if (!matched) {
         geocode.fetchData(searchString, res);
