@@ -21,6 +21,8 @@ var GeoMap = {
 
     marker: null,
 
+    geoOn: false,
+
     zoom: 9,
 
     setFocus: false,
@@ -117,9 +119,9 @@ var GeoMap = {
     },
 
     matchLocation: function(position) {
-        var coords = position.coords; 
-        this.buildMap(coords.latitude,coords.longitude,true);
-        
+        if (position.coords) {
+            GeoMap.updateCoords(position.coords);
+        }
     },
 
     updateCoords: function(coords,lng) {
@@ -152,25 +154,24 @@ var GeoMap = {
       }, 1000);
     },
 
-    init: function() {
-        var geoOn = false;
+    geoLocAllowed: function() {
         if (navigator.geolocation) {
-            if (/\bChrome\b/i.test(navigator.userAgent) == false) {
-                navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
-                geoOn = true;
+            if (window.location.protocol === 'https:' || /\bChrome\b/i.test(navigator.userAgent) == false) {
+               navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
+               GeoMap.geoOn = true;
             }  
         }
+    },
+
+    init: function() {
         setTimeout(function() {
-            if (!geoOn) {
-                if (document.getElementById('form-lat')) {
-                    var lat = document.getElementById('form-lat').getAttribute('value'),
-                    lng = document.getElementById('form-lng').getAttribute('value');
-                    if (/^\s*-?\d+/.test(lat) && /^\s*-?\d+/.test(lng)) {
-                        lat = parseFloat(lat);
-                        lng = parseFloat(lng);
-                        GeoMap.buildMap(lat,lng);
-                    }
-                    
+            if (document.getElementById('form-lat')) {
+                var lat = jQuery('#form-lat').val(),
+                lng = jQuery('#form-lng').val();
+                if (/^\s*-?\d+/.test(lat) && /^\s*-?\d+/.test(lng)) {
+                    lat = parseFloat(lat);
+                    lng = parseFloat(lng);
+                    GeoMap.buildMap(lat,lng);
                 }
             }
         },500);
@@ -1202,7 +1203,7 @@ function initMap() {
             } 
           }
         });
-
+        GeoMap.geoLocAllowed();
         //kuteMorph();
     });
 })(jQuery);

@@ -82,18 +82,18 @@ span.symbol-radio label {
     opacity: 1;
 }
 
-#control-panel .input-group-addon,
+/*#control-panel .input-group-addon,
 #control-panel .ui-datebox-container {
     opacity: 0;
     pointer-events: none;
-}
+}*/
 
 @media screen and (min-width: 960px) {
-    #control-panel .input-group-addon,
+    /*#control-panel .input-group-addon,
     #control-panel .ui-datebox-container {
       opacity: 1;
       pointer-events: auto;
-    }
+    }*/
 
     .large-pane,
     #main {
@@ -178,10 +178,10 @@ span.symbol-radio label {
     font-size: .9em;
 }
 
-#control-panel .masked .input-group,
+/*#control-panel .masked .input-group,
 #control-panel .masked .glyphicon {
     display: none;
-}
+}*/
 
 #control-panel fieldset {
   margin: 1em 0;
