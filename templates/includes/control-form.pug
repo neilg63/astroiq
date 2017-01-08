@@ -128,7 +128,7 @@ form#control-form(action="/sweph" method="post")
               p
                 input#form-solar-a.solar(type="radio" value="365.259636" name="solar-t")
                 label(for="form-solar-a") Anomalistic year
-              div.notes= solarYearOptionNotes
+              div.notes!= solarYearOptionNotes
 
 
       fieldset.collapsible.closed
@@ -160,7 +160,7 @@ form#control-form(action="/sweph" method="post")
         p
           input#form-lunar-syn.lunar(type="radio" value="29.5305888531" name="lunar-syn" checked="true")
           label(for="form-solar-syn") Synodic month
-        div.notes= lunarMonthsNoteOptions
+        div.notes!= lunarMonthsNoteOptions
         //-sub-sub-section
 
     //- sub-section
