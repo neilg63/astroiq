@@ -47,6 +47,7 @@ var Geo = mongoose.model('Geo', {
        trim: true
     }]
   }],
+  other: []
 });
 
 module.exports = {Geo};

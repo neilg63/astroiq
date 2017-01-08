@@ -25,24 +25,9 @@ var planetType = {
 };
 
 var Nested = mongoose.model('Nested', {
-  cmd: {
-    type: String,
-    required: true,
-    minlength: 5,
-    trim: true
-  },
-  name: {
-    type: String,
-    required: true,
-    minlength: 1,
-    trim: true
-  },
-  gender: {
-    type: String,
-    required: true,
-    minlength: 1,
-    trim: true
-  },
+  cmd: simpleStringType,
+  name: simpleStringType,
+  gender: simpleStringType,
   datetime: {
      type: Date,
      required: true
@@ -54,7 +39,8 @@ var Nested = mongoose.model('Nested', {
   geo: {
     lat: simpleNumberType,
     lng: simpleNumberType,
-    alt: simpleNumberType
+    alt: simpleNumberType,
+    address: simpleStringType
   },
   astro: {
     ut: {
