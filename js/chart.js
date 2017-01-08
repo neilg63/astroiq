@@ -642,6 +642,10 @@ function initMap() {
               p = ('<p>Name: <strong class="person-name">'+data.name+'</strong>, <em class="datetime">'+dateStringFormatted(data.datetime)+'</em></p>');
               pDom.infobox.append(p);
             }
+            if (data.name && data.geo.address) {
+              p = ('<p class="location-name" title="'+toLatLngLabel(data.geo)+'">'+data.geo.address+'</p>');
+              pDom.infobox.append(p);
+            }
         };
 
         var updateGeoDetails = function(data,key) {
@@ -664,7 +668,6 @@ function initMap() {
           }
           p.geoAddress.html(data.address).removeClass('hidden');
           p.geoHospitals.html("").addClass('hidden');
-          console.log(data.hospitals)
           if (data.hospitals) {
             if (data.hospitals.num_items > 0) {
               var ol = $('<ol class="hospitals"></ol>'),h,li,i=0;
@@ -896,7 +899,7 @@ function initMap() {
             hsy = $('#form-hsy'),
             aya = $('#form-ayanamsa'),
             mod = $('#form-mode input.mode:checked'),
-            address=$('geo-address').text().trim();
+            address=pDom.geoAddress.text().trim();
 
             if (dob.length>0 && lng.length>0) {
                 var dobV = dob.val(),
@@ -932,11 +935,10 @@ function initMap() {
                 if (gender.length>0) {
                   genderVal = gender.val().trim();
                 }
-                params.gender = genderVal;
                 params.address = address;
+                params.gender = genderVal;
                 var paramStr = toParamString(params,['address']),
                 stored = getItem(paramStr);
-                console.log(paramStr);
                 if (stored.valid) {
                   showData(stored.data);
                 } else {

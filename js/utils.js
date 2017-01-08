@@ -322,6 +322,10 @@ function convertDDToDMS(D, lng){
   };
 }
 
+function toLatLngLabel(coords) {
+  return toLatitudeString(coords.lat) + ' '+ toLatitudeString(coords.lng);
+}
+
 function toLatitudeString(decLat) {
   return _toLatLngString(decLat,'lat');
 }
