@@ -379,6 +379,19 @@ span.symbol-radio label {
     opacity: 1;
 }
 
+.query-list li span.delete {
+    display: none;
+}
+
+.query-list li:hover span.delete {
+    display: inline-block;
+    margin-left: .5em;
+    color: red;
+    font-weight: bold;
+    transform: scale(2,2);
+    cursor: pointer;
+}
+
 @media screen and (max-width: 959px) {
     object.large-pane {
       left: 5vw;

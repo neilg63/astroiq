@@ -850,7 +850,7 @@ function initMap() {
         }
 
         var buildQueryListItem = function(data,paramStr) {
-          var li = '<li><a href="/sweph?'+paramStr.replace(/^&/,'')+'">'+data.name + ': ' + dateStringFormatted(data.datetime) +'</a></li>';
+          var li = '<li><a href="/sweph?'+paramStr.replace(/^&/,'')+'">'+data.name + ': ' + dateStringFormatted(data.datetime) +'</a> <span class="delete" title="Remove item">-</span></li>';
           return $(li);
         }
 
@@ -1201,6 +1201,19 @@ function initMap() {
             if (stored.valid) {
               showData(stored.data);
             } 
+          }
+          if (tg.prop('tagName').toLowerCase() == 'span' && tg.hasClass('delete')) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var lk = tg.parent().find('a:first');
+            if (lk.length>0) {
+              var paramStr = lk.attr('href').split('/sweph?').pop(),
+              deleted = deleteItem(paramStr);
+              if (deleted) {
+                lk.parent().remove();
+              } 
+            }
+            
           }
         });
         GeoMap.geoLocAllowed();

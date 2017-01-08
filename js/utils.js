@@ -451,6 +451,16 @@ function getItem(key,maxAge) {
   return obj;
 }
 
+function deleteItem(key) {
+  if (localStorageSupported()) {
+    if (localStorage.getItem(key) !== null) {
+      localStorage.removeItem(key);
+      return true;
+    }
+  }
+  return false;
+}
+
 var toParamString = function(obj, excludes) {
   var str = '', parts=[],excludeKeys=[];
   if (excludeKeys instanceof Array) {
