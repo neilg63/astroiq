@@ -659,16 +659,10 @@ function initMap() {
           }
           updateDegreeValues();
           p.geoBirth.val("");
-          if (GeoMap) {
-             if (GeoMap.map !== null) {
-                  GeoMap.updateMap(data.lat, data.lng, true);
-              } else {
-                  GeoMap.buildMap(data.lat, data.lng);
-              }
-              $('#main .hor-tabs li.map').trigger('click');
-          }
+          
           p.geoAddress.html(data.address).removeClass('hidden');
           p.geoHospitals.html("").addClass('hidden');
+          var lat=data.lat,lng=data.lng;
           if (data.hospitals) {
             if (data.hospitals.num_items > 0) {
               var ol = $('<ol class="hospitals"></ol>'),h,li,i=0;
@@ -677,10 +671,22 @@ function initMap() {
                 if (h.name) {
                   li = $('<li data-coords="'+h.coords.lat+','+h.coords.lng+'">'+h.name +': '+h.vicinity +'</li>');
                   ol.append(li);
+                  if (i==0) {
+                    lat = h.coords.lat;
+                    lng = h.coords.lng;
+                  }
                 }
               }
               p.geoHospitals.append(ol).removeClass('hidden');
             }
+          }
+          if (GeoMap) {
+             if (GeoMap.map !== null) {
+                  GeoMap.updateMap(lat, lng, true);
+              } else {
+                  GeoMap.buildMap(lat, lng);
+              }
+              $('#main .hor-tabs li.map').trigger('click');
           }
           if (key) {
             if (typeof key == 'string') {
