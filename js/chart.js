@@ -557,6 +557,9 @@ function initMap() {
         p.medDesktopMin = 1280;
         p.queries = $('#queries');
         p.infobox = $('#infobox');
+        p.geoBirth = $('#form-geobirth');
+        p.geoAddress = $('#geo-address');
+        p.geoHospitals = $('#geo-hospitals');
 
         p.window.on('resize',function() {
           var p = pDom;
@@ -642,6 +645,7 @@ function initMap() {
         };
 
         var updateGeoDetails = function(data,key) {
+          var p = pDom;
           if (data.lat) {
               $('#form-lat').val(data.lat);
           }
@@ -649,7 +653,7 @@ function initMap() {
               $('#form-lng').val(data.lng);
           }
           updateDegreeValues();
-          $('#form-geobirth').val("");
+          p.geoBirth.val("");
           if (GeoMap) {
              if (GeoMap.map !== null) {
                   GeoMap.updateMap(data.lat, data.lng, true);
@@ -658,7 +662,22 @@ function initMap() {
               }
               $('#main .hor-tabs li.map').trigger('click');
           }
-          $('#geo-address').html(data.address).removeClass('hidden');
+          p.geoAddress.html(data.address).removeClass('hidden');
+          p.geoHospitals.html("").addClass('hidden');
+          console.log(data.hospitals)
+          if (data.hospitals) {
+            if (data.hospitals.num_items > 0) {
+              var ol = $('<ol class="hospitals"></ol>'),h,li,i=0;
+              for (; i < data.hospitals.num_items;i++) {
+                h = data.hospitals.items[i];
+                if (h.name) {
+                  li = $('<li data-coords="'+h.coords.lat+','+h.coords.lng+'">'+h.name +': '+h.vicinity +'</li>');
+                  ol.append(li);
+                }
+              }
+              p.geoHospitals.append(ol).removeClass('hidden');
+            }
+          }
           if (key) {
             if (typeof key == 'string') {
               storeItem(key,data);
@@ -746,19 +765,18 @@ function initMap() {
             });
         }*/
 
-        var geofinder = $('#geobirth-finder');
-        if (geofinder.length>0) {
-            var adEl = $('#form-geobirth');
-            adEl.on('click',function() {
+        p.geoFinder = $('#geobirth-finder');
+        if (p.geoFinder.length>0) {
+            p.geoBirth.on('click',function() {
                 $('#main .hor-tabs li.map').trigger('click');
                 GeoMap.showSatellite();
             });
-            geofinder.on('click', function(e){
+            p.geoFinder.on('click', function(e){
                 e.preventDefault();
-                var adEl = $('#form-geobirth');
-                $('#geo-address').addClass('hidden');
-                if (adEl.length>0) {
-                    var adStr = adEl.val();
+                var p = pDom;
+                p.geoAddress.addClass('hidden');
+                if (p.geoBirth.length>0) {
+                    var adStr = p.geoBirth.val();
                     var href = '/geocode/' + adStr,
                       key = 'geocode' + adStr.replace(/\s+/g,'_');
                     var stored = getItem(key);
@@ -768,7 +786,7 @@ function initMap() {
                     $.ajax({
                         url: href,
                         success: function(data) {
-                            var msg = '';
+                            var p = pDom, msg = '';
                             if (data.valid) {
                                 updateGeoDetails(data,key);
                             } else if (data.message) {
@@ -776,10 +794,10 @@ function initMap() {
                             }
 
                             if (msg.length > 1) {
-                                $('#geo-address').html(msg).removeClass('hidden');
+                                p.geoAddress.html(msg).removeClass('hidden');
                                 if (data.message && !data.valid) {
                                     setTimeout(function() {
-                                        $('#geo-address').addClass('hidden');
+                                        pDom.geoAddress.addClass('hidden');
                                     },5000);
                                 }
                             }
@@ -877,7 +895,8 @@ function initMap() {
             alt = $('#form-alt'),
             hsy = $('#form-hsy'),
             aya = $('#form-ayanamsa'),
-            mod = $('#form-mode input.mode:checked');
+            mod = $('#form-mode input.mode:checked'),
+            address=$('geo-address').text().trim();
 
             if (dob.length>0 && lng.length>0) {
                 var dobV = dob.val(),
@@ -914,8 +933,10 @@ function initMap() {
                   genderVal = gender.val().trim();
                 }
                 params.gender = genderVal;
-                var paramStr = toParamString(params),
+                params.address = address;
+                var paramStr = toParamString(params,['address']),
                 stored = getItem(paramStr);
+                console.log(paramStr);
                 if (stored.valid) {
                   showData(stored.data);
                 } else {

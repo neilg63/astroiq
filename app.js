@@ -11,6 +11,7 @@ const textutils = require('./lib/text-utils.js');
 const astro = require('./lib/astroapp.js');
 const exec = require('child_process').exec;
 const spawn = require('child_process').spawn;
+const variables = require('./content/variables.js');
 var child;
 
 app.use(bodyParser());
@@ -178,16 +179,12 @@ app.use('/svgs', express.static('svgs'));
 
 app.get('/', function(req, res) {
    const page = pug.compileFile(__dirname + '/templates/index.pug');
-    res.send(page({
-    	title: "AstroIQ Demo"
-    }));
+    res.send(page(variables));
 });
 
 app.get('/zodiac', function(req, res) {
     const page = pug.compileFile(__dirname + '/templates/index.pug');
-    res.send(page({
-    	title: "AstroIQ Demo"
-    }));
+    res.send(page(variables));
 });
 
 app.get('/command', function(req, res) {
@@ -196,33 +193,12 @@ app.get('/command', function(req, res) {
 
 app.get('/geocode/:address', (req,res) => {
   var searchString = req.params.address.despace();
-  Geo.findOne({
-    string: searchString.toLowerCase()
-  }).then((doc) => {
-    var matched = false;
+  geocode.matchLocation(searchString,res);
+});
 
-    if (doc !== null) {
-      var data = {};
-      data.lat = doc.location.lat;
-      data.lng = doc.location.lng;
-      if (doc.address) {
-        data.address = doc.address;
-      } else {
-        data.address = doc.string.capitalize();
-      }
-      data.type = doc.location_type;
-      data.components = doc.address_components;
-      matched = true;
-      data.valid = true;
-      res.send(data);
-    }
-    if (!matched) {
-      geocode.fetchData(searchString, res);
-    }
-  }).catch((e) => {
-    res.send(e);
-  });
-	
+app.get('/nearby/:coords', (req,res) => {
+  var coords = req.params.coords.despace();
+  geocode.fetchHospitals(coords, res);
 });
 
 var port = process.env.PORT || 9862;

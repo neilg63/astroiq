@@ -51,14 +51,17 @@ form#control-form(action="/sweph" method="post")
       input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
       input#geobirth-finder(type="submit" value="Find")
       div#geo-address.hidden
+      div#geo-hospitals.hidden
     p.tz
       label(for="form-timezone") Time Zone:
-      input(type="time" id="form-timezone" name="timezone" size="5" value="00:00")
-      //- label(for="form-tz-east") Eastinput(type="radio" value="event" name="tz-east" id="form-tz-east" class="type")
-      label(for="form-timezone" id="east-west") West
+      select.tzoffset(type="number" id="form-tz" name="timezone")
+        each opt,index in timezone.offsets
+          option(value = opt.value selected=opt.selected)= opt.label
     p.ds
-      label(for="form-daylightsavings") Daylight Savings:
-      input(type="time" id="form-daylightsavings" name="daylightsavings" size="5" value="00:00")
+      label(for="form-daylightsavings") Daylight saving:
+      select.ds(id="form-ds" name="ds")
+        each opt,index in timezone.ds_options
+          option(value = opt.value selected=opt.selected)= opt.label
     p.lat
       label(for="form-lat" title="latitude") Latitude:
       input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )

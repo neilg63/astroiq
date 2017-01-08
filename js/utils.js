@@ -447,13 +447,19 @@ function getItem(key,maxAge) {
   return obj;
 }
 
-var toParamString = function(obj) {
-  var str = '', parts=[];
+var toParamString = function(obj, excludes) {
+  var str = '', parts=[],excludeKeys=[];
+  if (excludeKeys instanceof Array) {
+    excludeKeys = excludes;
+  }
   if (typeof obj == 'object') {
+
     var keys = Object.keys(obj),len=keys.length,i=0,k;
     for (;i<len;i++) {
-      k = keys[i];
-      parts.push(k + '=' + obj[k].toString());
+      if (excludeKeys.indexOf(k) < 0) {
+        k = keys[i];
+        parts.push(k + '=' + obj[k].toString());
+      }
     }
     if (parts.length>0) {
       str = parts.join('&');
