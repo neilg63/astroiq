@@ -15,11 +15,14 @@ var geocode = {
       case 'hospital':
       case 'hospitals':
         if (data instanceof Array) {
+
           searchStr = data.join(',');
         } else {
           searchStr = data.toString();
         }
-        href = `${googlePlacesBaseUrl}?location=${searchStr}&type=hospital&keyword=maternity&radius=5000`;
+        var keywordStr = '';
+        //keywordStr = `&keyword=maternity`;
+        href = `${googlePlacesBaseUrl}?location=${searchStr}&type=hospital${keywordStr}&radius=5000`;
         break;
       default:
         searchStr = encodeURIComponent(data);
@@ -80,6 +83,11 @@ var geocode = {
       if (numRes > 1) {
         body.results.shift()
         other = body.results;
+      }
+      if (result.address_components) {
+        for (var i in result.address_components) {
+          console.log(result.address_components[i]);
+        }
       }
       var geo = result.geometry,
         data = {

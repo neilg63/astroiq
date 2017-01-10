@@ -7,6 +7,8 @@ const {Geo} = require('./server/models/geo');
 const pug = require('pug');
 const app = express();
 const geocode = require('./geocode/geocode.js');
+const geonames = require('./geocode/geonames.js');
+const timezone = require('./geocode/timezone.js');
 const textutils = require('./lib/text-utils.js');
 const astro = require('./lib/astroapp.js');
 const exec = require('child_process').exec;
@@ -93,6 +95,51 @@ app.get('/server-datetime', (req,res) => {
   data.minutes = dt.getMinutes();
   data.seconds = dt.getSeconds();
   res.send(data);
+});
+
+app.get('/tz-match/:first/:second/:date', (req,res) => {
+  var data = {}, valid = false,inData,type;
+  if (req.params.date == 'now') {
+    var d = new Date();
+  } else {
+    var d = new Date(req.params.date);
+  }
+  if (d instanceof Date) {
+    let numRgx = new RegExp('^\s*-?[0-9]+(\\.[0-9]+)?\s*$');
+    if (numRgx.test(req.params.first) && numRgx.test(req.params.second)) {
+       type = 'position';
+       inData = {
+          lat: req.params.first,
+          lng: req.params.second
+       };
+       valid = true;
+    } else if (req.params.first.length>1 && req.params.second.length>1) {
+      type = 'zone';
+      valid = true;
+      inData = `req.params.first/req.params.second`;
+    }
+  }
+  if (valid) {
+    timezone.request(inData,d,type,(error,data) => {
+      if (error) {
+        res.status(404).send(data);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  } else {
+    res.send(data);
+  }
+});
+
+app.get('/geomatch/:search', (req,res) => {
+  geonames.request(req.params.search,(error,data) => {
+      if (error) {
+        res.status(404).send(data);
+      } else {
+        res.status(200).send(data);
+      }
+    });
 });
 
 app.post('/git/:cmd', (req,res) => {
