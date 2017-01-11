@@ -8,7 +8,7 @@ var geonames = {
 
   maxMatches: 10,
 
-  minScore: 20,
+  minScore: 30,
 
   matchAltName: (ln,cc) => {
     let ccLangs = ['en'];
@@ -71,6 +71,21 @@ var geonames = {
     }
     for (let i in item.alt_names) {
       if (item.alt_names[i].lang == 'en' && airportRegex.test(item.alt_names[i].name)) {
+        return true;
+      }
+    }
+    return false;
+  },
+
+  isNear: (item,coords) => {
+    if (item.coords.lat) {
+      let dist = 0.1;
+
+      if (item.coords.lat < (coords.lat + dist) 
+          && item.coords.lat > (coords.lat - dist)
+          && item.coords.lng < (coords.lng + dist)
+          && item.coords.lng > (coords.lng - dist)
+        ) {
         return true;
       }
     }
@@ -151,15 +166,18 @@ var geonames = {
             data.bias = bias;
             data.names = [];
             if (body.geonames.length>0) {
-              let index=0,item,n;
+              let index=0,item,n,prevCoords={lat:-360,lng:-360};
               for (var k in body.geonames) {
                 n = body.geonames[k];
                 if (typeof n == 'object') {
                   if (index < geonames.maxMatches && n.score > geonames.minScore) {
                     item = geonames.parseItem(n);
                     if (geonames.isAirport(item) == false) {
-                      data.names.push(item);
-                      index++;
+                      if (index === 0 || geonames.isNear(item,prevCoords) == false) {
+                        data.names.push(item);
+                        index++;
+                        prevCoords=item.coords;
+                      }
                     }
                     
                   }

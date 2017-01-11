@@ -6,6 +6,7 @@ const googleApiKey = 'AIzaSyAOeXTgZTB_cJUyV9B2DOiZI_6LoVU2vs8';
 const googleApiBaseUrl = 'https://maps.googleapis.com/maps/api/';
 const googleGeocodeBaseUrl = googleApiBaseUrl + 'geocode/json';
 const googlePlacesBaseUrl = googleApiBaseUrl + 'place/nearbysearch/json';
+const geonames = require('./geonames.js');
 
 var geocode = {
 
