@@ -1,0 +1,14 @@
+fieldset.collapsible.closed
+  h5.toggle Time Period (Daśa) Year Definition
+  p
+    input(type="radio" value="" name="year-astron" id="form-year-astron" class="solar-dasha" checked="true" )
+    label(for="form-year-astron") Astronomical Year (select above)
+  p
+    input(type="radio" value="365" name="year-calendar" id="form-year-calendar" class="solar-dasha" )
+    label(for="form-year-calendar") 365 Calendar Year
+  p
+    input(type="radio" value="360" name="year-360" id="form-year-360" class="solar-dasha" )
+    label(for="form-year-360") 360 Day Year
+  p
+    input#form-year-solilunar.solar-dasha(type="radio" value="354.36708" name="year-solilunar")
+    label(for="form-year-solilunar") Synodic SoliLunar Year
