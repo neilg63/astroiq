@@ -13,8 +13,8 @@ var geoplugin = {
 	
   request: (req,callback) => {
 		let ipInfo = getIP(req),
-		  href = geoPluginUrl + `?ip=${ip}`,
-      ip = ipInfo.clientIp;
+      ip = ipInfo.clientIp,
+		  href = geoPluginUrl + `?ip=${ip}`;
 		request(href, (error,response,body) => {
       if (error) {
         callback({valid:false,msg: error},undefined);
