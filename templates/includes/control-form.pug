@@ -89,6 +89,7 @@ form#control-form(action="/sweph" method="post")
 
   fieldset.collapsible.closed
     h3.toggle Calculation Settings
+    //- include settings/calc-house-system.pug
     fieldset.collapsible.closed
       h4.toggle Default House System
       p.sub-section
@@ -96,7 +97,7 @@ form#control-form(action="/sweph" method="post")
         select#form-hsy.select-input(name="hsy")
           each opt,index in houseSystems
             option(value = opt.value selected=opt.selected)= opt.label
-
+    //- include settings/calc-ayanamsha.pug
     fieldset.collapsible.closed
       h4.toggle Tropical vs. Sidereal (Ayanāṃśa)
         p.sub-section
@@ -104,7 +105,7 @@ form#control-form(action="/sweph" method="post")
           select#form-ayanamsa.select-input(name="ayanamsa")
             each opt,index in ayanamsas
               option(value = opt.value selected=opt.selected)= opt.label
-            
+    //- include settings/calc-celestial.pug
     fieldset.collapsible.closed
       h4.toggle Celestial Calculations
       p#form-mode.sub-section.radios
@@ -117,6 +118,7 @@ form#control-form(action="/sweph" method="post")
 
     fieldset.collapsible.closed
       h4.toggle Solar Year & Lunar Month
+      //- include settings/calc-year-solar.pug
       fieldset.collapsible.open
         h5.toggle Astronomical Solar Year
           p.sub-sub-section
@@ -131,7 +133,7 @@ form#control-form(action="/sweph" method="post")
                 label(for="form-solar-a") Anomalistic year
               div.notes!= solarYearOptionNotes
 
-
+    //- include settings/calc-year-dasha.pug
     fieldset.collapsible.closed
       h5.toggle Time Period (Daśa) Year Definition
       p
@@ -146,7 +148,7 @@ form#control-form(action="/sweph" method="post")
       p
         input#form-year-solilunar.solar-dasha(type="radio" value="354.36708" name="year-solilunar")
         label(for="form-year-solilunar") Synodic SoliLunar Year
-
+    //- include settings/calc-month-lunar.pug
     fieldset.collapsible.closed
       h5.toggle Astronomical Lunar Month
       p

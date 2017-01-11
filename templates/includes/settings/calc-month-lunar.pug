@@ -1,0 +1,15 @@
+fieldset.collapsible.closed
+  h5.toggle Astronomical Lunar Month
+  p
+    input#form-lunar-t.lunar(type="radio" value="27.321582" name="lunar-t")
+    label(for="form-solar-t") Tropical month
+  p
+    input#form-lunar-s.lunar(type="radio" value="27.321662" name="lunar-s")
+    label(for="form-solar-s") Sidereal month
+  p
+    input.lunar(type="radio" value="27.321582" name="lunar-a" id="form-lunar-a" class="" )
+    label(for="form-solar-a") Anomalistic month
+  p
+    input#form-lunar-syn.lunar(type="radio" value="29.5305888531" name="lunar-syn" checked="true")
+    label(for="form-solar-syn") Synodic month
+  div.notes!= lunarMonthsNoteOptions
