@@ -1253,7 +1253,12 @@ function initMap() {
            $.ajax({
                 url: 'geoip',
                 success: function(data) {
-                  console.log(data);   
+                  if (data.coords) {
+                    $('#form-lat').val(data.coords.lat.toString());
+                    $('#form-lng').val(data.coords.lng.toString());
+                    pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
+                    updateDegreeValues();
+                  }   
                 }
             });
         }
