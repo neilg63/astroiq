@@ -870,6 +870,13 @@ function initMap() {
             }
         }
 
+        var updateGeoData = function(data) {
+          $('#form-lat').val(data.coords.lat.toString());
+          $('#form-lng').val(data.coords.lng.toString());
+          pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
+          updateDegreeValues();
+        }
+
         var addQueryList = function() {
           var p = pDom;
           if (p.queries) {
@@ -1251,16 +1258,25 @@ function initMap() {
         p.geoLocAllowed = GeoMap.geoLocAllowed();
         if (!p.geoLocAllowed) {
            $.ajax({
-                url: 'geoip',
+                url: '/geoip',
                 success: function(data) {
                   if (data.coords) {
-                    $('#form-lat').val(data.coords.lat.toString());
-                    $('#form-lng').val(data.coords.lng.toString());
-                    pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
-                    updateDegreeValues();
+                    User.geo.coords = data.coords;
+                    updateGeoData(data);
                   }   
                 }
             });
+        } else {
+          setTimeout(function() {
+            $.ajax({
+                url: '/geolocate/'.User.geo.coords.lat.'/' + User.geo.coords.lng,
+                success: function(data) {
+                  if (data.coords) {
+                    updateGeoData(data);
+                  }   
+                }
+            });
+          }, 500);
         }
         //kuteMorph();
     });
