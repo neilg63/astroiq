@@ -63,7 +63,7 @@ var GeoMap = {
       jQuery('#form-lng').val(data.coords.lng.toString());
       User.geo = data;
       pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
-      updateDegreeValues();
+      jQuery('#form-lat').trigger('change');
     },
 
     addDragendEvent: function(marker) {
