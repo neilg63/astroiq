@@ -58,6 +58,14 @@ var GeoMap = {
         GeoMap.hasMap = true
     },
 
+    updateAddress: function(data) {
+      jQuery('#form-lat').val(data.coords.lat.toString());
+      jQuery('#form-lng').val(data.coords.lng.toString());
+      User.geo = data;
+      pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
+      updateDegreeValues();
+    },
+
     addDragendEvent: function(marker) {
         google.maps.event.addListener(marker, "dragend", function (e) {
             var lat = e.latLng.lat(),
@@ -133,7 +141,7 @@ var GeoMap = {
                 url: '/geolocate/'+ strCoords,
                 success: function(data) {
                   if (data.coords) {
-                    updateGeoData(data);
+                    GeoMap.updateAddress(data);
                   }   
                 }
             });
@@ -915,14 +923,6 @@ function initMap() {
             }
         }
 
-        var updateGeoData = function(data) {
-          jQuery('#form-lat').val(data.coords.lat.toString());
-          jQuery('#form-lng').val(data.coords.lng.toString());
-          User.geo = data;
-          pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
-          updateDegreeValues();
-        }
-
         var addQueryList = function() {
           var p = pDom;
           if (p.queries) {
@@ -1308,7 +1308,7 @@ function initMap() {
                 success: function(data) {
                   if (data.coords) {
                     User.geo.coords = data.coords;
-                    updateGeoData(data);
+                    GeoMap.updateAddress(data);
                   }   
                 }
             });
