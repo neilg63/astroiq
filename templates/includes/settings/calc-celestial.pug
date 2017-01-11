@@ -1,8 +1,16 @@
 fieldset.collapsible.closed
   h4.toggle Celestial Calculations
   p#form-mode.sub-section.radios
-    label(for="form-mode") Topo/Geo:
+    label(for="form-mode") Earth Center/Surface:
     input#form-mode-topo.mode(type="radio" value="topo" name="mode" checked="true" )
     label(for="form-mode-topo") Topocentric
     input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode")
     label(for="form-mode-geo") Geocentric
+
+// - ---------------------------------------- [jHora]
+// - If Topocentric --> True or Apparent positions
+// - If Apparent --> Use refraction / Do not use refraction
+// - If Apparent --> Use annual aberration of light / Do not use annual aberration of light
+// - If Apparent --> Use gravitational deflection / Do not use gravitational deflection
+// - If ayanamsha = 0 Sayana/Tropical --> Use nutation / Do not use nutation
+// - Mean or True Nodes 
