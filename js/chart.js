@@ -58,6 +58,14 @@ var GeoMap = {
         GeoMap.hasMap = true
     },
 
+    updateAddress: function(data) {
+      jQuery('#form-lat').val(data.coords.lat.toString());
+      jQuery('#form-lng').val(data.coords.lng.toString());
+      User.geo = data;
+      pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
+      jQuery('#form-lat').trigger('change');
+    },
+
     addDragendEvent: function(marker) {
         google.maps.event.addListener(marker, "dragend", function (e) {
             var lat = e.latLng.lat(),
@@ -128,6 +136,15 @@ var GeoMap = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
+            var strCoords = User.geo.coords.lat + '/' + User.geo.coords.lng;
+            $.ajax({
+                url: '/geolocate/'+ strCoords,
+                success: function(data) {
+                  if (data.coords) {
+                    GeoMap.updateAddress(data);
+                  }   
+                }
+            });
             GeoMap.updateCoords(position.coords);
         }
     },
@@ -906,14 +923,6 @@ function initMap() {
             }
         }
 
-        var updateGeoData = function(data) {
-          $('#form-lat').val(data.coords.lat.toString());
-          $('#form-lng').val(data.coords.lng.toString());
-          User.geo = data;
-          pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
-          updateDegreeValues();
-        }
-
         var addQueryList = function() {
           var p = pDom;
           if (p.queries) {
@@ -1299,21 +1308,19 @@ function initMap() {
                 success: function(data) {
                   if (data.coords) {
                     User.geo.coords = data.coords;
-                    updateGeoData(data);
+                    GeoMap.updateAddress(data);
                   }   
                 }
             });
         } else {
           setTimeout(function() {
-            $.ajax({
-                url: '/geolocate/'+ User.geo.coords.lat + '/' + User.geo.coords.lng,
-                success: function(data) {
-                  if (data.coords) {
-                    updateGeoData(data);
-                  }   
-                }
-            });
-          }, 500);
+            if (!User.geo.coords) {
+                User.geo.coords = {
+                    lat: $('#form-lat').val(),
+                    lng: $('#form-lng').val()
+                };
+            }
+          }, 1000);
         }
         //kuteMorph();
     });

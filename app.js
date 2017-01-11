@@ -119,7 +119,7 @@ app.get('/tz-match/:first/:second/:date', (req,res) => {
     } else if (req.params.first.length>1 && req.params.second.length>1) {
       type = 'zone';
       valid = true;
-      inData = `req.params.first/req.params.second`;
+      inData = `${req.params.first}/${req.params.second}`;
     }
   }
   if (valid) {

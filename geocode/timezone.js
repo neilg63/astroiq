@@ -6,7 +6,7 @@ var timezone = {
 
 	request: (data,date,method='zone',callback) => {
 		var valid = false,
-			href = timezone_db_url + `?key=0NXJ03JE76B4&format=json&by=${method}`;
+			href = timezone_db_url + `?key=${timezone_db_apikey}&format=json&by=${method}`;
 		if (method == 'zone') {
 			href + `zone=${data}`;
 			valid = true;
@@ -42,7 +42,12 @@ var timezone = {
 		      if (error){
 		        callback({valid:false,msg:"Invalid parameters"},undefined);
 		      } else {
-		        callback(undefined,body);
+		      	if (typeof body == 'string') {
+		      		let data = JSON.parse(body);
+		      		callback(undefined,data);
+		      	} else {
+		      		callback({valid:false,msg:"Invalid parameters"},undefined);
+		      	}
 	      	}
    		 });
 		}
