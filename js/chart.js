@@ -1269,7 +1269,7 @@ function initMap() {
         } else {
           setTimeout(function() {
             $.ajax({
-                url: '/geolocate/'.User.geo.coords.lat.'/' + User.geo.coords.lng,
+                url: '/geolocate/'+ User.geo.coords.lat + '/' + User.geo.coords.lng,
                 success: function(data) {
                   if (data.coords) {
                     updateGeoData(data);
