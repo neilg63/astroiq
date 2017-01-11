@@ -124,8 +124,8 @@ var GeoMap = {
 
     matchLocation: function(position) {
         if (position.coords) {
-            GeoMap.updateCoords(position.coords);
             User.geo.coords = position.coords;
+            GeoMap.updateCoords(position.coords);
         }
     },
 
@@ -1268,6 +1268,7 @@ function initMap() {
             });
         } else {
           setTimeout(function() {
+            console.log(User.geo);
             $.ajax({
                 url: '/geolocate/'+ User.geo.coords.lat + '/' + User.geo.coords.lng,
                 success: function(data) {
