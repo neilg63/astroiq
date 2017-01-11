@@ -1,0 +1,7 @@
+fieldset.collapsible.closed
+  h4.toggle Default House System
+  p.sub-section
+    label(for="form-hsy") House system:
+    select#form-hsy.select-input(name="hsy")
+      each opt,index in houseSystems
+        option(value = opt.value selected=opt.selected)= opt.label
