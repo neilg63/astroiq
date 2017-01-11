@@ -150,7 +150,6 @@ app.get('/geoip', (req,res) => {
       if (error) {
         res.status(404).send(data);
       } else {
-        data.ip = req.headers;
         res.status(200).send(data);
       }
     });

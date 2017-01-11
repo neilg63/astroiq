@@ -34,9 +34,11 @@ var geoplugin = {
             switch (sk) {
               case 'longitude':
                 sk = 'lng';
+                isCoord = true;
                 break;
               case 'latitude':
                 sk = 'lat';
+                isCoord = true;
                 break;
               case 'credit':
               case 'regionCode':
