@@ -1305,6 +1305,12 @@ function initMap() {
             });
         } else {
           setTimeout(function() {
+            if (!User.geo.coords) {
+                User.geo.coords = {
+                    lat: $('#form-lat').val(),
+                    lng: $('#form-lng').val()
+                };
+            }
             if (User.geo.coords) {
                 var strCoords = User.geo.coords.lat + '/' + User.geo.coords.lng;
                 $.ajax({
