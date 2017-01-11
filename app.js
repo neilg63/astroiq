@@ -17,6 +17,8 @@ const spawn = require('child_process').spawn;
 const variables = require('./content/variables.js');
 var child;
 
+app.enable('trust proxy');
+
 app.use(bodyParser());
 
 app.get('/sweph', function(req, res){ 
