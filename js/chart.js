@@ -1305,15 +1305,18 @@ function initMap() {
             });
         } else {
           setTimeout(function() {
-            $.ajax({
-                url: '/geolocate/'+ User.geo.coords.lat + '/' + User.geo.coords.lng,
-                success: function(data) {
-                  if (data.coords) {
-                    updateGeoData(data);
-                  }   
-                }
-            });
-          }, 500);
+            if (User.geo.coords) {
+                var strCoords = User.geo.coords.lat + '/' + User.geo.coords.lng;
+                $.ajax({
+                    url: '/geolocate/'+ strCoords,
+                    success: function(data) {
+                      if (data.coords) {
+                        updateGeoData(data);
+                      }   
+                    }
+                });
+            }
+          }, 1000);
         }
         //kuteMorph();
     });
