@@ -128,6 +128,15 @@ var GeoMap = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
+            var strCoords = User.geo.coords.lat + '/' + User.geo.coords.lng;
+            $.ajax({
+                url: '/geolocate/'+ strCoords,
+                success: function(data) {
+                  if (data.coords) {
+                    updateGeoData(data);
+                  }   
+                }
+            });
             GeoMap.updateCoords(position.coords);
         }
     },
@@ -907,8 +916,8 @@ function initMap() {
         }
 
         var updateGeoData = function(data) {
-          $('#form-lat').val(data.coords.lat.toString());
-          $('#form-lng').val(data.coords.lng.toString());
+          jQuery('#form-lat').val(data.coords.lat.toString());
+          jQuery('#form-lng').val(data.coords.lng.toString());
           User.geo = data;
           pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
           updateDegreeValues();
@@ -1310,17 +1319,6 @@ function initMap() {
                     lat: $('#form-lat').val(),
                     lng: $('#form-lng').val()
                 };
-            }
-            if (User.geo.coords) {
-                var strCoords = User.geo.coords.lat + '/' + User.geo.coords.lng;
-                $.ajax({
-                    url: '/geolocate/'+ strCoords,
-                    success: function(data) {
-                      if (data.coords) {
-                        updateGeoData(data);
-                      }   
-                    }
-                });
             }
           }, 1000);
         }
