@@ -8,6 +8,7 @@ const pug = require('pug');
 const app = express();
 const geocode = require('./geocode/geocode.js');
 const geonames = require('./geocode/geonames.js');
+const geoplugin = require('./geocode/geoplugin.js');
 const timezone = require('./geocode/timezone.js');
 const textutils = require('./lib/text-utils.js');
 const astro = require('./lib/astroapp.js');
@@ -132,8 +133,18 @@ app.get('/tz-match/:first/:second/:date', (req,res) => {
   }
 });
 
-app.get('/geomatch/:search', (req,res) => {
-  geonames.request(req.params.search,(error,data) => {
+app.get('/geomatch/:search/:bias', (req,res) => {
+  geonames.request(req.params.search,req.params.bias,(error,data) => {
+      if (error) {
+        res.status(404).send(data);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+});
+
+app.get('/geoip', (req,res) => {
+  geoplugin.request(req,(error,data) => {
       if (error) {
         res.status(404).send(data);
       } else {
