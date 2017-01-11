@@ -148,6 +148,7 @@ app.get('/geoip', (req,res) => {
       if (error) {
         res.status(404).send(data);
       } else {
+        console.log(req);
         res.status(200).send(data);
       }
     });

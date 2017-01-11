@@ -3,9 +3,16 @@ const reqIp = require('request-ip');
 const geoPluginUrl = 'http://www.geoplugin.net/json.gp';
 
 var geoplugin = {
+
+  getClientIp: (req) => {
+    return (req.headers["X-Forwarded-For"] ||
+        req.headers["x-forwarded-for"] ||
+        '').split(',')[0] ||
+       req.client.remoteAddress;
+  },
 	
   request: (req,callback) => {
-		let ip = reqIp.getClientIp(req).split(':').pop(),
+		let ip = geoplugin.getClientIp(req).split(':').pop(),
 		  href = geoPluginUrl + `?ip=${ip}`;
 		request(href, (error,response,body) => {
       if (error) {
