@@ -14,8 +14,12 @@ var geoplugin = {
 	
   request: (req,callback) => {
 		let ipInfo = getIP(req),
-      ip = ipInfo.clientIp,
-		  href = geoPluginUrl + `?ip=${ip}`;
+      ip = ipInfo.clientIp;
+
+    if (ip.endsWith('127.0.0.1')) {
+      ip = '149.126.76.98';
+    }
+		let  href = geoPluginUrl + `?ip=${ip}`;
 		request(href, (error,response,body) => {
       if (error) {
         callback({valid:false,msg: error},undefined);
@@ -62,13 +66,7 @@ var geoplugin = {
           if (data.countryCode) {
             if (typeof data.countryCode == 'string') {
               matched = true;
-              geonames.mapCoords(data.coords, (error,geoData) => {
-                  if (error) {
-                    callback(undefined,data);
-                  } else {
-                    callback(geoData,undefined);
-                  }
-              }); 
+              geonames.mapCoords(data.coords,callback);
             }
           }
           if (!matched) {

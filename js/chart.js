@@ -124,8 +124,11 @@ var GeoMap = {
 
     matchLocation: function(position) {
         if (position.coords) {
+            User.geo.coords = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
             GeoMap.updateCoords(position.coords);
-            User.geo.coords = position.coords;
         }
     },
 
@@ -696,11 +699,11 @@ function initMap() {
                 if (h.name) {
                   li = $('<li data-coords="'+h.coords.lat+','+h.coords.lng+'">'+h.name +': '+h.vicinity +'</li>');
                   ol.append(li);
-                  if (i==0) {
+                  /*if (i==0) {
                     lat = h.coords.lat;
                     lng = h.coords.lng;
                     li.addClass('selected');
-                  }
+                  }*/
                 }
               }
               p.geoHospitals.append(ol).removeClass('hidden');
@@ -720,6 +723,30 @@ function initMap() {
             }
           }
           
+        }
+
+        var injectGeoNames = function(data) {
+          if (data.names) {
+            if (data.num > 0) {
+              var ol = $('<ol class="geonames"></ol>'),h,li,i=0,latLngStr,nameStr;
+              for (; i < data.num;i++) {
+                h = data.names[i];
+                if (h.name) {
+                  nameStr = h.name;
+                  if (h.adminName1.length> 0 && h.adminName1 != h.name) {
+                    nameStr += ', '+h.adminName1;
+                  }
+                  if (h.countryName.length > 0) {
+                    nameStr += ', '+h.countryName
+                  }
+                  latLngStr = toLatitudeString(h.coords.lat) +', '+toLongitudeString(h.coords.lng);
+                  li = $('<li title="'+latLngStr+'" data-coords="'+h.coords.lat+','+h.coords.lng+'">'+ nameStr +'</li>');
+                  ol.append(li);
+                }
+              }
+              p.geoHospitals.prepend(ol).removeClass('hidden');
+            }
+          }
         }
 
         var updateChart = function(data) {
@@ -840,6 +867,15 @@ function initMap() {
 
                         }
                     });
+                    setTimeout(function() {
+                      let href = '/geomatch/'+adStr+'/' + User.geo.countryCode;
+                      $.ajax({
+                        url: href,
+                        success: function(data) {
+                          injectGeoNames(data);
+                        }
+                      });
+                    }, 1000);
                 }
             });
         }
@@ -868,6 +904,14 @@ function initMap() {
                     }
                 }
             }
+        }
+
+        var updateGeoData = function(data) {
+          $('#form-lat').val(data.coords.lat.toString());
+          $('#form-lng').val(data.coords.lng.toString());
+          User.geo = data;
+          pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
+          updateDegreeValues();
         }
 
         var addQueryList = function() {
@@ -1251,11 +1295,25 @@ function initMap() {
         p.geoLocAllowed = GeoMap.geoLocAllowed();
         if (!p.geoLocAllowed) {
            $.ajax({
-                url: 'geoip',
+                url: '/geoip',
                 success: function(data) {
-                  console.log(data);   
+                  if (data.coords) {
+                    User.geo.coords = data.coords;
+                    updateGeoData(data);
+                  }   
                 }
             });
+        } else {
+          setTimeout(function() {
+            $.ajax({
+                url: '/geolocate/'+ User.geo.coords.lat + '/' + User.geo.coords.lng,
+                success: function(data) {
+                  if (data.coords) {
+                    updateGeoData(data);
+                  }   
+                }
+            });
+          }, 500);
         }
         //kuteMorph();
     });
