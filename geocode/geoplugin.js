@@ -1,5 +1,5 @@
 const request = require('request');
-const reqIp = require('request-ip');
+const getIP = require('ipware')().get_ip;
 const geoPluginUrl = 'http://www.geoplugin.net/json.gp';
 
 var geoplugin = {
@@ -12,8 +12,9 @@ var geoplugin = {
   },
 	
   request: (req,callback) => {
-		let ip = geoplugin.getClientIp(req).split(':').pop(),
-		  href = geoPluginUrl + `?ip=${ip}`;
+		let ipInfo = getIP(req),
+		  href = geoPluginUrl + `?ip=${ip}`,
+      ip = ipInfo.clientIp;
 		request(href, (error,response,body) => {
       if (error) {
         callback({valid:false,msg: error},undefined);

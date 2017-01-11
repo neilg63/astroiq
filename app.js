@@ -148,7 +148,7 @@ app.get('/geoip', (req,res) => {
       if (error) {
         res.status(404).send(data);
       } else {
-        data.ip = req.connection.socket.remoteAddress;
+        data.ip = req.socket.remoteAddress;
         res.status(200).send(data);
       }
     });
