@@ -1,4 +1,5 @@
 const request = require('request');
+const geonames = require('./geonames.js');
 const getIP = require('ipware')().get_ip;
 const geoPluginUrl = 'http://www.geoplugin.net/json.gp';
 
@@ -57,7 +58,22 @@ var geoplugin = {
               }
             }
           }
-          callback(undefined,data);
+          let matched = false;
+          if (data.countryCode) {
+            if (typeof data.countryCode == 'string') {
+              matched = true;
+              geonames.mapCoords(data.coords, (error,geoData) => {
+                  if (error) {
+                    callback(undefined,data);
+                  } else {
+                    callback(geoData,undefined);
+                  }
+              }); 
+            }
+          }
+          if (!matched) {
+            callback(undefined,data);
+          }
         } else {
           callback({valid:false,msg: "Invalid request"},undefined);
         }

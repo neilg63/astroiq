@@ -15,6 +15,10 @@ jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
 
 var pDom = {};
 
+var User = {
+  geo: {}
+};
+
 var GeoMap = {
 
     map: null,
@@ -121,6 +125,7 @@ var GeoMap = {
     matchLocation: function(position) {
         if (position.coords) {
             GeoMap.updateCoords(position.coords);
+            User.geo.coords = position.coords;
         }
     },
 
@@ -159,8 +164,10 @@ var GeoMap = {
             if (window.location.protocol === 'https:' || /\bChrome\b/i.test(navigator.userAgent) == false) {
                navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
                GeoMap.geoOn = true;
+               return true;
             }  
         }
+        return false;
     },
 
     init: function() {
@@ -1241,7 +1248,15 @@ function initMap() {
             
           }
         });
-        GeoMap.geoLocAllowed();
+        p.geoLocAllowed = GeoMap.geoLocAllowed();
+        if (!p.geoLocAllowed) {
+           $.ajax({
+                url: 'geoip',
+                success: function(data) {
+                  console.log(data);   
+                }
+            });
+        }
         //kuteMorph();
     });
 })(jQuery);

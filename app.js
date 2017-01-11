@@ -145,6 +145,20 @@ app.get('/geomatch/:search/:bias', (req,res) => {
     });
 });
 
+app.get('/geolocate/:lat/:lng', (req,res) => {
+  let coords = {
+    lat: req.params.lat,
+    lng: req.params.lng
+  }
+  geonames.mapCoords(coords,(error,data) => {
+      if (error) {
+        res.status(404).send(data);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+});
+
 app.get('/geoip', (req,res) => {
   geoplugin.request(req,(error,data) => {
       if (error) {
