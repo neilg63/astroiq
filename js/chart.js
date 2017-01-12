@@ -763,6 +763,7 @@ function initMap() {
                             break;
                         default:
                             cn = h.countryName;
+                            break;
                     }
                     nameStr += ', '+ cn
                   }
