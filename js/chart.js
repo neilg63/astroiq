@@ -745,16 +745,26 @@ function initMap() {
         var injectGeoNames = function(data) {
           if (data.names) {
             if (data.num > 0) {
-              var ol = $('<ol class="geonames"></ol>'),h,li,i=0,latLngStr,nameStr;
+              var ol = $('<ol class="geonames"></ol>'),h,li,i=0,latLngStr,nameStr,cn;
               for (; i < data.num;i++) {
                 h = data.names[i];
                 if (h.name) {
                   nameStr = h.name;
-                  if (h.adminName1.length> 0 && h.adminName1 != h.name) {
+                  if (h.adminName1.length> 0 && h.adminName1 != h.name && h.adminName1.indexOf(h.name) < 0) {
                     nameStr += ', '+h.adminName1;
                   }
                   if (h.countryName.length > 0) {
-                    nameStr += ', '+h.countryName
+                    switch (h.countryName) {
+                        case 'United Kingdom':
+                            cn = 'UK';
+                            break;
+                        case 'United States':
+                            cn = 'USA';
+                            break;
+                        default:
+                            cn = h.countryName;
+                    }
+                    nameStr += ', '+ cn
                   }
                   latLngStr = toLatitudeString(h.coords.lat) +', '+toLongitudeString(h.coords.lng);
                   li = $('<li title="'+latLngStr+'" data-coords="'+h.coords.lat+','+h.coords.lng+'">'+ nameStr +'</li>');
