@@ -142,6 +142,7 @@ var GeoMap = {
                 success: function(data) {
                   if (data.coords) {
                     GeoMap.updateAddress(data);
+                    updateTzFields(data);
                   }   
                 }
             });
@@ -590,6 +591,8 @@ function initMap() {
         p.geoHospitals = $('#geo-hospitals');
         p.timezoneFs = $('#timezone-settings');
         p.timezoneFsDisplay = p.timezoneFs.find('h3 em');
+        p.tzField = $('#form-tz');
+        p.dsField = $('#form-ds');
         p.geoHospitals.on('click',function(e){
           var tg = $(e.target);
           if (tg.prop('tagName').toLowerCase() == 'li') {
@@ -898,23 +901,7 @@ function initMap() {
                                 injectGeoNames(data.geonames);
                                 if (data.geomatched_index === 0) {
                                    var matchedGeo = data.geonames.names[data.geomatched_index]; 
-                                   if (matchedGeo.timezone) {
-                                        var tz = matchedGeo.timezone;
-                                        if (isNumeric(tz.gmtOffset)) {
-                                            var strOffset = toHourOffsetString(tz.gmtOffset),strOffset2='';
-                                            
-                                            $('#form-tz').val(strOffset);
-                                            if (tz.dstOffset != tz.gmtOffset) {
-                                                strOffset2 = toHourOffsetString((tz.dstOffset-tz.gmtOffset),1);
-                                                $('#form-ds').val(strOffset2);
-                                            }
-                                            if (strOffset2.length>0) {
-                                                strOffset += ' (' + strOffset2 + ')';
-                                            }
-                                            console.log(tz)
-                                            pDom.timezoneFsDisplay.html(' UTC ' + strOffset + ' hrs');
-                                        }
-                                   }
+                                   updateTzFields(matchedGeo);
                                 }
                             };
                             if (msg.length > 1) {
@@ -941,6 +928,26 @@ function initMap() {
                 }
             });
         }
+
+        var updateTzFields = function(geoData) {
+            if (typeof geoData == 'object') {
+               if (geoData.timezone) {
+                    var tz = geoData.timezone;
+                    if (isNumeric(tz.gmtOffset)) {
+                        var strOffset = toHourOffsetString(tz.gmtOffset),strOffset2='';
+                        p.tzField.val(strOffset);
+                        if (tz.dstOffset != tz.gmtOffset) {
+                            strOffset2 = toHourOffsetString((tz.dstOffset-tz.gmtOffset),1);
+                            p.dsField.val(strOffset2);
+                        }
+                        if (strOffset2.length>0) {
+                            strOffset += ' (' + strOffset2 + ')';
+                        }
+                        p.timezoneFsDisplay.html(' UTC ' + strOffset + ' hrs');
+                    }
+               } 
+            }
+        };
 
         var updateDegreeValues = function() {
             var degFields = $('input.degree'),
@@ -1354,6 +1361,7 @@ function initMap() {
                   if (data.coords) {
                     User.geo.coords = data.coords;
                     GeoMap.updateAddress(data);
+                    updateTzFields(data);
                   }   
                 }
             });
