@@ -142,7 +142,6 @@ var GeoMap = {
                 success: function(data) {
                   if (data.coords) {
                     GeoMap.updateAddress(data);
-                    updateTzFields(data);
                   }   
                 }
             });
@@ -1350,7 +1349,6 @@ function initMap() {
                 lk.parent().remove();
               } 
             }
-            
           }
         });
         p.geoLocAllowed = GeoMap.geoLocAllowed();
@@ -1362,7 +1360,7 @@ function initMap() {
                     User.geo.coords = data.coords;
                     GeoMap.updateAddress(data);
                     updateTzFields(data);
-                  }   
+                  }
                 }
             });
         } else {
@@ -1373,7 +1371,8 @@ function initMap() {
                     lng: $('#form-lng').val()
                 };
             }
-          }, 1000);
+            updateTzFields(User.geo);
+          }, 5000);
         }
         //kuteMorph();
     });
