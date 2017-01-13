@@ -906,7 +906,7 @@ function initMap() {
                                             $('#form-tz').val(strOffset);
                                             if (tz.dstOffset != tz.gmtOffset) {
                                                 strOffset2 = toHourOffsetString((tz.dstOffset-tz.gmtOffset),1);
-                                                $('#form-ds').val(strOffset);
+                                                $('#form-ds').val(strOffset2);
                                             }
                                             if (strOffset2.length>0) {
                                                 strOffset += ' (' + strOffset2 + ')';
