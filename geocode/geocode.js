@@ -113,9 +113,7 @@ var geocode = {
           type = 'full';
         }
         if (type == 'full') {
-          if (!hFilter) {
-            hFilter = '';
-          }
+          var hFilter = '';
           geocode.mergeHospitals(data,hFilter,callback);
         } else {
           callback(undefined,data);

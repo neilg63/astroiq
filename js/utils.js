@@ -395,6 +395,34 @@ var zeroPad2 = function(num) {
     return str;
 };
 
+var toHourOffsetString = function(hourVal,places) {
+  var str = '00';
+  if (isNumeric(hourVal)) {
+    var absVal = Math.abs(hourVal),
+      flVal = parseFloat(hourVal),
+      isNeg = flVal < 0,
+      minVal = flVal % 1,
+      hVal = Math.floor(absVal),
+      mVal = minVal * 60;
+      if (flVal > 0) {
+        str = '+';
+      } else if (flVal < 0) {
+        str = '-';
+      } else {
+        str = '';
+      }
+      if (places !== 1) {
+        str += zeroPad2(hVal);
+      } else {
+        str += hVal;
+      }
+      if (minVal > 0) {
+        str += ':' + zeroPad2(mVal);
+      }
+  }
+  return str;
+}
+
 var toSwissEphTime = function(strTime) {
     var parts = strTime.split(":"), t;
     if (parts.length>1) {

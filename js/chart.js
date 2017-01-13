@@ -588,7 +588,8 @@ function initMap() {
         p.geoBirth = $('#form-geobirth');
         p.geoAddress = $('#geo-address');
         p.geoHospitals = $('#geo-hospitals');
-
+        p.timezoneFs = $('#timezone-settings');
+        p.timezoneFsDisplay = p.timezoneFs.find('h3 em');
         p.geoHospitals.on('click',function(e){
           var tg = $(e.target);
           if (tg.prop('tagName').toLowerCase() == 'li') {
@@ -895,8 +896,25 @@ function initMap() {
                             }
                             if (data.has_geonames) {
                                 injectGeoNames(data.geonames);
-                                if (data.geomatched_index == 0) {
-                                    
+                                if (data.geomatched_index === 0) {
+                                   var matchedGeo = data.geonames.names[data.geomatched_index]; 
+                                   if (matchedGeo.timezone) {
+                                        var tz = matchedGeo.timezone;
+                                        if (isNumeric(tz.gmtOffset)) {
+                                            var strOffset = toHourOffsetString(tz.gmtOffset),strOffset2='';
+                                            
+                                            $('#form-tz').val(strOffset);
+                                            if (tz.dstOffset != tz.gmtOffset) {
+                                                strOffset2 = toHourOffsetString((tz.gmtOffset-tz.dstOffset),1);
+                                                $('#form-ds').val(strOffset)
+                                            }
+                                            if (strOffset2.length>0) {
+                                                strOffset += ' (' + strOffset2 + ')';
+                                            }
+                                            console.log(tz)
+                                            pDom.timezoneFsDisplay.html(' UTC ' + strOffset + ' hrs');
+                                        }
+                                   }
                                 }
                             };
                             if (msg.length > 1) {
