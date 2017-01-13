@@ -326,19 +326,25 @@ function toLatLngLabel(coords) {
   return toLatitudeString(coords.lat) + ' '+ toLatitudeString(coords.lng);
 }
 
-function toLatitudeString(decLat) {
-  return _toLatLngString(decLat,'lat');
+function toLatitudeString(decLat,format) {
+  return _toLatLngString(decLat,'lat',format);
 }
 
-function toLongitudeString(decLng) {
-  return _toLatLngString(decLng,'lng');
+function toLongitudeString(decLng,format) {
+  return _toLatLngString(decLng,'lng',format);
+}
+
+function toLatLngStr(coords) {
+  if (typeof coords == 'object') {
+    return toLatitudeString(coords.lat,'plain') +', '+toLongitudeString(coords.lng,'plain')
+  }
 }
 
 var numEntryWidget = function(name,value,decPlaces) {
   return '<input type="number" name="degrees_'+name+'" value="' + value + '" size="3" maxlength=3" />';
 }
 
-function _toLatLngString(dec,degType) {
+function _toLatLngString(dec,degType,format) {
   if (isNumeric(dec)) {
     dec = parseFloat(dec);
     var isLng = false,max=90;
@@ -356,8 +362,16 @@ function _toLatLngString(dec,degType) {
     } else if (dec <= min) {
       dec += (max*2);
     }
-    var degree = convertDDToDMS(dec,isLng);
-    return degree.deg + '&deg; ' + degree.min + '&apos; ' + degree.sec + '&quot; ' + degree.dir;
+    var degree = convertDDToDMS(dec,isLng),
+    strDeg = '&deg;', strApos = '&apos;',strQuot='&quot;';
+    switch (format) {
+      case 'plain':
+        strDeg='º';
+        strApos = '\'';
+        strQuot='”';
+        break;
+    }
+    return degree.deg + strDeg,' ' + degree.min + strApos+' ' + degree.sec + strQuot +' ' + degree.dir;
   } 
 }
 
@@ -380,6 +394,34 @@ var zeroPad2 = function(num) {
     }
     return str;
 };
+
+var toHourOffsetString = function(hourVal,places) {
+  var str = '00';
+  if (isNumeric(hourVal)) {
+    var absVal = Math.abs(hourVal),
+      flVal = parseFloat(hourVal),
+      isNeg = flVal < 0,
+      minVal = flVal % 1,
+      hVal = Math.floor(absVal),
+      mVal = minVal * 60;
+      if (flVal > 0) {
+        str = '+';
+      } else if (flVal < 0) {
+        str = '-';
+      } else {
+        str = '';
+      }
+      if (places !== 1) {
+        str += zeroPad2(hVal);
+      } else {
+        str += hVal;
+      }
+      if (minVal > 0) {
+        str += ':' + zeroPad2(mVal);
+      }
+  }
+  return str;
+}
 
 var toSwissEphTime = function(strTime) {
     var parts = strTime.split(":"), t;
@@ -493,4 +535,40 @@ var roundDecimal = function(num,decPlaces) {
 var dateStringFormatted = function(dateStr) {
   var d = new Date(dateStr);
   return zeroPad2(d.getDate()) + '/' + zeroPad2(d.getMonth() + 1) +'/'+ d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
+}
+
+/*
+Map a country to country code for geonames search,
+consider using Web service for full list of regions
+as there are potentially 1000s of combinations
+*/
+countryStringMap = {
+  GB: [
+    'united kingdom',
+    'britain',
+    'england',
+    'scotland',
+    'wales',
+    'uk'
+  ],
+  US: [
+    'united states',
+    'usa',
+    'america'
+  ]
+}
+
+var matchCountry = function(str) {
+  var cc = 'XX',
+    simpleStr = str.trim().toLowerCase().replace(',',' ').replace(/\s\s+/,' ').split(' '),
+    opts = [],k,i;
+  for (k in  countryStringMap) {
+    opts = countryStringMap[k];
+    for (i=0;i<opts.length;i++) {
+      if (simpleStr.indexOf(opts[i]) >= 0) {
+        return k;
+      }
+    }
+  }
+  return cc;
 }

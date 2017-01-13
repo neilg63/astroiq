@@ -5,13 +5,6 @@ const geoPluginUrl = 'http://www.geoplugin.net/json.gp';
 
 var geoplugin = {
 
-  getClientIp: (req) => {
-    return (req.headers["X-Forwarded-For"] ||
-        req.headers["x-forwarded-for"] ||
-        '').split(',')[0] ||
-       req.client.remoteAddress;
-  },
-	
   request: (req,callback) => {
 		let ipInfo = getIP(req),
       ip = ipInfo.clientIp;

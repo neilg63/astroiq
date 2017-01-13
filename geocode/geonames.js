@@ -8,7 +8,9 @@ var geonames = {
 
   maxMatches: 10,
 
-  minScore: 30,
+  maxRows: 30, // max retrieved from geonames before filtering
+
+  minScore: 20,
 
   matchAltName: (ln,cc) => {
     let ccLangs = ['en'];
@@ -149,11 +151,56 @@ var geonames = {
     return item;
   },
 
+  parseNames: (body,data,matchCoords,filterCoords) => {
+    if (body.geonames.length>0) {
+      let index=0,item,n,prevCoords={lat:-360,lng:-360},skip=false;
+      for (var k in body.geonames) {
+        n = body.geonames[k];
+        if (typeof n == 'object') {
+          skip=false;
+          if (index < geonames.maxMatches && n.score > geonames.minScore) {
+            item = geonames.parseItem(n);
+            skip = geonames.isAirport(item);
+            if (!skip && index > 0) {
+              skip = geonames.isNear(item,prevCoords);
+            }
+            if (matchCoords) {
+              item.matched = geonames.isNear(item,filterCoords);
+            }
+            if (!skip) {
+              data.names.push(item);
+              index++;
+              prevCoords=item.coords;
+            }
+            
+          }
+          
+        }
+      }
+      data.num = data.names.length;
+    }
+  },
+
 
   // search?formatted=true&q=Newcastle&username=serpentinegallery&style=full&type=json
-	request: (searchStr = '',bias = 'UK',callback) => {
+	request: (searchStr = '',bias = 'XX',mode='filtered',callback) => {
+    var maxRows = mode == 'narrow'? 5 : geonames.maxRows;
     var valid = false,
-    href = geoNamesUrl + `/search?style=full&type=json&formatted=true&q=${searchStr}&username=${geoNamesUserName}&maxRows=${geonames.maxMatches}`;
+    href = geoNamesUrl + `/search?style=full&type=json&formatted=true&q=${searchStr}&username=${geoNamesUserName}&maxRows=${maxRows}`,
+    filterCoords={},matchCoords=false;
+    if (/-?\d(\.d)?,-?\d(\.d)?/.test(bias)) {
+      var parts = bias.split(',');
+      if (parts.length > 1) {
+        matchCoords = true;
+        filterCoords = {
+          lat: parseFloat(parts[0]),
+          lng: parseFloat(parts[1])
+        };
+      }
+      
+    } else if (bias != 'XX') {
+      href += `&countryBias=${bias}`;
+    }
     request(href, (error, response, body) => {
         if (error){
           callback({valid:false,msg:"Invalid parameters"},undefined);
@@ -165,30 +212,11 @@ var geonames = {
             data.num = 0;
             data.bias = bias;
             data.names = [];
-            if (body.geonames.length>0) {
-              let index=0,item,n,prevCoords={lat:-360,lng:-360};
-              for (var k in body.geonames) {
-                n = body.geonames[k];
-                if (typeof n == 'object') {
-                  if (index < geonames.maxMatches && n.score > geonames.minScore) {
-                    item = geonames.parseItem(n);
-                    if (geonames.isAirport(item) == false) {
-                      if (index === 0 || geonames.isNear(item,prevCoords) == false) {
-                        data.names.push(item);
-                        index++;
-                        prevCoords=item.coords;
-                      }
-                    }
-                    
-                  }
-                  
-                }
-              }
-              data.num = data.names.length;
+            if (body.geonames) {
+              geonames.parseNames(body, data,matchCoords,filterCoords);
             }
             callback(undefined,data);
           }
-
         }
      });
     },

@@ -10,8 +10,14 @@ const geonames = require('./geonames.js');
 
 var geocode = {
 
-	buildRequest: (data,type = 'geocode') => {
-		var href='',searchStr='';	
+	buildRequest: (data,typeStr = 'geocode') => {
+		let href='',searchStr='',
+      parts = typeStr.split('/'),
+      type = parts.shift(),
+      filter = '';
+    if (parts.length>0) {
+      filter = parts.pop();
+    }	
     switch (type) {
       case 'hospital':
       case 'hospitals':
@@ -22,7 +28,10 @@ var geocode = {
           searchStr = data.toString();
         }
         var keywordStr = '';
-        //keywordStr = `&keyword=maternity`;
+        
+        if (filter.length > 2) {
+          keywordStr = `&keyword=${filter}`;
+        }
         href = `${googlePlacesBaseUrl}?location=${searchStr}&type=hospital${keywordStr}&radius=5000`;
         break;
       default:
@@ -63,6 +72,7 @@ var geocode = {
         
       }
       data.num_items = data.items.length;
+      data.valid = data.num_items > 0;
       return data;
   },
 
@@ -103,21 +113,45 @@ var geocode = {
           type = 'full';
         }
         if (type == 'full') {
-          geocode.mergeHospitals(data,callback);
+          var hFilter = '';
+          geocode.mergeHospitals(data,hFilter,callback);
         } else {
           callback(undefined,data);
         }
     }
   },
 
-  mergeHospitals: (data,callback) => {
-    var coords = data.lat + ',' + data.lng;
-    request(geocode.buildRequest(coords,'hospital'), (error, response, body) => {
+  mergeHospitals: (data,hFilter,callback) => {
+    let coords = data.lat + ',' + data.lng,
+    modeStr = 'hospital';
+    if (typeof hFilter == 'string') {
+      modeStr += '/' + hFilter;
+    }
+    request(geocode.buildRequest(coords,modeStr), (error, response, body) => {
       if (error){
-        res.status(404).send({valid:false,message:error});
+        callback({valid:false,message:error},undefined);
       } else {
         if (body.results) {
           data.hospitals = geocode.filterHospitals(body.results);
+        }
+        callback(undefined,data);
+      }
+    });
+  },
+
+  mergeGeonames: (nameStr,data,callback) => {
+    data.geonames = {};
+    data.has_geonames = false;
+    let matchStr = data.lat+','+data.lng;
+    geonames.request(nameStr, matchStr, 'filtered', (error, gData) => {
+      if (error) {
+        callback(data,undefined);
+      } else {
+        if (gData.names) {
+          if (gData.num > 1) {
+            data.geonames = gData;
+            data.has_geonames = true;
+          }
         }
         callback(undefined,data);
       }
@@ -203,9 +237,52 @@ var geocode = {
             console.log(e);
         })
   			result.valid = true;
-  			res.send(result);
+        geocode.mergeData(searchString,result,(error,data) => {
+          if (error) {
+            res.send(result);
+          } else {
+            res.send(data);
+          }
+        })
   		}
   	});
+  },
+
+  mergeData: function(searchString,data,callback) {
+    data.geomatched_index = -1;
+    geocode.mergeGeonames(searchString,data,(error,gData) => {
+      if (error) {
+        res.send(data);
+      } else {
+        let hFilter = '';
+        if (gData.has_geonames) {
+          let matched = gData.geonames.names.filter(item => item.matched);
+          if (matched.length>0) {
+            data.geomatched_index = 0;
+            if (matched[0].population > 30000) {
+              switch (matched[0].countryCode) {
+                case 'GB':
+                case 'US':
+                case 'CA':
+                case 'AU':
+                case 'IE':
+                case 'NZ':
+                  hFilter = 'maternity';
+                  break;
+              }
+            }
+          }
+        }
+        
+        geocode.mergeHospitals(gData,hFilter,(error,hData) => {
+          if (error) {
+            callback(gData,undefined);
+          } else {
+            callback(undefined,hData);
+          }
+        });
+      }
+    });
   },
 
   matchLocation: (searchString, res) => {
@@ -226,8 +303,8 @@ var geocode = {
         data.components = doc.address_components;
         matched = true;
         data.valid = true;
-        geocode.mergeHospitals(data,(error,data) => {
-          res.send(data);
+        geocode.mergeData(searchString,data,(error,mData) => {
+          res.send(mData);
         });
         /*if (data.type == 'APPROXIMATE') {
           

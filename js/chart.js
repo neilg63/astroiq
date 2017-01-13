@@ -588,7 +588,8 @@ function initMap() {
         p.geoBirth = $('#form-geobirth');
         p.geoAddress = $('#geo-address');
         p.geoHospitals = $('#geo-hospitals');
-
+        p.timezoneFs = $('#timezone-settings');
+        p.timezoneFsDisplay = p.timezoneFs.find('h3 em');
         p.geoHospitals.on('click',function(e){
           var tg = $(e.target);
           if (tg.prop('tagName').toLowerCase() == 'li') {
@@ -745,7 +746,7 @@ function initMap() {
         var injectGeoNames = function(data) {
           if (data.names) {
             if (data.num > 0) {
-              var ol = $('<ol class="geonames"></ol>'),h,li,i=0,latLngStr,nameStr,cn;
+              var ol = $('<ol class="geonames"></ol>'),h,li,i=0,titleStr,nameStr,cn;
               for (; i < data.num;i++) {
                 h = data.names[i];
                 if (h.name) {
@@ -767,8 +768,18 @@ function initMap() {
                     }
                     nameStr += ', '+ cn
                   }
-                  latLngStr = toLatitudeString(h.coords.lat) +', '+toLongitudeString(h.coords.lng);
-                  li = $('<li title="'+latLngStr+'" data-coords="'+h.coords.lat+','+h.coords.lng+'">'+ nameStr +'</li>');
+                  titleStr = toLatLngStr(h.coords);
+                  if (h.population) {
+                    titleStr += ', pop: ' + h.population;
+                  }
+                  li = $('<li>'+ nameStr +'</li>');
+                  li.attr({
+                    title: titleStr,
+                    'data-coords': h.coords.lat+','+h.coords.lng
+                  })
+                  if (h.matched) {
+                    li.addClass('selected');
+                  }
                   ol.append(li);
                 }
               }
@@ -883,7 +894,29 @@ function initMap() {
                             } else if (data.message) {
                                 msg = data.message;
                             }
-
+                            if (data.has_geonames) {
+                                injectGeoNames(data.geonames);
+                                if (data.geomatched_index === 0) {
+                                   var matchedGeo = data.geonames.names[data.geomatched_index]; 
+                                   if (matchedGeo.timezone) {
+                                        var tz = matchedGeo.timezone;
+                                        if (isNumeric(tz.gmtOffset)) {
+                                            var strOffset = toHourOffsetString(tz.gmtOffset),strOffset2='';
+                                            
+                                            $('#form-tz').val(strOffset);
+                                            if (tz.dstOffset != tz.gmtOffset) {
+                                                strOffset2 = toHourOffsetString((tz.dstOffset-tz.gmtOffset),1);
+                                                $('#form-ds').val(strOffset2);
+                                            }
+                                            if (strOffset2.length>0) {
+                                                strOffset += ' (' + strOffset2 + ')';
+                                            }
+                                            console.log(tz)
+                                            pDom.timezoneFsDisplay.html(' UTC ' + strOffset + ' hrs');
+                                        }
+                                   }
+                                }
+                            };
                             if (msg.length > 1) {
                                 p.geoAddress.html(msg).removeClass('hidden');
                                 if (data.message && !data.valid) {
@@ -895,15 +928,16 @@ function initMap() {
 
                         }
                     });
-                    setTimeout(function() {
-                      let href = '/geomatch/'+adStr+'/' + User.geo.countryCode;
+                    /*setTimeout(function() {
+                      var cc = matchCountry(adStr),
+                      href = '/geomatch/'+adStr+'/' + cc;
                       $.ajax({
                         url: href,
                         success: function(data) {
                           injectGeoNames(data);
                         }
                       });
-                    }, 1000);
+                    }, 1000);*/
                 }
             });
         }

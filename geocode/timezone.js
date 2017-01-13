@@ -8,6 +8,7 @@ var timezone = {
 		var valid = false,
 			href = timezone_db_url + `?key=${timezone_db_apikey}&format=json&by=${method}`;
 		if (method == 'zone') {
+			data = data.replace(':','/');
 			href += `&zone=${data}`;
 			valid = true;
 		} else {
