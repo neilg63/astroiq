@@ -122,16 +122,16 @@ form#control-form(action="/sweph" method="post")
       fieldset.collapsible.open
         h5.toggle Astronomical Solar Year
           p.sub-sub-section
-              p
-                input#form-solar-t.solar(type="radio" value="365.242199" name="solar-t" checked="true" )
-                label(for="form-solar-t") Tropical Year
-              p
-                input#form-solar-s.solar(type="radio" value="365.256366" name="solar-t")
-                label(for="form-solar-s") Sidereal Year
-              p
-                input#form-solar-a.solar(type="radio" value="365.259636" name="solar-t")
-                label(for="form-solar-a") Anomalistic year
-              div.notes!= solarYearOptionNotes
+            p
+              input#form-solar-t.solar(type="radio" value="365.242199" name="solar-t" checked="true" )
+              label(for="form-solar-t") Tropical Year
+            p
+              input#form-solar-s.solar(type="radio" value="365.256366" name="solar-t")
+              label(for="form-solar-s") Sidereal Year
+            p
+              input#form-solar-a.solar(type="radio" value="365.259636" name="solar-t")
+              label(for="form-solar-a") Anomalistic year
+            div.notes!= solarYearOptionNotes
 
     //- include settings/calc-year-dasha.pug
     fieldset.collapsible.closed
