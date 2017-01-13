@@ -19,7 +19,8 @@ var child;
 
 app.enable('trust proxy');
 
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/sweph', function(req, res){ 
   var cmd = astro.composeSwetestQuery(req.query);
@@ -136,7 +137,7 @@ app.get('/tz-match/:first/:second/:date', (req,res) => {
 });
 
 app.get('/geomatch/:search/:bias', (req,res) => {
-  geonames.request(req.params.search,req.params.bias,(error,data) => {
+  geonames.request(req.params.search,req.params.bias,'filtered',(error,data) => {
       if (error) {
         res.status(404).send(data);
       } else {

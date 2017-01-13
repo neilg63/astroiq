@@ -383,15 +383,24 @@ span.symbol-radio label {
     display: none;
 }
 
+ol.geonames li,
 ol.hospitals li {
     cursor: pointer;
 }
 
 ol.hospitals li.selected {
-    color: #00ff00;
+  color: #00ff00;
+}
+
+ol.geonames li.selected {
+   font-style: italic;
 }
 ol.hospitals li:hover {
     color: #0000ff;
+}
+
+ol.geonames li:hover {
+  color: #990066;
 }
 
 .query-list li:hover span.delete {
