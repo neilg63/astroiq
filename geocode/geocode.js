@@ -259,7 +259,10 @@ var geocode = {
       } else {
         let hFilter = '';
         if (gData.has_geonames) {
-          let matched = gData.geonames.names.filter(item => item.matched);
+          var matched = [];
+          if (gData.geonames.names instanceof Array) {
+            matched = gData.geonames.names.filter(item => item.matched);
+          }
           if (matched.length>0) {
             data.geomatched_index = 0;
             if (matched[0].population > 30000) {

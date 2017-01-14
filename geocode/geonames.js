@@ -209,12 +209,11 @@ var geonames = {
     filterCoords={},matchCoords=false;
     if (conversions.isCoords(bias)) {
       var filterCoords = conversions.strToLatLng(bias);
-      
+
       matchCoords = filterCoords.lat !== null;
     } else if (bias != 'XX') {
       href += `&countryBias=${bias}`;
     }
-
     request(href, (error, response, body) => {
         if (error){
           callback({valid:false,msg:"Invalid parameters"},undefined);
