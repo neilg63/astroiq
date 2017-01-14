@@ -32,7 +32,7 @@ var timezone = {
 			}
 		}
 		if (valid) {
-			if (typeof date == 'string') {
+			if (typeof date == 'string' && date !== 'NOW') {
 				var date = new Date(date);
 			}
 			if (date instanceof Date) {

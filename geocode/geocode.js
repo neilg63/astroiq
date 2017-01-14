@@ -7,6 +7,8 @@ const googleApiBaseUrl = 'https://maps.googleapis.com/maps/api/';
 const googleGeocodeBaseUrl = googleApiBaseUrl + 'geocode/json';
 const googlePlacesBaseUrl = googleApiBaseUrl + 'place/nearbysearch/json';
 const geonames = require('./geonames.js');
+const textutils = require('./../lib/text-utils.js');
+const conversions = require('./../lib/conversions.js');
 
 var geocode = {
 
@@ -148,9 +150,10 @@ var geocode = {
         callback(data,undefined);
       } else {
         if (gData.names) {
+          data.has_geonames = gData.num > 0;
           if (gData.num > 1) {
             data.geonames = gData;
-            data.has_geonames = true;
+            
           }
         }
         callback(undefined,data);

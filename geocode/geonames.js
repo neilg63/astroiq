@@ -1,5 +1,8 @@
 const request = require('request');
 const {mongoose} = require('./../server/db/mongoose');
+const textutils = require('./../lib/text-utils.js');
+const conversions = require('./../lib/conversions.js');
+const timezone = require('./timezone.js');
 //const {Geoname} = require('./../server/models/geoname');
 const geoNamesUrl = 'http://api.geonames.org';
 const geoNamesUserName = 'serpentinegallery';
@@ -79,9 +82,8 @@ var geonames = {
     return false;
   },
 
-  isNear: (item,coords) => {
+  isNear: (item,coords,dist = 0.1) => {
     if (item.coords.lat) {
-      let dist = 0.1;
 
       if (item.coords.lat < (coords.lat + dist) 
           && item.coords.lat > (coords.lat - dist)
@@ -162,10 +164,11 @@ var geonames = {
             item = geonames.parseItem(n);
             skip = geonames.isAirport(item);
             if (!skip && index > 0) {
-              skip = geonames.isNear(item,prevCoords);
+              skip = geonames.isNear(item,prevCoords,0.3);
             }
+            
             if (matchCoords) {
-              item.matched = geonames.isNear(item,filterCoords);
+              item.matched = geonames.isNear(item,filterCoords,0.2);
             }
             if (!skip) {
               data.names.push(item);
@@ -181,6 +184,22 @@ var geonames = {
     }
   },
 
+  timezoneSimplify: (data) => {
+    let tz = {};
+    if (typeof data == 'object') {
+      for (k in data) {
+        switch (k) {
+          case 'gmtOffset':
+            tz[k] = parseInt(data[k]) / 3600;
+            break;
+          case 'dst':
+            tz.dstOffset = (parseInt(data.gmtOffset) + parseInt(data[k])) / 3600;
+            break;
+        }
+      }
+    }
+    return tz;
+  },
 
   // search?formatted=true&q=Newcastle&username=serpentinegallery&style=full&type=json
 	request: (searchStr = '',bias = 'XX',mode='filtered',callback) => {
@@ -188,19 +207,14 @@ var geonames = {
     var valid = false,
     href = geoNamesUrl + `/search?style=full&type=json&formatted=true&q=${searchStr}&username=${geoNamesUserName}&maxRows=${maxRows}`,
     filterCoords={},matchCoords=false;
-    if (/-?\d(\.d)?,-?\d(\.d)?/.test(bias)) {
-      var parts = bias.split(',');
-      if (parts.length > 1) {
-        matchCoords = true;
-        filterCoords = {
-          lat: parseFloat(parts[0]),
-          lng: parseFloat(parts[1])
-        };
-      }
+    if (conversions.isCoords(bias)) {
+      var filterCoords = conversions.strToLatLng(bias);
       
+      matchCoords = filterCoords.lat !== null;
     } else if (bias != 'XX') {
       href += `&countryBias=${bias}`;
     }
+
     request(href, (error, response, body) => {
         if (error){
           callback({valid:false,msg:"Invalid parameters"},undefined);
@@ -223,13 +237,7 @@ var geonames = {
 
     mapCoords: (coords,callback) => {
       if (typeof coords == 'string') {
-        let parts = coords.split(',');
-        if (parts.length>1) {
-          coords = {
-            lat: parseFloat(parts[0]),
-            lng: parseFloat(parts[1])
-          };
-        } 
+        coords = conversions.strToLatLng(coords);
       }
       if (typeof coords != 'object') {
         callback({valid: false,msg:"invalid parameters"},undefined);
@@ -258,7 +266,16 @@ var geonames = {
                 }
               }
             }
-            callback(undefined,data);
+            timezone.request(data.coords,'NOW','position',(error,tData) => {
+              if (error) {
+                callback(undefined,data);
+              } else {
+                data.timezone = geonames.timezoneSimplify(tData);
+                data.tzdb = tData;
+                callback(undefined,data);
+              }
+            });
+            
           }
 
         }

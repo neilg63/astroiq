@@ -362,8 +362,8 @@ function _toLatLngString(dec,degType,format) {
     } else if (dec <= min) {
       dec += (max*2);
     }
-    var degree = convertDDToDMS(dec,isLng),
-    strDeg = '&deg;', strApos = '&apos;',strQuot='&quot;';
+
+    var strDeg = '&deg;', strApos = '&apos;',strQuot='&quot;';
     switch (format) {
       case 'plain':
         strDeg='º';
@@ -371,7 +371,9 @@ function _toLatLngString(dec,degType,format) {
         strQuot='”';
         break;
     }
-    return degree.deg + strDeg,' ' + degree.min + strApos+' ' + degree.sec + strQuot +' ' + degree.dir;
+    var degree = convertDDToDMS(dec,isLng);
+
+    return degree.deg + strDeg + ' ' + degree.min + strApos+' ' + degree.sec + strQuot +' ' + degree.dir;
   } 
 }
 

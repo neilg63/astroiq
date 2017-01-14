@@ -901,6 +901,7 @@ function initMap() {
                                 if (data.geomatched_index === 0) {
                                    var matchedGeo = data.geonames.names[data.geomatched_index]; 
                                    updateTzFields(matchedGeo);
+
                                 }
                             };
                             if (msg.length > 1) {
