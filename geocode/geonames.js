@@ -167,7 +167,7 @@ var geonames = {
               skip = geonames.isNear(item,prevCoords,0.3);
             }
             if (!skip) {
-              skip = item.population > 0; 
+              skip = item.population < 1; 
             }
             if (matchCoords) {
               item.matched = geonames.isNear(item,filterCoords,0.2);
