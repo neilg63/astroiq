@@ -45,13 +45,6 @@ form#control-form(action="/sweph" method="post")
       //- change 'birth' according to type
       label(for="form-tob") Time of birth:
       input(type="time" id="form-tob" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
-    p.pob
-      //- change 'birth' according to type
-      label(for="form-geobirth") Place of birth:
-      input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
-      input#geobirth-finder(type="submit" value="Find")
-      div#geo-address.hidden
-      div#geo-hospitals.hidden
     fieldset#timezone-settings.collapsible.closed
       h3.toggle Time Zone #[em ---]
       p.tz
@@ -64,6 +57,13 @@ form#control-form(action="/sweph" method="post")
         select.ds(id="form-ds" name="ds")
           each opt,index in timezone.ds_options
             option(value = opt.value selected=opt.selected)= opt.label
+    p.pob
+      //- change 'birth' according to type
+      label(for="form-geobirth") Place of birth:
+      input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
+      input#geobirth-finder(type="submit" value="Find")
+      div#geo-address.hidden
+      div#geo-hospitals.hidden
     p.lat
       label(for="form-lat" title="latitude") Latitude:
       input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
@@ -166,6 +166,7 @@ form#control-form(action="/sweph" method="post")
         input#form-lunar-syn.lunar(type="radio" value="29.5305888531" name="lunar-syn" checked="true")
         label(for="form-solar-syn") Synodic month
       div.notes!= lunarMonthsNoteOptions
+      div.vue {{VuePlaceholder}}
         //-sub-sub-section
 
     //- sub-section
