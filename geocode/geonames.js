@@ -11,9 +11,9 @@ var geonames = {
 
   maxMatches: 10,
 
-  maxRows: 30, // max retrieved from geonames before filtering
+  maxRows: 40, // max retrieved from geonames before filtering
 
-  minScore: 20,
+  minScore: 15,
 
   matchAltName: (ln,cc) => {
     let ccLangs = ['en'];
@@ -166,7 +166,9 @@ var geonames = {
             if (!skip && index > 0) {
               skip = geonames.isNear(item,prevCoords,0.3);
             }
-            
+            if (!skip) {
+              skip = item.population > 0; 
+            }
             if (matchCoords) {
               item.matched = geonames.isNear(item,filterCoords,0.2);
             }
