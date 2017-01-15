@@ -9,6 +9,7 @@ const app = express();
 const geocode = require('./geocode/geocode.js');
 const geonames = require('./geocode/geonames.js');
 const geoplugin = require('./geocode/geoplugin.js');
+const arcgis = require('./geocode/arcgis.js');
 const timezone = require('./geocode/timezone.js');
 const textutils = require('./lib/text-utils.js');
 const astro = require('./lib/astroapp.js');
@@ -269,6 +270,16 @@ app.get('/command', function(req, res) {
 app.get('/geocode/:address', (req,res) => {
   var searchString = req.params.address.despace();
   geocode.matchLocation(searchString,res);
+});
+
+app.get('arcgis/:address', (req,res) => {
+  arcgis.match(req.params.address,(error, data) => {
+    if (error) {
+      res.send(error);
+    } else {
+      res.send(data);
+    }
+  });
 });
 
 app.get('/nearby/:coords', (req,res) => {
