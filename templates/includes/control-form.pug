@@ -19,32 +19,14 @@ form#control-form(action="/sweph" method="post")
       label.sub.gender(for="form-gender-male") Male
       input#form-gender-male.gender.other(type="radio" name="gender" value="other")
       label.sub.gender(for="form-gender-male") Other
-    //- p.genders
-      label(for="form-gender") Gender:
-      input#form-gender-female.gender.female(type="radio" name="gender")
-      label.sub(for="form-gender-female") Female
-      input#form-gender-male.gender.male(type="radio" name="gender")
-      label.sub(for="form-gender-male") Male
-        input#form-gender-unknown.gender.unknown(type="radio" name="gender")
-        label.sub(for="form-gender-unknown") Unknown
-
-      div#name
-        label(for="form-name") Name:
-        input(type="text" id="form-name" name="name" size="10" value="Andri" )
-      div#gender.input-group
-        input#form-gender-female.gender.female(type="radio" name="gender")
-        label.sub.gender(for="form-gender-female") Female
-        input#form-gender-male.gender.male(type="radio" name="gender")
-        label.sub.gender(for="form-gender-male") Male
-
     p.dob
       //- change 'birth' according to type
       label(for="form-dob") Date of birth:
-      input(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
+      input.datebox(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
     p.tob
       //- change 'birth' according to type
       label(for="form-tob") Time of birth:
-      input(type="time" id="form-tob" name="tob" size="5" value="11:25" data-role="datebox" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
+      input.datebox(type="time" id="form-tob" name="tob" size="5" value="11:25" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
     fieldset#timezone-settings.collapsible.closed
       h3.toggle Time Zone #[em ---]
       p.tz
@@ -63,7 +45,14 @@ form#control-form(action="/sweph" method="post")
       input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
       input#geobirth-finder(type="submit" value="Find")
       div#geo-address.hidden
+      div#geo-alt-places.hidden
+        fieldset#alt-places-container.listing.collapsible.closed
+          h3.toggle Alternative places #[em ---]
+          ol.hospitals
       div#geo-hospitals.hidden
+        fieldset#hospital-container.listing.collapsible.closed
+          h3.toggle Maternity centres #[em ---]
+          ol.hospitals
     p.lat
       label(for="form-lat" title="latitude") Latitude:
       input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )

@@ -12,6 +12,7 @@ const geoplugin = require('./geocode/geoplugin.js');
 const arcgis = require('./geocode/arcgis.js');
 const timezone = require('./geocode/timezone.js');
 const textutils = require('./lib/text-utils.js');
+const conversions = require('./lib/conversions.js');
 const astro = require('./lib/astroapp.js');
 const exec = require('child_process').exec;
 const spawn = require('child_process').spawn;
@@ -24,19 +25,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/sweph', function(req, res){ 
-  var cmd = astro.composeSwetestQuery(req.query);
   var debug = false;
   if (req.query.debug) {
     if (req.query.debug == 1) {
       debug = true;
     }
   }
-  if (cmd.length > 4) {
-	  cmd = cmd.cleanCommand();
-	  if (cmd.length > 4) {
-      astro.fetch(cmd,res,req.query, debug);
-		}
-	}
+  
+  let coords = conversions.swephTopoStrToLatLng(req.query.topo),
+        datetime = conversions.euroDatePartsToISOString(req.query.b,req.query.ut);
+   
+  timezone.request(coords,datetime,'position',(error,tData) => {
+    if (!error) {
+      var dt = conversions.dateOffsetsToEuroDateTimeParts(datetime,tData.gmtOffset);
+      req.query.b = dt.b;
+      req.query.ut = dt.ut;
+      console.log(req.query,dt,tData)
+      astro.get(req.query,res);
+    }
+    
+  });
+
 });
 
 app.get('/results/:page', function(req, res){ 

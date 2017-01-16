@@ -383,8 +383,7 @@ span.symbol-radio label {
     display: none;
 }
 
-ol.geonames li,
-ol.hospitals li {
+.listing ol li {
     cursor: pointer;
 }
 
@@ -721,7 +720,8 @@ line.solid {
 }
 
 #control-panel #form-geobirth {
-    max-width: 10vw;
+    max-width: 50vw;
+    min-width: 10em;
 }
 
 #control-panel #form-submit {
@@ -823,6 +823,15 @@ ul.hor-tabs li {
     ul.hor-tabs li {
         padding: 0 1em;
         font-size: 1.5em;
+    }
+    #control-panel #form-geobirth {
+        max-width: 20vw;
+    }
+}
+
+@media screen and (min-width:1440px) {
+    #control-panel #form-geobirth {
+        max-width: 15vw;
     }
 }
 

@@ -1,18 +1,20 @@
 // Flipbox
-jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, {
+var initDateBox = function() {
+    jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, {
   'en': {
-    timeFormat: 24,
-    dateFieldOrder: ["d", "m", "y"],
-    timeFieldOrder: ["h", "i", "a"],
-    slideFieldOrder: ["y", "m", "d"],
-    dateFormat: "%Y-%m-%d",
-    headerFormat: "%A, %-d %B %Y",
-  }
-});
-jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
-  useLang: 'en'
-});
-
+        timeFormat: 24,
+        dateFieldOrder: ["d", "m", "y"],
+        timeFieldOrder: ["h", "i", "a"],
+        slideFieldOrder: ["y", "m", "d"],
+        dateFormat: "%Y-%m-%d",
+        headerFormat: "%A, %-d %B %Y",
+      }
+    });
+    jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+      useLang: 'en'
+    });
+    jQuery('input.datebox').datebox();
+}
 var pDom = {};
 
 var User = {
@@ -583,16 +585,18 @@ function initMap() {
         p.height = p.window.height();
         p.mobileMax = 959;
         p.medDesktopMin = 1280;
+        p.cForm = $('form#control-form');
         p.queries = $('#queries');
         p.infobox = $('#infobox');
         p.geoBirth = $('#form-geobirth');
         p.geoAddress = $('#geo-address');
+        p.geoAltPlaces = $('#geo-alt-places');
         p.geoHospitals = $('#geo-hospitals');
         p.timezoneFs = $('#timezone-settings');
         p.timezoneFsDisplay = p.timezoneFs.find('h3 em');
         p.tzField = $('#form-tz');
         p.dsField = $('#form-ds');
-        p.geoHospitals.on('click',function(e){
+        p.cForm.find('fieldset.listing').on('click',function(e){
           var tg = $(e.target);
           if (tg.prop('tagName').toLowerCase() == 'li') {
             var coords = tg.attr('data-coords');
@@ -616,7 +620,7 @@ function initMap() {
           p.height = p.window.height();
         });
 
-        p.cForm = $('form#control-form');
+       
 
         var buildBodyDataView = function(body,key) {
             var ul = $('<ul class="details-'+key+'"></ul>'),hasData=false,content, li, tp;
@@ -709,11 +713,12 @@ function initMap() {
           p.geoBirth.val("");
           
           p.geoAddress.html(data.address).removeClass('hidden');
-          p.geoHospitals.html("").addClass('hidden');
+          p.geoHospitals.find('ol').html("");
+          p.geoHospitals.addClass('hidden');
           var lat=data.lat,lng=data.lng;
           if (data.hospitals) {
             if (data.hospitals.num_items > 0) {
-              var ol = $('<ol class="hospitals"></ol>'),h,li,i=0;
+              var ol =  p.geoHospitals.find('ol'),h,li,i=0;
               for (; i < data.hospitals.num_items;i++) {
                 h = data.hospitals.items[i];
                 if (h.name) {
@@ -726,7 +731,8 @@ function initMap() {
                   }*/
                 }
               }
-              p.geoHospitals.append(ol).removeClass('hidden');
+              p.geoHospitals.removeClass('hidden');
+              p.geoHospitals.find('h3.toggle em').text('('+data.hospitals.num_items+')');
             }
           }
           if (GeoMap) {
@@ -747,8 +753,11 @@ function initMap() {
 
         var injectGeoNames = function(data) {
           if (data.names) {
+            var ol = p.geoAltPlaces.find('ol');
+            p.geoAltPlaces.addClass('hidden');
+            ol.html('');
             if (data.num > 0) {
-              var ol = $('<ol class="geonames"></ol>'),h,li,i=0,titleStr,nameStr,cn;
+              var h,li,i=0,titleStr,nameStr,cn;
               for (; i < data.num;i++) {
                 h = data.names[i];
                 if (h.name) {
@@ -785,7 +794,10 @@ function initMap() {
                   ol.append(li);
                 }
               }
-              p.geoHospitals.prepend(ol).removeClass('hidden');
+              if (data.num > 1) {
+                p.geoAltPlaces.removeClass('hidden');
+              }
+              p.geoAltPlaces.find('h3.toggle em').text('('+data.num+')');
             }
           }
         }
@@ -1375,6 +1387,11 @@ function initMap() {
             updateTzFields(User.geo);
           }, 5000);
         }
+
+        if (screen.width > p.mobileMax) {
+            initDateBox();
+        }
+        
         //kuteMorph();
     });
 })(jQuery);
