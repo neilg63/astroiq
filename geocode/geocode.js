@@ -242,7 +242,7 @@ var geocode = {
     } else {
       arcgis.match(searchString,(error, data) => {
         if (error){
-          res.status(404).send(error);
+          callback(error,undefined);
         } else {
           geocode.fetchLocation(conversions.coordsToStr(data.items[0].coords),(error,gData) => {
             if (error) {
@@ -368,7 +368,7 @@ var geocode = {
   },
 
   matchLocation: (searchString, res) => {
-    geocode.fetchLocation(querystring.escape(searchString),(error,data) => {
+    geocode.fetchLocation(searchString,(error,data) => {
       if (error) {
         res.status(404).send(error);
       } else {
