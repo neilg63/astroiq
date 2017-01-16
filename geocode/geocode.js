@@ -7,8 +7,10 @@ const googleApiBaseUrl = 'https://maps.googleapis.com/maps/api/';
 const googleGeocodeBaseUrl = googleApiBaseUrl + 'geocode/json';
 const googlePlacesBaseUrl = googleApiBaseUrl + 'place/nearbysearch/json';
 const geonames = require('./geonames.js');
+const arcgis = require('./arcgis.js');
 const textutils = require('./../lib/text-utils.js');
 const conversions = require('./../lib/conversions.js');
+const querystring = require('querystring');
 
 var geocode = {
 
@@ -97,29 +99,30 @@ var geocode = {
         body.results.shift()
         other = body.results;
       }
-      if (result.address_components) {
+      /*if (result.address_components) {
         for (var i in result.address_components) {
-          console.log(result.address_components[i]);
+          //
         }
-      }
+      }*/
       var geo = result.geometry,
-        data = {
-          address: result.formatted_address,
-          lat: geo.location.lat,
-          lng: geo.location.lng,
-          components: result.address_components[0],
-          type: geo.location_type,
-          other: other
-        };
-        if (data.type == 'APPROXIMATE') {
-          type = 'full';
-        }
-        if (type == 'full') {
-          var hFilter = '';
-          geocode.mergeHospitals(data,hFilter,callback);
-        } else {
-          callback(undefined,data);
-        }
+      data = {
+        address: result.formatted_address,
+        lat: geo.location.lat,
+        lng: geo.location.lng,
+        components: result.address_components[0],
+        type: geo.location_type,
+        other: other
+      };
+
+      if (data.type == 'APPROXIMATE') {
+        type = 'full';
+      }
+      if (type == 'full') {
+        var hFilter = '';
+        geocode.mergeHospitals(data,hFilter,callback);
+      } else {
+        callback(undefined,data);
+      }
     }
   },
 
@@ -219,14 +222,57 @@ var geocode = {
     });
   },
 
-	fetchData: (searchString,res) => {
+  isPlacenameSearch: (str) => {
+    let words = str.split(/[, ]/),
+      numWords = words.length,
+      strLen = str.length,i=0;
+    if (numWords > 1 && strLen > 12) {
+      for (;i<numWords;i++) {
+        if (textutils.isHospitalWord(words[i])) {
+          return true;
+        }
+      }
+    }
+    return false;
+  },
+
+  fetchData: (searchString,callback) => {
+    if (geocode.isPlacenameSearch(searchString) === false) {
+      geocode.fetchDataStandard(searchString,callback);
+    } else {
+      arcgis.match(searchString,(error, data) => {
+        if (error){
+          res.status(404).send(error);
+        } else {
+          geocode.fetchLocation(conversions.coordsToStr(data.items[0].coords),(error,gData) => {
+            if (error) {
+              res.send(data);
+            } else {
+              gData.address = data.items[0].name + ', ' + gData.address;
+              gData.valid = true;
+              geocode.mergeData(gData.name,gData,(error,mData) => {
+                if (error) {
+                  callback(undefined,gData);
+                } else {
+                  callback(undefined,mData);
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+    
+  },
+
+	fetchDataStandard: (searchString,callback) => {
 		geocode.geocodeAddress(searchString,'geocode', (errorMessage, result) => {
-		if (errorMessage){
-			res.status(404).send({valid:false,message:errorMessage});
-		} else {
-      var geo = new Geo({
-        string: searchString.toLowerCase(),
-        address: result.address,
+      if (errorMessage){
+			 return callback({valid:false,msg:errorMessage},undefined);
+		  } else {
+        var geo = new Geo({
+          string: searchString.toLowerCase(),
+          address: result.address,
           location: {
             lat: result.lat,
             lng: result.lng
@@ -242,11 +288,11 @@ var geocode = {
   			result.valid = true;
         geocode.mergeData(searchString,result,(error,data) => {
           if (error) {
-            res.send(result);
+            callback(undefined,result);
           } else {
-            res.send(data);
+            callback(undefined,data);
           }
-        })
+        });
   		}
   	});
   },
@@ -291,7 +337,7 @@ var geocode = {
     });
   },
 
-  matchLocation: (searchString, res) => {
+  fetchLocation: (searchString,callback) => {
     Geo.findOne({
       string: searchString.toLowerCase()
     }).then((doc) => {
@@ -310,20 +356,25 @@ var geocode = {
         matched = true;
         data.valid = true;
         geocode.mergeData(searchString,data,(error,mData) => {
-          res.send(mData);
+          callback(undefined,mData);
         });
-        /*if (data.type == 'APPROXIMATE') {
-          
-        } else {
-          res.send(data);
-        }*/
       }
       if (!matched) {
-        geocode.fetchData(searchString, res);
+        geocode.fetchData(searchString, callback);
       }
     }).catch((e) => {
-      res.send(e);
+      callback({valid:false,msg:"application error"});
     });
+  },
+
+  matchLocation: (searchString, res) => {
+    geocode.fetchLocation(querystring.escape(searchString),(error,data) => {
+      if (error) {
+        res.status(404).send(error);
+      } else {
+        res.send(data);
+      }
+    })
   }
 };
 

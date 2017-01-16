@@ -31,7 +31,55 @@ var arcgis = {
   },
 
   formatData: (data) => {
-    return data;
+    let d = {
+      num:0,
+      items: []
+    };
+    var i=0,num=0, row;
+    if (data.candidates) {
+      if (data.candidates instanceof Array) {
+        num = data.candidates.length;
+        for (; i< num;i++) {
+          item = arcgis.formatRow(data.candidates[i]);
+          if (item.coords) {
+            d.items.push(item);
+          }
+        }
+      }
+    }
+    
+    d.num = d.items.length;
+    d.valid = d.num > 0;
+    return d;
+  },
+
+  formatRow: (row) => {
+    var item = {}, k, v;
+    for (k in row) {
+      v = row[k];
+      switch (k) {
+        case 'address':
+          item.name = v;
+          break;
+        case 'score':
+          item.score = parseFloat(v);
+          break;
+        case 'attributes':
+          if (v.Addr_Type) {
+            item.type = v.Addr_Type;
+          }
+          break;
+        case 'location':
+          if (v.y) {
+            item.coords = {
+              lat: v.y,
+              lng: v.x
+            }
+          }
+          break;
+      }
+    }
+    return item;     
   },
 
   match: (strAddress,callback) => {
@@ -46,7 +94,11 @@ var arcgis = {
           data = body;
         }
         let gData = arcgis.formatData(data);
-        callback(undefined,gData);
+        if (gData.valid) {
+          callback(undefined,gData);
+        } else {
+          callback(gData,undefined);
+        }
       }
     });
   },

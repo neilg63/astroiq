@@ -132,8 +132,6 @@ var geonames = {
         case 'adminCode5':
         case 'adminName5':
         case 'adminName4':
-        case 'adminName3':
-        case 'adminName2':
         case 'fcodeName':
           break;
         case 'lat':
