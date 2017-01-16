@@ -154,10 +154,7 @@ var geocode = {
       } else {
         if (gData.names) {
           data.has_geonames = gData.num > 0;
-          if (gData.num > 1) {
-            data.geonames = gData;
-            
-          }
+          data.geonames = gData;
         }
         callback(undefined,data);
       }

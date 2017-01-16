@@ -120,7 +120,6 @@ var geonames = {
         case 'adminId3':
         case 'adminId4':
         case 'adminId5':
-        case 'fclName':
         case 'adminCode1':
         case 'adminCode2':
         case 'adminCode3':
@@ -154,6 +153,7 @@ var geonames = {
   parseNames: (body,data,matchCoords,filterCoords) => {
     if (body.geonames.length>0) {
       let index=0,item,n,prevCoords={lat:-360,lng:-360},skip=false;
+      let localityRgx = new RegExp('\\b(city|town|village)\\b','i');
       for (var k in body.geonames) {
         n = body.geonames[k];
         if (typeof n == 'object') {
@@ -163,6 +163,9 @@ var geonames = {
             skip = geonames.isAirport(item);
             if (!skip && index > 0) {
               skip = geonames.isNear(item,prevCoords,0.3);
+              if (!skip) {
+                skip = localityRgx.test(item.fclName) == false;
+              }
             }
             if (!skip) {
               skip = item.population < 1; 
