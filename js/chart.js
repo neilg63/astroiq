@@ -1,4 +1,22 @@
 // Flipbox
+var initJQueryDateBox = function() {
+    var scrTag = jQuery('<script type="text/javascript"></script>'),
+    jr = jQuery('#jq-resources');
+    if (jr.length>0) {
+        var jqui = jr.attr('data-jqui'),
+            jqdb = jr.attr('data-jqdb');
+        if (jqui !== undefined && jqdb !== undefined) {
+            var s1 = scrTag.clone(),head = jQuery('head').first();
+            s1.attr('src',jqui);
+            head.append(s1);
+            var s2 = scrTag.clone();
+            s2.attr('src',jqdb);
+            head.append(s2);
+            setTimeout(initDateBox,500);
+        }
+    }
+    
+}
 var initDateBox = function() {
     jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, {
   'en': {
@@ -1389,7 +1407,7 @@ function initMap() {
         }
 
         if (screen.width > p.mobileMax) {
-            initDateBox();
+            initJQueryDateBox();
         }
         
         //kuteMorph();
