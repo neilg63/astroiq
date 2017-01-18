@@ -172,6 +172,10 @@ var GeoMap = {
         }
     },
 
+    errorHandler: function(error) {
+        console.log(error);
+    },
+
     updateCoords: function(coords,lng) {
         if (typeof coords != 'object') {
             coords = {
