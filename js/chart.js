@@ -202,9 +202,9 @@ var GeoMap = {
     },
 
     geoLocAllowed: function() {
-        console.log(navigator.geolocation,GeoMap.matched)
         if (navigator.geolocation && GeoMap.matched === false) {
             if (window.location.protocol === 'https:' || /\bChrome\b/i.test(navigator.userAgent) == false) {
+               console.log(navigator.geolocation,GeoMap.matched)
                navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
                GeoMap.geoOn = true;
                GeoMap.matched = true;
