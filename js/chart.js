@@ -153,6 +153,7 @@ var GeoMap = {
     },
 
     matchLocation: function(position) {
+        console.log(position)
         if (position.coords) {
             User.geo.coords = {
               lat: position.coords.latitude,
@@ -204,7 +205,6 @@ var GeoMap = {
     geoLocAllowed: function() {
         if (navigator.geolocation && GeoMap.matched === false) {
             if (window.location.protocol === 'https:' || /\bChrome\b/i.test(navigator.userAgent) == false) {
-               console.log(navigator.geolocation,GeoMap.matched)
                navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
                GeoMap.geoOn = true;
                GeoMap.matched = true;
@@ -1390,7 +1390,8 @@ function initMap() {
             }
           }
         });
-        console.log('geo allowed:',p.geoLocAllowed );
+        p.geoLocAllowed = GeoMap.geoLocAllowed();
+        
         if (!p.geoLocAllowed) {
            $.ajax({
                 url: '/geoip',
