@@ -11,7 +11,7 @@
     </g>
     <g id="degree-overlay" stroke="none" fill="none" class="european-element"></g>
     <g id="planetarium" stroke="none" fill="none" class="overlay"></g>
-    <g id="indian-chart" stroke="none" fill="none" transform="translate(60,60)">
+    <g id="indian-chart" stroke="none" fill="none" transform="translate(60,60)" class="european-element">
       <path d="M0,0 L1440,0 L1440,1440 L0,1440 Z" stroke="none" class="shape" />
       <polygon
        id="zone-01"

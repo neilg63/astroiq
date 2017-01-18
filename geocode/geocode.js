@@ -36,7 +36,7 @@ var geocode = {
         if (filter.length > 2) {
           keywordStr = `&keyword=${filter}`;
         }
-        href = `${googlePlacesBaseUrl}?location=${searchStr}&type=hospital${keywordStr}&radius=5000`;
+        href = `${googlePlacesBaseUrl}?location=${searchStr}&type=hospital&query=maternity${keywordStr}&radius=5000`;
         break;
       default:
         searchStr = encodeURIComponent(data);
@@ -44,6 +44,7 @@ var geocode = {
         break;
     }
     href += `&key=${googleApiKey}`;
+    console.log(href)
 		return {
 		  url: href,
 		  json: true,

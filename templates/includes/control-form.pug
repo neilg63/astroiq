@@ -1,32 +1,26 @@
+//- end of selectrow
+include mixins.pug
+
 h2.toggle-aside New Chart
 form#control-form(action="/sweph" method="post")
   fieldset.collapsible.open
-    p.chart-type
-      label(for="form-type") Type of Chart:
-      select#form-chart-type.select-input(name="chart-type")
-        option(value="type-birth") Birth
-        option(value="type-event") Event
-        option(value="type-question") Question
-        option(value="type-electional") Electional
-    p.name-gender
-      //-Change according to type: Name, event, question, election
-      label(for="form-name") Name:
-      input.name(type="text" id="form-name" name="name" size="10" value="Andri" ) 
+    +selectrow('chart_type','Type of Chart',chartTypes)(class="select-input")
+    p.name-row.full-span
+      input.name(type="text" id="form-name" name="name" size="10" value="" placeholder="Candidate's Name") 
     p.gender-row
       input#form-gender-female.gender.female(type="radio" name="gender" value="female")
       label.sub.gender(for="form-gender-female") Female
       input#form-gender-male.gender.male(type="radio" name="gender" value="male")
       label.sub.gender(for="form-gender-male") Male
       input#form-gender-male.gender.other(type="radio" name="gender" value="other")
-      label.sub.gender(for="form-gender-male") Other
-    p.dob
-      //- change 'birth' according to type
-      label(for="form-dob") Date of birth:
-      input.datebox(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
-    p.tob
-      //- change 'birth' according to type
-      label(for="form-tob") Time of birth:
-      input.datebox(type="time" id="form-tob" name="tob" size="5" value="11:25" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
+      label.sub.gender(for="form-gender-other") Other
+      input.gender-other-type.hidden(type="text" maxlength="32" size="16" name="gender_other" id="form-gender-other-type" placeholder="Other gender definition")
+    div.datetime
+      label(for="form-dob") Date and time of birth:
+      div.dob-field.half-width.first
+        input.datebox(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
+      div.tob-field.half-width.second
+        input.datebox(type="time" id="form-tob" name="tob" size="5" value="11:25" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
     fieldset#timezone-settings.collapsible.closed
       h3.toggle Time Zone #[em ---]
       p.tz
@@ -39,10 +33,8 @@ form#control-form(action="/sweph" method="post")
         select.ds(id="form-ds" name="ds")
           each opt,index in timezone.ds_options
             option(value = opt.value selected=opt.selected)= opt.label
-    p.pob
-      //- change 'birth' according to type
-      label(for="form-geobirth") Place of birth:
-      input(type="text" id="form-geobirth" name="geobirth" size="48" value="" )
+    p.pob-row
+      input(type="text" id="form-geobirth" name="geobirth" size="48" value="" placeholder="Place of birth")
       input#geobirth-finder(type="submit" value="Find")
       div#geo-address.hidden
       div#geo-alt-places.hidden

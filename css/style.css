@@ -145,6 +145,54 @@ span.symbol-radio label {
     height: 0.8em;
 }
 
+#control-panel div > label,
+#control-panel p.full-span input {
+    width: 92%;
+}
+
+#control-panel div > label {
+    display: block;
+}
+
+#control-panel div > .half-width {
+    float: left;
+    max-width: 45%;
+}
+
+#control-panel div > .first {
+    clear:  both;
+}
+
+#control-panel div.datetime > .first {
+    max-width:  60%;
+    width:  60%;
+}
+
+#control-panel fieldset {
+    clear:  both;
+}
+
+#control-panel #timezone-settings {
+    padding:  1em 0 0 0;
+    min-height: 1em;
+}
+
+#control-panel #timezone-settings.open {
+    padding:  2em 0 0 0;
+    margin: 0 0 0.5em 0;
+    min-height: 2em;
+}
+
+#control-panel #timezone-settings h3.toggle {
+    left:  0;
+    padding-top: 0.5em;
+}
+
+#control-panel div.datetime > .second {
+    max-width:  36%;
+}
+
+
 #control-panel fieldset > .toggle {
     position: absolute;
     top: 0;
@@ -825,13 +873,13 @@ ul.hor-tabs li {
         font-size: 1.5em;
     }
     #control-panel #form-geobirth {
-        max-width: 20vw;
+        max-width: 80%;
     }
 }
 
 @media screen and (min-width:1440px) {
     #control-panel #form-geobirth {
-        max-width: 15vw;
+        max-width: 88%;
     }
 }
 

@@ -1,86 +1,14 @@
+const fs = require('fs');
+const filter = require('./filter-funcs.js');
 const timezones = require('./timezones.js');
-
-var timeStrToMinutes = (str) => {
-  var v = str.replace('+',''),
-  parts = v.split(':'),
-  h = parseInt(parts[0]),
-  m = h * 60;
-  if (parts.length>1) {
-    var mv = parseInt(parts[1]);
-    if (h <0) {
-      m += mv;
-    } else {
-      m -= mv;
-    }
-  }
-  return m;
-}
-
-var filterTimeZoneOffsets = () => {
-  var i = 0, len=timezones.length,data=[],offsets=[],index,row,m;
-  for (;i<len;i++) {
-    row = timezones[i];
-    if (/(Summer|Dayl)/i.test(row.title) == false) {
-      m = timeStrToMinutes(row.offset);
-      index = offsets.indexOf(m);
-      if (offsets.indexOf(m) < 0) {
-        data.push({
-          minutes: m,
-          value: row.offset,
-          abbrevs: [row.code]
-        });
-        offsets.push(m);
-      } else {
-        data[index].abbrevs.push(row.code);
-      }
-      
-    }
-  }
-  data = data.sort((a, b) => a.minutes - b.minutes);
-  return data;
-}
-
-
-var generateTimeZoneOffsets = () => {
-  var data = filterTimeZoneOffsets(),opts=[],row,selected;
-	for (var k in data) {
-    row = data[k];
-    opts.push({
-      value: row.value,
-      label: row.value,
-      selected: row.minutes == 0
-    });
-  }
-	return opts;
-}
-
-var generateSummerTimeOffsets = () => {
-  var s = -4, e = 4,def = 0,opts=[],str;
-  for (;s<e;s++) {
-    str = '';
-    dh = Math.abs(s/2);
-    if (s<0) {
-      str += '-';
-    } else if (s > 0) {
-       str += '+';
-    }
-    str += parseInt(dh);
-    opts.push({
-      value: str,
-      label: str + ' hrs',
-      selected: s === 0
-    });
-  }
-  return opts;
-};
 
 var vars = {};
 
 vars.title = "AstroIQ Demo";
 
 vars.timezone = {
-	offsets: generateTimeZoneOffsets(),
-  ds_options: generateSummerTimeOffsets()
+	offsets: filter.generateTimeZoneOffsets(),
+  ds_options: filter.generateSummerTimeOffsets()
 };
 
 vars.roddenOptions = [
@@ -148,13 +76,15 @@ vars.ayanamsas = [
   {value:"16", label: "Sassanian",selected:false}
 ];
 
-vars.solarYearOptionNotes = `<p><strong>Tropical year</strong> (365.242199) is a measure of the Sun's passage from one mean vernal equinox to the next.</p>
-<p>A <strong>Sidereal</strong> year (365.256366) is a measure of Earth's complete orbit around the Sun relative to fixed stars.</p>
-<p>An <strong>Anomalistic</strong> year (365.259636) is a measure of earth's passage from one perihelion to another.</p>`;
+vars.chartTypes = [
+  {value:"birth", label: "Birth",selected:true},
+  {value:"event", label: "Event",selected:false},
+  {value:"question", label: "Question",selected:false},
+  {value:"electional", label: "Electional",selected:false}
+];
 
+vars.solarYearOptionNotes = filter.getHtml('solarYearOptionNotes');
 
-vars.lunarMonthsNoteOptions = `<p> A <strong>Tropical</strong> month (27.321582) is a measure of the Moon's passage from one mean vernal equinox to the next.</p>
-<p> A <strong>Sidereal</strong> month (27.321662) is a measure of Moon's complete orbit around the Earth relative to fixed stars.</p>
-<p> An <strong>Anomalistic</strong> month (27.321582) is a measure of Moon's passage from one perihelion to another.</p>
-<p> A <strong>Synodic</strong> month (29.530588) is a measure of Moon's passage from one New Moon to another.</p>`;
+vars.lunarMonthsNoteOptions = filter.getHtml('lunarMonthsNoteOptions');
+
 module.exports = vars;

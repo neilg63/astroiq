@@ -47,6 +47,8 @@ var GeoMap = {
 
     geoOn: false,
 
+    matched: false,
+
     zoom: 9,
 
     setFocus: false,
@@ -200,10 +202,11 @@ var GeoMap = {
     },
 
     geoLocAllowed: function() {
-        if (navigator.geolocation) {
+        if (navigator.geolocation && GeoMap.matched === false) {
             if (window.location.protocol === 'https:' || /\bChrome\b/i.test(navigator.userAgent) == false) {
                navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
                GeoMap.geoOn = true;
+               GeoMap.matched = true;
                return true;
             }  
         }
@@ -524,6 +527,10 @@ function initMap() {
             buildIndian: function() {
                 this.indian = this.snap.select('#indian');
             },
+
+            /*buildSouthIndian: function() {
+                this.southIndian = this.snap.select('#south-indian');
+            },*/
 
             init: function() {
                 var r = this.radius, c = r + this.offset;
@@ -1394,6 +1401,9 @@ function initMap() {
                   }
                 }
             });
+           setTimeout(function(){
+               pDom.geoLocAllowed = GeoMap.geoLocAllowed();
+           }, 10000);
         } else {
           setTimeout(function() {
             if (!User.geo.coords) {
@@ -1401,8 +1411,8 @@ function initMap() {
                     lat: $('#form-lat').val(),
                     lng: $('#form-lng').val()
                 };
+                updateTzFields(User.geo);
             }
-            updateTzFields(User.geo);
           }, 5000);
         }
 
