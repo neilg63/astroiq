@@ -202,6 +202,7 @@ var GeoMap = {
     },
 
     geoLocAllowed: function() {
+        console.log(navigator.geolocation,GeoMap.matched)
         if (navigator.geolocation && GeoMap.matched === false) {
             if (window.location.protocol === 'https:' || /\bChrome\b/i.test(navigator.userAgent) == false) {
                navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
@@ -1389,7 +1390,6 @@ function initMap() {
             }
           }
         });
-        p.geoLocAllowed = GeoMap.geoLocAllowed();
         console.log('geo allowed:',p.geoLocAllowed );
         if (!p.geoLocAllowed) {
            $.ajax({
