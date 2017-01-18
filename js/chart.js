@@ -1390,6 +1390,7 @@ function initMap() {
           }
         });
         p.geoLocAllowed = GeoMap.geoLocAllowed();
+        console.log('geo allowed:',p.geoLocAllowed );
         if (!p.geoLocAllowed) {
            $.ajax({
                 url: '/geoip',

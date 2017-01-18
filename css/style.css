@@ -692,6 +692,10 @@ line.solid {
     width: 1em;
 }
 
+#control-panel .second .input-group-addon {
+    right: 3em;
+}
+
 #control-panel input.altitude {
     max-width: 3.6em;
 }
@@ -873,13 +877,19 @@ ul.hor-tabs li {
         font-size: 1.5em;
     }
     #control-panel #form-geobirth {
+        max-width: 75%;
+    }
+}
+
+@media screen and (min-width:1280px) {
+    #control-panel #form-geobirth {
         max-width: 80%;
     }
 }
 
 @media screen and (min-width:1440px) {
     #control-panel #form-geobirth {
-        max-width: 88%;
+        max-width: 85%;
     }
 }
 

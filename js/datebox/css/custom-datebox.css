@@ -18,7 +18,7 @@
  */
 
 .ui-datebox-container { 
-	width: 16em;
+	width: 12em;
 	font-size: 0.75rem;
 	-webkit-transform:translate3d(0,0,0);
 }
@@ -40,7 +40,11 @@ div.ui-datebox-inline.ui-datebox-inline-has-input {
 	top: 0;
 }
 div.ui-datebox-container.ui-datebox-inline {
-	width: 16em;
+	width: 12em;
+}
+
+.first div.ui-datebox-container.ui-datebox-inline {
+	width: 15em;
 }
 
 /* 
