@@ -153,18 +153,18 @@ var GeoMap = {
     },
 
     matchLocation: function(position) {
-        console.log(position)
         if (position.coords) {
             User.geo.coords = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
             var strCoords = User.geo.coords.lat + '/' + User.geo.coords.lng;
-            $.ajax({
+            jQuery.ajax({
                 url: '/geolocate/'+ strCoords,
                 success: function(data) {
                   if (data.coords) {
                     GeoMap.updateAddress(data);
+                    storeItem('geodata',data);
                   }   
                 }
             });
@@ -209,7 +209,13 @@ var GeoMap = {
     geoLocAllowed: function() {
         if (navigator.geolocation && GeoMap.matched === false) {
             if (window.location.protocol === 'https:' || /\bChrome\b/i.test(navigator.userAgent) == false) {
-               navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
+               var geoData = getItem('geodata',3600);
+               if (!geoData.valid) {
+                  navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
+               } else {
+                    GeoMap.updateAddress(geoData.data);
+                    GeoMap.updateCoords(geoData.data.coords);
+               }
                GeoMap.geoOn = true;
                GeoMap.matched = true;
                return true;
@@ -413,6 +419,28 @@ function initMap() {
             }
           }
           
+        }
+
+        var fetchGeoFromIp = function() {
+            var geoData = getItem('geodata',3600);
+            if (geoData.valid == false) {
+                $.ajax({
+                    url: '/geoip',
+                    success: function(data) {
+                      if (data.coords) {
+                        User.geo.coords = data.coords;
+                        storeItem('geodata',data);
+                        GeoMap.updateAddress(data);
+                        updateTzFields(data);
+                      }
+                    }
+                });
+            } else {
+                if (geoData.data) {
+                    GeoMap.updateAddress(geoData.data);
+                    updateTzFields(geoData.data);
+                }
+            }
         }
 
         var injectGeoNames = function(data) {
@@ -1031,19 +1059,10 @@ function initMap() {
         p.geoLocAllowed = GeoMap.geoLocAllowed();
         
         if (!p.geoLocAllowed) {
-           $.ajax({
-                url: '/geoip',
-                success: function(data) {
-                  if (data.coords) {
-                    User.geo.coords = data.coords;
-                    GeoMap.updateAddress(data);
-                    updateTzFields(data);
-                  }
-                }
-            });
-           setTimeout(function(){
+           fetchGeoFromIp();
+           /*setTimeout(function(){
                pDom.geoLocAllowed = GeoMap.geoLocAllowed();
-           }, 10000);
+           }, 10000);*/
         } else {
           setTimeout(function() {
             if (!User.geo.coords) {
@@ -1058,8 +1077,6 @@ function initMap() {
 
         if (screen.width > p.mobileMax) {
             initJQueryDateBox();
-        }
-        
-        //kuteMorph();
+        }       
     });
 })(jQuery);

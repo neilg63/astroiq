@@ -44,7 +44,7 @@ var geocode = {
         break;
     }
     href += `&key=${googleApiKey}`;
-    console.log(href)
+    
 		return {
 		  url: href,
 		  json: true,

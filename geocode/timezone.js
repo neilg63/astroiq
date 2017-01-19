@@ -43,10 +43,15 @@ var timezone = {
 		      if (error){
 		        callback({valid:false,msg:"Invalid parameters"},undefined);
 		      } else {
-		      	if (typeof body == 'string') {
-		      		let data = JSON.parse(body);
-		      		callback(undefined,data);
-		      	} else {
+		      	var valid = false;
+	      		if (typeof body == 'string') {
+	      			if (body.indexOf('{') === 0) {
+	      				let data = JSON.parse(body);
+	      				callback(undefined,data);
+	      				valid = true;
+	      			}
+		      	}
+		      	if (!valid) {
 		      		callback({valid:false,msg:"Invalid parameters"},undefined);
 		      	}
 	      	}

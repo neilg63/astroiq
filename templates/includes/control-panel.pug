@@ -1,0 +1,164 @@
+//- This version of the Control Form / Panel requires VueJS
+//- end of selectrow
+include mixins.pug
+
+h2.toggle-aside New Chart
+form#control-form(action="/sweph" method="post")
+  fieldset.collapsible.open
+    +selectrow('chart_type','Type of Chart',chartTypes,false)(class="select-input" v-model="chartType")
+    p.name-row.full-span
+      input.name(type="text" id="form-name" name="name" size="10" value="" placeholder="Candidate's Name")
+    p(:class="gender.rowClasses")
+      input#form-gender-unknown.gender.unknown(type="radio" name="gender" value="unknown" v-model="gender.type")
+      label.sub.gender(for="form-gender-unknown" title="Not specified") N/A
+      
+      input#form-gender-male.gender.male(type="radio" name="gender" value="male" v-model="gender.type")
+      label.sub.gender(for="form-gender-male") Male
+      
+      input#form-gender-female.gender.female(type="radio" name="gender" value="female" v-model="gender.type")
+      label.sub.gender(for="form-gender-female") Female
+      
+      input#form-gender-other.gender.other(type="radio" name="gender" value="other" v-model="gender.type")
+      label.sub.gender(for="form-gender-other") Other
+      input(:class="gender.otherTypeClasses" type="text" maxlength="32" size="16" name="gender_other" id="form-gender-other-type" placeholder="Other gender definition")
+    div.datetime
+      label(for="form-dob") {{dateLabel}}:
+      div.dob-field.half-width.first
+        input.datebox(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
+      div.tob-field.half-width.second
+        input.datebox(type="time" id="form-tob" name="tob" size="5" value="11:25" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
+    fieldset#timezone-settings.collapsible.closed
+      h3.toggle Time Zone #[em ---]
+      p.tz
+        label(for="form-timezone") UTC offset:
+        select.tzoffset(type="number" id="form-tz" name="timezone")
+          each opt,index in timezone.offsets
+            option(value = opt.value selected=opt.selected)= opt.label
+      p.ds
+        label(for="form-daylightsavings") Daylight saving:
+        select.ds(id="form-ds" name="ds")
+          each opt,index in timezone.ds_options
+            option(value = opt.value selected=opt.selected)= opt.label
+    p.pob-row
+      input(type="text" id="form-location" name="location" size="48" value="" placeholder="Place of birth" v-model="location.search")
+      input#location-finder(type="submit" value="Find" v-on:click.stop.prevent="searchLocation")
+      div#location-address(:class="location.addressClasses")
+      div#geo-alt-places(:class="geonames.divClass")
+        fieldset#alt-places-container.listing.collapsible.closed
+          h3.toggle Alternative places #[em ({{geonames.num}})]
+          ol.alt-places
+            template(v-for="item in geonames.items")
+              li(v-on:click="updateMap(item.coords)") {{item.name}}
+      div#geo-hospitals(:class="hospitals.divClass")
+        fieldset#hospital-container.listing.collapsible.closed
+          h3.toggle Maternity centres #[em ({{hospitals.num}})]
+          ol.hospitals
+            template(v-for="item in hospitals.items")
+              li(:data-coords="item.coords" v-on:click="updateMap(item.coords)") {{item.name}}
+    p.lat
+      label(for="form-lat" title="latitude") Latitude:
+      input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" title="latitude" v-model="location.coords.lat")
+      span.coordinates.lat.dms {{latDms}}
+    p.lng
+      label.degree(for="form-lng" title="longitude") Longitude:
+      input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" title="longitude" v-model="location.coords.lng")
+      span.coordinates.lng.dms {{lngDms}}
+    p.alt
+      label(for="form-alt" title="altitude") Altitude:
+      input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" )
+      select#form-height-unit.inline
+        option(value="m") metres
+        option(value="ft") feet
+    p.rodden
+      label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale:
+      select#form-rodden.select-input(name="rodden")
+        each opt,index in roddenOptions
+          option(value = opt.value selected=opt.selected)= opt.label
+
+    div#form-actions
+      input(type="submit" value="Calculate & Save" id="form-submit" )
+
+  //- fieldset.collapsible.closed
+  //-   h3.toggle Open Chart
+  //-   p Open chart dialog
+
+  fieldset.collapsible.closed
+    h3.toggle Calculation Settings
+    //- include settings/calc-house-system.pug
+    fieldset.collapsible.closed
+      h4.toggle Default House System
+      p.sub-section
+        label(for="form-hsy") House system:
+        select#form-hsy.select-input(name="hsy")
+          each opt,index in houseSystems
+            option(value = opt.value selected=opt.selected)= opt.label
+    //- include settings/calc-ayanamsha.pug
+    fieldset.collapsible.closed
+      h4.toggle Tropical vs. Sidereal (Ayanāṃśa)
+        p.sub-section
+          label(for="form-ayanamsa") Ayanāṃśa
+          select#form-ayanamsa.select-input(name="ayanamsa")
+            each opt,index in ayanamsas
+              option(value = opt.value selected=opt.selected)= opt.label
+    //- include settings/calc-celestial.pug
+    fieldset.collapsible.closed
+      h4.toggle Celestial Calculations
+      p#form-mode.sub-section.radios
+        label(for="form-mode") Topo/Geo:
+        input#form-mode-topo.mode(type="radio" value="topo" name="mode" checked="true" )
+        label(for="form-mode-topo") Topocentric
+        input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode")
+        label(for="form-mode-geo") Geocentric
+
+
+    fieldset.collapsible.closed
+      h4.toggle Solar Year & Lunar Month
+      //- include settings/calc-year-solar.pug
+      fieldset.collapsible.open
+        h5.toggle Astronomical Solar Year
+        div.sub-sub-section
+          p
+            input#form-solar-t.solar(type="radio" value="365.242199" name="solar-t" checked="true" )
+            label(for="form-solar-t") Tropical Year
+          p
+            input#form-solar-s.solar(type="radio" value="365.256366" name="solar-t")
+            label(for="form-solar-s") Sidereal Year
+          p
+            input#form-solar-a.solar(type="radio" value="365.259636" name="solar-t")
+            label(for="form-solar-a") Anomalistic year
+          div.notes!= solarYearOptionNotes
+
+    //- include settings/calc-year-dasha.pug
+    fieldset.collapsible.closed
+      h5.toggle Time Period (Daśa) Year Definition
+      p
+        input(type="radio" value="" name="year-astron" id="form-year-astron" class="solar-dasha" checked="true" )
+        label(for="form-year-astron") Astronomical Year (select above)
+      p
+        input(type="radio" value="365" name="year-calendar" id="form-year-calendar" class="solar-dasha" )
+        label(for="form-year-calendar") 365 Calendar Year
+      p
+        input(type="radio" value="360" name="year-360" id="form-year-360" class="solar-dasha" )
+        label(for="form-year-360") 360 Day Year
+      p
+        input#form-year-solilunar.solar-dasha(type="radio" value="354.36708" name="year-solilunar")
+        label(for="form-year-solilunar") Synodic SoliLunar Year
+    //- include settings/calc-month-lunar.pug
+    fieldset.collapsible.closed
+      h5.toggle Astronomical Lunar Month
+      p
+        input#form-lunar-t.lunar(type="radio" value="27.321582" name="lunar-t")
+        label(for="form-solar-t") Tropical month
+      p
+        input#form-lunar-s.lunar(type="radio" value="27.321662" name="lunar-s")
+        label(for="form-solar-s") Sidereal month
+      p
+        input.lunar(type="radio" value="27.321582" name="lunar-a" id="form-lunar-a" class="" )
+        label(for="form-solar-a") Anomalistic month
+      p
+        input#form-lunar-syn.lunar(type="radio" value="29.5305888531" name="lunar-syn" checked="true")
+        label(for="form-solar-syn") Synodic month
+      div.notes!= lunarMonthsNoteOptions
+        //-sub-sub-section
+
+    //- sub-section

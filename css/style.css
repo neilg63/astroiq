@@ -781,6 +781,20 @@ line.solid {
     margin-right: 1.5em;
 }
 
+#control-panel > p {
+    transition: max-height 0.5s ease-in;
+}
+
+#control-panel p.collapsed {
+    max-height: 0;
+    overflow: hidden;
+}
+
+#control-panel p.expanded {
+    max-height: 3em;
+    overflow: visible;
+}
+
 #form-dob {
     max-width: 9em;
 }
@@ -926,117 +940,4 @@ ul.hor-tabs li {
 ul.ver-tabs li:hover,
 ul.hor-tabs li:not(.disabled):hover {
     transform: scale(1.125);
-}
-
-#indian-chart .zone {
-    fill: white;
-}
-
-#indian-chart .zone:hover {
-    fill: rgba(255,0,0,0.5);
-}
-
-#astro-disc .house-line,
-#astro-disc image.house-symbol,
-#astro-disc image.body,
-#astro-disc #degree-overlay,
-#astro-disc #degree-overlay .degree-label,
-#astro-disc #degree-lines {
-    -webkit-transform-origin: 0 0;
-    -moz-transform-origin: 0 0;
-    transform-origin: 0 0;
-}
-
-#astro-disc .house-line {
-    stroke: black;
-    stroke-width: 1px;
-}
-
-#astro-disc text {
-    fill: #777777;
-    font-size: 1.5em;
-}
-
-#astro-disc text.house-label {
-    font-size: 2.5em;
-}
-
-#astro-disc circle.solid {
-    fill: white;
-}
-
-#astro-disc circle.disc {
-    fill: none;
-    stroke: blue;
-    stroke-width: 3px;
-}
-
-#degree-lines line.ten-degrees {
-    stroke: black;
-    stroke-width: 3px;
-}
-
-#degree-lines line.five-degrees {
-    stroke: #3366ff;
-    stroke-width: 1px;
-}
-
-#degree-lines line.one-degree {
-    stroke: #cccccc;
-    stroke-width: 1px;
-}
-
-#degree-overlay .degree-label {
-    font-size: 20px;
-    color: black;
-}
-
-#astro-disc #segments {
-    transform: translate(150px,150px) rotate(-90deg);
-    transform-origin: 600px 600px;
-}
-
-#top-circles {
-    transform: translate(0px,0px);
-}
-
-/*#degree-lines {
-    transform: translate(0,60px);
-}*/
-
-#degree-lines .ten-degrees {
-
-}
-
-#top-circles circle {
-    transform-origin: 600px 600px;
-}
-
-#indian-chart {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.show-indian #indian-chart {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.show-indian #indian-chart .shape {
-    stroke-width: 3px;
-    stroke: blue;
-}
-
-.european-element {
-    opacity: 1;
-}
-
-.european-element,
-#indian-chart {
-    transition: all 1s ease-in;
-}
-
-.show-indian .european-element {
-    opacity: 0;
-    pointer-events: none;
 }

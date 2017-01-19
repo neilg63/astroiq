@@ -1,8 +1,8 @@
 //- Select row with label + dropdown
-mixin selectrow(name,label,options)
+mixin selectrow(name,label,options,setSelected = true)
   p(class=name.sanitize('-')+'-row')
       label(for="form-"+name.sanitize('-'))= label
       select(id="form-"+name.sanitize('-'))&attributes(attributes)
         each opt,index in options
-          option(value = opt.value selected=opt.selected)= opt.label
+          option(value = opt.value selected=(setSelected && opt.selected))= opt.label
 //- end of selectrow

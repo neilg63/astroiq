@@ -272,6 +272,11 @@ app.get('/zodiac', function(req, res) {
     res.send(page(variables));
 });
 
+app.get('/astro', function(req, res) {
+    const page = pug.compileFile(__dirname + '/templates/astro.pug');
+    res.send(page(variables));
+});
+
 app.get('/about', function(req, res) {
     const page = pug.compileFile(__dirname + '/templates/about.pug');
     res.send(page(variables));
