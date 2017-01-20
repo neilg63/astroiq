@@ -956,13 +956,17 @@ var app = new Vue({
       var stored = getItem(paramStr);
       if (stored.valid) {
           this.parseResults(stored.data);
-          console.log(this.results);
+          AstroIQ.updateChart(stored.data);
       } else {
         axios.get('/sweph', {
           params: params
         })
         .then(function (response) {
-          console.log(response);
+          if (response.data) {
+            var data = response.data;
+            this.parseResults(data);
+            AstroIQ.updateChart(data);
+          }
         })
         .catch(function (error) {
           console.log(error);
