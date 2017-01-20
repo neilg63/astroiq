@@ -68,6 +68,11 @@ var filterFuncs = {
          str += '+';
       }
       str += parseInt(dh);
+      if (Math.abs(s%2) == 1) {
+        str+= ':30';
+      } else {
+        str+= ':00';
+      }
       opts.push({
         value: str,
         label: str + ' hrs',

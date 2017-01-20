@@ -343,7 +343,7 @@ var AstroIQ = {
     }
   },
 
-  injectGeoNames: function(data) {
+  /*injectGeoNames: function(data) {
     if (data.names) {
       var p=pDom, ol = p.geoAltPlaces.find('ol');
       p.geoAltPlaces.addClass('hidden');
@@ -392,7 +392,7 @@ var AstroIQ = {
         p.geoAltPlaces.find('h3.toggle em').text('('+data.num+')');
       }
     }
-  },
+  },*/
 
   updateChart: function(data) {
     if (astroDisc) {
@@ -458,7 +458,7 @@ var AstroIQ = {
     }
   },
 
-  updateDegreeValues: function() {
+  /*updateDegreeValues: function() {
     var degFields = jQuery('input.degree'),
       numDegFields = degFields.length,i=0,fd,par,vl,dv,dt;
     if (numDegFields>0) {
@@ -482,9 +482,9 @@ var AstroIQ = {
             }
         }
     }
-  },
+  },*/
 
-  addQueryList: function() {
+  /*addQueryList: function() {
     var p = pDom;
     if (p.queries) {
       p.queryList = p.queries.find('ol.query-list');
@@ -498,7 +498,7 @@ var AstroIQ = {
   buildQueryListItem: function(data,paramStr) {
     var li = '<li><a href="/sweph?'+paramStr.replace(/^&/,'')+'">'+data.name + ': ' + dateStringFormatted(data.datetime) +'</a> <span class="delete" title="Remove item">-</span></li>';
     return jQuery(li);
-  },
+  },*/
 
   showData: function(data,paramStr) {
     jQuery('#main .hor-tabs li.chart').first().trigger('click');
@@ -511,8 +511,8 @@ var AstroIQ = {
     if (paramStr) {
       if (typeof paramStr == 'string') {
         storeItem(paramStr,data);
-        AstroIQ.addQueryList();
-        p.queryList.append(AstroIQ.buildQueryListItem(data,paramStr));
+        //AstroIQ.addQueryList();
+        //p.queryList.append(AstroIQ.buildQueryListItem(data,paramStr));
       }
     }
   },
@@ -543,35 +543,146 @@ function initMap() {
     return GeoMap.init();
 }
 
+var astroCoords = {
+  lng: 0,
+  lat: 0,
+  ecl: 0
+}
+
+var bodyData = {
+  lng: 0,
+  lat: 0,
+  ecl: 0,
+  house: 0
+}
+
+var EphemerisData = {
+  valid: false,
+  astro: {
+    ut: {
+      value: 0,
+      delta: "-",
+      deltaType: "t",
+      unit: "sec"
+    },
+    et: 0,
+    nutation: [0,0],
+    mean_node: astroCoords,
+    true_node: astroCoords,
+    mean_apogee: astroCoords,
+    ascendant: 0,
+    mc: 0,
+    armc: 0,
+    vertex: 0
+  },
+  ayanamsa: 0,
+  bodies: {
+    sun: bodyData,
+    moon: bodyData,
+    mercury: bodyData,
+    venus: bodyData,
+    mars: bodyData,
+    jupiter: bodyData,
+    saturn: bodyData,
+    uranus: bodyData,
+    neptune: bodyData,
+    pluto: bodyData
+  },
+  datetime: "",
+  dateinfo: {
+
+  },
+  gender: "unknown",
+  geo: {
+
+  },
+  houses: [],
+  houseData: {
+    letter: "W",
+    mode: "(equal/ whole sign)",
+    lng: 0,
+    lat: 0
+  }
+}
+var va; // alias
 var app = new Vue({
   el: '#astroiq',
   data: {
     chartType: "birth",
+    candidateName: "",
     gender: {
-      rowClasses: "gender-row expanded",
+      active: true,
       type: "unknown",
-      otherTypeClasses: "gender-other-type hidden"
+      otherActive: false,
+      otherType: ""
     },
     dob: '2017-01-01',
     dateLabel: "Date and time of birth",
+    timezone: {
+      offset: '00:00',
+      ds: '0:00',
+      display: ''
+    },
     location: {
       search: "",
-      addressClasses: "location-address collapsed",
+      showAddress: false,
       address: "",
       coords: {
         lat: 65.15,
-        lng: -13.667
-      }
+        lng: -13.667,
+        alt: 30,
+        latDms: "",
+        lngDms: ""
+      },
+      altDisplay: "30",
+      altUnit: "m",
+      altSteps: 10,
+      altMax: 9000
     },
     geonames: {
-      divClass: 'hidden',
+      active: false,
       items: [],
       num: 0
     },
     hospitals: {
-      divClass: 'hidden',
+      active: false,
       items: [],
       num: 0
+    },
+    options: {
+      ayanamsa: "-",
+      hsy: "W",
+      rodden: "-"
+    },
+    queries: [],
+    chartData: {
+      active: false,
+      name: '',
+      dateStr: '',
+
+    },
+    activeTab: 'chart',
+    chartMode: 'western',
+    results: EphemerisData
+  },
+  created: function() {
+    this.location.coords.latDms = toLatitudeString(this.location.coords.lat,'plain');
+    this.location.coords.lngDms = toLongitudeString(this.location.coords.lng,'plain');
+    if (localStorageSupported()) {
+      var item,li;
+      for (k in window.localStorage) {
+        if (k.indexOf('b=') >= 0 && k.indexOf('b=') <= 2) {
+          item = getItem(k);
+          if (item.valid) {
+            li = {
+              paramStr: k,
+              name: item.data.name,
+              dateStr: dateStringFormatted(item.data.datetime)
+            };
+            this.queries.push(li);
+          }
+        }
+      }
     }
   },
   computed: {
@@ -581,43 +692,47 @@ var app = new Vue({
       year -= 20;
       var dStr = cDate.replace(/^\d\d+-/,year + '-');
      return dStr;
-    },
-    latDms: function() {
-      return toLatitudeString(this.location.coords.lat,'plain');
-    },
-    lngDms: function() {
-      return toLongitudeString(this.location.coords.lng,'plain');
     }
-
   },
   watch: {
     chartType: function() {
       switch (this.chartType) {
         case 'birth':
-          this.gender.rowClasses = 'gender-row expanded';
+          this.gender.active = true;
           this.dateLabel = 'Date and time of birth';
           break;
         default:
           this.dateLabel = 'Date and time';
-          this.gender.rowClasses = 'gender-row collapsed';
+          this.gender.active = false;
           break;
       }
     },
     'gender.type': function() {
       switch (this.gender.type) {
         case 'other':
-          this.gender.otherTypeClasses = "gender-other-type";
+          this.gender.otherActive = true;
           break;
         default:
-          this.gender.otherTypeClasses = "gender-other-type hidden";
+          this.gender.otherActive = false;
           break;
       }
+    },
+    'location.altUnit': function() {
+      return this.updateAltitude(true);
+    },
+    'location.altDisplay': function() {
+      return this.updateAltitude();
+    },
+    'location.coords.lat': function() {
+      this.location.coords.latDms = toLatitudeString(this.location.coords.lat,'plain');
+    },
+    'location.coords.lng': function() {
+      this.location.coords.lngDms = toLongitudeString(this.location.coords.lng,'plain');
     }
   },
   methods: {
     searchLocation: function() {
-      var app = this;
-      this.location.addressClasses = 'location-address collapsed';
+      this.location.showAddress = false;
       
       if (this.location.search.length>0) {
           var adStr = this.location.search.trim(),
@@ -627,35 +742,47 @@ var app = new Vue({
           if (stored.valid) {
             this.updateGeoDetails(stored.data);
           }
-          jQuery.ajax({
-              url: href,
-              success: function(data) {
-                  var msg = '';
-                  if (data.valid) {
-                      app.updateGeoDetails(data,key);
-                  } else if (data.message) {
-                      msg = data.message;
-                  }
-                  if (data.has_geonames) {
-                      AstroIQ.injectGeoNames(data.geonames);
-                      if (data.geomatched_index === 0) {
-                         var matchedGeo = data.geonames.names[data.geomatched_index]; 
-                         AstroIQ.updateTzFields(matchedGeo);
-                      }
-                  };
-                  if (msg.length > 1) {
-                      this.location.address = msg;
-                      this.location.addressClasses = 'collapsed';
-                      if (data.message && !data.valid) {
-                          setTimeout(function() {
-                              pDom.geoAddress.addClass('hidden');
-                          },5000);
-                      }
-                  }
+          va = this;
 
+          axios.get(href)
+            .then(function(response) {
+
+            var msg = '';
+            if (response.data && va) {
+              var data = response.data;
+              if (data.valid) {
+                va.updateGeoDetails(data,key);
+              } else if (data.message) {
+                  msg = data.message;
               }
-          });
+              if (data.has_geonames) {
+                  va.updateGeoDetails(data);
+                  if (data.geomatched_index === 0) {
+                     var matchedGeo = data.geonames.names[data.geomatched_index]; 
+                     va.updateTzFields(matchedGeo);
+                  }
+              };
+              if (msg.length > 1) {
+                  va.location.address = msg;
+                  va.location.showAddress = true;
+                  if (data.message && !data.valid) {
+                      setTimeout(function() {
+                          va.location.showAddress = false;
+                      },5000);
+                  }
+              }
+            }
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
+    },
+    updateAltitude: function(change) {
+      var data = convertFtAndMetres(this.location.altDisplay,this.location.altUnit,change);
+      this.location.coords.alt = data.m;
+      this.location.altDisplay = data.display;
+      this.location.altSteps = data.steps;
+      this.location.altMax = data.max;
     },
     updateGeoDetails: function(data,key) {
       if (data.lat) {
@@ -663,8 +790,10 @@ var app = new Vue({
         this.location.coords.lat = lat;
         this.location.coords.lng = lng;
       }
-      this.hospitals.divClass = 'hidden';
+      this.hospitals.active = false;
+      this.geonames.active = false;
       this.hospitals.items = [];
+      this.geonames.items = [];
       var lat=data.lat,lng=data.lng;
       if (data.hospitals) {
         if (data.hospitals.num_items > 0) {
@@ -680,7 +809,7 @@ var app = new Vue({
             }
           }
           this.hospitals.num = data.hospitals.num_items;
-          this.hospitals.divClass = 'show';
+          this.hospitals.active = true;
         }
       }
       if (data.geonames) {
@@ -726,7 +855,7 @@ var app = new Vue({
             }
           }
           this.geonames.num = data.geonames.num;
-          this.geonames.divClass = 'show';
+          this.geonames.active = data.geonames.num > 1;
         }
       }
       if (GeoMap) {
@@ -735,7 +864,7 @@ var app = new Vue({
           } else {
               AstroIQ.loadGMap(true,lat,lng);             
           }
-          jQuery('#main .hor-tabs li.map').trigger('click');
+          this.showPane('map');
       }
       if (key) {
         if (typeof key == 'string') {
@@ -743,6 +872,26 @@ var app = new Vue({
         }
       }
       
+    },
+    updateTzFields: function(geoData) {
+      if (typeof geoData == 'object') {
+       if (geoData.timezone) {
+          var tz = geoData.timezone;
+          if (isNumeric(tz.gmtOffset)) {
+            var strOffset = toHourOffsetString(tz.gmtOffset),strOffset2='';
+            this.timezone.offset = strOffset;
+            if (tz.dstOffset != tz.gmtOffset) {
+              strOffset2 = toHourOffsetString((tz.dstOffset-tz.gmtOffset),1);
+              this.timezone.ds = strOffset2;
+            }
+            if (strOffset2.length>0) {
+              strOffset += ' (' + strOffset2 + ')';
+            }
+            console.log(tz.gmtOffset)
+            this.timezone.display = ' UTC ' + strOffset + ' hrs';
+          }
+        }
+      }
     },
     updateMap: function(coords) {
       if (coords) {
@@ -752,7 +901,115 @@ var app = new Vue({
           parts[1] = parseFloat(parts[1]);
           GeoMap.updateMap(parts[0],parts[1],true,false);
         }
-        
+      }
+    },
+    loadMap: function() {
+      AstroIQ.loadGMap();
+    },
+    sendControlForm: function() {
+      if (this.dob.length>0 && this.candidateName.length>0) {
+          var dobV = this.dob,
+          tobV = tob,
+          lngV = this.location.coords.lat,
+          latV = this.location.coords.lng,
+          altV = this.location.coords.alt;
+          lngV = roundDecimal(lngV,5);
+          latV = roundDecimal(latV,5);
+          var params={},
+          geopos = lngV + ',' + latV + ',' + altV,
+          isGeo = false;
+          params.b = toEuroDate(dobV);
+          params.ut = toSwissEphTime(tobV);
+          params.elev = alt.val();
+          if (mod.length>0) {
+              isGeo = mod.val() == 'geo';
+          }
+          if (isGeo) {
+              params.geopos = geopos;
+          } else {
+              params.topo = geopos;
+          }
+          
+          params.system = this.options.hsy;
+
+          params.sid = this.options.ayanamsa;
+          params.name = name.val().trim();
+          var genderVal = this.gender.type;
+          if (gender.type == 'other') {
+            genderVal = this.gender.otherType;
+          }
+          params.address = this.location.address;
+          params.gender = genderVal;
+          /*var paramStr = toParamString(params,['address']),
+          stored = getItem(paramStr);*/
+          this.loadQuery(params);
+          
+      }
+    },
+    loadQuery: function(paramStr) {
+      if (typeof paramStr == 'object') {
+        var params = toParamStr;
+        paramStr = toParamString(paramStr);
+      } else {
+        var params = fromParamStr(paramStr);
+      }
+      var stored = getItem(paramStr);
+      if (stored.valid) {
+          this.parseResults(stored.data);
+          console.log(this.results);
+      } else {
+        axios.get('/sweph', {
+          params: params
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+    },
+    showPane: function(pType) {
+      switch (pType) {
+        case 'map':
+          this.loadMap();
+          break;
+      }
+      this.activeTab = pType;
+    },
+    showChart: function(cType) {
+      this.chartMode = cType;
+    },
+    parseResults: function(data) {
+      var v1,v2,v3;
+      if (data.astro.ascendant) {
+        this.results.valid = true;
+      } else {
+        this.results.valid = false;
+      }
+      for (var k1 in data) {
+        if (this.results.hasOwnProperty(k1)) {
+          v1 = data[k1];
+          if (typeof v1 == 'object') {
+            for (var k2 in v1) {
+              if (this.results[k1].hasOwnProperty(k2)) {
+                v2 = v1[k2];
+                if (typeof v2 == 'object') {
+                  for (var k3 in v2) {
+                    if (this.results[k1][k2].hasOwnProperty(k3)) {
+                      v3 = v2[k3];
+                      this.results[k1][k2][k3] = v3;
+                    }
+                  }
+                } else {
+                  this.results[k1][k2] = v2;
+                }
+              }
+            }
+          } else {
+            this.results[k1] = v1;
+          }
+        }
       }
     }
   }
@@ -781,23 +1038,7 @@ var app = new Vue({
         p.timezoneFsDisplay = p.timezoneFs.find('h3 em');
         p.tzField = $('#form-tz');
         p.dsField = $('#form-ds');
-        p.cForm.find('fieldset.listing').on('click',function(e){
-          var tg = $(e.target);
-          if (tg.prop('tagName').toLowerCase() == 'li') {
-            var coords = tg.attr('data-coords');
-            if (coords) {
-              var parts = coords.split(',');
-              if (isNumeric(parts[0]) && isNumeric(parts[1])) {
-                parts[0] = parseFloat(parts[0]);
-                parts[1] = parseFloat(parts[1]);
-                tg.parent().find('.selected').removeClass('selected');
-                tg.addClass('selected');
-                GeoMap.updateMap(parts[0],parts[1],true,false);
-              }
-              
-            }
-          }
-        });
+
 
         p.window.on('resize',function() {
           var p = pDom;
@@ -806,7 +1047,7 @@ var app = new Vue({
         });
 
 
-        p.geoFinder = $('#geobirth-finder');
+       /* p.geoFinder = $('#geobirth-finder');
         if (p.geoFinder.length>0) {
             p.geoBirth.on('click',function() {
                 $('#main .hor-tabs li.map').trigger('click');
@@ -817,7 +1058,7 @@ var app = new Vue({
                 
             });
         }
-
+*/
         
 
         //$('input.degree').on('change keyup',AstroIQ.updateDegreeValues);
@@ -825,74 +1066,11 @@ var app = new Vue({
         p.cForm.on('submit',function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
-            var dob =$('#form-dob'),
-            name = $('#form-name'),
-            tob =$('#form-tob'),
-            lng = $('#form-lng'),
-            lat = $('#form-lat'),
-            alt = $('#form-alt'),
-            hsy = $('#form-hsy'),
-            aya = $('#form-ayanamsa'),
-            mod = $('#form-mode input.mode:checked'),
-            address=pDom.geoAddress.text().trim();
-
-            if (dob.length>0 && lng.length>0) {
-                var dobV = dob.val(),
-                tobV = tob.val(),
-                lngV = lng.val(),
-                latV = lat.val(),
-                altV = alt.val();
-                lngV = roundDecimal(lngV,5);
-                latV = roundDecimal(latV,5);
-                var href='/sweph',params={},
-                geopos = lngV + ',' + latV + ',' + altV,
-                isGeo = false;
-                params.b = toEuroDate(dobV);
-                params.ut = toSwissEphTime(tobV);
-                params.elev = alt.val();
-                if (mod.length>0) {
-                    isGeo = mod.val() == 'geo';
-                }
-                if (isGeo) {
-                    params.geopos = geopos;
-                } else {
-                    params.topo = geopos;
-                }
-                if (hsy.length>0) {
-                    params.system = hsy.val();
-                }
-                if (aya.length>0) {
-                    params.sid = aya.val();
-                }
-                params.name = name.val().trim();
-                var gender = $(this).find("input[name='gender']:checked"),
-                genderVal = 'unknown';
-                if (gender.length>0) {
-                  genderVal = gender.val().trim();
-                }
-                params.address = address;
-                params.gender = genderVal;
-                var paramStr = toParamString(params,['address']),
-                stored = getItem(paramStr);
-                if (stored.valid) {
-                  AstroIQ.showData(stored.data);
-                } else {
-                  $.ajax({
-                      url: href,
-                      data: params,
-                      success: function(data) {
-                          if (data.valid) {
-                              AstroIQ.showData(data,paramStr);
-                          }
-                      }
-                  });
-                }
-                
-            }
+            
 
         });
         
-        p.horMenu = $('#main .hor-tabs');
+        /*p.horMenu = $('#main .hor-tabs');
         p.horMenu.find('li').on('click',function(e){
             e.stopImmediatePropagation();
             var it = $(this), main = $('#main');
@@ -924,7 +1102,7 @@ var app = new Vue({
                   AstroIQ.loadGMap(true);
                 }
             }
-        });
+        });*/
 
         $('#control-panel fieldset .toggle').on('click',function(e){
             var par = $(this).parent();
@@ -950,138 +1128,6 @@ var app = new Vue({
             } 
         });
 
-        $('#form-height-unit').on('change',function(e){
-            var it = $(this), par = it.parent(),
-                vl = $(this).val(),ref = par.find('#form-alt');
-            if (ref.length>0) {
-                var mToFt = 0.3048, 
-                  ftRound = 25,
-                  mRound = 10,
-                h = ref.val().toInt(),nh;
-                if (h !== 0) {
-                    if (vl == 'm' && par.hasClass('show-ft')) {
-                        nh = parseInt(Math.ceil(h * mToFt) / mRound) * mRound;
-                        step = 10;
-                    } else if (vl == 'ft' && par.hasClass('show-ft')==false) {
-                        nh = Math.ceil( (h/ftRound) / mToFt) * ftRound;
-                        step = 25;
-                    }
-                    par.removeClass('show-ft show-m').addClass('show-' + vl);
-                    if (isNumeric(nh)) {
-                        ref.val(nh).attr('step',step);
-                    }
-                }
-            }    
-        });
-
-        //AstroIQ.updateDegreeValues();
-
-        $('p.has-mask input.main').on('click change',function(e){
-            var p=pDom;
-            if (p.width > p.mobileMax) {
-              var it=$(this),
-              par=it.parent()
-              if (par.hasClass('input-group')) {
-                  par = par.parent();
-              }
-              var id=it.attr('id'),
-              mask=par.find('#'+id+'-mask');
-              switch (e.type) {
-                  case 'click':
-                      if (mask.length>0) {
-                          var wdg = par.find('.ui-datebox-container');
-                          if (wdg.css('display') != 'block') {
-                             mask.removeClass('hidden');
-                              par.addClass('masked');
-                              var tg = mask[0], 
-                              vl = mask.val(),
-                              start = tg.selectionStart,
-                              end = tg.selectionEnd,
-                              len=vl.length; 
-                          }
-                      }
-                      break;
-                  case 'change':
-                      var vl = it.val(),valid=false;
-                      if (mask.hasClass('date-mask')) {
-                          vl = vl.split('-').reverse().join('/');
-                      }
-                      mask.val(vl);
-                      break;
-              }
-            }
-            
-        });
-        $('p.has-mask input.mask').on('change',function(e){
-            var it=$(this),par = it.parent(), main = par.find('.main');
-            if (main.length>0) {
-                var vl = it.val(),rs;
-                if (it.hasClass('time-mask')) {
-                    vl = vl.replace(/[.,]+/g,':');
-                    vl = vl.replace(/^(\d):/g,'0$1:');
-                    vl = vl.replace(/:(\d)$/g,':0$1');
-                    vl = vl.replace(/:$/g,':00');
-                    vl = vl.replace(/(:[0-9][0-9])[0-9]+/g,"$1");
-                } else {
-                    vl = vl.replace(/[ .,-]+/g,'/');
-                }
-                vl = vl.replace(/^:/,'0:');
-                if (it.hasClass('time-mask')) {
-                    rs = '^\\d\\d?:\\d\\d?$';
-                } else {
-                    rs = '^[0123]?\\d/[01]?\\d?/(1[789]|20)\\d\\d$';
-                }
-                var rgx = new RegExp(rs);
-                if (rgx.test(vl)) {
-                    if (it.hasClass('date-mask')) {
-                        vl = vl.split('/').reverse().join('-');
-                    }
-                    main.val(vl); 
-                }
-            }
-        }).on('keyup blur',function(e){
-            
-            var it=$(this),vl=it.val(),
-            /*start = e.target.selectionStart,
-            end = e.target.selectionEnd,*/
-            len=vl.length,
-            tp = it.hasClass('time-mask')? 'time' : 'date';
-            /*if (len == 5) {
-                if (start < (len-1) && start==end) {
-                    e.target.selectionEnd = end + 1;
-                }
-            }*/
-            if (e.type =='blur') {
-                if (tp == 'time') {
-                   vl = vl.replace(/[.,]+/g,':');
-                    vl = vl.replace(/:$/g,':00');
-                    vl = vl.replace(/(:[0-9][0-9])[0-9]+/g,"$1");
-                    vl = vl.replace(/^:/,'0:'); 
-                } else {
-                    vl = vl.replace(/[ .-]+/g,'/');
-                    vl = vl.replace(/[^0-9\/]+/g,'');
-                    vl = vl.replace(/\/$/g,':01');
-                    vl = vl.replace(/\b([0-9])\//g,"0$1");
-                    vl = vl.replace(/\/(\d\d)$/,'/19$1');
-                }
-                
-            }
-            if (e.type =='keyup') {
-                if (tp == 'time') {
-                    vl = vl.replace(/[^0-9:.,]/g,'');
-                    vl = vl.replace(/(\d)[.,](\d)/g,'$1:$2');
-                    vl = vl.replace(/:[6-9]([0-9])$/g,'5$1');
-                    vl = vl.replace(/^[3-9]([0-9]):/g,'1$1');
-                }
-            }
-            it.val(vl);
-        });
-        $('p.has-mask').on('mouseleave',function(e) {
-            var par = $(this), mask = par.find('.mask');
-            mask.addClass('hidden');
-            par.removeClass('masked');
-        });
-
         $('#control-panel').on('click',function(e) {
             var tg = $(e.target), b = pDom.body, refCl='show-control-panel';
             if (tg.hasClass('toggle-aside') || (b.hasClass(refCl)==false && tg.attr('id')=='control-panel')) {
@@ -1101,7 +1147,7 @@ var app = new Vue({
         }
 
         if (localStorageSupported()) {
-          AstroIQ.addQueryList();
+          /*AstroIQ.addQueryList();
           var item,li;
           for (k in window.localStorage) {
             if (k.indexOf('b=') >= 0 && k.indexOf('b=') <= 2) {
@@ -1111,10 +1157,10 @@ var app = new Vue({
                 p.queryList.append(li);
               }
             }
-          }
+          }*/
         }
 
-        p.queries.on('click',function(e){
+        /*p.queries.on('click',function(e){
           var tg = $(e.target);
           if (tg.prop('tagName').toLowerCase() == 'a') {
             e.preventDefault();
@@ -1122,7 +1168,7 @@ var app = new Vue({
             var paramStr = tg.attr('href').split('/sweph?').pop(),
             stored = getItem(paramStr);
             if (stored.valid) {
-              showData(stored.data);
+              AstroIQ.showData(stored.data);
             } 
           }
           if (tg.prop('tagName').toLowerCase() == 'span' && tg.hasClass('delete')) {
@@ -1137,7 +1183,7 @@ var app = new Vue({
               } 
             }
           }
-        });
+        });*/
         p.geoLocAllowed = GeoMap.geoLocAllowed();
         
         if (!p.geoLocAllowed) {

@@ -866,6 +866,25 @@ nav.horizontal ul {
     text-align: center;
 }
 
+ul.hor-tabs li {
+    position: relative;
+}
+
+ul.hor-tabs .sub-tabs {
+    position: absolute;
+    top: 1.5em;
+    left:  0;
+    font-size: 0.5em;
+    display:  block;
+    width:  auto;
+}
+
+ul.hor-tabs .sub-tabs li {
+    text-align: left;
+    display:  block;
+    width:  15em;
+}
+
 ul.hor-tabs li,
 nav.horizontal li {
     display: inline-block;

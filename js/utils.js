@@ -526,6 +526,25 @@ var toParamString = function(obj, excludes) {
   return str;
 }
 
+var fromParamStr = function(paramStr) {
+  var obj = {};
+  if (typeof paramStr == 'string') {
+    paramStr = paramStr.replace(/^\?/,'');
+    var parts = paramStr.split('&'),numParts=parts.length,i=0, sps,k,v;
+    for (;i<numParts;i++) {
+      sps = parts[i].split('=');
+      if (sps.length>1) {
+        k = sps[0].replace(/&amp;/,'');
+        v = sps[1];
+        if (v.length>0) {
+          obj[k] = v;
+        }
+      }
+    }
+  }
+  return obj;
+}
+
 var roundDecimal = function(num,decPlaces) {
   if (isNumeric(num)) {
     var m = Math.pow(10,decPlaces);
@@ -573,4 +592,47 @@ var matchCountry = function(str) {
     }
   }
   return cc;
+}
+
+
+var convertFtAndMetres = function(flVal,sourceUnit,change) {
+  var obj = {
+    unit: sourceUnit,
+    steps: 10,
+    m: 0,
+    ft: 0,
+    display: 0,
+    max:9000
+  };
+  if (isNumeric(flVal)) {
+      var mToFt = 0.3048, 
+        intVal = parseInt(flVal);
+    switch (sourceUnit) {
+      case 'ft':
+        obj.steps = 25;
+        if (change === true) {
+          obj.m = intVal;
+          obj.ft = Math.ceil( (intVal/obj.steps) / mToFt) * obj.steps;
+        } else {
+          obj.m = parseInt(Math.ceil(intVal * mToFt) / obj.steps) * obj.steps;
+          obj.ft = intVal;
+        }
+        
+        obj.max = 30000;
+        obj.display = obj.ft;
+        break;
+      default:
+        obj.steps = 10;
+        if (change === true) {
+          obj.m = parseInt(Math.ceil(intVal * mToFt) / obj.steps) * obj.steps;
+          obj.ft = intVal;
+        } else {
+          obj.ft = Math.ceil( (intVal/obj.steps) / mToFt) * obj.steps;
+          obj.m = intVal;
+        }
+        obj.display = obj.m;
+        break;
+    }
+  }
+  return obj;   
 }

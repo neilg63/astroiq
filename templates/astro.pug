@@ -23,21 +23,39 @@ body
     aside#control-panel
       include includes/control-panel.pug
       div#queries
-
+        ol.queries
+          template(v-for="item in queries")
+            li(v-on:click.stop="loadQuery(item.paramStr)") {{item.name}}, {{item.dateStr}}
     div#main
       ul.hor-tabs
-        li.chart.european.active Western
-        li.chart.indian Indian
-        li.map Map
-        li.results.disabled Results
-      object#chart-pane.large-pane.active
+        li.chart(v-on:click="showPane('chart')") Chart
+          ul.sub-tabs
+            li.western(v-on:click="showChart('western')") Western
+            li.northindian(v-on:click="showChart('northindian')") North Indian
+            li.southindian(v-on:click="showChart('southindian')") South Indian
+        li.map(v-on:click="showPane('map')") Map
+        li.results(:class="{disabled:!results.valid}" v-on:click="showPane('results')") Results
+      object#chart-pane.large-pane(:class="{active:activeTab=='chart'}")
         include ../svgs/charts/astro-chart.svg
-        div#infobox
-      div#map-pane.large-pane
+        div#infobox(:class="{'has-data': chartData.active}")
+          p.candidate
+            span.label Name: 
+            strong.person-name {{chartData.name}}
+            em.datetime {{chartData.dateStr}}
+          p.location-name(:title="chartData.coords") {{chartData.address}}
+      div#map-pane.large-pane(:class="{active:activeTab=='map'}")
         div#gmap
 
-      div#results-pane.large-pane
+      div#results-pane.large-pane(:class="{active:activeTab=='results'}")
         div.inner
+          dl.results-list(:class="{hidden: !results.valid}")
+            dt.astro-data Astrological Data
+            dd.astro-data
+              ul
+                li.et ET {{results.astro.et}}
+                li.ascendant Ascendant {{results.astro.ascendant}}
+
+              
 
   //- script(src="/js/kutejs/kute.min.js")
   //- script(src="/js/kutejs/kute-attr.min.js") 
