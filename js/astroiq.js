@@ -824,7 +824,7 @@ var app = new Vue({
           /*var paramStr = toParamString(params,['address']),
           stored = getItem(paramStr);*/
           console.log(params)
-          this.loadQuery(params);
+          //this.loadQuery(params);
           
       }
     },
