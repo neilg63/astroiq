@@ -125,6 +125,10 @@ span.symbol-radio label {
     position: relative;
 }
 
+#control-panel fieldset.closed {
+  padding: 1em 0 0.25em 0;
+}
+
 #control-panel p.has-dms input.degree {
     display: none;
 }

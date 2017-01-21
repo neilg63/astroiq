@@ -150,6 +150,39 @@ var geonames = {
     return item;
   },
 
+  assignLongName: function(item) {
+    var nameParts = [item.toponymName],skipCountry = false, cName = '';
+    if (item.adminName1.length > 1) {
+      if (item.adminName1 != item.countryName) {
+        nameParts.push(item.adminName1);
+        console.log(item.adminName1.toLowerCase())
+        switch (item.adminName1.toLowerCase()) {
+          case 'scotland':
+          case 'england':
+          case 'wales':
+            skipCountry = true;
+            break;
+        }
+      }
+      if (!skipCountry) {
+        switch (item.countryCode) {
+          case 'US':
+            cName = 'USA';
+            break;
+          case 'UK':
+          case 'GB':
+            cName = 'UK';
+            break;
+          default:
+            cName = item.countryName;
+            break;
+        }
+        nameParts.push(cName);
+      }
+    }
+    item.longName = nameParts.join(', ');
+  },
+
   parseNames: (body,data,matchCoords,filterCoords) => {
     if (body.geonames.length>0) {
       let index=0,item,n,prevCoords={lat:-360,lng:-360},skip=false;
@@ -160,6 +193,7 @@ var geonames = {
           skip=false;
           if (index < geonames.maxMatches && n.score > geonames.minScore) {
             item = geonames.parseItem(n);
+            
             skip = geonames.isAirport(item);
             if (!skip && index > 0) {
               skip = geonames.isNear(item,prevCoords,0.3);
@@ -174,16 +208,15 @@ var geonames = {
               item.matched = geonames.isNear(item,filterCoords,0.2);
             }
             if (!skip) {
-              data.names.push(item);
+              geonames.assignLongName(item);
+              data.items.push(item);
               index++;
               prevCoords=item.coords;
-            }
-            
+            } 
           }
-          
         }
       }
-      data.num = data.names.length;
+      data.num_items = data.items.length;
     }
   },
 
@@ -221,13 +254,14 @@ var geonames = {
         if (error){
           callback({valid:false,msg:"Invalid parameters"},undefined);
         } else {
-          var data = {};
           if (typeof body == 'string') {
             body = JSON.parse(body);
-            data.num_available = body.totalResultsCount;
-            data.num = 0;
-            data.bias = bias;
-            data.names = [];
+            var data = {
+              num_available: body.totalResultsCount,
+              num_items: 0,
+              bias: bias,
+              items: []
+            };
             if (body.geonames) {
               geonames.parseNames(body, data,matchCoords,filterCoords);
             }

@@ -44,7 +44,7 @@ var geocode = {
         break;
     }
     href += `&key=${googleApiKey}`;
-    
+
 		return {
 		  url: href,
 		  json: true,
@@ -153,8 +153,8 @@ var geocode = {
       if (error) {
         callback(data,undefined);
       } else {
-        if (gData.names) {
-          data.has_geonames = gData.num > 0;
+        if (gData.items) {
+          data.has_geonames = gData.num_items > 0;
           data.geonames = gData;
         }
         callback(undefined,data);
@@ -304,8 +304,8 @@ var geocode = {
         let hFilter = '';
         if (gData.has_geonames) {
           var matched = [];
-          if (gData.geonames.names instanceof Array) {
-            matched = gData.geonames.names.filter(item => item.matched);
+          if (gData.geonames.items instanceof Array) {
+            matched = gData.geonames.items.filter(item => item.matched);
           }
           if (matched.length>0) {
             data.geomatched_index = 0;

@@ -343,57 +343,6 @@ var AstroIQ = {
     }
   },
 
-  /*injectGeoNames: function(data) {
-    if (data.names) {
-      var p=pDom, ol = p.geoAltPlaces.find('ol');
-      p.geoAltPlaces.addClass('hidden');
-      ol.html('');
-      if (data.num > 0) {
-        var h,li,i=0,titleStr,nameStr,cn;
-        for (; i < data.num;i++) {
-          h = data.names[i];
-          if (h.name) {
-            nameStr = h.name;
-            if (h.adminName1.length> 0 && h.adminName1 != h.name && h.adminName1.indexOf(h.name) < 0) {
-              nameStr += ', '+h.adminName1;
-            }
-            if (h.countryName.length > 0) {
-              switch (h.countryName) {
-                  case 'United Kingdom':
-                      cn = 'UK';
-                      break;
-                  case 'United States':
-                      cn = 'USA';
-                      break;
-                  default:
-                      cn = h.countryName;
-                      break;
-              }
-              nameStr += ', '+ cn
-            }
-            titleStr = toLatLngStr(h.coords);
-            if (h.population) {
-              titleStr += ', pop: ' + h.population;
-            }
-            li = jQuery('<li>'+ nameStr +'</li>');
-            li.attr({
-              title: titleStr,
-              'data-coords': h.coords.lat+','+h.coords.lng
-            })
-            if (h.matched) {
-              li.addClass('selected');
-            }
-            ol.append(li);
-          }
-        }
-        if (data.num > 1) {
-          p.geoAltPlaces.removeClass('hidden');
-        }
-        p.geoAltPlaces.find('h3.toggle em').text('('+data.num+')');
-      }
-    }
-  },*/
-
   updateChart: function(data) {
     if (astroDisc) {
         if (data.house_bounds) {
@@ -457,48 +406,6 @@ var AstroIQ = {
        } 
     }
   },
-
-  /*updateDegreeValues: function() {
-    var degFields = jQuery('input.degree'),
-      numDegFields = degFields.length,i=0,fd,par,vl,dv,dt;
-    if (numDegFields>0) {
-        for (;i<numDegFields;i++) {
-            fd = degFields.eq(i);
-            vl = fd.val();
-            if (isNumeric(vl)) {
-                par = fd.parent();
-                if (fd.hasClass('latitude')) {
-                    dv = toLatitudeString(vl);
-                } else {
-                    dv = toLongitudeString(vl);
-                }
-                dt = par.find('.degrees-dms');
-                if (dt.length<1) {
-                    dt = jQuery('<strong class="degrees-dms"></strong>');
-                    par.append(dt);
-                    par.addClass('has-dms');
-                }
-                dt.html(dv);
-            }
-        }
-    }
-  },*/
-
-  /*addQueryList: function() {
-    var p = pDom;
-    if (p.queries) {
-      p.queryList = p.queries.find('ol.query-list');
-      if (p.queryList.length<1) {
-        p.queryList = jQuery('<ol class="query-list"></ol>');
-        p.queries.append(p.queryList);
-      }
-    }
-  },
-
-  buildQueryListItem: function(data,paramStr) {
-    var li = '<li><a href="/sweph?'+paramStr.replace(/^&/,'')+'">'+data.name + ': ' + dateStringFormatted(data.datetime) +'</a> <span class="delete" title="Remove item">-</span></li>';
-    return jQuery(li);
-  },*/
 
   showData: function(data,paramStr) {
     jQuery('#main .hor-tabs li.chart').first().trigger('click');
@@ -617,6 +524,7 @@ var app = new Vue({
       otherType: ""
     },
     dob: '2017-01-01',
+    tob: '13:00',
     dateLabel: "Date and time of birth",
     timezone: {
       offset: '00:00',
@@ -653,6 +561,7 @@ var app = new Vue({
       ayanamsa: "-",
       hsy: "W",
       rodden: "-"
+      mode: 'topo'
     },
     queries: [],
     chartData: {
@@ -758,7 +667,7 @@ var app = new Vue({
               if (data.has_geonames) {
                   va.updateGeoDetails(data);
                   if (data.geomatched_index === 0) {
-                     var matchedGeo = data.geonames.names[data.geomatched_index]; 
+                     var matchedGeo = data.geonames.items[data.geomatched_index]; 
                      va.updateTzFields(matchedGeo);
                   }
               };
@@ -813,49 +722,20 @@ var app = new Vue({
         }
       }
       if (data.geonames) {
-        if (data.geonames.num > 0) {
-          var i=0,h,li,nameParts=[],skipCountry=false,cName='';
-          for (; i < data.geonames.num;i++) {
-            h = data.geonames.names[i];
-            skipCountry = false;
-            cName = '';
-            if (h.name) {
-              nameParts = [h.toponymName];
-              if (h.adminName1.length > 1) {
-                if (h.adminName1 != h.countryName) {
-                  nameParts.push(h.adminName1);
-                  switch (h.adminName1.toLowerCase()) {
-                    case 'scotland':
-                    case 'england':
-                    case 'wales':
-                      skipCountry;
-                      break;
-                  }
-                }
-                if (!skipCountry) {
-                  switch (h.countryCode) {
-                    case 'US':
-                      cName = 'USA';
-                      break;
-                    case 'UK':
-                      cName = 'UK';
-                      break;
-                    default:
-                      cName = h.countryName;
-                      break;
-                  }
-                  nameParts.push(cName);
-                }
-              }
+        if (data.geonames.num_items > 0) {
+          var i=0,row,li,nameParts=[];
+          for (; i < data.geonames.num_items;i++) {
+            row = data.geonames.items[i];
+            if (row.name) {
               li = {
-                coords: h.coords.lat+','+h.coords.lng,
-                name: nameParts.join(', ')
+                coords: row.coords.lat+','+row.coords.lng,
+                name: row.longName
               };
               this.geonames.items.push(li);
             }
           }
-          this.geonames.num = data.geonames.num;
-          this.geonames.active = data.geonames.num > 1;
+          this.geonames.num = data.geonames.num_items;
+          this.geonames.active = data.geonames.num_items > 1;
         }
       }
       if (GeoMap) {
@@ -909,7 +789,7 @@ var app = new Vue({
     sendControlForm: function() {
       if (this.dob.length>0 && this.candidateName.length>0) {
           var dobV = this.dob,
-          tobV = tob,
+          tobV = this.tob,
           lngV = this.location.coords.lat,
           latV = this.location.coords.lng,
           altV = this.location.coords.alt;
@@ -920,9 +800,9 @@ var app = new Vue({
           isGeo = false;
           params.b = toEuroDate(dobV);
           params.ut = toSwissEphTime(tobV);
-          params.elev = alt.val();
-          if (mod.length>0) {
-              isGeo = mod.val() == 'geo';
+          params.elev = altV;
+          if (options.mode.length>0) {
+              isGeo = options.mode == 'geo';
           }
           if (isGeo) {
               params.geopos = geopos;
@@ -942,6 +822,7 @@ var app = new Vue({
           params.gender = genderVal;
           /*var paramStr = toParamString(params,['address']),
           stored = getItem(paramStr);*/
+          console.log(params)
           this.loadQuery(params);
           
       }
@@ -1031,17 +912,7 @@ var app = new Vue({
         p.height = p.window.height();
         p.mobileMax = 959;
         p.medDesktopMin = 1280;
-        p.cForm = $('form#control-form');
-        p.queries = $('#queries');
-        p.infobox = $('#infobox');
-        p.geoBirth = $('#form-geobirth');
-        p.geoAddress = $('#geo-address');
-        p.geoAltPlaces = $('#geo-alt-places');
-        p.geoHospitals = $('#geo-hospitals');
-        p.timezoneFs = $('#timezone-settings');
-        p.timezoneFsDisplay = p.timezoneFs.find('h3 em');
-        p.tzField = $('#form-tz');
-        p.dsField = $('#form-ds');
+        
 
 
         p.window.on('resize',function() {
@@ -1049,64 +920,6 @@ var app = new Vue({
           p.width = p.window.width();
           p.height = p.window.height();
         });
-
-
-       /* p.geoFinder = $('#geobirth-finder');
-        if (p.geoFinder.length>0) {
-            p.geoBirth.on('click',function() {
-                $('#main .hor-tabs li.map').trigger('click');
-                GeoMap.showSatellite();
-            });
-            p.geoFinder.on('click', function(e){
-                e.preventDefault();
-                
-            });
-        }
-*/
-        
-
-        //$('input.degree').on('change keyup',AstroIQ.updateDegreeValues);
-
-        p.cForm.on('submit',function(e){
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            
-
-        });
-        
-        /*p.horMenu = $('#main .hor-tabs');
-        p.horMenu.find('li').on('click',function(e){
-            e.stopImmediatePropagation();
-            var it = $(this), main = $('#main');
-            if (it.hasClass('active') == false) {
-                var cl = it.attr('class');
-                if (cl) {
-                   var pane = $('#'+cl.split(' ').shift() + '-pane');
-                   if (pane.length>0) {
-                        main.find('> .active').removeClass('active').addClass('behind');
-                        pane.removeClass('behind').addClass('active');
-                        it.parent().find('.active').removeClass('active');
-                        it.addClass('active');
-                   }
-                }
-            }
-            if (it.hasClass('chart')) {
-                if (it.hasClass('indian')) {
-                    $('#astro-disc').addClass('show-indian').removeClass('show-european');
-                } else if (it.hasClass('european')) {
-                    $('#astro-disc').addClass('show-european').removeClass('show-indian');
-                }
-                it.parent().find('li.active').removeClass('active');
-                it.addClass('active');
-            }
-            if (it.hasClass('map')) {
-                if (GeoMap.map) {
-                  GeoMap.focus();
-                } else {
-                  AstroIQ.loadGMap(true);
-                }
-            }
-        });*/
 
         $('#control-panel fieldset .toggle').on('click',function(e){
             var par = $(this).parent();
@@ -1150,44 +963,6 @@ var app = new Vue({
           p.body.addClass('show-control-panel');
         }
 
-        if (localStorageSupported()) {
-          /*AstroIQ.addQueryList();
-          var item,li;
-          for (k in window.localStorage) {
-            if (k.indexOf('b=') >= 0 && k.indexOf('b=') <= 2) {
-              item = getItem(k);
-              if (item.valid) {
-                li = AstroIQ.buildQueryListItem(item.data,k);
-                p.queryList.append(li);
-              }
-            }
-          }*/
-        }
-
-        /*p.queries.on('click',function(e){
-          var tg = $(e.target);
-          if (tg.prop('tagName').toLowerCase() == 'a') {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            var paramStr = tg.attr('href').split('/sweph?').pop(),
-            stored = getItem(paramStr);
-            if (stored.valid) {
-              AstroIQ.showData(stored.data);
-            } 
-          }
-          if (tg.prop('tagName').toLowerCase() == 'span' && tg.hasClass('delete')) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            var lk = tg.parent().find('a:first');
-            if (lk.length>0) {
-              var paramStr = lk.attr('href').split('/sweph?').pop(),
-              deleted = deleteItem(paramStr);
-              if (deleted) {
-                lk.parent().remove();
-              } 
-            }
-          }
-        });*/
         p.geoLocAllowed = GeoMap.geoLocAllowed();
         
         if (!p.geoLocAllowed) {

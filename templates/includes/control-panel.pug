@@ -24,9 +24,9 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
     div.datetime
       label(for="form-dob") {{dateLabel}}:
       div.dob-field.half-width.first
-        input.datebox(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
+        input.datebox(type="date" id="form-dob" name="dob" size="10" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" v-model="dob")
       div.tob-field.half-width.second
-        input.datebox(type="time" id="form-tob" name="tob" size="5" value="11:25" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
+        input.datebox(type="time" id="form-tob" name="tob" size="5" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" v-model="tob")
     fieldset#timezone-settings.collapsible.closed
       h3.toggle Time Zone #[em {{timezone.display}}]
       p.tz
