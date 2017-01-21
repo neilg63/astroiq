@@ -106,9 +106,9 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
       h4.toggle Celestial Calculations
       p#form-mode.sub-section.radios
         label(for="form-mode") Topo/Geo:
-        input#form-mode-topo.mode(type="radio" value="topo" name="mode" checked="true" )
+        input#form-mode-topo.mode(type="radio" value="topo" name="mode" v-model="options.mode")
         label(for="form-mode-topo") Topocentric
-        input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode")
+        input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode" v-model="options.mode")
         label(for="form-mode-geo") Geocentric
 
 

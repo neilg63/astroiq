@@ -81,11 +81,11 @@ var GeoMap = {
     },
 
     updateAddress: function(data) {
-      jQuery('#form-lat').val(data.coords.lat.toString());
-      jQuery('#form-lng').val(data.coords.lng.toString());
+      app.location.coords.lat = data.coords.lat;
+      app.location.coords.lng = data.coords.lng;
       User.geo = data;
-      pDom.geoAddress.text(data.name + ', ' + data.countryName).removeClass('hidden');
-      jQuery('#form-lat').trigger('change');
+      app.location.address = data.name + ', ' + data.countryName;
+      app.location.showAddress = true;
     },
 
     addDragendEvent: function(marker) {
@@ -331,14 +331,14 @@ var AstroIQ = {
                 User.geo.coords = data.coords;
                 storeItem('geodata',data);
                 GeoMap.updateAddress(data);
-                AstroIQ.updateTzFields(data);
+                app.updateTzFields(data);
               }
             }
         });
     } else {
         if (geoData.data) {
             GeoMap.updateAddress(geoData.data);
-            AstroIQ.updateTzFields(geoData.data);
+            app.updateTzFields(geoData.data);
         }
     }
   },
@@ -560,7 +560,7 @@ var app = new Vue({
     options: {
       ayanamsa: "-",
       hsy: "W",
-      rodden: "-"
+      rodden: "-",
       mode: 'topo'
     },
     queries: [],
@@ -661,6 +661,7 @@ var app = new Vue({
               var data = response.data;
               if (data.valid) {
                 va.updateGeoDetails(data,key);
+                va.location.address = data.address;
               } else if (data.message) {
                   msg = data.message;
               }
@@ -669,6 +670,7 @@ var app = new Vue({
                   if (data.geomatched_index === 0) {
                      var matchedGeo = data.geonames.items[data.geomatched_index]; 
                      va.updateTzFields(matchedGeo);
+
                   }
               };
               if (msg.length > 1) {
@@ -767,7 +769,6 @@ var app = new Vue({
             if (strOffset2.length>0) {
               strOffset += ' (' + strOffset2 + ')';
             }
-            console.log(tz.gmtOffset)
             this.timezone.display = ' UTC ' + strOffset + ' hrs';
           }
         }
@@ -801,8 +802,8 @@ var app = new Vue({
           params.b = toEuroDate(dobV);
           params.ut = toSwissEphTime(tobV);
           params.elev = altV;
-          if (options.mode.length>0) {
-              isGeo = options.mode == 'geo';
+          if (this.options.mode.length>0) {
+              isGeo = this.options.mode == 'geo';
           }
           if (isGeo) {
               params.geopos = geopos;
@@ -813,9 +814,9 @@ var app = new Vue({
           params.system = this.options.hsy;
 
           params.sid = this.options.ayanamsa;
-          params.name = name.val().trim();
+          params.name = this.candidateName.trim();
           var genderVal = this.gender.type;
-          if (gender.type == 'other') {
+          if (this.gender.type == 'other') {
             genderVal = this.gender.otherType;
           }
           params.address = this.location.address;
@@ -829,7 +830,7 @@ var app = new Vue({
     },
     loadQuery: function(paramStr) {
       if (typeof paramStr == 'object') {
-        var params = toParamStr;
+        var params = paramStr;
         paramStr = toParamString(paramStr);
       } else {
         var params = fromParamStr(paramStr);
@@ -977,7 +978,7 @@ var app = new Vue({
                     lat: $('#form-lat').val(),
                     lng: $('#form-lng').val()
                 };
-                AstroIQ.updateTzFields(User.geo);
+                app.updateTzFields(User.geo);
             }
           }, 5000);
         }
