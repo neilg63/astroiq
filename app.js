@@ -40,10 +40,8 @@ app.get('/sweph', function(req, res){
       var dt = conversions.dateOffsetsToEuroDateTimeParts(datetime,tData.gmtOffset);
       req.query.b = dt.b;
       req.query.ut = dt.ut;
-      console.log(req.query,dt,tData)
       astro.get(req.query,res);
     }
-    
   });
 
 });

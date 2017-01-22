@@ -29,20 +29,21 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
         input.datebox(type="time" id="form-tob" name="tob" size="5" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" v-model="tob")
     fieldset#timezone-settings.collapsible.closed
       h3.toggle Time Zone #[em {{timezone.display}}]
-      p.tz
-        label(for="form-timezone") UTC offset:
-        select.tzoffset(type="number" id="form-tz" name="timezone" v-model="timezone.offset")
-          each opt,index in timezone.offsets
-            option(value = opt.value)= opt.label
-      p.ds
-        label(for="form-daylightsavings") Daylight saving:
-        select.ds(id="form-ds" name="ds" v-model="timezone.ds")
-          each opt,index in timezone.ds_options
-            option(value = opt.value)= opt.label
+      div#tz-settings.full-width
+        div.half-width.first
+          label(for="form-timezone") UTC offset:
+          select.tzoffset(type="number" id="form-tz" name="timezone" v-model="timezone.offset")
+            each opt,index in timezone.offsets
+              option(value = opt.value)= opt.label
+        div.half-width.second
+          label(for="form-daylightsavings") Daylight saving:
+          select.ds(id="form-ds" name="ds" v-model="timezone.ds")
+            each opt,index in timezone.ds_options
+              option(value = opt.value)= opt.label
     p.pob-row
       input(type="text" id="form-location" name="location" size="48" value="" placeholder="Place of birth" v-model="location.search" v-on:click="loadMap")
       input#location-finder(type="submit" value="Find" v-on:click.stop.prevent="searchLocation")
-      div#location-address.location-address(:class="{collapsed: !location.showAddress, expanded: location.showAddress}") {{location.address}}
+      textarea#location-address.location-address.full-width(:class="{collapsed: !location.showAddress, expanded: location.showAddress}" name="location_address" rows="3" cols="40") {{location.address}}
       div#geo-alt-places(:class="{hidden:!geonames.active}")
         fieldset#alt-places-container.listing.collapsible.closed
           h3.toggle Alternative places #[em ({{geonames.num}})]

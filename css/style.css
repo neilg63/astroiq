@@ -129,6 +129,12 @@ span.symbol-radio label {
   padding: 1em 0 0.25em 0;
 }
 
+#control-panel fieldset.closed > div {
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
 #control-panel p.has-dms input.degree {
     display: none;
 }
@@ -160,7 +166,14 @@ span.symbol-radio label {
 
 #control-panel div > .half-width {
     float: left;
-    max-width: 45%;
+    width: 45%;
+}
+
+#control-panel > fieldset,
+#control-panel > div,
+#control-panel fieldset div.full-width {
+    position:  relative;
+    width:  100%;
 }
 
 #control-panel div > .first {
@@ -193,7 +206,17 @@ span.symbol-radio label {
 }
 
 #control-panel div.datetime > .second {
+    width:  36%;
     max-width:  36%;
+}
+
+#control-panel .pob-row input {
+    max-width: 80%;
+}
+
+#control-panel textarea.full-width {
+    width:  90%;
+    clear:  both;
 }
 
 

@@ -640,6 +640,38 @@ var app = new Vue({
     }
   },
   methods: {
+    parseResults: function(data) {
+      var v1,v2,v3;
+      if (data.astro.ascendant) {
+        this.results.valid = true;
+      } else {
+        this.results.valid = false;
+      }
+      for (var k1 in data) {
+        if (this.results.hasOwnProperty(k1)) {
+          v1 = data[k1];
+          if (typeof v1 == 'object') {
+            for (var k2 in v1) {
+              if (this.results[k1].hasOwnProperty(k2)) {
+                v2 = v1[k2];
+                if (typeof v2 == 'object') {
+                  for (var k3 in v2) {
+                    if (this.results[k1][k2].hasOwnProperty(k3)) {
+                      v3 = v2[k3];
+                      this.results[k1][k2][k3] = v3;
+                    }
+                  }
+                } else {
+                  this.results[k1][k2] = v2;
+                }
+              }
+            }
+          } else {
+            this.results[k1] = v1;
+          }
+        }
+      }
+    },
     searchLocation: function() {
       this.location.showAddress = false;
       
@@ -791,8 +823,8 @@ var app = new Vue({
       if (this.dob.length>0 && this.candidateName.length>0) {
           var dobV = this.dob,
           tobV = this.tob,
-          lngV = this.location.coords.lat,
-          latV = this.location.coords.lng,
+          lngV = this.location.coords.lng,
+          latV = this.location.coords.lat,
           altV = this.location.coords.alt;
           lngV = roundDecimal(lngV,5);
           latV = roundDecimal(latV,5);
@@ -823,8 +855,7 @@ var app = new Vue({
           params.gender = genderVal;
           /*var paramStr = toParamString(params,['address']),
           stored = getItem(paramStr);*/
-          console.log(params)
-          //this.loadQuery(params);
+          this.loadQuery(params);
           
       }
     },
@@ -846,7 +877,8 @@ var app = new Vue({
         .then(function (response) {
           if (response.data) {
             var data = response.data;
-            this.parseResults(data);
+            app.parseResults(data);
+            app.activeTab = 'chart';
             AstroIQ.updateChart(data);
           }
         })
@@ -865,38 +897,6 @@ var app = new Vue({
     },
     showChart: function(cType) {
       this.chartMode = cType;
-    },
-    parseResults: function(data) {
-      var v1,v2,v3;
-      if (data.astro.ascendant) {
-        this.results.valid = true;
-      } else {
-        this.results.valid = false;
-      }
-      for (var k1 in data) {
-        if (this.results.hasOwnProperty(k1)) {
-          v1 = data[k1];
-          if (typeof v1 == 'object') {
-            for (var k2 in v1) {
-              if (this.results[k1].hasOwnProperty(k2)) {
-                v2 = v1[k2];
-                if (typeof v2 == 'object') {
-                  for (var k3 in v2) {
-                    if (this.results[k1][k2].hasOwnProperty(k3)) {
-                      v3 = v2[k3];
-                      this.results[k1][k2][k3] = v3;
-                    }
-                  }
-                } else {
-                  this.results[k1][k2] = v2;
-                }
-              }
-            }
-          } else {
-            this.results[k1] = v1;
-          }
-        }
-      }
     }
   }
 });

@@ -1,15 +1,66 @@
 const request = require('request');
+const {mongoose} = require('./../server/db/mongoose');
+const {Timezone} = require('./../server/models/timezone');
 const timezone_db_url = 'http://api.timezonedb.com/v2/get-time-zone';
 const timezone_db_apikey = '0NXJ03JE76B4';
 
 var timezone = {
 
+	parseData: (json,coords_date) => {
+		data = {
+			coords_date: coords_date
+		};
+		for (var k in json) {
+			switch (k) {
+				case 'countryCode':
+  			case 'zoneName':
+  			case 'abbreviation':
+  			case 'gmtOffset':
+  			case 'dst':
+  			case 'dstStart':
+  			case 'dstEnd':
+  				data[k] = json[k];
+  				break;
+			}
+		}
+		return data;
+	},
+
+	requestRemote: (href,coords_date,callback) => {
+		request(href, (error, response, body) => {
+	    if (error){
+	      callback({valid:false,msg:"Invalid parameters"},undefined);
+	    } else {
+	    	var valid = false;
+	  		if (typeof body == 'string') {
+	  			if (body.indexOf('{') === 0) {
+	  				let json = JSON.parse(body),
+	  					data = timezone.parseData(json,coords_date);
+	  				
+	  				var tz = new Timezone(data);
+	  				tz.save().then((doc) => {
+	            callback(undefined,data);
+	          }, (e) => {
+	            callback(undefined,data);
+	          });
+	  				valid = true;
+	  			}
+	    	}
+	    	if (!valid) {
+	    		callback({valid:false,msg:"Invalid parameters"},undefined);
+	    	}
+	  	}
+	  });
+  },
+
 	request: (data,date,method='zone',callback) => {
 		var valid = false,
-			href = timezone_db_url + `?key=${timezone_db_apikey}&format=json&by=${method}`;
+			href = timezone_db_url + `?key=${timezone_db_apikey}&format=json&by=${method}`,
+			coords_date = '';
 		if (method == 'zone') {
 			data = data.replace(':','/');
 			href += `&zone=${data}`;
+			coords_date = data;
 			valid = true;
 		} else {
 			var lat,lng;
@@ -29,6 +80,7 @@ var timezone = {
 			}
 			if (valid) {
 				href += `&lat=${lat}&lng=${lng}`;
+				coords_date = Math.approxFixed(lat,3) + ',' + Math.approxFixed(lng,3);
 			}
 		}
 		if (valid) {
@@ -39,23 +91,20 @@ var timezone = {
 				var timestamp = date.getTime() / 1000;
 				href += `&time=${timestamp}`;
 			}
-			request(href, (error, response, body) => {
-		      if (error){
-		        callback({valid:false,msg:"Invalid parameters"},undefined);
-		      } else {
-		      	var valid = false;
-	      		if (typeof body == 'string') {
-	      			if (body.indexOf('{') === 0) {
-	      				let data = JSON.parse(body);
-	      				callback(undefined,data);
-	      				valid = true;
-	      			}
-		      	}
-		      	if (!valid) {
-		      		callback({valid:false,msg:"Invalid parameters"},undefined);
-		      	}
-	      	}
-   		 });
+			coords_date += '_' + date.toISOString().split('T').shift();
+			var matched = false;
+			Timezone.findOne({
+	      coords_date: coords_date
+	    }).then((doc) => {
+	    	if (doc !== null) {
+	    		callback(undefined, doc);
+	    	} else {
+	    		timezone.requestRemote(href,coords_date,callback);
+	    	}
+	    }).catch((e) => {
+	    	callback({valid:false,msg:"application error"});
+	    });
+			
 		}
 	},
 

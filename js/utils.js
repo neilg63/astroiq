@@ -385,7 +385,7 @@ var zeroPad2 = function(num) {
     var isString = typeof num == 'string',
     isNum = typeof num == 'number', str;
     if (isString || isNum) {
-       if (isNum && /^\s*\d+\s*$/.test(num)) {
+       if (isNum || /^\s*\d+\s*$/.test(num)) {
             num = parseInt(num)
        }
        if (num < 10) {
@@ -428,7 +428,9 @@ var toHourOffsetString = function(hourVal,places) {
 var toSwissEphTime = function(strTime) {
     var parts = strTime.split(":"), t;
     if (parts.length>1) {
+
         t= zeroPad2(parts[0]) + '.' + zeroPad2(parts[1]);
+        console.log(t)
         if (parts.length>2) {
             t += zeroPad2(parts[2]);
         }
