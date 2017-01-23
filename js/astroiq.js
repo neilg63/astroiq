@@ -984,7 +984,7 @@ var app = new Vue({
         }
 
         if (screen.width > p.mobileMax) {
-            initJQueryDateBox();
+            setTimeout(initJQueryDateBox, 250);
         }       
     });
 })(jQuery);

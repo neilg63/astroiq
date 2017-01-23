@@ -284,6 +284,10 @@ app.get('/command', function(req, res) {
     res.sendfile('./swetest.html');
 });
 
+app.get('/d3', function(req, res) {
+    res.sendfile('./d3.html');
+});
+
 app.get('/geocode/:address', (req,res) => {
   var searchString = req.params.address.despace();
   geocode.matchLocation(searchString,res);

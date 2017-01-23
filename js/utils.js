@@ -3,6 +3,42 @@ Math.approx = function(num,places) {
   return Math.round(num * p) / p;
 }
 
+Math.approxFixed = function(num,places) {
+  return this.approx(num,places).toFixed(places);
+}
+
+Math.sinDeg = function(deg) {
+  return Math.sin( (deg/180) * Math.PI);
+}
+
+Math.cosDeg = function(deg) {
+  return Math.cos( (deg/180) * Math.PI);
+}
+
+Math.tanDeg = function(deg) {
+  return Math.tan( (deg/180) * Math.PI);
+}
+
+Math.asinDeg = function(val) {
+  return Math.asin( val ) * (180/Math.PI);
+}
+
+Math.acosDeg = function(val) {
+  return Math.acos( val ) * (180/Math.PI);
+}
+
+Math.atanDeg = function(val) {
+  return Math.atan( val ) * (180/Math.PI);
+}
+
+Array.prototype.max = function() {
+  return Math.max.apply(Math, this);
+}
+
+Array.prototype.min = function() {
+  return Math.min.apply(Math, this);
+}
+
 String.prototype.ltrim = function() {
   return this.replace(/^\s+/,'');
 }
@@ -31,7 +67,6 @@ String.prototype.textLength = function(mode) {
   }
   return txt.length;
 }
-
 
 String.prototype._contains = function(type,str,mode) {
   var rgx, source;
