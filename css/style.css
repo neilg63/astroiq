@@ -658,6 +658,21 @@ line.solid {
     transition: opacity 0.25s linear .5s,max-height 0 linear .5s;
 }
 
+#queries li span {
+    cursor:  pointer;
+    display:  inline-block;
+}
+
+#queries li span.delete {
+    padding-left: 1em;
+}
+
+#queries li span.delete:after {
+    content:  "-";
+    font-size:  1.5em;
+    color:  red;
+}
+
 #control-panel,
 #control-panel .toggle-aside {
     cursor: pointer;

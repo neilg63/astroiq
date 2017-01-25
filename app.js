@@ -25,24 +25,35 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/sweph', function(req, res){ 
-  var debug = false;
+  var debug = false,swCoords;
   if (req.query.debug) {
     if (req.query.debug == 1) {
       debug = true;
     }
   }
-  
-  let coords = conversions.swephTopoStrToLatLng(req.query.topo),
+
+  if (req.query.topo) {
+    swCoords = req.query.topo;
+  } else if (req.query.geopos) {
+    swCoords = req.query.geopos;
+  }
+  if (swCoords !== null) {
+    let coords = conversions.swephTopoStrToLatLng(swCoords),
         datetime = conversions.euroDatePartsToISOString(req.query.b,req.query.ut);
    
-  timezone.request(coords,datetime,'position',(error,tData) => {
-    if (!error) {
-      var dt = conversions.dateOffsetsToEuroDateTimeParts(datetime,tData.gmtOffset);
-      req.query.b = dt.b;
-      req.query.ut = dt.ut;
+    timezone.request(coords,datetime,'position',(error,tData) => {
+      if (!error) {
+        var dt = conversions.dateOffsetsToEuroDateTimeParts(datetime,tData.gmtOffset);
+        req.query.b = dt.b;
+        req.query.ut = dt.ut;
+        req.query.tz = tData.zoneName;
+        req.query.gmtOffset = tData.gmtOffset;
+      }
       astro.get(req.query,res);
-    }
-  });
+    });
+  } else {
+    res.send({valid: false});
+  }
 
 });
 

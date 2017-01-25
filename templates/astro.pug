@@ -3,14 +3,16 @@ head
   meta(name="viewport" content="width=device-width, initial-scale=1")
   link(type="text/css" href="//unpkg.com/purecss@0.6.1/build/pure-min.css" rel="stylesheet")
   link(type="text/css" href="/css/style.css" rel="stylesheet")
-  link(type="text/css" href="/css/chart.css" rel="stylesheet")
+  link(type="text/css" href="/css/svg-charts.css" rel="stylesheet")
   link(type="text/css" href="/icomoon/style.css" rel="stylesheet")
   script(type="text/javascript" src="/js/lib/lodash.min.js")
   script(type="text/javascript" src="/js/lib/vue.min.js")
   script(type="text/javascript" src="/js/lib/axios.min.js")
   script(type="text/javascript" src="/js/lib/jquery.min.js")
   script(type="text/javascript" src="/js/lib/jquery.mousewheel.min.js")
-  script(type="text/javascript" source="internal" src="/js/snap/dist/snap.svg-min.js")
+  script(type="text/javascript" source="internal" src="/js/lib/d3.v4.js")
+  script(type="text/javascript" source="internal" src="/js/lib/d3-drag.min.js")
+  script(type="text/javascript" source="internal" src="/js/lib/d3-selection-multi.v0.4.min.js")
   script(data-source="internal" type="text/javascript" src="/js/utils.min.js")
   link(type="text/css" href="/js/datebox/css/custom-datebox.css" rel="stylesheet")
   title= title
@@ -23,24 +25,26 @@ body
       div#queries
         ol.queries
           template(v-for="item in queries")
-            li(v-on:click.stop="loadQuery(item.paramStr)") {{item.name}}, {{item.dateStr}}
+            li
+              span.load(v-on:click.stop="loadQuery(item.paramStr)") {{item.name}}, {{item.dateStr}}
+              span.delete(v-on:click.stop="deleteQuery(item.paramStr)")
     div#main
-      ul.hor-tabs
+      ul#pane-tabs.hor-tabs
         li.chart(v-on:click="showPane('chart')") Chart
-          ul.sub-tabs
-            li.western(v-on:click="showChart('western')") Western
-            li.northindian(v-on:click="showChart('northindian')") North Indian
-            li.southindian(v-on:click="showChart('southindian')") South Indian
         li.map(v-on:click="showPane('map')") Map
         li.results(:class="{disabled:!results.valid}" v-on:click="showPane('results')") Results
       object#chart-pane.large-pane(:class="{active:activeTab=='chart'}")
-        include ../svgs/charts/astro-chart.svg
+        include ../svgs/charts/combined.svg
         div#infobox(:class="{'has-data': chartData.active}")
           p.candidate
             span.label Name: 
             strong.person-name {{chartData.name}}
             em.datetime {{chartData.dateStr}}
           p.location-name(:title="chartData.coords") {{chartData.address}}
+        ul#chart-tabs.hor-tabs
+          li.western(v-on:click="showChart('western')") Western
+          li.northindian(v-on:click="showChart('northindian')") North Indian
+          li.southindian(v-on:click="showChart('southindian')") South Indian
       div#map-pane.large-pane(:class="{active:activeTab=='map'}")
         div#gmap
 
@@ -53,7 +57,7 @@ body
   //- script(src="/js/kutejs/kute.min.js")
   //- script(src="/js/kutejs/kute-attr.min.js") 
   //- script(src="/js/kutejs/kute-svg.min.js")
-  script(data-source="internal" type="text/javascript" src="/js/astro-charts.js")
+  script(data-source="internal" type="text/javascript" src="/js/astrochart.js")
   script(data-source="internal" type="text/javascript" src="/js/astroiq.js")
   div#gmap-api-key(data-key="AIzaSyCGq1eIKwzv92oPoBGzxhIkp4C8anr0_Ow")
   div#jq-resources(data-jqui="/js/lib/jquery-ui.min.js" data-jqdb="/js/datebox/js/jtsage-datebox.min.js")

@@ -1,0 +1,68 @@
+svg {
+font-size: 16px;
+}
+
+.main-disc {
+    transform-origin: 50% 50% 0;
+}
+.house-label text {
+font-size: 3em;
+}
+
+.segment-symbol svg,
+.segment-symbol {
+   width: 30px;
+  height:  30px;
+}
+
+text {
+  opacity: 1;
+  transition: all 250s ease-in;
+  fill: #99999;
+  font-family: Helvetica;
+}
+
+.invisible {
+  opacity:  0;
+}
+
+line.ascendant {
+stroke: red;
+}
+
+.segment {
+cursor:  pointer;
+}
+
+.degree-label {
+font-size:  1.5em;
+}
+
+#north-indian-chart {
+opacity: 0;
+pointer-events: none;
+}
+
+.show-indian #north-indian-chart {
+opacity: 1;
+pointer-events: auto;
+}
+
+.show-indian #north-indian-chart .shape {
+stroke-width: 3px;
+stroke: blue;
+}
+
+.european-element {
+opacity: 1;
+}
+
+.european-element,
+#north-indian-chart {
+transition: all 1s ease-in;
+}
+
+.show-indian .european-element {
+opacity: 0;
+pointer-events: none;
+}
