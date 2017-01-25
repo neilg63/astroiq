@@ -1,0 +1,493 @@
+<svg id="astro-disc" width="1500" height="1500" viewBox="0 0 1500 1500">
+  <g id="western-chart" class="chart western-chart">
+    <g class="main-disc" x="90" y="90">
+  <g class="degrees">
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-90,750,750)">
+    </line>
+    <text class="degree-label" x="100" y="750">0º</text>
+    <text class="degree-label" x="1400" y="750">180º</text>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-89,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-88,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-87,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-86,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(-85,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-84,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-83,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-82,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-81,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-80,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-79,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-78,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-77,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-76,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(-75,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-74,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-73,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-72,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-71,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-70,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-69,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-68,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-67,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-66,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(-65,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-64,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-63,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-62,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-61,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-60,750,750)">
+    </line>
+    <text class="degree-label" x="187.0834875401149" y="424.99999999999994">330º</text>
+    <text class="degree-label" x="1312.9165124598853" y="1074.9999999999998">150º</text>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-59,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-58,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-57,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-56,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(-55,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-54,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-53,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-52,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-51,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-50,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-49,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-48,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-47,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-46,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(-45,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-44,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-43,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-42,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-41,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-40,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-39,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-38,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-37,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-36,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(-35,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-34,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-33,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-32,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-31,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-30,750,750)">
+    </line>
+    <text class="degree-label" x="425.00000000000006" y="187.0834875401148">300º</text>
+    <text class="degree-label" x="1075" y="1312.9165124598853">120º</text>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-29,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-28,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-27,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-26,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(-25,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-24,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-23,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-22,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-21,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-20,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-19,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-18,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-17,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-16,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(-15,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-14,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-13,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-12,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-11,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-10,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-9,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-8,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-7,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-6,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(-5,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-4,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-3,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-2,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-1,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(0,750,750)">
+    </line>
+    <text class="degree-label" x="750" y="100">270º</text>
+    <text class="degree-label" x="750.0000000000001" y="1400">90º</text>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(1,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(2,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(3,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(4,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(5,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(6,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(7,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(8,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(9,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(10,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(11,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(12,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(13,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(14,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(15,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(16,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(17,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(18,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(19,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(20,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(21,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(22,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(23,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(24,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(25,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(26,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(27,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(28,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(29,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(30,750,750)">
+    </line>
+    <text class="degree-label" x="1075" y="187.0834875401148">240º</text>
+    <text class="degree-label" x="424.99999999999994" y="1312.916512459885">60º</text>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(31,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(32,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(33,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(34,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(35,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(36,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(37,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(38,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(39,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(40,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(41,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(42,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(43,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(44,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(45,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(46,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(47,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(48,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(49,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(50,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(51,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(52,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(53,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(54,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(55,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(56,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(57,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(58,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(59,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(60,750,750)">
+    </line>
+    <text class="degree-label" x="1312.916512459885" y="424.99999999999994">210º</text>
+    <text class="degree-label" x="187.08348754011502" y="1075.0000000000002">30º</text>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(61,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(62,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(63,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(64,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(65,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(66,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(67,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(68,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(69,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(70,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(71,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(72,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(73,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(74,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(75,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(76,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(77,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(78,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(79,750,750)">
+    </line>
+    <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(80,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(81,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(82,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(83,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(84,750,750)">
+    </line>
+    <line class="degree-line degree-line-five" x1="750" y1="130" x2="750" y2="1370" stroke="#333333" stroke-width="1" transform="rotate(85,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(86,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(87,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(88,750,750)">
+    </line>
+    <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(89,750,750)">
+    </line>
+  </g>
+    <g class="main-segments">
+      <path class="segment segment-1" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#aa3300" transform="rotate(270,750,750)">
+      </path>
+      <path class="segment segment-2" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#00aa33" transform="rotate(240,750,750)">
+      </path>
+      <path class="segment segment-3" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#229944" transform="rotate(210,750,750)">
+      </path>
+      <path class="segment segment-4" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#448800" transform="rotate(180,750,750)">
+      </path>
+      <path class="segment segment-5" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#009966" transform="rotate(150,750,750)">
+      </path>
+      <path class="segment segment-6" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#990099" transform="rotate(120,750,750)">
+      </path>
+      <path class="segment segment-7" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#779922" transform="rotate(90,750,750)">
+      </path>
+      <path class="segment segment-8" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#3366cc" transform="rotate(60,750,750)">
+      </path>
+      <path class="segment segment-9" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#66cc66" transform="rotate(30,750,750)">
+      </path>
+      <path class="segment segment-10" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#cc0099" transform="rotate(0,750,750)">
+      </path>
+      <path class="segment segment-11" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#444499" transform="rotate(-30,750,750)">
+      </path>
+      <path class="segment segment-12" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#3300cc" transform="rotate(-60,750,750)">
+      </path>
+    </g>
+    <g class="segment-symbols">
+      <image href="/svgs/signs/glyph/01.svg" class="segment-symbol segment-symbol-0" x="199.0815372781218" y="884.9386652574116">
+      </image>
+      <image href="/svgs/signs/glyph/02.svg" class="segment-symbol segment-symbol-1" x="344.02020253553343" y="1135.9797974644666">
+      </image>
+      <image href="/svgs/signs/glyph/03.svg" class="segment-symbol segment-symbol-2" x="595.0613347425885" y="1280.9184627218783">
+      </image>
+      <image href="/svgs/signs/glyph/04.svg" class="segment-symbol segment-symbol-3" x="884.9386652574118" y="1280.9184627218783">
+      </image>
+      <image href="/svgs/signs/glyph/05.svg" class="segment-symbol segment-symbol-4" x="1135.9797974644666" y="1135.9797974644666">
+      </image>
+      <image href="/svgs/signs/glyph/06.svg" class="segment-symbol segment-symbol-5" x="1280.9184627218783" y="884.9386652574117">
+      </image>
+      <image href="/svgs/signs/glyph/07.svg" class="segment-symbol segment-symbol-6" x="1280.9184627218783" y="595.0613347425883">
+      </image>
+      <image href="/svgs/signs/glyph/08.svg" class="segment-symbol segment-symbol-7" x="1135.9797974644666" y="344.0202025355334">
+      </image>
+      <image href="/svgs/signs/glyph/09.svg" class="segment-symbol segment-symbol-8" x="884.9386652574117" y="199.0815372781218">
+      </image>
+      <image href="/svgs/signs/glyph/10.svg" class="segment-symbol segment-symbol-9" x="595.0613347425883" y="199.0815372781218">
+      </image>
+      <image href="/svgs/signs/glyph/11.svg" class="segment-symbol segment-symbol-10" x="344.02020253553343" y="344.0202025355334">
+      </image>
+      <image href="/svgs/signs/glyph/12.svg" class="segment-symbol segment-symbol-11" x="199.0815372781218" y="595.0613347425883">
+      </image>
+    </g>
+  </g>
+  <g class="inner-disc">
+    <circle class="inner-disc" cx="750" cy="750" r="500" fill="white">
+    </circle>
+  </g>
+  <g class="house-lines-group">
+    <polyline points="20,730 0,750 20,770" class="ascendant" fill="none" stroke="red" stroke-width="3">
+    </polyline>
+  </g>
+</g>
+  </g>
+
+  <g id="north-indian-chart" class="chart north-indian-chart" stroke="none" fill="none" transform="translate(60,60)" class="european-element">
+      <path d="M0,0 L1440,0 L1440,1440 L0,1440 Z" stroke="none" class="shape" />
+      <polygon
+       id="zone-01"
+       class="triangle zone shape"
+       points="0,0 720,0 360,360" stroke="none"/>
+      <polygon
+       id="zone-02"
+       class="triangle zone shape"
+       points="0,0 0,720 360,360" stroke="none"/>
+      <polygon
+       id="zone-03"
+       class="rect zone shape"
+       points="720,0 360,360 720,720 1080,360" stroke="none" fill="yellow" />
+       <polygon
+       id="zone-04"
+       class="triangle zone shape"
+       points="0,720 0,1440 360,1080" stroke="none"/>
+       <polygon
+       id="zone-05"
+       class="triangle zone shape"
+       points="0,1440 720,1440 360,1080" stroke="none"/>
+       <polygon
+       id="zone-06"
+       class="rect zone shape"
+       points="0,720 360,360 720,720 360,1080" stroke="none" fill="yellow" />
+       <polygon
+       id="zone-07"
+       class="triangle zone shape"
+       points="720,0 1440,0 1080,360" stroke="none"/>
+       <polygon
+       id="zone-08"
+       class="rect zone shape"
+       points="720,1440 360,1080 720,720 1080,1080" stroke="none" fill="yellow" />
+      <polygon
+       id="zone-09"
+       class="triangle zone shape"
+       points="1440,720 1440,0 1080,360" stroke="none"/>
+       <polygon
+       id="zone-10"
+       class="rect zone shape"
+       points="1440,720 1080,360 720,720 1080,1080" stroke="none" fill="yellow" />
+       <polygon
+       id="zone-11"
+       class="triangle zone shape"
+       points="1440,720 1440,1440 1080,1080" stroke="none"/>
+       <polygon
+       id="zone-12"
+       class="triangle zone shape"
+       points="720,1440 1440,1440 1080,1080" stroke="none"/>
+    </g>
+</svg>
