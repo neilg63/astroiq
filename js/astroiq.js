@@ -555,6 +555,7 @@ var app = new Vue({
       dateStr: '',
 
     },
+    showDecDegrees: false,
     activeTab: 'chart',
     chartMode: 'western',
     results: EphemerisData
@@ -922,6 +923,9 @@ var app = new Vue({
     },
     showChart: function(cType) {
       this.chartMode = cType;
+    },
+    toggleDecDegrees: function() {
+      this.showDecDegrees = !this.showDecDegrees;
     }
   }
 });

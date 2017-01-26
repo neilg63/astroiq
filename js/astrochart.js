@@ -35,21 +35,6 @@ var AstroChart = {
 
     segments: [],
 
-    segmentColors: [
-        '#aa3300',
-        '#00aa33',
-        '#229944',
-        '#448800',
-        '#009966',
-        '#990099',
-        '#779922',
-        '#3366cc',
-        '#66cc66',
-        '#cc0099',
-        '#444499',
-        '#3300cc'
-    ],
-
     svg: null,
 
     inner: null,
@@ -96,12 +81,10 @@ var AstroChart = {
     },
 
     buildMain: function() {
-        this.signGlyphs = [];
-    this.discLayer = d3.select('g.main-segments');
-    this.labelLayer = d3.select('g.segment-symbols');
-        this.segments = d3.selectAll('g.segments');
-        this.signGlyphs = d3.selectAll('image.segment-symbol');
-    
+      this.discLayer = d3.select('g.main-segments');
+      this.labelLayer = d3.select('g.segment-symbols');
+      this.segments = d3.selectAll('g.segments');
+      this.signGlyphs = d3.selectAll('image.segment-symbol');
     },
 
     buildInner: function() {
@@ -117,7 +100,11 @@ var AstroChart = {
     AstroChart.signGlyphs.attr('transform',function(){
       var it = d3.select(this), x = it.attr('x'), y = it.attr('y');
       //var off = 0- Math.abs((0-deg)%90) / 6;
-
+      x = parseInt(x);
+      y = parseInt(y);
+      console.log(deg)
+      it.attr('x',x);
+      it.attr('y',y);
       return 'rotate('+(0-deg)+','+x+','+y+')';
     });
   },
@@ -313,26 +300,6 @@ var AstroChart = {
         this.buildMain();
         this.buildInner();
         this.buildHouses();
-
-    
-        /*this.main.on('click',function(){
-            
-            newHouses = [
-                98,
-                113,
-                156,
-                181,
-                207,
-                244,
-                278,
-                303,
-                336,
-                1,
-                27,
-                64
-            ];
-            AstroChart.updateHouses(newHouses);
-        });*/
 
     }
 

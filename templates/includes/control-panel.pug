@@ -56,21 +56,22 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
           ol.hospitals
             template(v-for="item in hospitals.items")
               li(:data-coords="item.coords" v-on:click="updateMap(item.coords)") {{item.name}}
-    p.lat
-      label(for="form-lat" title="latitude") Latitude:
-      input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" title="latitude" v-model="location.coords.lat")
-      span.coordinates.lat.dms {{location.coords.latDms}}
-    p.lng
-      label.degree(for="form-lng" title="longitude") Longitude:
-      input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" title="longitude" v-model="location.coords.lng")
-      span.coordinates.lng.dms {{location.coords.lngDms}}
-    p.alt
-      label(for="form-alt-display" title="Altitude") Altitude:
-      input(type="number" id="form-alt-display" name="alt" size="1" v-bind:steps="location.altSteps" min="0" v-bind:max="location.altMax" title="Height above sea level in metres" v-model="location.altDisplay")
-      input(type="hidden" id="form-alt" v-model="location.coords.alt")
-      select#form-height-unit.inline(v-model="location.altUnit")
-        option(value="m") metres
-        option(value="ft") feet
+    fieldset.coordinates(:class="{'show-dec-degrees':showDecDegrees}")
+      p.lat
+        label(for="form-lat" title="latitude") Latitude:
+        input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" title="latitude" v-model="location.coords.lat")
+        span.coordinates.lat.dms(v-on:click="toggleDecDegrees()") {{location.coords.latDms}}
+      p.lng
+        label.degree(for="form-lng" title="longitude") Longitude:
+        input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" title="longitude" v-model="location.coords.lng")
+        span.coordinates.lng.dms(v-on:click="toggleDecDegrees()") {{location.coords.lngDms}}
+      p.alt
+        label(for="form-alt-display" title="Altitude") Altitude:
+        input(type="number" id="form-alt-display" name="alt" size="1" v-bind:steps="location.altSteps" min="0" v-bind:max="location.altMax" title="Height above sea level in metres" v-model="location.altDisplay")
+        input(type="hidden" id="form-alt" v-model="location.coords.alt")
+        select#form-height-unit.inline(v-model="location.altUnit")
+          option(value="m") metres
+          option(value="ft") feet
     p.rodden
       label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale:
       select#form-rodden.select-input(name="rodden" v-model="options.rodden")
@@ -87,7 +88,7 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
   fieldset.collapsible.closed
     h3.toggle Calculation Settings
     //- include settings/calc-house-system.pug
-    fieldset.collapsible.closed
+    fieldset.collapsible.open
       h4.toggle Default House System
       p.sub-section
         label(for="form-hsy") House system:
@@ -95,18 +96,17 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
           each opt,index in houseSystems
             option(value = opt.value)= opt.label
     //- include settings/calc-ayanamsha.pug
-    fieldset.collapsible.closed
+    fieldset.collapsible.open
       h4.toggle Tropical vs. Sidereal (Ayanāṃśa)
-        p.sub-section
-          label(for="form-ayanamsa") Ayanāṃśa
-          select#form-ayanamsa.select-input(name="ayanamsa" v-model="options.ayanamsa")
-            each opt,index in ayanamsas
-              option(value = opt.value)= opt.label
+      p.sub-section
+        label(for="form-ayanamsa") Ayanāṃśa
+        select#form-ayanamsa.select-input(name="ayanamsa" v-model="options.ayanamsa")
+          each opt,index in ayanamsas
+            option(value = opt.value)= opt.label
     //- include settings/calc-celestial.pug
-    fieldset.collapsible.closed
+    fieldset.collapsible.open
       h4.toggle Celestial Calculations
       p#form-mode.sub-section.radios
-        label(for="form-mode") Topo/Geo:
         input#form-mode-topo.mode(type="radio" value="topo" name="mode" v-model="options.mode")
         label(for="form-mode-topo") Topocentric
         input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode" v-model="options.mode")

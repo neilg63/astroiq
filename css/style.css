@@ -734,6 +734,19 @@ line.solid {
     width: 1em;
 }
 
+#control-panel input.degree {
+    max-width: 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+#control-panel .show-dec-degrees input.degree {
+    min-width: 6em;
+    padding:  0 0.125em;
+    opacity: 1;
+    pointer-events: auto;
+}
+
 #control-panel .second .input-group-addon {
     right: 3em;
 }
@@ -1001,4 +1014,15 @@ ul.hor-tabs li {
 ul.ver-tabs li:hover,
 ul.hor-tabs li:not(.disabled):hover {
     transform: scale(1.125);
+}
+
+#chart-main {
+    position: relative;
+    margin: 3vh auto;
+    top:  3vh;
+}
+
+#chart-main svg {
+    width: 90vw;
+    max-height: 90vh;
 }

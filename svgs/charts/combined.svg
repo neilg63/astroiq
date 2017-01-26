@@ -376,29 +376,29 @@
     </line>
   </g>
     <g class="main-segments">
-      <path class="segment segment-1" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#aa3300" transform="rotate(270,750,750)">
+      <path class="segment segment-1" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(270,750,750)">
       </path>
-      <path class="segment segment-2" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#00aa33" transform="rotate(240,750,750)">
+      <path class="segment segment-2" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(240,750,750)">
       </path>
-      <path class="segment segment-3" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#229944" transform="rotate(210,750,750)">
+      <path class="segment segment-3" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(210,750,750)">
       </path>
-      <path class="segment segment-4" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#448800" transform="rotate(180,750,750)">
+      <path class="segment segment-4" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(180,750,750)">
       </path>
-      <path class="segment segment-5" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#009966" transform="rotate(150,750,750)">
+      <path class="segment segment-5" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(150,750,750)">
       </path>
-      <path class="segment segment-6" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#990099" transform="rotate(120,750,750)">
+      <path class="segment segment-6" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(120,750,750)">
       </path>
-      <path class="segment segment-7" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#779922" transform="rotate(90,750,750)">
+      <path class="segment segment-7" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(90,750,750)">
       </path>
-      <path class="segment segment-8" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#3366cc" transform="rotate(60,750,750)">
+      <path class="segment segment-8" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(60,750,750)">
       </path>
-      <path class="segment segment-9" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#66cc66" transform="rotate(30,750,750)">
+      <path class="segment segment-9" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(30,750,750)">
       </path>
       <path class="segment segment-10" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#cc0099" transform="rotate(0,750,750)">
       </path>
-      <path class="segment segment-11" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#444499" transform="rotate(-30,750,750)">
+      <path class="segment segment-11" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(-30,750,750)">
       </path>
-      <path class="segment segment-12" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" fill="#3300cc" transform="rotate(-60,750,750)">
+      <path class="segment segment-12" d="M750,150 A600,600 0 0,1 1050,230.3847577293368 L750,750 Z" transform="rotate(-60,750,750)">
       </path>
     </g>
     <g class="segment-symbols">

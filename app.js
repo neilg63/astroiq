@@ -272,7 +272,7 @@ app.use('/icomoon', express.static('icomoon'));
 app.use('/svgs', express.static('svgs'));
 
 app.get('/', function(req, res) {
-   const page = pug.compileFile(__dirname + '/templates/index.pug');
+   const page = pug.compileFile(__dirname + '/templates/astro.pug');
     res.send(page(variables));
 });
 
@@ -281,8 +281,8 @@ app.get('/zodiac', function(req, res) {
     res.send(page(variables));
 });
 
-app.get('/astro', function(req, res) {
-    const page = pug.compileFile(__dirname + '/templates/astro.pug');
+app.get('/chart', function(req, res) {
+    const page = pug.compileFile(__dirname + '/templates/astrochart.pug');
     res.send(page(variables));
 });
 

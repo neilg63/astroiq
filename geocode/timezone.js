@@ -90,8 +90,8 @@ var timezone = {
 			if (date instanceof Date) {
 				var timestamp = date.getTime() / 1000;
 				href += `&time=${timestamp}`;
+				coords_date += '_' + date.toISOString().split('T').shift();
 			}
-			coords_date += '_' + date.toISOString().split('T').shift();
 			var matched = false;
 			Timezone.findOne({
 	      coords_date: coords_date

@@ -66,3 +66,38 @@ transition: all 1s ease-in;
 opacity: 0;
 pointer-events: none;
 }
+
+path.segment {
+  fill: #999999;
+  opacity: 0.9;
+}
+
+.main-segments path.segment-1,
+.main-segments path.segment-7 {
+  fill: #cc2222;
+}
+
+.main-segments path.segment-2,
+.main-segments path.segment-8 {
+  fill: #33bb33;
+}
+
+.main-segments path.segment-3,
+.main-segments path.segment-9 {
+  fill: #2244bb;
+}
+
+.main-segments path.segment-4,
+.main-segments path.segment-10 {
+  fill: #cc7700;
+}
+
+.main-segments path.segment-5,
+.main-segments path.segment-11 {
+  fill: #339933;
+}
+
+.main-segments path.segment-6,
+.main-segments path.segment-12 {
+  fill: #444488;
+}
