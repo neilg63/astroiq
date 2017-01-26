@@ -794,13 +794,20 @@ var app = new Vue({
         }
       }
     },
-    updateMap: function(coords) {
+    updateMap: function(coords,name) {
       if (coords) {
         var parts = coords.split(',');
         if (isNumeric(parts[0]) && isNumeric(parts[1])) {
           parts[0] = parseFloat(parts[0]);
           parts[1] = parseFloat(parts[1]);
           GeoMap.updateMap(parts[0],parts[1],true,false);
+          this.location.coords.lat = parts[0];
+          this.location.coords.lng = parts[1];
+          if (typeof name == 'string') {
+            if (name.length>2) {
+              this.location.address = name;
+            }
+          }
         }
       }
     },

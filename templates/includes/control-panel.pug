@@ -49,13 +49,13 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
           h3.toggle Alternative places #[em ({{geonames.num}})]
           ol.alt-places
             template(v-for="item in geonames.items")
-              li(v-on:click="updateMap(item.coords)") {{item.name}}
+              li(v-on:click="updateMap(item.coords,item.name)") {{item.name}}
       div#geo-hospitals(:class="{hidden:!hospitals.active}")
         fieldset#hospital-container.listing.collapsible.closed
           h3.toggle Maternity centres #[em ({{hospitals.num}})]
           ol.hospitals
             template(v-for="item in hospitals.items")
-              li(:data-coords="item.coords" v-on:click="updateMap(item.coords)") {{item.name}}
+              li(:data-coords="item.coords" v-on:click="updateMap(item.coords,item.name)") {{item.name}}
     fieldset.coordinates(:class="{'show-dec-degrees':showDecDegrees}")
       p.lat
         label(for="form-lat" title="latitude") Latitude:

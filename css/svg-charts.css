@@ -101,3 +101,13 @@ path.segment {
 .main-segments path.segment-12 {
   fill: #444488;
 }
+
+.main-segments path.segment-7,
+.main-segments path.segment-8,
+.main-segments path.segment-9,
+.main-segments path.segment-10,
+.main-segments path.segment-11,
+.main-segments path.segment-12 {
+  -webkit-filter: hue-rotate(120deg);
+  filter: hue-rotate(120deg);
+}
