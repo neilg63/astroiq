@@ -343,17 +343,6 @@ var AstroIQ = {
     }
   },
 
-  updateChart: function(data) {
-    if (AstroChart) {
-        if (data.houses) {
-            AstroChart.updateHouses(data.houses);
-        }
-        /*if (data.bodies) {
-            AstroChart.tweenBodies(data.bodies);
-        }*/
-    }
-  },
-
   appendAyamansa: function(params) {
     var href = '/ayanamsa';
     jQuery.ajax({
@@ -389,23 +378,6 @@ var AstroIQ = {
                 p.timezoneFsDisplay.html(' UTC ' + strOffset + ' hrs');
             }
        } 
-    }
-  },
-
-  showData: function(data,paramStr) {
-    jQuery('#main .hor-tabs li.chart').first().trigger('click');
-    var p =pDom;
-    if (p.width < p.medDesktopMin) {
-      p.body.removeClass('show-control-panel');
-    }
-    AstroIQ.buildDataView(data);
-    AstroIQ.updateChart(data);
-    if (paramStr) {
-      if (typeof paramStr == 'string') {
-        storeItem(paramStr,data);
-        //AstroIQ.addQueryList();
-        //p.queryList.append(AstroIQ.buildQueryListItem(data,paramStr));
-      }
     }
   },
 
@@ -564,21 +536,28 @@ var app = new Vue({
     this.location.coords.latDms = toLatitudeString(this.location.coords.lat,'plain');
     this.location.coords.lngDms = toLongitudeString(this.location.coords.lng,'plain');
     if (localStorageSupported()) {
-      var item,li;
+      var items = [], item,li;
       for (k in window.localStorage) {
         if (k.indexOf('b=') >= 0 && k.indexOf('b=') <= 2) {
           item = getItem(k);
           if (item.valid) {
             li = {
+              ts: item.ts,
               paramStr: k,
               name: item.data.name,
               dateStr: dateStringFormatted(item.data.datetime),
               datetime: item.data.datetime,
               address: item.data.address
             };
-            this.queries.push(li);
+            items.push(li);
           }
         }
+      }
+      items = items.sort(function(a,b){
+        return b.ts - a.ts
+      });
+      for (var i=0;i<items.length;i++) {
+        this.queries.push(items[i]);
       }
     }
   },
@@ -873,6 +852,7 @@ var app = new Vue({
       } else {
         this.chartData.active = false;
       }
+      AstroChart.updateHouses(data.houses);
     },
     loadQuery: function(paramStr) {
       if (typeof paramStr == 'object') {
@@ -884,7 +864,6 @@ var app = new Vue({
       var stored = getItem(paramStr);
       if (stored.valid) {
           this.parseResults(stored.data);
-          AstroIQ.updateChart(stored.data);
           this.updateChartData(stored.data);
       } else {
         axios.get('/sweph', {
@@ -895,7 +874,6 @@ var app = new Vue({
             var data = response.data;
             app.parseResults(data);
             app.activeTab = 'chart';
-            AstroIQ.updateChart(data);
             app.updateChartData(data);
             storeItem(paramStr,data);
             var item = {
@@ -905,7 +883,7 @@ var app = new Vue({
               datetime: data.datetime,
               address: data.geo.address
             };
-            this.queries.unshift(item);
+            app.queries.unshift(item);
           }
         })
         .catch(function (error) {

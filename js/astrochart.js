@@ -84,7 +84,7 @@ var AstroChart = {
       this.discLayer = d3.select('g.main-segments');
       this.labelLayer = d3.select('g.segment-symbols');
       this.segments = d3.selectAll('g.segments');
-      this.signGlyphs = d3.selectAll('image.segment-symbol');
+      this.signGlyphs = d3.selectAll('g.segment-symbol');
     },
 
     buildInner: function() {
@@ -97,23 +97,37 @@ var AstroChart = {
       return 'rotate('+(0-deg)+','+x+','+y+')';
     });
     //AstroChart.signGlyphs.attr('transform','rotate('+(0-deg)+','+x+','+y+')');
-    AstroChart.signGlyphs.attr('transform',function(){
-      var it = d3.select(this), x = it.attr('x'), y = it.attr('y');
-      //var off = 0- Math.abs((0-deg)%90) / 6;
-      x = parseInt(x);
-      y = parseInt(y);
-      console.log(deg)
-      it.attr('x',x);
-      it.attr('y',y);
-      return 'rotate('+(0-deg)+','+x+','+y+')';
+    AstroChart.signGlyphs.select('g.glyph').attr('transform',function(){
+      /*var it = d3.select(this), 
+      tr = it.attr('transform'),
+      ps = tr.split('translate(').pop().split(')').shift().split(',');
+      if (ps.length>1) {
+        x = parseFloat(ps[0]), y = parseFloat(ps[0]);
+
+        tr = tr.replace(/\s+rotate\(.*?\)/,'');
+        tr = tr + ' rotate('+(0-deg)+','+x+','+y+')';
+      } 
+      
+      return tr;*/
+      return 'rotate('+(0-deg)+')';
     });
+    var vl = Math.abs(deg);
+    if (deg>180) {
+      vl = 360 - deg;
+    }
+    var off = vl / 6;
+    
+    AstroChart.labelLayer.attr('transform','translate('+off+','+off+')')
   },
 
-  tweenMain: function(deg) {
+  tweenMain: function(deg,duration) {
     AstroChart.mainOffset = deg;
     AstroChart.tweenDegreeLabels(deg);
+    if (!isNumeric(duration)) {
+      duration = 2000;
+    }
     AstroChart.main.transition()
-            .duration(2000)
+            .duration(duration)
             .attrTween("transform", function() {
           var i = d3.interpolate(0, AstroChart.mainOffset);
           return function(t) {
@@ -123,13 +137,16 @@ var AstroChart = {
 
   },
 
-  tweenHouses: function(newHouses) {
+  tweenHouses: function(newHouses,duration) {
     var numNewHouses = newHouses.length;
+    if (!duration) {
+      duration = 2000;
+    }
     for (var i=0;i<numNewHouses;i++) {
       deg = 270-newHouses[i];
       this.houseLines[i].attr('data-next-deg',deg).transition()
-      .delay(1500)
-      .duration(1000)
+      .delay(duration/2)
+      .duration(duration/2)
       .attrTween('transform',function(){
         var it = d3.select(this),
           oldDeg = it.attr('data-deg'),
@@ -215,16 +232,28 @@ var AstroChart = {
     }
   },
 
-  updateHouses: function(newHouses) {
+  updateHouses: function(newHouses,duration) {
+    if (!isNumeric(duration)) {
+      duration = 2000;
+    }
     if (newHouses instanceof Array === false) {
+      if (typeof newHouses == 'object') {
        newHouses = _.flatMap(newHouses);
+      }
     }
-    var ascendant = newHouses[0];
-    AstroChart.tweenMain(ascendant);
-    for (var i=0;i<newHouses.length;i++) {
-      newHouses[i] -= ascendant;
+    if (newHouses instanceof Array) {
+      var ascendant = newHouses[0];
+      if (duration > 100) {
+        AstroChart.tweenMain(ascendant,duration);
+      } else {
+        this.main.attr('transform','rotate('+ascendant+','+this.radius+','+this.radius+')')
+      }
+      
+      for (var i=0;i<newHouses.length;i++) {
+        newHouses[i] -= ascendant;
+      }
+      AstroChart.tweenHouses(newHouses,duration);
     }
-    AstroChart.tweenHouses(newHouses);
   },
 
   addDiscDrag: function() {
@@ -287,20 +316,17 @@ var AstroChart = {
   },
 
     init: function() {
-        this.radius = this.diameter/2;
-        this.svg = d3.select('#svg')
-            .attr('width',this.diameter)
-            .attr('height',this.diameter)
-            .attr('viewBox','0 0 '+this.diameter+' '+this.diameter);
-    this.westernLayer = d3.select("#western-chart");
-    this.main = d3.select('.main-disc');
-
-    this.degreeLabels = [];
-        this.buildDegrees();
-        this.buildMain();
-        this.buildInner();
-        this.buildHouses();
-
+      this.radius = this.diameter/2;
+      this.svg = d3.select('#svg')
+          .attr('width',this.diameter)
+          .attr('height',this.diameter)
+          .attr('viewBox','0 0 '+this.diameter+' '+this.diameter);
+      this.westernLayer = d3.select("#western-chart");
+      this.main = d3.select('.main-disc');
+      this.buildDegrees();
+      this.buildMain();
+      this.buildInner();
+      this.buildHouses();
     }
 
 }

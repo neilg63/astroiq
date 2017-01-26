@@ -62,6 +62,18 @@ app.get('/results/:page', function(req, res){
   astro.results(res,page);
 });
 
+app.get('/sweph-item/:id', function(req, res){ 
+  astro.getById(req.params.id,function(data){
+    res.send(data);
+  });
+});
+
+app.get('/sweph-download/:id', function(req, res){ 
+  astro.download(req.params.id,function(data){
+    res.send(data);
+  });
+});
+
 app.get('/swetest-backend',function(req,res) {
 	if (req.query.cmd) {
 		var cmd = req.query.cmd,
