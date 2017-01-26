@@ -210,8 +210,9 @@ span.symbol-radio label {
     max-width:  36%;
 }
 
-#control-panel .pob-row input {
-    max-width: 80%;
+#control-panel #form-location {
+    min-width: 10em;
+    max-width: 75%;
 }
 
 #control-panel textarea.full-width {
@@ -690,11 +691,25 @@ line.solid {
     cursor: auto;
 }
 
+@media screen and (min-width: 640px) {
+    .show-control-panel #control-panel {
+        width: 75vw;
+        max-width: 32em;
+    }
+    #control-panel #form-location {
+        min-width: 15em;
+    }
+}
+
 
 @media screen and (min-width: 960px) {
     .show-control-panel #control-panel {
         width: 40vw;
         max-width: 36em;
+    }
+    #control-panel #form-location {
+        min-width: 16em;
+        max-width: 80%;
     }
 }
 
