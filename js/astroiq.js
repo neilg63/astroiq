@@ -183,6 +183,7 @@ var GeoMap = {
                 longitude: lng
             };
         }
+
         /*document.getElementById('form-lat').setAttribute('value',coords.latitude);
         document.getElementById('form-lng').setAttribute('value',coords.longitude);*/
         jQuery('#form-lat').val(coords.latitude).trigger('change');
@@ -229,7 +230,7 @@ var GeoMap = {
             if (document.getElementById('form-lat')) {
                 var lat = jQuery('#form-lat').val(),
                 lng = jQuery('#form-lng').val();
-                if (/^\s*-?\d+/.test(lat) && /^\s*-?\d+/.test(lng)) {
+                if (isNumeric(lat) && isNumeric(lng)) {
                     lat = parseFloat(lat);
                     lng = parseFloat(lng);
                     GeoMap.buildMap(lat,lng);
@@ -339,6 +340,7 @@ var AstroIQ = {
         if (geoData.data) {
             GeoMap.updateAddress(geoData.data);
             app.updateTzFields(geoData.data);
+
         }
     }
   },
@@ -496,8 +498,8 @@ var app = new Vue({
       showAddress: false,
       address: "",
       coords: {
-        lat: 65,
-        lng: -13,
+        lat: 0,
+        lng: 0,
         alt: 30,
         latComponents: {
           deg: 0,
@@ -549,11 +551,8 @@ var app = new Vue({
   },
   created: function() {
     
-    var c = this.location.coords;
-    this.updateDms(c,false);
-    this.updateDms(c,true);
-    c.latDms = toLatitudeString(this.location.coords.lat,'plain');
-    c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
+    var c = this.location.coords
+    
     this.initDate();
     if (localStorageSupported()) {
       var items = [], item,li;
@@ -579,6 +578,11 @@ var app = new Vue({
       for (var i=0;i<items.length;i++) {
         this.queries.push(items[i]);
       }
+      
+      c.latDms = toLatitudeString(this.location.coords.lat,'plain');
+      c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
+      this.updateDms(c,false);
+      this.updateDms(c,true);
     }
   },
   watch: {
@@ -682,7 +686,7 @@ var app = new Vue({
       if (this.results.name) {
         this.candidateName = this.results.name;
       }
-      if (this.results.geo.lat) {
+      if (isNumeric(this.results.geo.lat)) {
         this.location.coords.lat = this.results.geo.lat;
         this.location.coords.lng = this.results.geo.lng;
         this.location.coords.alt = this.results.geo.alt;
@@ -768,7 +772,7 @@ var app = new Vue({
         ref = coords.lat;
         l = coords.latComponents;
       }
-      var dms = convertDDToDMS(ref,isLng);
+      var dms = convertDDToDMS(ref,isLng);    
       l.dir = dms.dir;
       l.deg = dms.deg;
       l.min = dms.min;
@@ -790,7 +794,6 @@ var app = new Vue({
           c.lat = ref;
           c.latDms = toLatitudeString(ref,'plain');
         }
-        //this.updateDms(this.location.coords,isLng);
       }
     },
     initDate: function() {
@@ -801,7 +804,7 @@ var app = new Vue({
       this.dob = dStr;
     },
     updateGeoDetails: function(data,key) {
-      if (data.lat) {
+      if (isNumeric(data.lat)) {
         var lat = data.lat,lng = data.lng;
         this.location.coords.lat = lat;
         this.location.coords.lng = lng;
@@ -1018,6 +1021,8 @@ var app = new Vue({
     toggleDegreeMode: function() {
       switch (this.coordinatesClass) {
         case 'display':
+          this.syncDmsControls(false);
+          this.syncDmsControls(true);
           this.coordinatesClass = 'show-dms-degrees';
           break;
         case 'show-dms-degrees':
@@ -1026,6 +1031,22 @@ var app = new Vue({
         default:
           this.coordinatesClass = 'display';
           break;
+      }
+    },
+    syncDmsControls: function(isLng) {
+      var c = this.location.coords,parts = [];
+      if (isLng) {
+        l = c.lngComponents;
+        parts = c.lngDms.split(' ');
+      } else {
+        l = c.latComponents;
+        parts = c.latDms.split(' ');
+      }
+      if (parts.length>3) {
+        l.deg = parts[0].toInt();
+        l.min = parts[1].toInt();
+        l.sec = parts[2].toFloat();
+        l.dir = parts[3].toUpperCase();
       }
     }
   }

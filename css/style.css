@@ -761,10 +761,14 @@ line.solid {
 #control-panel span.dms-select,
 #control-panel input.degree {
     max-width: 0;
-    padding: 0;
+    
     opacity: 0;
     pointer-events: none;
     overflow: hidden;
+}
+
+#control-panel input.degree {
+    padding: 0;
 }
 
 #control-panel span.dms-select,
@@ -814,6 +818,58 @@ line.solid {
     border: none;
     pointer-events: none;
 }
+
+#control-panel .dms-select,
+#control-panel input[type=text] {
+    border: solid 1px #999999;
+}
+#control-panel span.dms-select {
+    display: inline-block;
+    padding-right: 0.5em;
+}
+
+#control-panel .dms-select span:after {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#control-panel .dms-select input.deg {
+    width:  2em;
+}
+
+#control-panel .dms-select input.min {
+    width:  1.5em;
+}
+#control-panel .dms-select input.sec {
+    width:  3em;
+}
+
+#control-panel .dms-select span.deg:after {
+    content:  "º";
+}
+
+#control-panel .dms-select span.min:after {
+    content:  "'";
+}
+
+#control-panel .dms-select span.sec:after {
+    content:  "\"";
+}
+
+#control-panel .dms-select input {
+    border:  none;
+    text-align: right;
+}
+
+#control-panel .dms-select span {
+    position: relative;
+    display: inline-block;
+    margin-right: 0.25em;
+    width:  0.25em;
+    height:  1em;
+}
+
 
 #control-panel .show-dec-degrees input.degree,
 #control-panel .show-dms-degrees input.degree {

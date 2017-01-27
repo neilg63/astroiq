@@ -62,8 +62,11 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
         input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" title="latitude" v-model="location.coords.lat")
         span.dms-select.lat
           input.dms.lat.deg(v-model="location.coords.latComponents.deg" size="2" maxlength="2" pattern="[0-9]+")
-          input.dms.lat.min(v-model="location.coords.latComponents.min" size="2" maxlength="2" pattern="[0-5][0-9]")
-          input.dms.lat.sec(v-model="location.coords.latComponents.sec" size="5" maxlength="5" pattern="[0-5][0-9][0-9.]")
+          span.deg
+          input.dms.lat.min(v-model="location.coords.latComponents.min" size="2" maxlength="2" pattern="[0-5]?[0-9]")
+          span.min
+          input.dms.lat.sec(v-model="location.coords.latComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
+          span.sec
           input.dms.lat.dir(v-model="location.coords.latComponents.dir" size="1" maxlength="1" pattern="[NSns]")
         span.coordinates.lat.dms(v-on:click="toggleDegreeMode()") {{location.coords.latDms}}
       p.lng
@@ -71,9 +74,12 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
         input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" title="longitude" v-model="location.coords.lng")
         span.dms-select.lng
           input.dms.lng.deg(v-model="location.coords.lngComponents.deg" size="3" maxlength="3" pattern="[0-9]+")
-          input.dms.lng.min(v-model="location.coords.lngComponents.min" size="2" maxlength="2" pattern="[0-5][0-9]")
-          input.dms.lng.sec(v-model="location.coords.lngComponents.sec" size="5" maxlength="5" pattern="[0-5][0-9][0-9.]")
-          input.dms.lng.dir(v-model="location.coords.lngComponents.dir" size="1" maxlength="1" pattern="[NSns]")
+          span.deg
+          input.dms.lng.min(v-model="location.coords.lngComponents.min" size="2" maxlength="2" pattern="[0-5]?[0-9]")
+          span.min
+          input.dms.lng.sec(v-model="location.coords.lngComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
+          span.sec
+          input.dms.lng.dir(v-model="location.coords.lngComponents.dir" size="1" maxlength="1" pattern="[WEwe]")
         span.coordinates.lng.dms(v-on:click="toggleDegreeMode()") {{location.coords.lngDms}}
       p.alt
         label(for="form-alt-display" title="Altitude") Altitude:
