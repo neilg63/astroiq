@@ -76,15 +76,17 @@ var app = new Vue({
     if (window.location.search) {
       if (typeof window.location.search == 'string') {
         var id = window.location.search.split('id=').pop().split('&').shift();
-        console.log(id);
+        
         axios.get('/sweph-item/' + id).then(function(response){
           if (response.data) {
+            app.parseResults(response.data);
             var data = response.data;
             if (data.houses) {
               app.updateChartData(data,0);
             }
           }
-        })
+        });
+        
       }
     }
   },

@@ -471,7 +471,7 @@ var EphemerisData = {
     lat: 0
   }
 }
-var va; // alias
+
 var app = new Vue({
   el: '#astroiq',
   data: {
@@ -496,9 +496,21 @@ var app = new Vue({
       showAddress: false,
       address: "",
       coords: {
-        lat: 65.15,
-        lng: -13.667,
+        lat: 65,
+        lng: -13,
         alt: 30,
+        latComponents: {
+          deg: 0,
+          min: 0,
+          sec: 0,
+          dir: 'N'
+        },
+        lngComponents: {
+          deg: 0,
+          min: 0,
+          sec: 0,
+          dir: 'E'
+        },
         latDms: "",
         lngDms: ""
       },
@@ -530,14 +542,19 @@ var app = new Vue({
       dateStr: '',
 
     },
-    showDecDegrees: false,
+    coordinatesClass: 'display',
     activeTab: 'chart',
     chartMode: 'western',
     results: EphemerisData
   },
   created: function() {
-    this.location.coords.latDms = toLatitudeString(this.location.coords.lat,'plain');
-    this.location.coords.lngDms = toLongitudeString(this.location.coords.lng,'plain');
+    
+    var c = this.location.coords;
+    this.updateDms(c,false);
+    this.updateDms(c,true);
+    c.latDms = toLatitudeString(this.location.coords.lat,'plain');
+    c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
+    this.initDate();
     if (localStorageSupported()) {
       var items = [], item,li;
       for (k in window.localStorage) {
@@ -562,15 +579,6 @@ var app = new Vue({
       for (var i=0;i<items.length;i++) {
         this.queries.push(items[i]);
       }
-    }
-  },
-  computed: {
-    dob: function() {
-      var cDate = new Date().toISOString().split('T').shift(),
-      year = cDate.split('-').shift() - 0;
-      year -= 20;
-      var dStr = cDate.replace(/^\d\d+-/,year + '-');
-     return dStr;
     }
   },
   watch: {
@@ -604,10 +612,36 @@ var app = new Vue({
     },
     'location.coords.lat': function() {
       this.location.coords.latDms = toLatitudeString(this.location.coords.lat,'plain');
+      this.updateDms(this.location.coords,false);
     },
     'location.coords.lng': function() {
       this.location.coords.lngDms = toLongitudeString(this.location.coords.lng,'plain');
-    }
+      this.updateDms(this.location.coords,false);
+    },
+    'location.coords.latComponents.deg': _.debounce(function() {
+      this.updateCoordsFromDms(false);
+    },250),
+    'location.coords.latComponents.min': _.debounce(function() {
+      this.updateCoordsFromDms(false);
+    },250),
+    'location.coords.latComponents.sec': _.debounce(function() {
+      this.updateCoordsFromDms(false);
+    },250),
+    'location.coords.latComponents.dir': _.debounce(function() {
+      this.updateCoordsFromDms(false);
+    },250),
+    'location.coords.lngComponents.deg': _.debounce(function() {
+      this.updateCoordsFromDms(true);
+    },250),
+    'location.coords.lngComponents.min': _.debounce(function() {
+      this.updateCoordsFromDms(true);
+    },250),
+    'location.coords.lngComponents.sec': _.debounce(function() {
+      this.updateCoordsFromDms(true);
+    },250),
+    'location.coords.lngComponents.dir': _.debounce(function() {
+      this.updateCoordsFromDms(true);
+    },250),
   },
   methods: {
     parseResults: function(data) {
@@ -652,8 +686,10 @@ var app = new Vue({
       }
       if (this.results.datetime) {
         var parts = this.results.datetime.toString().split('T');
+
         if (parts.length>1) {
           this.dob = parts[0];
+
           var tob = parts[1];
           if (typeof tob == 'string') {
             parts = tob.split(':');
@@ -718,6 +754,43 @@ var app = new Vue({
       this.location.altDisplay = data.display;
       this.location.altSteps = data.steps;
       this.location.altMax = data.max;
+    },
+    updateDms: function(coords,isLng) {
+      var ref, l;
+      if (isLng) {
+        ref = coords.lng;
+        l = coords.lngComponents;
+      } else {
+        ref = coords.lat;
+        l = coords.latComponents;
+      }
+      var dms = convertDDToDMS(ref,isLng);
+      l.dir = dms.dir;
+      l.deg = dms.deg;
+      l.min = dms.min;
+      l.sec = dms.sec;
+    },
+    updateCoordsFromDms: function(isLng) {
+      var c = this.location.coords, ref, l;
+      if (isLng) {
+        l = c.lngComponents;
+      } else {
+        l = c.latComponents;
+      }
+      var ref = convertDmsToDec(l.deg,l.min,l.sec,l.dir);
+      if (isLng) {
+        c.lng = ref;
+      } else {
+        c.lat = ref;
+      }
+      this.updateDms(this.location.coords,isLng);
+    },
+    initDate: function() {
+      var cDate = new Date().toISOString().split('T').shift(),
+      year = cDate.split('-').shift() - 0;
+      year -= 20;
+      var dStr = cDate.replace(/^\d\d+-/,year + '-');
+      this.dob = dStr;
     },
     updateGeoDetails: function(data,key) {
       if (data.lat) {
@@ -934,8 +1007,18 @@ var app = new Vue({
     showChart: function(cType) {
       this.chartMode = cType;
     },
-    toggleDecDegrees: function() {
-      this.showDecDegrees = !this.showDecDegrees;
+    toggleDegreeMode: function() {
+      switch (this.coordinatesClass) {
+        case 'display':
+          this.coordinatesClass = 'show-dms-degrees';
+          break;
+        case 'show-dms-degrees':
+          this.coordinatesClass = 'show-dec-degrees';
+          break;
+        default:
+          this.coordinatesClass = 'display';
+          break;
+      }
     }
   }
 });

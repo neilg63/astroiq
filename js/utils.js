@@ -357,6 +357,27 @@ function convertDDToDMS(D, lng){
   };
 }
 
+function convertDmsToDec(deg, min,sec, dir) {
+  var degrees = 0;
+  if (isNumeric(deg)) {
+    degrees = parseInt(deg);
+  }
+  if (isNumeric(min)) {
+    degrees += (parseInt(min) / 60);
+  }
+  if (isNumeric(sec)) {
+    degrees += (parseFloat(sec) / 3600);
+  }
+  switch (dir) {
+    case 'S':
+    case 's':
+    case 'W':
+    case 'w':
+      degrees = 0 - degrees;
+  }
+  return degrees;
+}
+
 function toLatLngLabel(coords) {
   return toLatitudeString(coords.lat) + ' '+ toLatitudeString(coords.lng);
 }

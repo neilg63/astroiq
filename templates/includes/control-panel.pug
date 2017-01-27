@@ -7,16 +7,16 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
   fieldset.collapsible.open
     +selectrow('chart_type','Type of Chart',chartTypes,false)(class="select-input" v-model="chartType")
     p.name-row.full-span
-      input.name(type="text" id="form-name" name="name" size="10" placeholder="Candidate's Name" v-model="candidateName")
+      input.name(type="text" id="form-name" name="name" size="10" placeholder="Candidate's Name" v-model="candidateName" required="true" minlength="2")
     p.gender-row(:class="{collapsed: !gender.active,expanded: gender.active}")
       input#form-gender-unknown.gender.unknown(type="radio" name="gender" value="unknown" v-model="gender.type")
       label.sub.gender(for="form-gender-unknown" title="Not specified") N/A
       
-      input#form-gender-male.gender.male(type="radio" name="gender" value="male" v-model="gender.type")
-      label.sub.gender(for="form-gender-male") Male
-      
       input#form-gender-female.gender.female(type="radio" name="gender" value="female" v-model="gender.type")
       label.sub.gender(for="form-gender-female") Female
+
+      input#form-gender-male.gender.male(type="radio" name="gender" value="male" v-model="gender.type")
+      label.sub.gender(for="form-gender-male") Male
       
       input#form-gender-other.gender.other(type="radio" name="gender" value="other" v-model="gender.type")
       label.sub.gender(for="form-gender-other") Other
@@ -43,7 +43,7 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
     p.pob-row
       input(type="text" id="form-location" name="location" size="48" value="" placeholder="Place of birth" v-model="location.search" v-on:click="loadMap")
       input#location-finder(type="submit" value="Find" v-on:click.stop.prevent="searchLocation")
-      textarea#location-address.location-address.full-width(:class="{collapsed: !location.showAddress, expanded: location.showAddress}" name="location_address" rows="3" cols="40") {{location.address}}
+      textarea#location-address.location-address.full-width(:class="{collapsed: !location.showAddress, expanded: location.showAddress}" name="location_address" rows="3" cols="40" required="true" minlength="5") {{location.address}}
       div#geo-alt-places(:class="{hidden:!geonames.active}")
         fieldset#alt-places-container.listing.collapsible.closed
           h3.toggle Alternative places #[em ({{geonames.num}})]
@@ -56,15 +56,25 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
           ol.hospitals
             template(v-for="item in hospitals.items")
               li(:data-coords="item.coords" v-on:click="updateMap(item.coords,item.name)") {{item.name}}
-    fieldset.coordinates(:class="{'show-dec-degrees':showDecDegrees}")
+    fieldset.coordinates(:class="coordinatesClass")
       p.lat
         label(for="form-lat" title="latitude") Latitude:
         input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" title="latitude" v-model="location.coords.lat")
-        span.coordinates.lat.dms(v-on:click="toggleDecDegrees()") {{location.coords.latDms}}
+        span.dms-select.lat
+          input.dms.lat.deg(v-model="location.coords.latComponents.deg" size="2" maxlength="2" pattern="[0-9]+")
+          input.dms.lat.min(v-model="location.coords.latComponents.min" size="2" maxlength="2" pattern="[0-5][0-9]")
+          input.dms.lat.sec(v-model="location.coords.latComponents.sec" size="5" maxlength="5" pattern="[0-5][0-9][0-9.]")
+          input.dms.lat.dir(v-model="location.coords.latComponents.dir" size="1" maxlength="1" pattern="[NSns]")
+        span.coordinates.lat.dms(v-on:click="toggleDegreeMode()") {{location.coords.latDms}}
       p.lng
         label.degree(for="form-lng" title="longitude") Longitude:
         input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" title="longitude" v-model="location.coords.lng")
-        span.coordinates.lng.dms(v-on:click="toggleDecDegrees()") {{location.coords.lngDms}}
+        span.dms-select.lng
+          input.dms.lng.deg(v-model="location.coords.lngComponents.deg" size="3" maxlength="3" pattern="[0-9]+")
+          input.dms.lng.min(v-model="location.coords.lngComponents.min" size="2" maxlength="2" pattern="[0-5][0-9]")
+          input.dms.lng.sec(v-model="location.coords.lngComponents.sec" size="5" maxlength="5" pattern="[0-5][0-9][0-9.]")
+          input.dms.lng.dir(v-model="location.coords.lngComponents.dir" size="1" maxlength="1" pattern="[NSns]")
+        span.coordinates.lng.dms(v-on:click="toggleDegreeMode()") {{location.coords.lngDms}}
       p.alt
         label(for="form-alt-display" title="Altitude") Altitude:
         input(type="number" id="form-alt-display" name="alt" size="1" v-bind:steps="location.altSteps" min="0" v-bind:max="location.altMax" title="Height above sea level in metres" v-model="location.altDisplay")

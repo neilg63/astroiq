@@ -246,7 +246,9 @@ var AstroChart = {
       if (duration > 100) {
         AstroChart.tweenMain(ascendant,duration);
       } else {
+
         this.main.attr('transform','rotate('+ascendant+','+this.radius+','+this.radius+')')
+        
       }
       
       for (var i=0;i<newHouses.length;i++) {

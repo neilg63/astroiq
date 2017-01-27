@@ -652,7 +652,6 @@ line.solid {
 #queries,
 #control-panel form {
     opacity: 0;
-    min-width: 25em;
     max-height:0;
     overflow: hidden;
     pointer-events: none;
@@ -699,6 +698,9 @@ line.solid {
     #control-panel #form-location {
         min-width: 15em;
     }
+    #control-panel form {
+        min-width:  20em;
+    }
 }
 
 
@@ -710,6 +712,9 @@ line.solid {
     #control-panel #form-location {
         min-width: 16em;
         max-width: 80%;
+    }
+    #control-panel form {
+        min-width:  25em;
     }
 }
 
@@ -749,17 +754,37 @@ line.solid {
     width: 1em;
 }
 
+#control-panel span.dms-select {
+    display: inline-block;
+}
+
+#control-panel span.dms-select,
 #control-panel input.degree {
     max-width: 0;
     padding: 0;
     opacity: 0;
     pointer-events: none;
+    transition: max-width 0.25s ease-in;
+    overflow: hidden;
 }
+
+#control-panel .show-dms-degrees span.dms-select,
+#control-panel .show-dec-degrees input.degree {
+    max-width:  10em;
+    opacity: 1;
+    pointer-events: auto;
+    overflow: visible;
+    margin-right:  1em;
+}
+
+#control-panel span.dms-select {
+    white-space: nowrap;
+    max-height: 2em;
+}
+
 #control-panel .show-dec-degrees input.degree {
     min-width: 6em;
     padding:  0 0.125em;
-    opacity: 1;
-    pointer-events: auto;
 }
 
 #control-panel .second .input-group-addon {
@@ -807,9 +832,11 @@ line.solid {
 
 #control-panel p label {
     display: inline-block;
-    width: 9em;
+    min-width: 5em;
+    max-width:  9em;
     margin-right: 0.5em;
-    font-size: 0.9em;
+    font-size: 0.8em;
+    white-space: nowrap;
 }
 
 #control-panel p label.sub {
