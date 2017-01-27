@@ -458,7 +458,10 @@ var EphemerisData = {
   },
   gender: "unknown",
   geo: {
-
+    lat: 0,
+    lng: 0,
+    alt: 0,
+    address: ""
   },
   houses: [],
   houseData: {
@@ -635,6 +638,28 @@ var app = new Vue({
             }
           } else {
             this.results[k1] = v1;
+          }
+        }
+      }
+      if (this.results.name) {
+        this.candidateName = this.results.name;
+      }
+      if (this.results.geo.lat) {
+        this.location.coords.lat = this.results.geo.lat;
+        this.location.coords.lng = this.results.geo.lng;
+        this.location.coords.alt = this.results.geo.alt;
+        this.location.address = this.results.geo.address;
+      }
+      if (this.results.datetime) {
+        var parts = this.results.datetime.toString().split('T');
+        if (parts.length>1) {
+          this.dob = parts[0];
+          var tob = parts[1];
+          if (typeof tob == 'string') {
+            parts = tob.split(':');
+            if (parts.length>1) {
+              this.tob = parts[0]+':'+parts[1];
+            }
           }
         }
       }
