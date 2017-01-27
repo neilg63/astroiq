@@ -764,10 +764,16 @@ line.solid {
     padding: 0;
     opacity: 0;
     pointer-events: none;
-    transition: max-width 0.25s ease-in;
     overflow: hidden;
 }
 
+#control-panel span.dms-select,
+#control-panel input.degree,
+#control-panel span.coordinates {
+    transition: max-width 0.25s ease-in;
+}
+
+#control-panel .show-dms-degrees input.degree,
 #control-panel .show-dms-degrees span.dms-select,
 #control-panel .show-dec-degrees input.degree {
     max-width:  10em;
@@ -775,6 +781,43 @@ line.solid {
     pointer-events: auto;
     overflow: visible;
     margin-right:  1em;
+}
+
+#control-panel span.coordinates {
+    position: relative;
+    display: inline-block;
+    max-width:  8em;
+    cursor: pointer;
+    padding-right:  1.5em;
+    max-height: 1rem;
+}
+
+#control-panel span.coordinates:after {
+    position: absolute;
+    right:  0;
+    top: 0;
+    color:  #999999;
+    font-family: "icomoon";
+    content:  "\ea34";
+    font-size: 1rem;
+}
+
+#control-panel .show-dms-degrees span.coordinates {
+
+    max-width:  0;
+    width: 0;
+    overflow: hidden;
+    color:  transparent;
+}
+
+#control-panel .show-dms-degrees input.degree {
+    border: none;
+    pointer-events: none;
+}
+
+#control-panel .show-dec-degrees input.degree,
+#control-panel .show-dms-degrees input.degree {
+    min-width: 5em;
 }
 
 #control-panel span.dms-select {

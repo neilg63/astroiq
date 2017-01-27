@@ -611,36 +611,40 @@ var app = new Vue({
       return this.updateAltitude();
     },
     'location.coords.lat': function() {
-      this.location.coords.latDms = toLatitudeString(this.location.coords.lat,'plain');
-      this.updateDms(this.location.coords,false);
+      if (this.coordinatesClass != 'show-dms-degrees') {
+        this.location.coords.latDms = toLatitudeString(this.location.coords.lat,'plain');
+        this.updateDms(this.location.coords,false);
+      }
     },
     'location.coords.lng': function() {
-      this.location.coords.lngDms = toLongitudeString(this.location.coords.lng,'plain');
-      this.updateDms(this.location.coords,false);
+      if (this.coordinatesClass != 'show-dms-degrees') {
+        this.location.coords.lngDms = toLongitudeString(this.location.coords.lng,'plain');
+        this.updateDms(this.location.coords,false);
+      }
     },
     'location.coords.latComponents.deg': _.debounce(function() {
-      this.updateCoordsFromDms(false);
-    },250),
+      this.updateCoordsFromDms(false,'deg');
+    },500),
     'location.coords.latComponents.min': _.debounce(function() {
-      this.updateCoordsFromDms(false);
-    },250),
+      this.updateCoordsFromDms(false,'min');
+    },500),
     'location.coords.latComponents.sec': _.debounce(function() {
-      this.updateCoordsFromDms(false);
-    },250),
+      this.updateCoordsFromDms(false,'sec');
+    },500),
     'location.coords.latComponents.dir': _.debounce(function() {
-      this.updateCoordsFromDms(false);
+      this.updateCoordsFromDms(false,'dir');
     },250),
     'location.coords.lngComponents.deg': _.debounce(function() {
-      this.updateCoordsFromDms(true);
-    },250),
+      this.updateCoordsFromDms(true,'deg');
+    },500),
     'location.coords.lngComponents.min': _.debounce(function() {
-      this.updateCoordsFromDms(true);
-    },250),
+      this.updateCoordsFromDms(true,'min');
+    },500),
     'location.coords.lngComponents.sec': _.debounce(function() {
-      this.updateCoordsFromDms(true);
-    },250),
+      this.updateCoordsFromDms(true,'sec');
+    },500),
     'location.coords.lngComponents.dir': _.debounce(function() {
-      this.updateCoordsFromDms(true);
+      this.updateCoordsFromDms(true,'dir');
     },250),
   },
   methods: {
@@ -770,20 +774,24 @@ var app = new Vue({
       l.min = dms.min;
       l.sec = dms.sec;
     },
-    updateCoordsFromDms: function(isLng) {
+    updateCoordsFromDms: function(isLng,component) {
       var c = this.location.coords, ref, l;
       if (isLng) {
         l = c.lngComponents;
       } else {
         l = c.latComponents;
       }
-      var ref = convertDmsToDec(l.deg,l.min,l.sec,l.dir);
-      if (isLng) {
-        c.lng = ref;
-      } else {
-        c.lat = ref;
+      if (l[component].length > 0) {
+        var ref = convertDmsToDec(l.deg,l.min,l.sec,l.dir);
+        if (isLng) {
+          c.lng = ref;
+          c.lngDms = toLongitudeString(ref,'plain');
+        } else {
+          c.lat = ref;
+          c.latDms = toLatitudeString(ref,'plain');
+        }
+        //this.updateDms(this.location.coords,isLng);
       }
-      this.updateDms(this.location.coords,isLng);
     },
     initDate: function() {
       var cDate = new Date().toISOString().split('T').shift(),
