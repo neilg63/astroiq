@@ -587,7 +587,6 @@ var app = new Vue({
       c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
       this.updateDms(c,false);
       this.updateDms(c,true);
-      GeoMap.geoLocAllowed();
     }
   },
   watch: {
@@ -1133,24 +1132,26 @@ var app = new Vue({
           p.body.addClass('show-control-panel');
         }
 
-        p.geoLocAllowed = GeoMap.geoLocAllowed();
+        setTimeout(function(){
+          pDom.geoLocAllowed = GeoMap.geoLocAllowed();
         
-        if (!p.geoLocAllowed) {
-           AstroIQ.fetchGeoFromIp();
-           /*setTimeout(function(){
-               pDom.geoLocAllowed = GeoMap.geoLocAllowed();
-           }, 10000);*/
-        } else {
-          setTimeout(function() {
-            if (!User.geo.coords) {
-                User.geo.coords = {
-                    lat: $('#form-lat').val(),
-                    lng: $('#form-lng').val()
-                };
-                app.updateTzFields(User.geo);
-            }
-          }, 5000);
-        }
+          if (!pDom.geoLocAllowed) {
+             AstroIQ.fetchGeoFromIp();
+             /*setTimeout(function(){
+                 pDom.geoLocAllowed = GeoMap.geoLocAllowed();
+             }, 10000);*/
+          } else {
+            setTimeout(function() {
+              if (!User.geo.coords) {
+                  User.geo.coords = {
+                      lat: $('#form-lat').val(),
+                      lng: $('#form-lng').val()
+                  };
+                  app.updateTzFields(User.geo);
+              }
+            }, 3000);
+          }
+        }, 3000)
 
         if (screen.width > p.mobileMax) {
             setTimeout(initJQueryDateBox, 250);
