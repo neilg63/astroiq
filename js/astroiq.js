@@ -424,6 +424,7 @@ var bodyData = {
 
 var EphemerisData = {
   valid: false,
+  name: "",
   astro: {
     ut: {
       value: 0,
@@ -683,6 +684,7 @@ var app = new Vue({
           }
         }
       }
+      console.log(this.results);
       if (this.results.name) {
         this.candidateName = this.results.name;
       }
