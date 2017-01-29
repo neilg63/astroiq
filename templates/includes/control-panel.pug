@@ -61,7 +61,7 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
           span.min
           input.dms.lat.sec(v-model="location.coords.latComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
           span.sec
-          input.dms.lat.dir(v-model="location.coords.latComponents.dir" size="1" maxlength="1" pattern="[NSns]")
+          input.dms.lat.dir(v-model="location.coords.latComponents.dir" size="1" maxlength="1" pattern="[NSns]" v-on:click="swapDirection(false)")
         span.coordinates.lat.dms(v-on:click="toggleDegreeMode()") {{location.coords.latDms}}
       p.lng
         label.degree(for="form-lng" title="longitude") Longitude:
@@ -73,7 +73,7 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
           span.min
           input.dms.lng.sec(v-model="location.coords.lngComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
           span.sec
-          input.dms.lng.dir(v-model="location.coords.lngComponents.dir" size="1" maxlength="1" pattern="[WEwe]")
+          input.dms.lng.dir(v-model="location.coords.lngComponents.dir" size="1" maxlength="1" pattern="[WEwe]" v-on:click="swapDirection(true)")
         span.coordinates.lng.dms(v-on:click="toggleDegreeMode()") {{location.coords.lngDms}}
       p.alt
         label(for="form-alt-display" title="Altitude") Altitude:
