@@ -184,7 +184,7 @@ var GeoMap = {
             };
         }
         if (app) {
-          console.log(app.location)
+          console.log(coords)
           app.toggleDegreeMode('display');
           app.location.coords.lat = coords.latitude;
           app.location.coords.lng = coords.longitude;
