@@ -771,6 +771,11 @@ line.solid {
     padding: 0;
 }
 
+#control-panel fieldset.coordinates p {
+  max-height: 1.5em;
+  white-space: nowrap;
+}
+
 #control-panel span.dms-select,
 #control-panel input.degree,
 #control-panel span.coordinates {
@@ -832,6 +837,10 @@ line.solid {
     position: absolute;
     left: 0;
     top: 0;
+}
+
+#control-panel .dms-select input {
+  font-size: 0.9em;
 }
 
 #control-panel .dms-select input.deg {
@@ -936,6 +945,10 @@ line.solid {
     margin-right: 0.5em;
     font-size: 0.8em;
     white-space: nowrap;
+}
+#control-panel p.gender-row label {
+  min-width: 1.5em;
+  padding: 0 0.75em 0 0.25em;
 }
 
 #control-panel p label.sub {
