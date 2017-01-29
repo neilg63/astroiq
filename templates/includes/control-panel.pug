@@ -44,18 +44,12 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
       input(type="text" id="form-location" name="location" size="48" value="" placeholder="Place of birth" v-model="location.search" v-on:click="loadMap")
       input#location-finder(type="submit" value="Find" v-on:click.stop.prevent="searchLocation")
       textarea#location-address.location-address.full-width(:class="{collapsed: !location.showAddress, expanded: location.showAddress}" name="location_address" rows="3" cols="40" required="true" minlength="5") {{location.address}}
-      div#geo-alt-places(:class="{hidden:!geonames.active}")
-        fieldset#alt-places-container.listing.collapsible.closed
-          h3.toggle Alternative places #[em ({{geonames.num}})]
-          ol.alt-places
-            template(v-for="item in geonames.items")
-              li(v-on:click="updateMap(item.coords,item.name)") {{item.name}}
-      div#geo-hospitals(:class="{hidden:!hospitals.active}")
-        fieldset#hospital-container.listing.collapsible.closed
-          h3.toggle Maternity centres #[em ({{hospitals.num}})]
-          ol.hospitals
-            template(v-for="item in hospitals.items")
-              li(:data-coords="item.coords" v-on:click="updateMap(item.coords,item.name)") {{item.name}}
+    div#geo-alt-places(:class="{hidden:!geonames.active}")
+      fieldset#alt-places-container.listing.collapsible.closed
+        h3.toggle Alternative places #[em ({{geonames.num}})]
+        ol.alt-places
+          template(v-for="item in geonames.items")
+            li(v-on:click="updateMap(item.coords,item.name)") {{item.name}}
     fieldset.coordinates(:class="coordinatesClass")
       p.lat
         label(for="form-lat" title="latitude") Latitude:
@@ -88,6 +82,12 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
         select#form-height-unit.inline(v-model="location.altUnit")
           option(value="m") metres
           option(value="ft") feet
+    div#geo-hospitals(:class="{hidden:!hospitals.active}")
+      fieldset#hospital-container.listing.collapsible.closed
+        h3.toggle Maternity centres #[em ({{hospitals.num}})]
+        ol.hospitals
+          template(v-for="item in hospitals.items")
+            li(:data-coords="item.coords" v-on:click="updateMap(item.coords,item.name)") {{item.name}}
     p.rodden
       label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale:
       select#form-rodden.select-input(name="rodden" v-model="options.rodden")
