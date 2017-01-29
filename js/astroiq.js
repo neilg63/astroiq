@@ -1187,9 +1187,9 @@ var app = new Vue({
                   };
                   app.updateTzFields(User.geo);
               }
-            }, 1000);
+            }, 4000);
           }
-        }, 4000)
+        }, 1000)
 
         if (screen.width > p.mobileMax) {
             setTimeout(initJQueryDateBox, 250);
