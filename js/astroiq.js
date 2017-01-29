@@ -179,18 +179,23 @@ var GeoMap = {
     updateCoords: function(coords,lng) {
         if (typeof coords != 'object') {
             coords = {
-                latitude: coords,
-                longitude: lng
+                lat: coords,
+                lng: lng
             };
         }
+        if (!coords.lat && coords.latitude) {
+          coords.lat = coords.latitude;
+        }
+        if (!coords.lng && coords.longitude) {
+          coords.lng = coords.longitude;
+        }
         if (app) {
-          console.log(coords)
           app.toggleDegreeMode('display');
-          app.location.coords.lat = coords.latitude;
-          app.location.coords.lng = coords.longitude;
+          app.location.coords.lat = coords.lat;
+          app.location.coords.lng = coords.lng;
         } else {
-          jQuery('#form-lat').val(coords.latitude).trigger('change');
-          jQuery('#form-lng').val(coords.longitude).trigger('change');
+          jQuery('#form-lat').val(coords.lat).trigger('change');
+          jQuery('#form-lng').val(coords.lng).trigger('change');
         }
 
     },
