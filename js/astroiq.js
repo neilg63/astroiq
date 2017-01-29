@@ -183,11 +183,14 @@ var GeoMap = {
                 longitude: lng
             };
         }
-
-        /*document.getElementById('form-lat').setAttribute('value',coords.latitude);
-        document.getElementById('form-lng').setAttribute('value',coords.longitude);*/
-        jQuery('#form-lat').val(coords.latitude).trigger('change');
-        jQuery('#form-lng').val(coords.longitude).trigger('change');
+        if (app) {
+          app.toggleDegreeMode('display');
+          app.location.coords.lat = coords.latitude;
+          app.location.coords.lng = coords.longitude;
+        } else {
+          jQuery('#form-lat').val(coords.latitude).trigger('change');
+          jQuery('#form-lng').val(coords.longitude).trigger('change');
+        }
 
     },
 
@@ -884,6 +887,7 @@ var app = new Vue({
     },
     updateMap: function(coords,name) {
       if (coords) {
+        this.toggleDegreeMode('display');
         var parts = coords.split(',');
         if (isNumeric(parts[0]) && isNumeric(parts[1])) {
           parts[0] = parseFloat(parts[0]);
@@ -900,6 +904,7 @@ var app = new Vue({
       }
     },
     loadMap: function() {
+      this.toggleDegreeMode('display');
       AstroIQ.loadGMap();
     },
     sendControlForm: function() {
@@ -943,6 +948,7 @@ var app = new Vue({
       }
     },
     updateChartData: function(data) {
+      this.toggleDegreeMode('display');
       if (typeof data == 'object') {
         this.chartData.active = true;
         this.chartData.name = data.name;
@@ -1008,6 +1014,7 @@ var app = new Vue({
       deleteItem(paramStr);
     },
     showPane: function(pType) {
+      this.toggleDegreeMode('display');
       switch (pType) {
         case 'map':
           this.loadMap();
@@ -1016,9 +1023,13 @@ var app = new Vue({
       this.activeTab = pType;
     },
     showChart: function(cType) {
+      this.toggleDegreeMode('display');
       this.chartMode = cType;
     },
-    toggleDegreeMode: function() {
+    toggleDegreeMode: function(mode) {
+      if (mode == 'display') {
+        this.coordinatesClass = 'display none';
+      }
       switch (this.coordinatesClass) {
         case 'display':
           this.syncDmsControls(false);
