@@ -1050,6 +1050,40 @@ var app = new Vue({
           break;
       }
     },
+    swapDirection: function(isLng) {
+      var c = this.location.coords, l;
+      if (isLng) {
+        l = c.lngComponents
+      } else {
+        l = c.latComponents
+      }
+      switch (l.dir) {
+        case 'w':
+        case 'W':
+          if (isLng) {
+            l.dir = 'E';
+          }
+          break;
+        case 'e':
+        case 'E':
+          if (isLng) {
+            l.dir = 'W';
+          }
+          break;
+        case 'n':
+        case 'N':
+          if (!isLng) {
+            l.dir = 'S';
+          }
+          break;
+        case 's':
+        case 'S':
+          if (!isLng) {
+            l.dir = 'N';
+          }
+          break;
+      }
+    },
     syncDmsControls: function(isLng) {
       var c = this.location.coords,parts = [], l;
       if (isLng) {
