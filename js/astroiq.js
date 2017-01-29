@@ -1047,13 +1047,17 @@ var app = new Vue({
       }
     },
     syncDmsControls: function(isLng) {
-      var c = this.location.coords,parts = [];
+      var c = this.location.coords,parts = [], l;
       if (isLng) {
         l = c.lngComponents;
-        parts = c.lngDms.split(' ');
+        if (c.lngDms) {
+          parts = c.lngDms.split(' ');
+        }
       } else {
         l = c.latComponents;
-        parts = c.latDms.split(' ');
+        if (c.latDms) {
+          parts = c.latDms.split(' ');
+        }
       }
       if (parts.length>3) {
         l.deg = parts[0].toInt();
