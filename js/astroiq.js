@@ -586,6 +586,7 @@ var app = new Vue({
       c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
       this.updateDms(c,false);
       this.updateDms(c,true);
+      GeoMap.geoLocAllowed();
     }
   },
   watch: {
