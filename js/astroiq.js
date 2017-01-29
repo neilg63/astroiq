@@ -184,6 +184,7 @@ var GeoMap = {
             };
         }
         if (app) {
+          console.log(app.location)
           app.toggleDegreeMode('display');
           app.location.coords.lat = coords.latitude;
           app.location.coords.lng = coords.longitude;
@@ -214,7 +215,6 @@ var GeoMap = {
         if (navigator.geolocation && GeoMap.matched === false) {
             if (window.location.protocol === 'https:' || /\bChrome\b/i.test(navigator.userAgent) == false) {
                var geoData = getItem('geodata',3600);
-               console.log(geoData.data)
                if (!geoData.valid) {
                   navigator.geolocation.getCurrentPosition(GeoMap.matchLocation,GeoMap.errorHandler);
                } else {
