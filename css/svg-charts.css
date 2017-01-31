@@ -111,3 +111,19 @@ path.segment {
   -webkit-filter: hue-rotate(120deg);
   filter: hue-rotate(120deg);
 }
+
+g.bodies-layer {
+  z-index: 60;
+}
+
+g.body .symbol {
+  transform: scale(0.75)
+}
+
+g.body text {
+  opacity: 0.5;
+}
+
+g.bodies-layer g.body:hover text {
+  opacity: 1;
+}

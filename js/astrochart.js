@@ -284,27 +284,34 @@ var AstroChart = {
     var deg = 15,
     steps=30,
     duration=900,
-    i=0,
+    i=0,lbl,txt,
     d,dy,bn,item,body,pos,dy,diff,diffDy;
     for (bn in bodies) {
       item = bodies[bn];
-      body = d3.select('#'+bn+'-symbol');
-      deg = item.lng;
-      d = 270 - deg;
-      dy = ((750-300) * (item.lat/(90/1.5))) + 320;
-      oldDeg = parseFloat(body.attr('data-lng')),
-      oldDy = parseFloat(body.attr('data-lat')),
-      diff=oldDeg-d;
-      diffDy = oldDy-dy;
-      body.attr('data-lat',d).attr('data-lat',dy);
-      for (i=0;i<steps;i++) {
-        pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),(oldDy - (diffDy*(i+1)/steps)),-15,-15);
-        body.transition()
-        .delay(i*(duration/steps))
-        .duration((duration/steps))
-        .attr('transform','translate('+pos.x+','+pos.y+')');
+      if (typeof item == 'object') {
+        body = d3.select('#'+bn+'-symbol');
+        lbl = body.select('text');
+        if (isNumeric(item.house)) {
+          txt = lbl.text();
+          txt = txt.split(':').shift() + ':' + Math.approxFixed(parseFloat(item.house),3);
+          lbl.text(txt);
+        }
+        deg = item.lng;
+        d = 270 - deg;
+        dy = ((750-300) * (item.lat/(90/1.5))) + 320;
+        oldDeg = parseFloat(body.attr('data-lng')),
+        oldDy = parseFloat(body.attr('data-lat')),
+        diff=oldDeg-d;
+        diffDy = oldDy-dy;
+        body.attr('data-lat',d).attr('data-lat',dy);
+        for (i=0;i<steps;i++) {
+          pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),(oldDy - (diffDy*(i+1)/steps)),-15,-15);
+          body.transition()
+          .delay(i*(duration/steps))
+          .duration((duration/steps))
+          .attr('transform','translate('+pos.x+','+pos.y+')');
+        }
       }
-      
     }
   },
 
