@@ -270,7 +270,7 @@ var AstroChart = {
       bn = bNames[i];
       body = d3.select('#'+bn+'-symbol');
       d = 270 - deg;
-      pos = AstroChart._xyPos(d,380);
+      pos = AstroChart._xyPos(d,320,-15,-15);
       body
       .attr('transform','translate('+pos.x+','+pos.y+')')
       .attr('data-lng',d)
@@ -291,7 +291,7 @@ var AstroChart = {
       body = d3.select('#'+bn+'-symbol');
       deg = item.lng;
       d = 270 - deg;
-      dy = ((750-300) * (item.lat/(90/1.5))) + 300;
+      dy = ((750-300) * (item.lat/(90/1.5))) + 320;
       oldDeg = parseFloat(body.attr('data-lng')),
       oldDy = parseFloat(body.attr('data-lat')),
       diff=oldDeg-d;
