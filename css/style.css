@@ -742,8 +742,8 @@ line.solid {
 #control-panel .input-group {
     display: inline-block;
     position: relative;
-    width: 9em;
-    padding-right: 1.5em;
+    width: 5em;
+    padding-right: 0.5em;
 }
 
 #control-panel .input-group-addon {
@@ -914,6 +914,11 @@ line.solid {
     #gmap {
         margin-left: 10vw;
         width: 80vw;
+    }
+
+    #control-panel .input-group {
+        width:  9em;
+        padding-right: 1em;
     }
 }
 
