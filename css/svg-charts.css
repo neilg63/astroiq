@@ -121,7 +121,12 @@ g.body .symbol {
 }
 
 g.body text {
-  opacity: 0.5;
+  opacity: 0.75;
+}
+
+g.body text.coords {
+  transform: translate(-10px, 60px);
+  font-size: 0.75em;
 }
 
 g.bodies-layer g.body:hover text {
