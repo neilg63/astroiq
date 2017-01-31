@@ -19,6 +19,8 @@ var AstroChart = {
         330
     ],
 
+    bodies: [],
+
   westernLayer: null,
 
   northIndianLayer: null,
@@ -258,6 +260,54 @@ var AstroChart = {
     }
   },
 
+  placeBodies: function() {
+    this.bodyLayer = d3.select('g.bodies-layer');
+    var bNames = ['sun','moon','mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto'],
+    bNum= bNames.length,
+    deg = 15,d,
+    i=0,bn,body,pos;
+    for (;i<bNum;i++) {
+      bn = bNames[i];
+      body = d3.select('#'+bn+'-symbol');
+      d = 270 - deg;
+      pos = AstroChart._xyPos(d,380);
+      body
+      .attr('transform','translate('+pos.x+','+pos.y+')')
+      .attr('data-lng',d)
+      .attr('data-lat',5)
+      this.bodies.push(body);
+      deg += 30;
+    }
+  },
+
+  moveBodies: function(bodies) {
+    var deg = 15,
+    steps=30,
+    duration=900,
+    i=0,
+    d,dy,bn,item,body,pos,dy,diff,diffDy;
+    for (bn in bodies) {
+      item = bodies[bn];
+      body = d3.select('#'+bn+'-symbol');
+      deg = item.lng;
+      d = 270 - deg;
+      dy = ((750-300) * (item.lat/(90/1.5))) + 300;
+      oldDeg = parseFloat(body.attr('data-lng')),
+      oldDy = parseFloat(body.attr('data-lat')),
+      diff=oldDeg-d;
+      diffDy = oldDy-dy;
+      body.attr('data-lat',d).attr('data-lat',dy);
+      for (i=0;i<steps;i++) {
+        pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),(oldDy - (diffDy*(i+1)/steps)),-15,-15);
+        body.transition()
+        .delay(i*(duration/steps))
+        .duration((duration/steps))
+        .attr('transform','translate('+pos.x+','+pos.y+')');
+      }
+      
+    }
+  },
+
   addDiscDrag: function() {
     function xyDeg(diam,x,y,offset) {
       if (typeof offset !== 'number') {
@@ -329,6 +379,7 @@ var AstroChart = {
       this.buildMain();
       this.buildInner();
       this.buildHouses();
+      this.placeBodies();
     }
 
 }

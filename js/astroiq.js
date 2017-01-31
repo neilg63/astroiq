@@ -974,6 +974,7 @@ var app = new Vue({
         this.chartData.active = false;
       }
       AstroChart.updateHouses(data.houses);
+      AstroChart.moveBodies(data.bodies);
     },
     loadQuery: function(paramStr) {
       if (typeof paramStr == 'object') {
