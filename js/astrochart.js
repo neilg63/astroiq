@@ -293,11 +293,12 @@ var AstroChart = {
         lbl = body.select('text');
         if (isNumeric(item.house)) {
           txt = lbl.text();
-          txt = txt.split(':').shift() + ':' + Math.approxFixed(parseFloat(item.house),3);
+          txt = txt.split(':').shift() + ': ' + Math.approxFixed(parseFloat(item.house),3);
+          txt += ', ' + Math.approxFixed(item.lng,2);
           lbl.text(txt);
         }
         deg = item.lng;
-        d = 270 - deg;
+        d = 330 - deg;
         dy = ((750-300) * (item.lat/(90/1.5))) + 320;
         oldDeg = parseFloat(body.attr('data-lng')),
         oldDy = parseFloat(body.attr('data-lat')),
