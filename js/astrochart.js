@@ -19,6 +19,7 @@ var AstroChart = {
         330
     ],
 
+    bodyLayer: null,
     bodies: [],
 
   westernLayer: null,
@@ -290,16 +291,15 @@ var AstroChart = {
       item = bodies[bn];
       if (typeof item == 'object') {
         body = d3.select('#'+bn+'-symbol');
-        lbl = body.select('text');
         if (isNumeric(item.house)) {
-          txt = lbl.text();
-          txt = txt.split(':').shift() + ': ' + Math.approxFixed(parseFloat(item.house),3);
+          lbl = body.select('text.coords');
+          txt = Math.approxFixed(item.house,2);
           txt += ', ' + Math.approxFixed(item.lng,2);
           lbl.text(txt);
         }
         deg = item.lng;
         d = 330 - deg;
-        dy = ((750-300) * (item.lat/(90/1.5))) + 320;
+        dy = ((750-300) * (item.lat/(90/1.5))) + 360;
         oldDeg = parseFloat(body.attr('data-lng')),
         oldDy = parseFloat(body.attr('data-lat')),
         diff=oldDeg-d;
