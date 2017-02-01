@@ -486,6 +486,7 @@ var EphemerisData = {
 var app = new Vue({
   el: '#astroiq',
   data: {
+    initialised: false,
     chartType: "birth",
     candidateName: "",
     gender: {
@@ -560,9 +561,9 @@ var app = new Vue({
   },
   created: function() {
     
-    var c = this.location.coords
+    var c = this.location.coords;
     
-    this.initDate();
+    
     if (localStorageSupported()) {
       var items = [], item,li;
       for (k in window.localStorage) {
@@ -587,7 +588,7 @@ var app = new Vue({
       for (var i=0;i<items.length;i++) {
         this.queries.push(items[i]);
       }
-      
+      this.initDate();
       c.latDms = toLatitudeString(this.location.coords.lat,'plain');
       c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
       this.updateDms(c,false);
@@ -806,11 +807,14 @@ var app = new Vue({
       }
     },
     initDate: function() {
-      var cDate = new Date().toISOString().split('T').shift(),
-      year = cDate.split('-').shift() - 0;
-      year -= 20;
-      var dStr = cDate.replace(/^\d\d+-/,year + '-');
-      this.dob = dStr;
+      if (this.initialised !== true) {
+        var cDate = new Date().toISOString().split('T').shift(),
+        year = cDate.split('-').shift() - 0;
+        year -= 20;
+        var dStr = cDate.replace(/^\d\d+-/,year + '-');
+        this.dob = dStr;
+        this.initialised = true;
+      }
     },
     updateGeoDetails: function(data,key) {
       if (isNumeric(data.lat)) {
