@@ -776,9 +776,9 @@ line.solid {
     margin-top: 0;
 }
 
-fieldset.show-dms-degree .degree-mode-controls .dms-mode,
+fieldset.show-dms-degrees .degree-mode-controls .dms-mode,
 fieldset.display .degree-mode-controls .show-mode,
-fieldset.show-dec-degree .degree-mode-controls .dec-mode,
+fieldset.show-dec-degrees .degree-mode-controls .dec-mode,
 fieldset.display .degree-mode-controls .find-map {
     display:  none;
 }
@@ -803,7 +803,12 @@ fieldset.coordinates .degree-mode-controls .find-map:before {
 #control-panel .degree-mode-controls {
     position: absolute;
     right:  0;
-    top: 0;
+    top: 0.5em;
+}
+
+#control-panel .show-dec-degrees .degree-mode-controls,
+#control-panel .show-dms-degrees .degree-mode-controls {
+    top: 0.25em;
 }
 
 .degree-mode-controls span {

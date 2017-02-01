@@ -299,6 +299,7 @@ var geonames = {
                 if (typeof n == 'object') {
                   if (index < 1) {
                     data = geonames.parseItem(n);
+                    data.radius = radius;
                     data.valid = true;
                     index++;
                   }
@@ -321,6 +322,7 @@ var geonames = {
                 item.countryName = "";
                 item.adminName1 = "";
                 data = geonames.parseItem(item);
+                data.radius = radius;
                 data.valid = true;
               }
             }

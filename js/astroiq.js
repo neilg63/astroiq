@@ -129,15 +129,13 @@ var GeoMap = {
         this.map.panToBounds(nb);*/
     },
 
-    updateMap: function(lat,lng,updateMarker,animateZoom) {
+    updateMap: function(lat,lng,updateMarker,animateZoom,mode) {
         var pos = {
            lat: lat,
            lng: lng 
         };
-        this.map.setCenter(pos);
-        var ts = GeoMap.hasMap? 25 : 500;
-        setTimeout(GeoMap.showSatellite, ts);
-        if (animateZoom !== false) {
+        
+        if (animateZoom !== false && GeoMap.hasMap) {
             GeoMap.zoom = 14;
             this.map.setZoom(GeoMap.zoom)
             setTimeout(function() {
@@ -153,15 +151,40 @@ var GeoMap = {
                 GeoMap.zoomIn(18);
             }, 2250);
         }
-        if (updateMarker) {
-            this.marker.setPosition(pos);
-            this.addDragendEvent(this.marker);
-        }
+
+        var ts = GeoMap.hasMap? 125 : 750;
+        setTimeout(function() {
+          if (GeoMap.hasMap) {
+            GeoMap.map.setCenter(pos);
+            GeoMap.setMode(mode);
+            if (updateMarker) {
+              GeoMap.marker.setPosition(pos);
+              GeoMap.addDragendEvent(this.marker);
+            }
+          }
+        }, ts);
+        
     },
 
     showSatellite: function() {
+      GeoMap.setMode('satellite');
+    },
+
+    setMode: function(mode) {
+      var mm;
       if (GeoMap.hasMap) {
-        GeoMap.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+        switch (mode) {
+          case 'terrain':
+            mm = google.maps.MapTypeId.TERRAIN;
+            break;
+          case 'roadmap':
+            mm = google.maps.MapTypeId.ROADMAP;
+            break;
+          default:
+            mm = google.maps.MapTypeId.SATELLITE;
+            break;
+        }
+        GeoMap.map.setMapTypeId(mm);
       }
     },
 
@@ -413,15 +436,16 @@ var AstroIQ = {
       if (st.length < 1 && gMapApiKey) {
          st = jQuery('<script id="gmap-core" async defer src="https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&callback=initMap"></script>');
           jQuery('body').append(st);
+          if (focus === true) {
+            GeoMap.setFocus = true;
+          }
+          if (lat) {
+            if (lng) {
+              GeoMap.buildMap(lat,lng);
+            }
+          }
       }
-      if (focus === true) {
-        GeoMap.setFocus = true;
-      }
-      if (lat) {
-        if (lng) {
-          GeoMap.buildMap(lat,lng);
-        }
-      }
+      
     }
     
   }
@@ -935,8 +959,15 @@ var app = new Vue({
         if (response.data) {
           var data = response.data;
           if (data.coords) {
+            if (app.activeTab != 'map') {
+              app.showPane('map');
+            }
             GeoMap.updateAddress(data);
-            app.showPane('map');
+            var c = app.location.coords, mode = 'satellite';
+            if (data.radius > 20) {
+              mode = 'terrain';
+            }
+            GeoMap.updateMap(c.lat,c.lng,true,true,mode);
           }
         }
       }); 
