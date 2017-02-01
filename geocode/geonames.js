@@ -271,7 +271,8 @@ var geonames = {
      });
     },
 
-    mapCoords: (coords,callback) => {
+    mapCoords: (coords,callback,radius = 1) => {
+
       if (typeof coords == 'string') {
         coords = conversions.strToLatLng(coords);
       }
@@ -281,6 +282,9 @@ var geonames = {
       }
       var valid = false,
       href = geoNamesUrl + `/findNearbyPlaceNameJSON?formatted=true?style=full&type=json&formatted=true&lat=${coords.lat}&lng=${coords.lng}&username=${geoNamesUserName}`;
+      if (radius > 1) {
+        href += `&radius=${radius}`;
+      }
       request(href, (error, response, body) => {
         if (error){
           callback({valid:false,msg:"Invalid parameters"},undefined);
@@ -302,15 +306,23 @@ var geonames = {
                 }
               }
             } else {
-              var item = coords;
-              item.elevation = 0;
-              item.name = 'unknown';
-              item.countryCode = "XX";
-              item.fclName = "";
-              item.countryName = "";
-              item.adminName1 = "";
-              data = geonames.parseItem(item);
-              data.valid = true;
+              if (radius < 300) {
+                if (radius < 2) {
+                  radius = 0;
+                }
+                radius += 100;
+                geonames.mapCoords(coords,callback,radius);
+              } else {
+                var item = coords;
+                item.elevation = 0;
+                item.name = 'unknown';
+                item.countryCode = "XX";
+                item.fclName = "";
+                item.countryName = "";
+                item.adminName1 = "";
+                data = geonames.parseItem(item);
+                data.valid = true;
+              }
             }
             timezone.request(data.coords,'NOW','position',(error,tData) => {
               if (error) {
@@ -318,6 +330,10 @@ var geonames = {
               } else {
                 data.timezone = geonames.timezoneSimplify(tData);
                 data.tzdb = tData;
+                if (data.name == 'unknown' && data.countryCode == 'XX') {
+                  data.name = tData.zoneName.split('/').reverse().join(', ');
+                  data.countryCode = tData.countryCode;
+                }
                 callback(undefined,data);
               }
             });
