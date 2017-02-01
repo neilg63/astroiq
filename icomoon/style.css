@@ -1,11 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?kqtxpt');
-  src:  url('fonts/icomoon.eot?kqtxpt#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.woff2?kqtxpt') format('woff2'),
-    url('fonts/icomoon.ttf?kqtxpt') format('truetype'),
-    url('fonts/icomoon.woff?kqtxpt') format('woff'),
-    url('fonts/icomoon.svg?kqtxpt#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?uxe4bq');
+  src:  url('fonts/icomoon.eot?uxe4bq#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?uxe4bq') format('truetype'),
+    url('fonts/icomoon.woff?uxe4bq') format('woff'),
+    url('fonts/icomoon.svg?uxe4bq#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -25,17 +24,65 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-pencil2:before {
+  content: "\e914";
+}
+.icon-pencil:before {
+  content: "\e913";
+}
+.icon-finder:before {
+  content: "\e911";
+}
+.icon-clock:before {
+  content: "\e94e";
+}
+.icon-calendar:before {
+  content: "\e953";
+}
+.icon-database:before {
+  content: "\e964";
+}
+.icon-wrench:before {
+  content: "\e991";
+}
+.icon-cog:before {
+  content: "\e994";
+}
+.icon-menu:before {
+  content: "\e9bd";
+}
+.icon-cross:before {
+  content: "\ea0f";
+}
+.icon-checkmark:before {
+  content: "\ea10";
+}
+.icon-arrow-up:before {
+  content: "\ea32";
+}
+.icon-arrow-right:before {
+  content: "\ea34";
+}
+.icon-arrow-down:before {
+  content: "\ea36";
+}
+.icon-arrow-left:before {
+  content: "\ea38";
+}
+.icon-compass:before {
+  content: "\e910";
+}
+.icon-paperclip:before {
+  content: "\e02d";
+}
+.icon-global:before {
+  content: "\e052";
+}
 .icon-lightbulb:before {
   content: "\e90e";
 }
 .icon-gearwheel:before {
   content: "\e90f";
-}
-.icon-male-bust:before {
-  content: "\e910";
-}
-.icon-female-bust:before {
-  content: "\e911";
 }
 .icon-magnifier:before {
   content: "\e912";
@@ -81,41 +128,5 @@
 }
 .icon-sun-devanagari:before {
   content: "\e90b";
-}
-.icon-clock:before {
-  content: "\e94e";
-}
-.icon-calendar:before {
-  content: "\e953";
-}
-.icon-database:before {
-  content: "\e964";
-}
-.icon-wrench:before {
-  content: "\e991";
-}
-.icon-cog:before {
-  content: "\e994";
-}
-.icon-menu:before {
-  content: "\e9bd";
-}
-.icon-cross:before {
-  content: "\ea0f";
-}
-.icon-checkmark:before {
-  content: "\ea10";
-}
-.icon-arrow-up:before {
-  content: "\ea32";
-}
-.icon-arrow-right:before {
-  content: "\ea34";
-}
-.icon-arrow-down:before {
-  content: "\ea36";
-}
-.icon-arrow-left:before {
-  content: "\ea38";
 }
 

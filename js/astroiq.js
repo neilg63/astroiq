@@ -32,6 +32,19 @@ var initDateBox = function() {
       useLang: 'en'
     });
     jQuery('input.datebox').datebox();
+    jQuery('input.datebox').on('dblclick',function(e){
+      e.stopImmediatePropagation();
+      var it = jQuery(this), par = it.parent();
+      if (par.hasClass('input-group')) {
+        par.parent().parent().find('input.datebox').datebox('destroy');
+      } else {
+        if (it.hasClass('dblclicked')) {
+          it.attr('type','text').removeClass('dblclicked').addClass('plain');
+        } else if (it.hasClass('plain')==false) {
+          it.addClass('dblclicked');
+        }
+      }
+    });
 }
 var pDom = {};
 
@@ -159,14 +172,14 @@ var GeoMap = {
               lng: position.coords.longitude
             };
             var strCoords = User.geo.coords.lat + '/' + User.geo.coords.lng;
-            jQuery.ajax({
-                url: '/geolocate/'+ strCoords,
-                success: function(data) {
-                  if (data.coords) {
-                    GeoMap.updateAddress(data);
-                    storeItem('geodata',data);
-                  }   
+            axios.get('/geolocate/'+ strCoords).then(function(response) {
+              if (response.data) {
+                var data = response.data;
+                if (data.coords) {
+                  GeoMap.updateAddress(data);
+                  storeItem('geodata',data);
                 }
+              }
             });
             GeoMap.updateCoords(position.coords);
         }
@@ -904,10 +917,23 @@ var app = new Vue({
           if (typeof name == 'string') {
             if (name.length>2) {
               this.location.address = name;
+              jQuery('#location-address').val(name);
             }
           }
         }
       }
+    },
+    findOnMap: function() {
+      var strCoords = this.location.coords.lat +'/'+this.location.coords.lng;
+      axios.get('/geolocate/'+ strCoords).then(function(response) {
+        if (response.data) {
+          var data = response.data;
+          if (data.coords) {
+            GeoMap.updateAddress(data);
+            app.showPane('map');
+          }
+        }
+      }); 
     },
     loadMap: function() {
       this.toggleDegreeMode('display');
@@ -1034,16 +1060,25 @@ var app = new Vue({
       this.chartMode = cType;
     },
     toggleDegreeMode: function(mode) {
-      if (mode == 'display') {
-        this.coordinatesClass = 'display none';
-      }
-      switch (this.coordinatesClass) {
+      var sm = this.coordinatesClass;
+      switch (mode) {
         case 'display':
+          sm = 'display-none';
+          break;
+        case 'dms':
+        case 'dec':
+          sm = mode;
+          break;
+      }
+      switch (sm) {
+        case 'display':
+        case 'dms':
           this.syncDmsControls(false);
           this.syncDmsControls(true);
           this.coordinatesClass = 'show-dms-degrees';
           break;
         case 'show-dms-degrees':
+        case 'dec':
           this.coordinatesClass = 'show-dec-degrees';
           break;
         default:
