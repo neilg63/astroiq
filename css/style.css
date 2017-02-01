@@ -696,10 +696,10 @@ line.solid {
         max-width: 32em;
     }
     #control-panel #form-location {
-        min-width: 15em;
+        min-width: 13em;
     }
     #control-panel form {
-        min-width:  20em;
+        min-width:  16em;
     }
 }
 
@@ -710,11 +710,11 @@ line.solid {
         max-width: 36em;
     }
     #control-panel #form-location {
-        min-width: 16em;
+        min-width: 14em;
         max-width: 80%;
     }
     #control-panel form {
-        min-width:  25em;
+        min-width:  21em;
     }
 }
 
@@ -758,6 +758,10 @@ line.solid {
     display: inline-block;
 }
 
+#control-panel span.dms-select input {
+    outline: none;
+}
+
 #control-panel span.dms-select,
 #control-panel input.degree {
     max-width: 0;
@@ -765,6 +769,49 @@ line.solid {
     opacity: 0;
     pointer-events: none;
     overflow: hidden;
+}
+
+#control-panel fieldset.coordinates {
+    padding:  0;
+    margin-top: 0;
+}
+
+fieldset.show-dms-degree .degree-mode-controls .dms-mode,
+fieldset.display .degree-mode-controls .show-mode,
+fieldset.show-dec-degree .degree-mode-controls .dec-mode,
+fieldset.display .degree-mode-controls .find-map {
+    display:  none;
+}
+
+fieldset.coordinates .degree-mode-controls span:before {
+    font-family: "icomoon";
+}
+
+fieldset.coordinates .degree-mode-controls .dms-mode:before {
+    content:  "\e910";
+}
+fieldset.coordinates .degree-mode-controls .dec-mode:before {
+    content:  "\e913";
+}
+fieldset.coordinates .degree-mode-controls .show-mode:before {
+    content:  "\ea34";
+}
+fieldset.coordinates .degree-mode-controls .find-map:before {
+    content:  "\e052";
+}
+
+#control-panel .degree-mode-controls {
+    position: absolute;
+    right:  0;
+    top: 0;
+}
+
+.degree-mode-controls span {
+    display: block;
+    width:  1em;
+    height: 1em;
+    margin-bottom:  0.5em;
+    cursor: pointer;
 }
 
 #control-panel input.degree {
@@ -801,18 +848,7 @@ line.solid {
     max-height: 1rem;
 }
 
-#control-panel span.coordinates:after {
-    position: absolute;
-    right:  0;
-    top: 0;
-    color:  #999999;
-    font-family: "icomoon";
-    content:  "\ea34";
-    font-size: 1rem;
-}
-
 #control-panel .show-dms-degrees span.coordinates {
-
     max-width:  0;
     width: 0;
     overflow: hidden;

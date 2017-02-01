@@ -62,7 +62,12 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
           input.dms.lat.sec(v-model="location.coords.latComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
           span.sec
           input.dms.lat.dir(v-model="location.coords.latComponents.dir" size="1" maxlength="1" pattern="[NSns]" v-on:click="swapDirection(false)")
-        span.coordinates.lat.dms(v-on:click="toggleDegreeMode()") {{location.coords.latDms}}
+        span.coordinates.lat.dms {{location.coords.latDms}}
+        div.degree-mode-controls
+          span.mode.dms-mode(v-on:click="toggleDegreeMode('dms')" title="Edit degrees, minutes and seconds") 
+          span.mode.dec-mode(v-on:click="toggleDegreeMode('dec')" title="Edit degrees with decimals")
+          span.mode.show-mode(v-on:click="toggleDegreeMode('display')" title="Show degrees only")
+          span.find-map(v-on:click="findOnMap()" title="Find on Map")
       p.lng
         label.degree(for="form-lng" title="longitude") Longitude:
         input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" title="longitude" v-model="location.coords.lng")
@@ -74,7 +79,7 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
           input.dms.lng.sec(v-model="location.coords.lngComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
           span.sec
           input.dms.lng.dir(v-model="location.coords.lngComponents.dir" size="1" maxlength="1" pattern="[WEwe]" v-on:click="swapDirection(true)")
-        span.coordinates.lng.dms(v-on:click="toggleDegreeMode()") {{location.coords.lngDms}}
+        span.coordinates.lng.dms {{location.coords.lngDms}}
       p.alt
         label(for="form-alt-display" title="Altitude") Altitude:
         input(type="number" id="form-alt-display" name="alt" size="1" v-bind:steps="location.altSteps" min="0" v-bind:max="location.altMax" title="Height above sea level in metres" v-model="location.altDisplay")
