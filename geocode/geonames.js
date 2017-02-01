@@ -301,6 +301,16 @@ var geonames = {
                   
                 }
               }
+            } else {
+              var item = coords;
+              item.elevation = 0;
+              item.name = 'unknown';
+              item.countryCode = "XX";
+              item.fclName = "";
+              item.countryName = "";
+              item.adminName1 = "";
+              data = geonames.parseItem(item);
+              data.valid = true;
             }
             timezone.request(data.coords,'NOW','position',(error,tData) => {
               if (error) {
