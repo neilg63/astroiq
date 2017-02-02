@@ -532,7 +532,8 @@ var EphemerisData = {
     lng: 0,
     lat: 0
   },
-  chart_type: "birth"
+  chart_type: "birth",
+  cmd: ""
 }
 
 var app = new Vue({
@@ -783,6 +784,9 @@ var app = new Vue({
           this.results.houseBounds = data.houseBounds;
         }
       }
+      if (this.results.cmd) {
+        this.results.cmd = this.results.cmd.replace(/_+/g,' ');
+      }
     },
     searchLocation: function() {
       this.location.showAddress = false;
@@ -1031,6 +1035,7 @@ var app = new Vue({
 
           params.sid = this.options.ayanamsa;
           params.name = this.candidateName.trim();
+          params.chartType = this.chartType;
           var genderVal = this.gender.type;
           if (this.gender.type == 'other') {
             genderVal = this.gender.otherType;

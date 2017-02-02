@@ -1252,8 +1252,9 @@ ul.hor-tabs li:not(.disabled):hover {
 #magnifier-controls span {
     float:  left;
     display: block;
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
+    font-size:  0.667em;
     margin-right: 0.5em;
     opacity: 0.5;
     cursor: pointer;
@@ -1265,6 +1266,8 @@ ul.hor-tabs li:not(.disabled):hover {
 
 #magnifier-controls span:before {
     font-family: "icomoon";
+    display: inline-block;
+    padding-right: 0.125em;
 }
 
 #magnifier-controls span.magnify:before {
@@ -1276,7 +1279,7 @@ ul.hor-tabs li:not(.disabled):hover {
 }
 
 #magnifier-controls span.four:before {
-    font-size: 2.25em;
+    font-size: 2em;
 }
 
 .magnify-1 #magnifier-controls span.one,
