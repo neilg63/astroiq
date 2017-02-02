@@ -508,7 +508,8 @@ var EphemerisData = {
     saturn: bodyData,
     uranus: bodyData,
     neptune: bodyData,
-    pluto: bodyData
+    pluto: bodyData/*,
+    ketu: bodyData*/
   },
   name: "",
   datetime: "",
@@ -608,6 +609,7 @@ var app = new Vue({
     },
     coordinatesClass: 'display',
     activeTab: 'chart',
+    chartSizeClass: 'magnify-1',
     chartMode: 'western',
     results: EphemerisData
   },
@@ -1183,6 +1185,9 @@ var app = new Vue({
           }
           break;
       }
+    },
+    magnifyChart: function(num) {
+      this.chartSizeClass = 'magnify-' + num;
     },
     syncDmsControls: function(isLng) {
       var c = this.location.coords,parts = [], l;
