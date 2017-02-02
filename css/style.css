@@ -307,6 +307,10 @@ span.symbol-radio label {
     display: none;
 }
 
+#control-panel #control-form.active {
+    min-height: 100em;
+}
+
 #control-panel span.symbol-radio label {
     opacity: 0;
     position: absolute;
@@ -571,7 +575,26 @@ line.solid {
     animation: spin 1s infinite linear;
 }
 
+#control-panel {
+    min-height: 100vh;
+}
 
+#control-panel .pane {
+    position: absolute;
+    top: 3em;
+    left: -100vw;
+    transition: left 0.5s ease-in;
+    z-index: -1;
+    max-width: 50%;
+}
+
+#control-panel .pane.active {
+    left:  0;
+    overflow: visible;
+    z-index:  5000;
+    min-height: 90vh;
+    max-width: 100%;
+}
 
 #dial {
     animation: spin 60s infinite;
@@ -663,8 +686,8 @@ line.solid {
     transform: rotate(-15deg);
 }
 
-#queries,
-#control-panel form {
+#control-panel > .inner {
+    position: relative;
     opacity: 0;
     max-height:0;
     overflow: hidden;
@@ -744,13 +767,14 @@ line.solid {
     }
 }
 
-.show-control-panel #queries,
-.show-control-panel #control-panel form {
+.show-control-panel #control-panel > .inner {
     opacity: 1;
     transition: opacity 0.25s linear;
     pointer-events: auto;
     height: auto;
+    min-height: 100vh;
     max-height: 400vh;
+    width: 100%;
 }
 
 #control-panel .input-group {
@@ -1110,6 +1134,10 @@ nav.horizontal li {
     padding: none;
 }
 
+ul.hor-tabs {
+    white-space: nowrap;
+}
+
 ul.hor-tabs,
 nav.horizontal ul {
     margin: 0.75em 0;
@@ -1119,21 +1147,6 @@ nav.horizontal ul {
 
 ul.hor-tabs li {
     position: relative;
-}
-
-ul.hor-tabs .sub-tabs {
-    position: absolute;
-    top: 1.5em;
-    left:  0;
-    font-size: 0.5em;
-    display:  block;
-    width:  auto;
-}
-
-ul.hor-tabs .sub-tabs li {
-    text-align: left;
-    display:  block;
-    width:  15em;
 }
 
 ul.hor-tabs li,
@@ -1149,14 +1162,18 @@ ul.hor-tabs li {
     cursor: pointer;
 }
 
+ul.hor-tabs li.active {
+    color:  #0033cc;
+}
+
 @media screen and (min-width:640px) {
-    ul.hor-tabs li {
+    #main ul.hor-tabs li {
         font-size: 1.25em;
     }
 }
 
 @media screen and (min-width:960px) {
-    ul.hor-tabs li {
+    #main ul.hor-tabs li {
         padding: 0 1em;
         font-size: 1.5em;
     }

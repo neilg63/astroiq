@@ -299,7 +299,7 @@ app.get('/astro', function(req, res) {
 });
 
 app.get('/zodiac', function(req, res) {
-    const page = pug.compileFile(__dirname + '/templates/index.pug');
+    const page = pug.compileFile(__dirname + '/templates/astro.pug');
     res.send(page(variables));
 });
 
