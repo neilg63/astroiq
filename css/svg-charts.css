@@ -120,13 +120,21 @@ g.body .symbol {
   transform: scale(0.75);
 }
 
+g.body {
+  fill: transparent;
+  pointer-events: all;
+  cursor: pointer;
+}
+
 g.body text {
+  fill: #333333;
   opacity: 0.75;
 }
 
 g.body text.house,
 g.body text.coords {
   font-size: 0.75em;
+ /*  visibility: hidden; */
 }
 
 g.body text.coords {
@@ -137,6 +145,7 @@ g.body text.house {
   transform: translate(-10px, 75px);
 }
 
-g.bodies-layer g.body:hover text {
-  opacity: 1;
+g.bodies-layer g.over text.coords,
+g.bodies-layer g.over text.house {
+  visibility: visible;
 }
