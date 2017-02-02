@@ -70,3 +70,10 @@ dl.results-list(:class="{hidden: !results.valid}")
         span.degrees.lng {{results.bodies.pluto.lng}}
         span.degrees.lat {{results.bodies.pluto.lat}}
         span.degrees.ecl {{results.bodies.pluto.ecl}}
+  dt.houses
+  dd.houses
+    ul.bodies-list
+      template(v-for="house in results.houseBounds")
+        li
+          span.label {{house.num}}
+          span.coords {{house.lng}} to {{house.end}}

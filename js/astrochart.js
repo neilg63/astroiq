@@ -271,7 +271,7 @@ var AstroChart = {
       bn = bNames[i];
       body = d3.select('#'+bn+'-symbol');
       d = 270 - deg;
-      pos = AstroChart._xyPos(d,320,-15,-15);
+      pos = AstroChart._xyPos(d,330,-12,-12);
       body
       .attr('transform','translate('+pos.x+','+pos.y+')')
       .attr('data-lng',d)
@@ -286,27 +286,28 @@ var AstroChart = {
     steps=30,
     duration=900,
     i=0,lbl,txt,
-    d,dy,bn,item,body,pos,dy,diff,diffDy;
+    d,dy,bn,item,body,pos,diff;
     for (bn in bodies) {
       item = bodies[bn];
       if (typeof item == 'object') {
         body = d3.select('#'+bn+'-symbol');
-        if (isNumeric(item.house)) {
+        if (isNumeric(item.lng)) {
           lbl = body.select('text.coords');
+          txt = toAstroDegree(item.lng % 30);
+          lbl.text(txt);
+        }
+       if (isNumeric(item.house)) {
+          lbl = body.select('text.house');
           txt = Math.approxFixed(item.house,2);
-          txt += ', ' + Math.approxFixed(item.lng,2);
           lbl.text(txt);
         }
         deg = item.lng;
         d = 330 - deg;
-        dy = ((750-300) * (item.lat/(90/1.5))) + 360;
         oldDeg = parseFloat(body.attr('data-lng')),
-        oldDy = parseFloat(body.attr('data-lat')),
         diff=oldDeg-d;
-        diffDy = oldDy-dy;
-        body.attr('data-lat',d).attr('data-lat',dy);
+        body.attr('data-lng',d);
         for (i=0;i<steps;i++) {
-          pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),(oldDy - (diffDy*(i+1)/steps)),-15,-15);
+          pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),330,-12,-12);
           body.transition()
           .delay(i*(duration/steps))
           .duration((duration/steps))

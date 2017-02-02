@@ -124,9 +124,17 @@ g.body text {
   opacity: 0.75;
 }
 
+g.body text.house,
+g.body text.coords {
+  font-size: 0.75em;
+}
+
 g.body text.coords {
   transform: translate(-10px, 60px);
-  font-size: 0.75em;
+}
+
+g.body text.house {
+  transform: translate(-10px, 75px);
 }
 
 g.bodies-layer g.body:hover text {
