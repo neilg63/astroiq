@@ -117,7 +117,7 @@ g.bodies-layer {
 }
 
 g.body .symbol {
-  transform: scale(0.75)
+  transform: scale(0.75);
 }
 
 g.body text {

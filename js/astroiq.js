@@ -500,15 +500,18 @@ var EphemerisData = {
     neptune: bodyData,
     pluto: bodyData
   },
+  name: "",
   datetime: "",
+  display_datetime: "",
   dateinfo: {
-
+    datetime: null,
   },
   gender: "unknown",
   geo: {
     lat: 0,
     lng: 0,
     alt: 0,
+    display_coords: "",
     address: ""
   },
   houses: [],
@@ -517,7 +520,8 @@ var EphemerisData = {
     mode: "(equal/ whole sign)",
     lng: 0,
     lat: 0
-  }
+  },
+  chart_type: "birth"
 }
 
 var app = new Vue({
@@ -717,27 +721,30 @@ var app = new Vue({
                   for (var k3 in v2) {
                     if (this.results[k1][k2].hasOwnProperty(k3)) {
                       v3 = v2[k3];
-                      this.results[k1][k2][k3] = v3;
+                      this.results[k1][k2][k3] = parseAstroResult(v3,k3);
                     }
                   }
                 } else {
-                  this.results[k1][k2] = v2;
+                  this.results[k1][k2] = parseAstroResult(v2,k1+'.'+k2);
                 }
               }
             }
           } else {
-            this.results[k1] = v1;
+            this.results[k1] = parseAstroResult(v1,k1);
           }
         }
       }
       if (this.results.name) {
         this.candidateName = this.results.name;
+
       }
-      if (isNumeric(this.results.geo.lat)) {
-        this.location.coords.lat = this.results.geo.lat;
-        this.location.coords.lng = this.results.geo.lng;
-        this.location.coords.alt = this.results.geo.alt;
-        this.location.address = this.results.geo.address;
+      if (this.results.geo.lat) {
+        var geo = this.results.geo;
+        this.location.coords.lat = geo.lat;
+        this.location.coords.lng = geo.lng;
+        this.location.coords.alt = geo.alt;
+        this.location.address = geo.address;
+        this.results.geo.display_coords = toLatitudeString(geo.lat,'plain') + ', ' + toLongitudeString(geo.lng,'plain')
       }
       if (this.results.datetime) {
         var parts = this.results.datetime.toString().split('T');
@@ -752,6 +759,13 @@ var app = new Vue({
               this.tob = parts[0]+':'+parts[1];
             }
           }
+        }
+      }
+      if (this.results.datetime) {
+        if (/^\d\d\d\d-\d\d-\d\d?/.test(this.results.datetime)) {
+          var dt =  new Date(this.results.datetime);
+          this.results.dateinfo.datetime = dt;
+          this.results.display_datetime =  dt.dmy('m');
         }
       }
     },
