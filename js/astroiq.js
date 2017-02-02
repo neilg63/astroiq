@@ -44,6 +44,7 @@ var initDateBox = function() {
         var par = it.parent();
         if (par.hasClass('input-group')) {
           cont.parent().find('input.datebox').datebox('destroy');
+          cont.parent().find('.ui-datebox-container,.input-group').remove();
         } else {
           if (it.hasClass('clicked')) {
             it.attr('type','text').removeClass('clicked').addClass('plain');
@@ -52,8 +53,18 @@ var initDateBox = function() {
           }
         }
       }
-      
     });
+    setTimeout(function(){
+      jQuery('.ui-datebox-container').on('click',function(){
+        var cont = jQuery(this);
+          console.log(cont.attr('style'))
+          if (cont.length>0) {
+            if (cont.css('display') !== 'none') {
+              cont.slideUp();
+            }
+          }
+      });
+    },250);
 }
 var pDom = {};
 
@@ -610,6 +621,7 @@ var app = new Vue({
     },
     coordinatesClass: 'display',
     activeTab: 'chart',
+    subPane: 'form',
     chartSizeClass: 'magnify-1',
     chartMode: 'western',
     results: EphemerisData
@@ -714,7 +726,7 @@ var app = new Vue({
     },500),
     'location.coords.lngComponents.dir': _.debounce(function() {
       this.updateCoordsFromDms(true,'dir');
-    },250),
+    },250)
   },
   methods: {
     parseResults: function(data) {
@@ -792,7 +804,7 @@ var app = new Vue({
     },
     searchLocation: function() {
       this.location.showAddress = false;
-      
+      this.syncDatetime();
       if (this.location.search.length>0) {
           var adStr = this.location.search.trim(),
             href = '/geocode/' + adStr,
@@ -801,40 +813,34 @@ var app = new Vue({
           if (stored.valid) {
             this.updateGeoDetails(stored.data);
           }
-          va = this;
-
           axios.get(href)
             .then(function(response) {
-
             var msg = '';
-            if (response.data && va) {
+            if (response.data && app) {
               var data = response.data;
               if (data.valid) {
-                va.updateGeoDetails(data,key);
-                va.location.address = data.address;
+                app.updateGeoDetails(data,key);
+                app.location.address = data.address;
               } else if (data.message) {
                   msg = data.message;
               }
               if (data.has_geonames) {
-                  va.updateGeoDetails(data);
+                  app.updateGeoDetails(data);
                   if (data.geomatched_index === 0) {
                      var matchedGeo = data.geonames.items[data.geomatched_index]; 
-                     va.updateTzFields(matchedGeo);
-
+                     app.updateTzFields(matchedGeo);
                   }
               };
               if (msg.length > 1) {
-                  va.location.address = msg;
-                  va.location.showAddress = true;
+                  app.location.address = msg;
+                  app.location.showAddress = true;
                   if (data.message && !data.valid) {
                       setTimeout(function() {
-                          va.location.showAddress = false;
+                          app.location.showAddress = false;
                       },5000);
                   }
               }
             }
-        }).catch(function (error) {
-          console.log(error);
         });
       }
     },
@@ -889,6 +895,7 @@ var app = new Vue({
       }
     },
     updateGeoDetails: function(data,key) {
+      this.syncDatetime();
       if (isNumeric(data.lat)) {
         var lat = data.lat,lng = data.lng;
         this.location.coords.lat = lat;
@@ -949,6 +956,7 @@ var app = new Vue({
       
     },
     updateTzFields: function(geoData) {
+      this.syncDatetime();
       if (typeof geoData == 'object') {
        if (geoData.timezone) {
           var tz = geoData.timezone;
@@ -968,6 +976,7 @@ var app = new Vue({
       }
     },
     updateMap: function(coords,name) {
+      this.syncDatetime();
       if (coords) {
         this.toggleDegreeMode('display');
         var parts = coords.split(',');
@@ -987,6 +996,7 @@ var app = new Vue({
       }
     },
     findOnMap: function() {
+      this.syncDatetime();
       var strCoords = this.location.coords.lat +'/'+this.location.coords.lng;
       axios.get('/geolocate/'+ strCoords).then(function(response) {
         if (response.data) {
@@ -1009,7 +1019,19 @@ var app = new Vue({
       this.toggleDegreeMode('display');
       AstroIQ.loadGMap();
     },
+    syncDatetime: function() {
+      var dob = document.getElementById('form-dob'),
+        tob = document.getElementById('form-tob');
+      if (dob) {
+        this.dob = dob.value;
+      }
+      if (tob) {
+        this.tob = tob.value;
+      }
+      console.log(this.dob)
+    },
     sendControlForm: function() {
+      this.syncDatetime();
       if (this.dob.length>0 && this.candidateName.length>0) {
           var dobV = this.dob,
           tobV = this.tob,
@@ -1021,6 +1043,7 @@ var app = new Vue({
           var params={},
           geopos = lngV + ',' + latV + ',' + altV,
           isGeo = false;
+
           params.b = toEuroDate(dobV);
           params.ut = toSwissEphTime(tobV);
           params.elev = altV;
@@ -1125,6 +1148,10 @@ var app = new Vue({
           break;
       }
       this.activeTab = pType;
+    },
+    showSub: function(pType) {
+      this.toggleDegreeMode('display');
+      this.subPane = pType;
     },
     showChart: function(cType) {
       this.toggleDegreeMode('display');
@@ -1248,7 +1275,7 @@ var app = new Vue({
             }
         });
 
-        $('#control-panel .symbol-radio').on('click',function(e){
+        /*$('#control-panel .symbol-radio').on('click',function(e){
             var it = $(this), radio = it.find('input[type=radio]');
             e.stopImmediatePropagation();
             if (radio.length > 0) {
@@ -1260,7 +1287,7 @@ var app = new Vue({
                 }
                 
             } 
-        });
+        });*/
 
         $('#control-panel').on('click',function(e) {
             var tg = $(e.target), b = pDom.body, refCl='show-control-panel';
@@ -1302,7 +1329,7 @@ var app = new Vue({
         }, 1000)
 
         if (screen.width > p.mobileMax) {
-            setTimeout(initJQueryDateBox, 250);
+           setTimeout(initJQueryDateBox, 250);
         }       
     });
 })(jQuery);

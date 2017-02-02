@@ -1,67 +1,102 @@
+//- This version of the Control Form / Panel requires VueJS
 //- end of selectrow
 include mixins.pug
 
-h2.toggle-aside New Chart
-form#control-form(action="/sweph" method="post")
+form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method="post" v-on:submit.prevent="sendControlForm")
   fieldset.collapsible.open
-    +selectrow('chart_type','Type of Chart',chartTypes)(class="select-input")
+    +selectrow('chart_type','Type of Chart',chartTypes,false)(class="select-input" v-model="chartType")
     p.name-row.full-span
-      input.name(type="text" id="form-name" name="name" size="10" value="" placeholder="Candidate's Name") 
-    p.gender-row
-      input#form-gender-female.gender.female(type="radio" name="gender" value="female")
+      input.name(type="text" id="form-name" name="name" size="10" placeholder="Candidate's Name" v-model="candidateName" required="true" minlength="2")
+    p.gender-row(:class="{collapsed: !gender.active,expanded: gender.active}")
+      input#form-gender-unknown.gender.unknown(type="radio" name="gender" value="unknown" v-model="gender.type")
+      label.sub.gender(for="form-gender-unknown" title="Not specified") N/A
+      
+      input#form-gender-female.gender.female(type="radio" name="gender" value="female" v-model="gender.type")
       label.sub.gender(for="form-gender-female") Female
-      input#form-gender-male.gender.male(type="radio" name="gender" value="male")
+
+      input#form-gender-male.gender.male(type="radio" name="gender" value="male" v-model="gender.type")
       label.sub.gender(for="form-gender-male") Male
-      input#form-gender-male.gender.other(type="radio" name="gender" value="other")
+      
+      input#form-gender-other.gender.other(type="radio" name="gender" value="other" v-model="gender.type")
       label.sub.gender(for="form-gender-other") Other
-      input.gender-other-type.hidden(type="text" maxlength="32" size="16" name="gender_other" id="form-gender-other-type" placeholder="Other gender definition")
+      input.gender-other-type(:class="{hidden: !gender.otherActive}" type="text" maxlength="32" size="16" name="gender_other" id="form-gender-other-type" placeholder="Other gender definition" v-model="gender.otherType")
     div.datetime
-      label(for="form-dob") Date and time of birth:
+      label(for="form-dob") {{dateLabel}}:
       div.dob-field.half-width.first
-        input.datebox(type="date" id="form-dob" name="dob" size="10" value="1961-06-28" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" )
+        input.datebox(type="date" id="form-dob" name="dob" size="10" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" v-model="dob")
       div.tob-field.half-width.second
-        input.datebox(type="time" id="form-tob" name="tob" size="5" value="11:25" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}")
+        input.datebox(type="time" id="form-tob" name="tob" size="5" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" v-model="tob")
     fieldset#timezone-settings.collapsible.closed
-      h3.toggle Time Zone #[em ---]
-      p.tz
-        label(for="form-timezone") UTC offset:
-        select.tzoffset(type="number" id="form-tz" name="timezone")
-          each opt,index in timezone.offsets
-            option(value = opt.value selected=opt.selected)= opt.label
-      p.ds
-        label(for="form-daylightsavings") Daylight saving:
-        select.ds(id="form-ds" name="ds")
-          each opt,index in timezone.ds_options
-            option(value = opt.value selected=opt.selected)= opt.label
+      h3.toggle Time Zone #[em {{timezone.display}}]
+      div#tz-settings.full-width
+        div.half-width.first
+          label(for="form-timezone") UTC offset:
+          select.tzoffset(type="number" id="form-tz" name="timezone" v-model="timezone.offset")
+            each opt,index in timezone.offsets
+              option(value = opt.value)= opt.label
+        div.half-width.second
+          label(for="form-daylightsavings") Daylight saving:
+          select.ds(id="form-ds" name="ds" v-model="timezone.ds")
+            each opt,index in timezone.ds_options
+              option(value = opt.value)= opt.label
     p.pob-row
-      input(type="text" id="form-geobirth" name="geobirth" size="48" value="" placeholder="Place of birth")
-      input#geobirth-finder(type="submit" value="Find")
-      div#geo-address.hidden
-      div#geo-alt-places.hidden
-        fieldset#alt-places-container.listing.collapsible.closed
-          h3.toggle Alternative places #[em ---]
-          ol.hospitals
-      div#geo-hospitals.hidden
-        fieldset#hospital-container.listing.collapsible.closed
-          h3.toggle Maternity centres #[em ---]
-          ol.hospitals
-    p.lat
-      label(for="form-lat" title="latitude") Latitude:
-      input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" value="65.15" title="latitude" )
-    p.lng
-      label.degree(for="form-lng" title="longitude") Longitude:
-      input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" value="-13.6667" title="longitude" )
-    p.alt
-      label(for="form-alt" title="altitude") Altitude:
-      input(type="number" id="form-alt" name="alt" size="1" value="30" steps="10" min="0" max="9000" title="Height above sea level in metres" )
-      select#form-height-unit.inline
-        option(value="m") metres
-        option(value="ft") feet
+      input(type="text" id="form-location" name="location" size="48" value="" placeholder="Place of birth" v-model="location.search" v-on:click="loadMap")
+      input#location-finder(type="submit" value="Find" v-on:click.stop.prevent="searchLocation")
+      textarea#location-address.location-address.full-width(:class="{collapsed: !location.showAddress, expanded: location.showAddress}" name="location_address" rows="3" cols="40" required="true" minlength="5") {{location.address}}
+    div#geo-alt-places(:class="{hidden:!geonames.active}")
+      fieldset#alt-places-container.listing.collapsible.closed
+        h3.toggle Alternative places #[em ({{geonames.num}})]
+        ol.alt-places
+          template(v-for="item in geonames.items")
+            li(v-on:click="updateMap(item.coords,item.name)") {{item.name}}
+    fieldset.coordinates(:class="coordinatesClass")
+      p.lat
+        label(for="form-lat" title="latitude") Latitude:
+        input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" title="latitude" v-model="location.coords.lat")
+        span.dms-select.lat
+          input.dms.lat.deg(v-model="location.coords.latComponents.deg" size="2" maxlength="2" pattern="[0-9]+")
+          span.deg
+          input.dms.lat.min(v-model="location.coords.latComponents.min" size="2" maxlength="2" pattern="[0-5]?[0-9]")
+          span.min
+          input.dms.lat.sec(v-model="location.coords.latComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
+          span.sec
+          input.dms.lat.dir(v-model="location.coords.latComponents.dir" size="1" maxlength="1" pattern="[NSns]" v-on:click="swapDirection(false)")
+        span.coordinates.lat.dms {{location.coords.latDms}}
+        div.mode-controls
+          span.mode.dms-mode(v-on:click="toggleDegreeMode('dms')" title="Edit degrees, minutes and seconds") 
+          span.mode.dec-mode(v-on:click="toggleDegreeMode('dec')" title="Edit degrees with decimals")
+          span.mode.show-mode(v-on:click="toggleDegreeMode('display')" title="Show degrees only")
+          span.find-map(v-on:click="findOnMap()" title="Find on Map")
+      p.lng
+        label.degree(for="form-lng" title="longitude") Longitude:
+        input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" title="longitude" v-model="location.coords.lng")
+        span.dms-select.lng
+          input.dms.lng.deg(v-model="location.coords.lngComponents.deg" size="3" maxlength="3" pattern="[0-9]+")
+          span.deg
+          input.dms.lng.min(v-model="location.coords.lngComponents.min" size="2" maxlength="2" pattern="[0-5]?[0-9]")
+          span.min
+          input.dms.lng.sec(v-model="location.coords.lngComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
+          span.sec
+          input.dms.lng.dir(v-model="location.coords.lngComponents.dir" size="1" maxlength="1" pattern="[WEwe]" v-on:click="swapDirection(true)")
+        span.coordinates.lng.dms {{location.coords.lngDms}}
+      p.alt
+        label(for="form-alt-display" title="Altitude") Altitude:
+        input(type="number" id="form-alt-display" name="alt" size="1" v-bind:steps="location.altSteps" min="0" v-bind:max="location.altMax" title="Height above sea level in metres" v-model="location.altDisplay")
+        input(type="hidden" id="form-alt" v-model="location.coords.alt")
+        select#form-height-unit.inline(v-model="location.altUnit")
+          option(value="m") metres
+          option(value="ft") feet
+    div#geo-hospitals(:class="{hidden:!hospitals.active}")
+      fieldset#hospital-container.listing.collapsible.closed
+        h3.toggle Maternity centres #[em ({{hospitals.num}})]
+        ol.hospitals
+          template(v-for="item in hospitals.items")
+            li(:data-coords="item.coords" v-on:click="updateMap(item.coords,item.name)") {{item.name}}
     p.rodden
       label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale:
-      select#form-rodden.select-input(name="rodden")
+      select#form-rodden.select-input(name="rodden" v-model="options.rodden")
         each opt,index in roddenOptions
-          option(value = opt.value selected=opt.selected)= opt.label
+          option(value = opt.value)= opt.label
 
     div#form-actions
       input(type="submit" value="Calculate & Save" id="form-submit" )
@@ -73,29 +108,28 @@ form#control-form(action="/sweph" method="post")
   fieldset.collapsible.closed
     h3.toggle Calculation Settings
     //- include settings/calc-house-system.pug
-    fieldset.collapsible.closed
+    fieldset.collapsible.open
       h4.toggle Default House System
       p.sub-section
         label(for="form-hsy") House system:
-        select#form-hsy.select-input(name="hsy")
+        select#form-hsy.select-input(name="hsy" v-model="options.hsy")
           each opt,index in houseSystems
-            option(value = opt.value selected=opt.selected)= opt.label
+            option(value = opt.value)= opt.label
     //- include settings/calc-ayanamsha.pug
-    fieldset.collapsible.closed
+    fieldset.collapsible.open
       h4.toggle Tropical vs. Sidereal (Ayanāṃśa)
-        p.sub-section
-          label(for="form-ayanamsa") Ayanāṃśa
-          select#form-ayanamsa.select-input(name="ayanamsa")
-            each opt,index in ayanamsas
-              option(value = opt.value selected=opt.selected)= opt.label
+      p.sub-section
+        label(for="form-ayanamsa") Ayanāṃśa
+        select#form-ayanamsa.select-input(name="ayanamsa" v-model="options.ayanamsa")
+          each opt,index in ayanamsas
+            option(value = opt.value)= opt.label
     //- include settings/calc-celestial.pug
-    fieldset.collapsible.closed
+    fieldset.collapsible.open
       h4.toggle Celestial Calculations
       p#form-mode.sub-section.radios
-        label(for="form-mode") Topo/Geo:
-        input#form-mode-topo.mode(type="radio" value="topo" name="mode" checked="true" )
+        input#form-mode-topo.mode(type="radio" value="topo" name="mode" v-model="options.mode")
         label(for="form-mode-topo") Topocentric
-        input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode")
+        input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode" v-model="options.mode")
         label(for="form-mode-geo") Geocentric
 
 
@@ -147,7 +181,6 @@ form#control-form(action="/sweph" method="post")
         input#form-lunar-syn.lunar(type="radio" value="29.5305888531" name="lunar-syn" checked="true")
         label(for="form-solar-syn") Synodic month
       div.notes!= lunarMonthsNoteOptions
-      div.vue {{VuePlaceholder}}
         //-sub-sub-section
 
     //- sub-section

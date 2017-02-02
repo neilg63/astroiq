@@ -19,20 +19,12 @@ head
 body
   div#astroiq
     include includes/header.pug
-
-    aside#control-panel
-      include includes/control-panel.pug
-      div#queries
-        ol.queries
-          template(v-for="item in queries")
-            li
-              span.load(v-on:click.stop="loadQuery(item.paramStr)") {{item.name}}, {{item.dateStr}}
-              span.delete(v-on:click.stop="deleteQuery(item.paramStr)")
+    include includes/control-panel.pug
     div#main
       ul#pane-tabs.hor-tabs
-        li.chart(v-on:click="showPane('chart')") Chart
-        li.map(v-on:click="showPane('map')") Map
-        li.results(:class="{disabled:!results.valid}" v-on:click="showPane('results')") Results
+        li.chart(:class="{active:activeTab=='chart'}" v-on:click="showPane('chart')") Chart
+        li.map(:class="{active:activeTab=='map'}" v-on:click="showPane('map')") Map
+        li.results(:class="{disabled:!results.valid,active:activeTab=='results'}" v-on:click="showPane('results')") Results
       object#chart-pane.large-pane(:class="{active:activeTab=='chart'}")
         div.scroll-container(:class="chartSizeClass")
           div#magnifier-controls
@@ -44,7 +36,7 @@ body
           p.candidate
             span.label Name: 
             strong.person-name {{chartData.name}}
-            em.datetime {{chartData.dateStr}}
+            em.datetime {{results.display_datetime}}
           p.location-name(:title="chartData.coords") {{chartData.address}}
         ul#chart-tabs.hor-tabs
           li.western(v-on:click="showChart('western')") Western
@@ -55,9 +47,7 @@ body
 
       div#results-pane.large-pane(:class="{active:activeTab=='results'}")
         div.inner
-          include includes/results-pane.pug
-
-              
+          include includes/results-pane.pug       
 
   //- script(src="/js/kutejs/kute.min.js")
   //- script(src="/js/kutejs/kute-attr.min.js") 
