@@ -1,4 +1,4 @@
-// Flipbox
+initJQueryDateBox// Flipbox
 var initJQueryDateBox = function() {
     var scrTag = jQuery('<script type="text/javascript"></script>'),
     jr = jQuery('#jq-resources');
@@ -31,19 +31,28 @@ var initDateBox = function() {
     jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
       useLang: 'en'
     });
-    jQuery('input.datebox').datebox();
-    jQuery('input.datebox').on('dblclick',function(e){
+    var db = jQuery('input.datebox');
+    ctrls = jQuery('<div class="mode-controls"><span class="mode disable-datebox"></span></div>');
+    db.parent().last().append(ctrls);
+    db.datebox();
+    ctrls.find('span').on('click',function(e){
       e.stopImmediatePropagation();
-      var it = jQuery(this), par = it.parent();
-      if (par.hasClass('input-group')) {
-        par.parent().parent().find('input.datebox').datebox('destroy');
-      } else {
-        if (it.hasClass('dblclicked')) {
-          it.attr('type','text').removeClass('dblclicked').addClass('plain');
-        } else if (it.hasClass('plain')==false) {
-          it.addClass('dblclicked');
+      var ctrl = jQuery(this),
+      cont = ctrl.parent().parent(), 
+      it = cont.find('input.datebox');
+      if (it.length>0) {
+        var par = it.parent();
+        if (par.hasClass('input-group')) {
+          cont.parent().find('input.datebox').datebox('destroy');
+        } else {
+          if (it.hasClass('clicked')) {
+            it.attr('type','text').removeClass('clicked').addClass('plain');
+          } else if (it.hasClass('plain')==false) {
+            it.addClass('clicked');
+          }
         }
       }
+      
     });
 }
 var pDom = {};
