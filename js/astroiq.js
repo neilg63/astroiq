@@ -524,6 +524,7 @@ var EphemerisData = {
     address: ""
   },
   houses: [],
+  houseBounds: [],
   houseData: {
     letter: "W",
     mode: "(equal/ whole sign)",
@@ -775,6 +776,9 @@ var app = new Vue({
           var dt =  new Date(this.results.datetime);
           this.results.dateinfo.datetime = dt;
           this.results.display_datetime =  dt.dmy('m');
+        }
+        if (data.houseBounds) {
+          this.results.houseBounds = data.houseBounds;
         }
       }
     },
