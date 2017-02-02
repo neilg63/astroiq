@@ -28,6 +28,7 @@ var Nested = mongoose.model('Nested', {
   cmd: simpleStringType,
   name: simpleStringType,
   gender: simpleStringType,
+  chartType: simpleStringType,
   datetime: {
      type: Date,
      required: true
@@ -99,7 +100,8 @@ var Nested = mongoose.model('Nested', {
     saturn: planetType,
     uranus: planetType,
     neptune: planetType,
-    pluto: planetType
+    pluto: planetType/*,
+    ketu: planetType*/
   },
 });
 

@@ -570,8 +570,9 @@ c24 83 84 146 156 164 42 11 45 13 45 45 0 29 -4 34 -22 34 -34 -1 -99 -33
     <polyline points="20,730 0,750 20,770" class="ascendant" fill="none" stroke="red" stroke-width="3">
     </polyline>
   </g>
+  <circle cy="750" cx="750" r="240" fill="white" class="inner-hub" stroke="#999999" stroke-width="2"></circle>
 </g>
-    <circle cy="750" cx="750" r="240" fill="white" class="inner-hub" stroke="#999999" stroke-width="2"></circle>
+    
     <g class="bodies-layer">
         <g class="body sun" id="sun-symbol">
              <text class="label">Sun</text>

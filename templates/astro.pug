@@ -34,7 +34,12 @@ body
         li.map(v-on:click="showPane('map')") Map
         li.results(:class="{disabled:!results.valid}" v-on:click="showPane('results')") Results
       object#chart-pane.large-pane(:class="{active:activeTab=='chart'}")
-        include ../svgs/charts/combined.svg
+        div.scroll-container(:class="chartSizeClass")
+          div#magnifier-controls
+            span.magnify.one(v-on:click="magnifyChart(1)")
+            span.magnify.two(v-on:click="magnifyChart(2)")
+            span.magnify.four(v-on:click="magnifyChart(4)")
+          include ../svgs/charts/combined.svg
         div#infobox(:class="{'has-data': chartData.active}")
           p.candidate
             span.label Name: 
