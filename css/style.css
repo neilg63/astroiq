@@ -15,6 +15,14 @@ html {
     font-size: 16px;
 }
 
+#astroiq {
+    position: relative;
+    max-width: 100vw;
+    padding: 0;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
 @media screen and (min-width: 1280px) {
     html {
         font-size: 17px;

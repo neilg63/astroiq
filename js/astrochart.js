@@ -382,38 +382,44 @@ var AstroChart = {
     );
   },
 
-    init: function() {
-      this.radius = this.diameter/2;
-      this.svg = d3.select('#svg')
-          .attr('width',this.diameter)
-          .attr('height',this.diameter)
-          .attr('viewBox','0 0 '+this.diameter+' '+this.diameter);
-      this.westernLayer = d3.select("#western-chart").attr('data-x',0).attr('data-y',0);
-      this.main = d3.select('.main-disc');
-      this.buildDegrees();
-      this.buildMain();
-      this.buildInner();
-      this.buildHouses();
-      this.placeBodies();
-      this.westernLayer.call(d3.drag()
-      .on("start", function(d, i){
-        //console.log(d3.event.dx)
-      })
-      .on("drag", function(d,i){
-        var layer = d3.select(this),
-        x = parseFloat(layer.attr('data-x')),
-        y = parseFloat(layer.attr('data-y'));
-        x += d3.event.dx;
-        y += d3.event.dy;
-        var trans = 'translate('+x+','+y+')';
-        layer.attr('transform',trans);
-        AstroChart.bodyLayer.attr('transform',trans);
-        layer.attr('data-x',x).attr('data-y',y);
-      })
-      .on("end", function(d, i){
-        //console.log(d3.event.dx,d3.event.dy)
-      })
-    );
-    }
+  resetChartPos: function() {
+    var trans = 'translate(0,0)';
+    AstroChart.westernLayer.attr('transform',trans);
+    AstroChart.bodyLayer.attr('transform',trans);
+  },
+
+  init: function() {
+    this.radius = this.diameter/2;
+    this.svg = d3.select('#svg')
+        .attr('width',this.diameter)
+        .attr('height',this.diameter)
+        .attr('viewBox','0 0 '+this.diameter+' '+this.diameter);
+    this.westernLayer = d3.select("#western-chart").attr('data-x',0).attr('data-y',0);
+    this.main = d3.select('.main-disc');
+    this.buildDegrees();
+    this.buildMain();
+    this.buildInner();
+    this.buildHouses();
+    this.placeBodies();
+    this.westernLayer.call(d3.drag()
+    .on("start", function(d, i){
+      //console.log(d3.event.dx)
+    })
+    .on("drag", function(d,i){
+      var layer = d3.select(this),
+      x = parseFloat(layer.attr('data-x')),
+      y = parseFloat(layer.attr('data-y'));
+      x += d3.event.dx;
+      y += d3.event.dy;
+      var trans = 'translate('+x+','+y+')';
+      layer.attr('transform',trans);
+      AstroChart.bodyLayer.attr('transform',trans);
+      layer.attr('data-x',x).attr('data-y',y);
+    })
+    .on("end", function(d, i){
+      //console.log(d3.event.dx,d3.event.dy)
+    })
+  );
+ }
 
 }
