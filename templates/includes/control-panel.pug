@@ -63,7 +63,7 @@ form#control-form(action="/sweph" method="post" v-on:submit.prevent="sendControl
           span.sec
           input.dms.lat.dir(v-model="location.coords.latComponents.dir" size="1" maxlength="1" pattern="[NSns]" v-on:click="swapDirection(false)")
         span.coordinates.lat.dms {{location.coords.latDms}}
-        div.degree-mode-controls
+        div.mode-controls
           span.mode.dms-mode(v-on:click="toggleDegreeMode('dms')" title="Edit degrees, minutes and seconds") 
           span.mode.dec-mode(v-on:click="toggleDegreeMode('dec')" title="Edit degrees with decimals")
           span.mode.show-mode(v-on:click="toggleDegreeMode('display')" title="Show degrees only")

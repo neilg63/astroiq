@@ -115,6 +115,10 @@ span.symbol-radio label {
     border: none;
     padding: 1em 0;
     margin: 0;
+}
+
+#control-panel .datetime,
+#control-panel fieldset {
     position: relative;
 }
 
@@ -768,42 +772,46 @@ line.solid {
     margin-top: 0;
 }
 
-fieldset.show-dms-degrees .degree-mode-controls .dms-mode,
-fieldset.display .degree-mode-controls .show-mode,
-fieldset.show-dec-degrees .degree-mode-controls .dec-mode,
-fieldset.display .degree-mode-controls .find-map {
+fieldset.show-dms-degrees .mode-controls .dms-mode,
+fieldset.display .mode-controls .show-mode,
+fieldset.show-dec-degrees .mode-controls .dec-mode,
+fieldset.display .mode-controls .find-map {
     display:  none;
 }
 
-fieldset.coordinates .degree-mode-controls span:before {
+.mode-controls span:before {
     font-family: "icomoon";
 }
 
-fieldset.coordinates .degree-mode-controls .dms-mode:before {
+fieldset.coordinates .mode-controls .dms-mode:before {
     content:  "\e910";
 }
-fieldset.coordinates .degree-mode-controls .dec-mode:before {
+.mode-controls .disable-datebox:before,
+fieldset.coordinates .mode-controls .dec-mode:before {
     content:  "\e913";
 }
-fieldset.coordinates .degree-mode-controls .show-mode:before {
+fieldset.coordinates .mode-controls .show-mode:before {
     content:  "\ea34";
 }
-fieldset.coordinates .degree-mode-controls .find-map:before {
+fieldset.coordinates .mode-controls .find-map:before {
     content:  "\e052";
 }
 
-#control-panel .degree-mode-controls {
+#control-panel .mode-controls {
     position: absolute;
     right:  0;
     top: 0.5em;
 }
 
-#control-panel .show-dec-degrees .degree-mode-controls,
-#control-panel .show-dms-degrees .degree-mode-controls {
+#control-panel .datetime .mode-controls {
+    top:  1em;
+}
+#control-panel .show-dec-degrees .mode-controls,
+#control-panel .show-dms-degrees .mode-controls {
     top: 0.25em;
 }
 
-.degree-mode-controls span {
+.mode-controls span {
     display: block;
     width:  1em;
     height: 1em;
