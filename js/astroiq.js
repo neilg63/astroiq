@@ -1217,6 +1217,9 @@ var app = new Vue({
       }
     },
     magnifyChart: function(num) {
+      if (num < 2) {
+        AstroChart.resetChartPos();
+      }
       this.chartSizeClass = 'magnify-' + num;
     },
     syncDmsControls: function(isLng) {
