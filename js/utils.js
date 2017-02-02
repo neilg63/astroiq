@@ -386,6 +386,28 @@ function toLatitudeString(decLat,format) {
   return _toLatLngString(decLat,'lat',format);
 }
 
+function toAstroDegree(decLat,format) {
+  if (!format) {
+    format = 'plain';
+  }
+  return _toLatLngString(decLat,'plain',format);
+}
+
+function parseAstroResult(val,key) {
+  switch (key) {
+    case 'lat':
+    case 'lng':
+    case 'ecl':
+    case 'astro.ascendant':
+    case 'ayanamsa':
+      if (isNumeric(val)) {
+        val = toAstroDegree(val);
+      }
+      break;
+  }
+  return val;
+}
+
 function toLongitudeString(decLng,format) {
   return _toLatLngString(decLng,'lng',format);
 }
@@ -408,6 +430,7 @@ function _toLatLngString(dec,degType,format) {
       case 'lng':
       case 'long':
       case 'longitude':
+      case 'plain':
         isLng = true;
         max = 180;
         break;
@@ -427,15 +450,85 @@ function _toLatLngString(dec,degType,format) {
         strQuot='”';
         break;
     }
-    var degree = convertDDToDMS(dec,isLng);
-
-    return degree.deg + strDeg + ' ' + degree.min + strApos+' ' + degree.sec + strQuot +' ' + degree.dir;
+    var degree = convertDDToDMS(dec,isLng),
+    out = degree.deg + strDeg + ' ' + degree.min + strApos+' ' + degree.sec + strQuot;
+    if (degType !== 'plain') {
+      out += ' ' + degree.dir;
+    }
+    return  out;
   } 
 }
 
 var toEuroDate = function(strDate) {
     return strDate.split("-").reverse().join(".");
 };
+
+Date.prototype.format = function(order,time,separator) {
+  var y = this.getFullYear(), 
+    m = zeroPad2(this.getMonth() + 1 ),
+    d = zeroPad2(this.getDate()),
+    parts=[],
+    ds = '-';
+  switch (order) {
+    case 'dmy':
+      parts = [d,m,y];
+      ds = '/';
+      break;
+    case 'mdy':
+      parts = [m,d,y];
+      ds = '/';
+      break;
+    default:
+      parts = [y,m,d];
+      break;
+  }
+  if (!separator) {
+    separator = ds;
+  }
+  var out = parts.join(separator);
+  var tp=[];
+  switch (time) {
+    case 'm':
+      tp = ['h','m'];
+      break;
+    case 'h':
+      tp = ['h'];
+      break;
+    case 's':
+      tp = ['h','m','s'];
+      break;
+  }
+  if (tp.length>0) {
+    parts = [];
+    for (var i = 0; i < tp.length;i++) {
+      switch (tp[i]) {
+        case 'h':
+          parts.push(zeroPad2(this.getHours()));
+          break;
+        case 'm':
+          parts.push(zeroPad2(this.getMinutes()));
+          break;
+        case 's':
+          parts.push(zeroPad2(this.getSeconds()));
+          break;
+      }
+    }
+    out += ' ' + parts.join(':');
+  }
+  return out;
+}
+
+Date.prototype.dmy = function(time,separator) {
+  return this.format('dmy',time,separator)
+}
+
+Date.prototype.mdy = function(time) {
+  return this.format('mdy',time,'/');
+}
+
+Date.prototype.ymd = function(time) {
+  return this.format('ymd',time,'-');
+}
 
 var zeroPad2 = function(num) {
     var isString = typeof num == 'string',
