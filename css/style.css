@@ -59,6 +59,10 @@ span.symbol-radio label {
     width: 100%;
 }
 
+.large-pane > .inner {
+    padding: 0 2.5%;
+}
+
 #main .large-pane.active {
     opacity: 1;
     transition: opacity .5s ease-in;
@@ -1307,4 +1311,9 @@ ul.hor-tabs li:not(.disabled):hover {
 
 .scroll-container {
     position: relative;
+}
+
+#control-panel .input-group-addon,
+#control-panel .ui-datebox-container {
+    cursor:  pointer;
 }
