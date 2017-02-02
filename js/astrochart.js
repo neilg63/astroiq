@@ -275,7 +275,13 @@ var AstroChart = {
       body
       .attr('transform','translate('+pos.x+','+pos.y+')')
       .attr('data-lng',d)
-      .attr('data-lat',5)
+      .attr('data-lat',5);
+      /*body.on('mouseover', function() {
+        d3.select(this).classed("over",true);
+      }).on('mouseout', function() {
+        d3.select(this).classed("over",false);
+        console.log(d3.select(this).attr('class'))
+      });*/
       this.bodies.push(body);
       deg += 30;
     }
