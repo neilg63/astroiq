@@ -1,0 +1,80 @@
+
+form#settings-form.pane(:class="{active:subPane=='settings'}" action="/settings" method="post" v-on:submit.prevent="saveSettings")
+  h2.form-label Calculation Settings
+  //- include settings/calc-house-system.pug
+  fieldset.collapsible.open
+    h4.toggle Default House System
+    p.sub-section
+      label(for="form-hsy") House system:
+      select#form-hsy.select-input(name="hsy" v-model="options.hsy")
+        each opt,index in houseSystems
+          option(value = opt.value)= opt.label
+  //- include settings/calc-ayanamsha.pug
+  fieldset.collapsible.open
+    h4.toggle Tropical vs. Sidereal (Ayanāṃśa)
+    p.sub-section
+      label(for="form-ayanamsa") Ayanāṃśa
+      select#form-ayanamsa.select-input(name="ayanamsa" v-model="options.ayanamsa")
+        each opt,index in ayanamsas
+          option(value = opt.value)= opt.label
+  //- include settings/calc-celestial.pug
+  fieldset.collapsible.open
+    h4.toggle Celestial Calculations
+    p#form-mode.sub-section.radios
+      input#form-mode-topo.mode(type="radio" value="topo" name="mode" v-model="options.mode")
+      label(for="form-mode-topo") Topocentric
+      input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode" v-model="options.mode")
+      label(for="form-mode-geo") Geocentric
+
+
+  fieldset.collapsible.closed
+    h4.toggle Solar Year & Lunar Month
+    //- include settings/calc-year-solar.pug
+    fieldset.collapsible.open
+      h5.toggle Astronomical Solar Year
+      div.sub-sub-section
+        p
+          input#form-solar-t.solar(type="radio" value="365.242199" name="solar-t" checked="true" )
+          label(for="form-solar-t") Tropical Year
+        p
+          input#form-solar-s.solar(type="radio" value="365.256366" name="solar-t")
+          label(for="form-solar-s") Sidereal Year
+        p
+          input#form-solar-a.solar(type="radio" value="365.259636" name="solar-t")
+          label(for="form-solar-a") Anomalistic year
+        div.notes!= solarYearOptionNotes
+
+  //- include settings/calc-year-dasha.pug
+  fieldset.collapsible.closed
+    h5.toggle Time Period (Daśa) Year Definition
+    p
+      input(type="radio" value="" name="year-astron" id="form-year-astron" class="solar-dasha" checked="true" )
+      label(for="form-year-astron") Astronomical Year (select above)
+    p
+      input(type="radio" value="365" name="year-calendar" id="form-year-calendar" class="solar-dasha" )
+      label(for="form-year-calendar") 365 Calendar Year
+    p
+      input(type="radio" value="360" name="year-360" id="form-year-360" class="solar-dasha" )
+      label(for="form-year-360") 360 Day Year
+    p
+      input#form-year-solilunar.solar-dasha(type="radio" value="354.36708" name="year-solilunar")
+      label(for="form-year-solilunar") Synodic SoliLunar Year
+  //- include settings/calc-month-lunar.pug
+  fieldset.collapsible.closed
+    h5.toggle Astronomical Lunar Month
+    p
+      input#form-lunar-t.lunar(type="radio" value="27.321582" name="lunar-t")
+      label(for="form-solar-t") Tropical month
+    p
+      input#form-lunar-s.lunar(type="radio" value="27.321662" name="lunar-s")
+      label(for="form-solar-s") Sidereal month
+    p
+      input.lunar(type="radio" value="27.321582" name="lunar-a" id="form-lunar-a" class="" )
+      label(for="form-solar-a") Anomalistic month
+    p
+      input#form-lunar-syn.lunar(type="radio" value="29.5305888531" name="lunar-syn" checked="true")
+      label(for="form-solar-syn") Synodic month
+    div.notes!= lunarMonthsNoteOptions
+      //-sub-sub-section
+
+  //- sub-section

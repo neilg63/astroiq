@@ -320,7 +320,7 @@ span.symbol-radio label {
 }
 
 #control-panel #control-form.active {
-    min-height: 100em;
+    min-height: 30em;
 }
 
 #control-panel span.symbol-radio label {
@@ -704,6 +704,7 @@ line.solid {
     opacity: 0;
     max-height:0;
     overflow: hidden;
+    overflow-y: auto;
     pointer-events: none;
     transition: opacity 0.25s linear .5s,max-height 0 linear .5s;
 }
@@ -766,6 +767,18 @@ line.solid {
     #control-panel form {
         min-width:  21em;
     }
+
+    #pane-tabs,
+    #control-panel {
+        position: fixed;
+    }
+
+    #pane-tabs {
+        left: 10%;
+        right:  10%;
+    }
+
+
 }
 
 @media screen and (min-width: 1280px) {
@@ -1277,6 +1290,17 @@ ul.hor-tabs li:not(.disabled):hover {
     top: -2em;
     right: 10%;
     z-index: 80;
+}
+
+.active #magnifier-controls {
+    position: fixed;
+    top:  7.5em;
+}
+
+@media (min-width: 768px) {
+   .active #magnifier-controls {
+        top:  4.5em;
+    } 
 }
 
 #magnifier-controls span {
