@@ -775,11 +775,14 @@ line.solid {
     }
 
     #pane-tabs {
-        left: 10%;
-        right:  10%;
-        z-index: 60;
+        width:  auto;
+        top: 2em;
+        left: 15%;
+        right:  15%;
+        z-index: 55;
+        height: 1.5em;
+        padding: 1em 0 0.5em 0;
         background-color: white;
-        height: 1.75em;
     }
 
 
@@ -1170,7 +1173,7 @@ ul.hor-tabs {
 
 ul.hor-tabs,
 nav.horizontal ul {
-    margin: 0.75em 0;
+    margin: 0.75em auto;
     width: 100%;
     text-align: center;
 }
@@ -1299,18 +1302,18 @@ ul.hor-tabs li:not(.disabled):hover {
 #magnifier-controls {
     position: absolute;
     top: -2em;
-    right: 10%;
+    right: 5%;
     z-index: 80;
 }
 
 .active #magnifier-controls {
     position: fixed;
-    top:  7.5em;
+    top:  9em;
 }
 
 @media (min-width: 768px) {
    .active #magnifier-controls {
-        top:  4.5em;
+        top:  6em;
     } 
 }
 
