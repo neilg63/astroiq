@@ -317,8 +317,8 @@ app.get('/command', function(req, res) {
     res.sendfile('./swetest.html');
 });
 
-app.get('/d3', function(req, res) {
-    res.sendfile('./d3.html');
+app.get('/settings', function(req, res) {
+    astro.saveSettings(req.query,res);
 });
 
 app.get('/geocode/:address', (req,res) => {
