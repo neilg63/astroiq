@@ -10,7 +10,7 @@ dl.results-list(:class="{hidden: !results.valid}")
     span.name {{results.name}}
     span.gender {{results.gender}}
   dt.chart-type Chart type
-    dd.chart-type {{results.chartType}}
+  dd.chart-type {{results.chartType}}
   dt.astro-data Astrological Data
   dd.astro-data
     ul
@@ -25,7 +25,16 @@ dl.results-list(:class="{hidden: !results.valid}")
         strong.value {{results.astro.et}}
       li.ut
         span.label UT
-        strong.value {{results.astro.ut}}
+        span.value {{results.astro.ut.value}}
+        span.value {{results.astro.ut.delta}}
+  dt.rahu Rahu
+  dd.rahu
+    p.true-node
+      span.lng {{results.astro.true_node.lng}}
+      em.label.lng (true node)
+    p.mean-node
+      span.lng {{results.astro.mean_node.lng}}
+      em.label.ng Rahu (mean node)
 
 table.bodies-table
   thead
@@ -96,6 +105,16 @@ table.bodies-table
       td.degrees.lat {{results.bodies.pluto.lat}}
       td.degrees.ecl {{results.bodies.pluto.ecl}}
       td.house-position {{results.bodies.pluto.house}}
+    tr.rahu
+      th.label Rahu
+      td.degrees.lng {{results.bodies.rahu.lng}}
+      td.degrees.lat {{results.bodies.rahu.lat}}
+      td.degrees.ecl {{results.bodies.rahu.ecl}}
+    tr.ketu
+      th.label Ketu
+      td.degrees.lng {{results.bodies.ketu.lng}}
+      td.degrees.lat {{results.bodies.ketu.lat}}
+      td.degrees.ecl {{results.bodies.ketu.ecl}}
 
 dl.results-list
   dt.houses Houses

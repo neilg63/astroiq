@@ -446,9 +446,12 @@ function _toLatLngString(dec,degType,format) {
       case 'lng':
       case 'long':
       case 'longitude':
-      case 'plain':
         isLng = true;
         max = 180;
+        break;
+      case 'plain':
+        isLng = true;
+        max = 360;
         break;
     }
     var min = 0-max;
