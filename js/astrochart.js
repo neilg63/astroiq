@@ -297,27 +297,29 @@ var AstroChart = {
       item = bodies[bn];
       if (typeof item == 'object') {
         body = d3.select('#'+bn+'-symbol');
-        if (isNumeric(item.lng)) {
-          lbl = body.select('text.coords');
-          txt = toAstroDegree(item.lng % 30);
-          lbl.text(txt);
-        }
-       if (isNumeric(item.house)) {
-          lbl = body.select('text.house');
-          txt = Math.approxFixed(item.house,2);
-          lbl.text(txt);
-        }
-        deg = item.lng;
-        d = 330 - deg;
-        oldDeg = parseFloat(body.attr('data-lng')),
-        diff=oldDeg-d;
-        body.attr('data-lng',d);
-        for (i=0;i<steps;i++) {
-          pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),330,-12,-12);
-          body.transition()
-          .delay(i*(duration/steps))
-          .duration((duration/steps))
-          .attr('transform','translate('+pos.x+','+pos.y+')');
+        if (body.empty() === false) {
+          if (isNumeric(item.lng)) {
+            lbl = body.select('text.coords');
+            txt = toAstroDegree(item.lng % 30);
+            lbl.text(txt);
+          }
+         if (isNumeric(item.house)) {
+            lbl = body.select('text.house');
+            txt = Math.approxFixed(item.house,2);
+            lbl.text(txt);
+          }
+          deg = item.lng;
+          d = 330 - deg;
+          oldDeg = parseFloat(body.attr('data-lng')),
+          diff=oldDeg-d;
+          body.attr('data-lng',d);
+          for (i=0;i<steps;i++) {
+            pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),330,-12,-12);
+            body.transition()
+            .delay(i*(duration/steps))
+            .duration((duration/steps))
+            .attr('transform','translate('+pos.x+','+pos.y+')');
+          }
         }
       }
     }

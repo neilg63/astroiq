@@ -510,8 +510,9 @@ var EphemerisData = {
     saturn: {lng: 0,lat: 0,ecl: 0,house: 0},
     uranus: {lng: 0,lat: 0,ecl: 0,house: 0},
     neptune: {lng: 0,lat: 0,ecl: 0,house: 0},
-    pluto: {lng: 0,lat: 0,ecl: 0,house: 0}/*,
-    ketu: {lng: 0,lat: 0,ecl: 0,house: 0}*/
+    pluto: {lng: 0,lat: 0,ecl: 0,house: 0},
+    rahu: {lng: 0,lat: 0,ecl: 0,house: 0},
+    ketu: {lng: 0,lat: 0,ecl: 0,house: 0}
   },
   name: "",
   datetime: "",
@@ -722,6 +723,17 @@ var app = new Vue({
   methods: {
     parseResults: function(data) {
       var v1,v2,v3,k1,k2,k3;
+      if (data.astro.mean_node) {
+        var rahu = data.astro.mean_node;
+        rahu.house = 0;
+        data.bodies.rahu = rahu;
+        data.bodies.ketu = {
+          lng: (rahu.lng + 180) % 360,
+          lat: rahu.lat,
+          ecl: rahu.ecl,
+          house: 0
+        }
+      } 
       if (data.astro.ascendant) {
         this.results.valid = true;
       } else {
