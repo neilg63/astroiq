@@ -1,211 +1,108 @@
-{
-  "date": {
-    "date": "1961-06-27T11:25:00.000Z",
-    "time": "11:25:00",
-    "calendar": "greg.",
-    "zone": "UT",
-    "version": "1.80.00"
+const mongoose = require('mongoose');
+
+var simpleStringType = {
+  type: String,
+   required: true,
+   minlength: 1,
+   trim: true
+};
+
+var simpleNumberType = {
+  type: Number,
+  required: true,
+};
+
+var optionalNumberType = {
+  type: Number,
+  required: false,
+};
+
+var planetType = {
+  lng: simpleNumberType,
+  lat: simpleNumberType,
+  ecl: simpleNumberType,
+  house: optionalNumberType
+};
+
+var Nested = mongoose.model('Nested', {
+  cmd: simpleStringType,
+  name: simpleStringType,
+  gender: simpleStringType,
+  chartType: simpleStringType,
+  datetime: {
+     type: Date,
+     required: true
   },
-  "geo": {
-    "lat": 65.15,
-    "lng": -13.6667,
-    "alt": 0
+  dateinfo: {
+    calendar: simpleStringType,
+    zone: simpleStringType,
   },
-  "astro": {
-    "ut": {
-      "value": 2437478.9756944454,
-      "delta": 33.788819,
-      "deltaType": "t",
-      "unit": "sec"
+  geo: {
+    lat: simpleNumberType,
+    lng: simpleNumberType,
+    alt: simpleNumberType,
+    address: simpleStringType
+  },
+  astro: {
+    ut: {
+      value: simpleNumberType,
+      delta: simpleNumberType,
+      deltaType: simpleStringType,
+      unit: simpleStringType
     },
-    "et": 2437478.97608552,
-    "epsilon_true": {
-      "lng": 23.441885916666667,
-      "lat": null,
-      "ecl": null
+    et: simpleNumberType,
+    epsilon_true: {
+      lng: simpleNumberType,
+      lat: optionalNumberType,
+      ecl: optionalNumberType
     },
-    "nutation": [
-      -0.0023621666666666665,
-      -0.002403777777777778
+    nutation: [
+      simpleNumberType,
+      simpleNumberType
     ],
-    "mean_node": {
-      "lng": 149.89144366666665,
-      "lat": 0,
-      "ecl": -0.05291222222222222
+    mean_node: {
+      lng: simpleNumberType,
+      lat: simpleNumberType,
+      ecl: simpleNumberType
     },
-    "true_node": {
-      "lng": 148.3761253888889,
-      "lat": 0,
-      "ecl": -0.11601041666666667
+    true_node: {
+      lng: simpleNumberType,
+      lat: simpleNumberType,
+      ecl: -simpleNumberType
     },
-    "mean_apogee": {
-      "lng": 136.39735963888887,
-      "lat": -1.2037133055555556,
-      "ecl": 0.11085522222222223
+    mean_apogee: {
+      lng: simpleNumberType,
+      lat: simpleNumberType,
+      ecl: simpleNumberType
     },
-    "ascendant": 170.9480963611111,
-    "mc": 75.1696731388889,
-    "armc": 73.9019981388889,
-    "vertex": 338.31335275000004
+    ascendant: simpleNumberType,
+    mc: simpleNumberType,
+    armc: simpleNumberType,
+    vertex: simpleNumberType
   },
-  "ayanamsa": 23.3191485,
-  "houseData": {
-    "letter": "W",
-    "mode": "(equal/ whole sign)",
-    "lng": -13.666699999999999,
-    "lat": 65.15
+  ayanamsa: simpleNumberType,
+  houseData: {
+    letter: simpleStringType,
+    mode: simpleStringType,
+    lng: simpleNumberType,
+    lat: simpleNumberType
   },
-  "houses": {
-    "1": 150,
-    "2": 180,
-    "3": 210,
-    "4": 240,
-    "5": 270,
-    "6": 300,
-    "7": 330,
-    "8": 0,
-    "9": 30,
-    "10": 60,
-    "11": 90,
-    "12": 120
-  },
-  "bodies": {
-    "sun": {
-      "lng": 96.51296002777778,
-      "lat": -0.0015153611111111112,
-      "ecl": 0.9472971944444445,
-      "house": 11.217098667592593
-    },
-    "moon": {
-      "lng": 275.62289169444443,
-      "lat": 3.35302675,
-      "ecl": 17.125278194444444,
-      "house": 5.187429723148147
-    },
-    "mercury": {
-      "lng": 94.99003327777778,
-      "lat": -4.413777138888889,
-      "ecl": -0.593458888888889,
-      "house": 11.166334442592593
-    },
-    "venus": {
-      "lng": 51.044592944444446,
-      "lat": -2.9976388333333333,
-      "ecl": 0.9984119166666666,
-      "house": 9.70148643148148
-    },
-    "mars": {
-      "lng": 149.69763441666666,
-      "lat": 1.1436150555555555,
-      "ecl": 0.5873586944444444,
-      "house": 12.989921147222223
-    },
-    "jupiter": {
-      "lng": 305.42937172222224,
-      "lat": -0.5402304722222222,
-      "ecl": -0.0962513611111111,
-      "house": 6.180979057407408
-    },
-    "saturn": {
-      "lng": 298.03507408333337,
-      "lat": -0.12334619444444445,
-      "ecl": -0.06538169444444444,
-      "house": 5.934502469444446
-    },
-    "uranus": {
-      "lng": 143.1771175833333,
-      "lat": 0.70719725,
-      "ecl": 0.04727763888888889,
-      "house": 12.77257058611111
-    },
-    "neptune": {
-      "lng": 218.67171002777778,
-      "lat": 1.8059998333333334,
-      "ecl": -0.011199388888888889,
-      "house": 3.2890570009259257
-    },
-    "pluto": {
-      "lng": 155.9757615,
-      "lat": 12.669043499999999,
-      "ecl": 0.02022222222222222,
-      "house": 1.1991920500000002
-    }
-  },
-  "swetest": {},
-  "house_bounds": [
-    {
-      "num": "1",
-      "lng": 150,
-      "spn": 30,
-      "end": 180
-    },
-    {
-      "num": "2",
-      "lng": 180,
-      "spn": 30,
-      "end": 210
-    },
-    {
-      "num": "3",
-      "lng": 210,
-      "spn": 30,
-      "end": 240
-    },
-    {
-      "num": "4",
-      "lng": 240,
-      "spn": 30,
-      "end": 270
-    },
-    {
-      "num": "5",
-      "lng": 270,
-      "spn": 30,
-      "end": 300
-    },
-    {
-      "num": "6",
-      "lng": 300,
-      "spn": 30,
-      "end": 330
-    },
-    {
-      "num": "7",
-      "lng": 330,
-      "spn": 30,
-      "end": 0
-    },
-    {
-      "num": "8",
-      "lng": 0,
-      "spn": 30,
-      "end": 30
-    },
-    {
-      "num": "9",
-      "lng": 30,
-      "spn": 30,
-      "end": 60
-    },
-    {
-      "num": "10",
-      "lng": 60,
-      "spn": 30,
-      "end": 90
-    },
-    {
-      "num": "11",
-      "lng": 90,
-      "spn": 30,
-      "end": 120
-    },
-    {
-      "num": "12",
-      "lng": 120,
-      "spn": 30,
-      "end": 150
-    }
+  houses: [
+    simpleNumberType
   ],
-  "valid": true,
-  "cmd": "-b28.06.1961_-ut11.25_-fPLEBS_-topo-13.6667,65.15,30_-house-13.6667,65.15,W_-hsyW"
-}
+  bodies: {
+    sun: planetType,
+    moon: planetType,
+    mercury: planetType,
+    venus: planetType,
+    mars: planetType,
+    jupiter: planetType,
+    saturn: planetType,
+    uranus: planetType,
+    neptune: planetType,
+    pluto: planetType/*,
+    ketu: planetType*/
+  },
+});
+
+module.exports = {Nested};

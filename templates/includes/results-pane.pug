@@ -5,71 +5,99 @@ dl.results-list(:class="{hidden: !results.valid}")
     dd.location 
       p.coordinates {{results.geo.display_coords}}
       p.address {{results.geo.address}}
+  dt.name-gender Name / gender
+  dd.name-gender
+    span.name {{results.name}}
+    span.gender {{results.gender}}
+  dt.chart-type Chart type
+    dd.chart-type {{results.chartType}}
   dt.astro-data Astrological Data
   dd.astro-data
     ul
       li.ayanamsa 
         span.label Ayanamsa
         strong.value {{results.ayanamsa}}
-      li.et
-        span.label ET
-        strong.value {{results.astro.et}}
       li.ascendant
         span.label Ascendant
         strong.value {{results.astro.ascendant}}
-  dt.bodies
-  dd.bodies
-    ul.bodies-list
-      li.sun
-        span.label Sun
-        span.degrees.lng {{results.bodies.sun.lng}}
-        span.degrees.lat {{results.bodies.sun.lat}}
-        span.degrees.ecl {{results.bodies.sun.ecl}}
-      li.moon
-        span.label Moon
-        span.degrees.lng {{results.bodies.moon.lng}}
-        span.degrees.lat {{results.bodies.moon.lat}}
-        span.degrees.ecl {{results.bodies.moon.ecl}}
-      li.mercury
-        span.label Mercury
-        span.degrees.lng {{results.bodies.mercury.lng}}
-        span.degrees.lat {{results.bodies.mercury.lat}}
-        span.degrees.ecl {{results.bodies.mercury.ecl}}
-      li.venus
-        span.label Venus
-        span.degrees.lng {{results.bodies.venus.lng}}
-        span.degrees.lat {{results.bodies.venus.lat}}
-        span.degrees.ecl {{results.bodies.venus.ecl}}
-      li.mars
-        span.label Mars
-        span.degrees.lng {{results.bodies.mars.lng}}
-        span.degrees.lat {{results.bodies.mars.lat}}
-        span.degrees.ecl {{results.bodies.mars.ecl}}
-      li.jupiter
-        span.label Jupiter
-        span.degrees.lng {{results.bodies.jupiter.lng}}
-        span.degrees.lat {{results.bodies.jupiter.lat}}
-        span.degrees.ecl {{results.bodies.jupiter.ecl}}
-      li.saturn
-        span.label Saturn
-        span.degrees.lng {{results.bodies.saturn.lng}}
-        span.degrees.lat {{results.bodies.saturn.lat}}
-        span.degrees.ecl {{results.bodies.saturn.ecl}}
-      li.uranus
-        span.label Uranus
-        span.degrees.lng {{results.bodies.uranus.lng}}
-        span.degrees.lat {{results.bodies.uranus.lat}}
-        span.degrees.ecl {{results.bodies.uranus.ecl}}
-      li.neptune
-        span.label Neptune
-        span.degrees.lng {{results.bodies.neptune.lng}}
-        span.degrees.lat {{results.bodies.neptune.lat}}
-        span.degrees.ecl {{results.bodies.neptune.ecl}}
-      li.pluto
-        span.label Pluto
-        span.degrees.lng {{results.bodies.pluto.lng}}
-        span.degrees.lat {{results.bodies.pluto.lat}}
-        span.degrees.ecl {{results.bodies.pluto.ecl}}
+      li.et
+        span.label ET
+        strong.value {{results.astro.et}}
+      li.ut
+        span.label UT
+        strong.value {{results.astro.ut}}
+
+table.bodies-table
+  thead
+    tr
+      th Planet
+      th Longitude
+      th Latitude
+      th Ecliptic
+      th House position
+  tbody
+    tr.sun
+      th.label Sun
+      td.degrees.lng {{results.bodies.sun.lng}}
+      td.degrees.lat {{results.bodies.sun.lat}}
+      td.degrees.ecl {{results.bodies.sun.ecl}}
+      td.house-position {{results.bodies.sun.house}}
+    tr.moon
+      th.label Moon
+      td.degrees.lng {{results.bodies.moon.lng}}
+      td.degrees.lat {{results.bodies.moon.lat}}
+      td.degrees.ecl {{results.bodies.moon.ecl}}
+      td.house-position {{results.bodies.moon.house}}
+    tr.mercury
+      th.label Mercury
+      td.degrees.lng {{results.bodies.mercury.lng}}
+      td.degrees.lat {{results.bodies.mercury.lat}}
+      td.degrees.ecl {{results.bodies.mercury.ecl}}
+      td.house-position {{results.bodies.mercury.house}}
+    tr.venus
+      th.label Venus
+      td.degrees.lng {{results.bodies.venus.lng}}
+      td.degrees.lat {{results.bodies.venus.lat}}
+      td.degrees.ecl {{results.bodies.venus.ecl}}
+      td.house-position {{results.bodies.venus.house}}
+    tr.mars
+      th.label Mars
+      td.degrees.lng {{results.bodies.mars.lng}}
+      td.degrees.lat {{results.bodies.mars.lat}}
+      td.degrees.ecl {{results.bodies.mars.ecl}}
+      td.house-position {{results.bodies.mars.house}}
+    tr.jupiter
+      th.label Jupiter
+      td.degrees.lng {{results.bodies.jupiter.lng}}
+      td.degrees.lat {{results.bodies.jupiter.lat}}
+      td.degrees.ecl {{results.bodies.jupiter.ecl}}
+      td.house-position {{results.bodies.jupiter.house}}
+    tr.saturn
+      th.label Saturn
+      td.degrees.lng {{results.bodies.saturn.lng}}
+      td.degrees.lat {{results.bodies.saturn.lat}}
+      td.degrees.ecl {{results.bodies.saturn.ecl}}
+      td.house-position {{results.bodies.saturn.house}}
+    tr.uranus
+      th.label Uranus
+      td.degrees.lng {{results.bodies.uranus.lng}}
+      td.degrees.lat {{results.bodies.uranus.lat}}
+      td.degrees.ecl {{results.bodies.uranus.ecl}}
+      td.house-position {{results.bodies.uranus.house}}
+    tr.neptune
+      th.label Neptune
+      td.degrees.lng {{results.bodies.neptune.lng}}
+      td.degrees.lat {{results.bodies.neptune.lat}}
+      td.degrees.ecl {{results.bodies.neptune.ecl}}
+      td.house-position {{results.bodies.neptune.house}}
+    tr.pluto
+      th.label Pluto
+      td.degrees.lng {{results.bodies.pluto.lng}}
+      td.degrees.lat {{results.bodies.pluto.lat}}
+      td.degrees.ecl {{results.bodies.pluto.ecl}}
+      td.house-position {{results.bodies.pluto.house}}
+
+dl.results-list
   dt.houses Houses
   dd.houses
     ul.bodies-list

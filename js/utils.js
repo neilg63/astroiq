@@ -404,7 +404,16 @@ function parseAstroResult(val,key) {
         val = toAstroDegree(val);
       }
       break;
+    case 'et':
+    case 'house':
+      if (isNumeric(val)) {
+        if (/\.\d\d\d\d+/.test(val)) {
+          val = Math.approxFixed(val,3);
+        }
+      }
+      break;
   }
+
   return val;
 }
 

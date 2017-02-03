@@ -480,19 +480,6 @@ function initMap() {
     return GeoMap.init();
 }
 
-var astroCoords = {
-  lng: 0,
-  lat: 0,
-  ecl: 0
-}
-
-var bodyData = {
-  lng: 0,
-  lat: 0,
-  ecl: 0,
-  house: 0
-}
-
 var EphemerisData = {
   valid: false,
   astro: {
@@ -504,9 +491,9 @@ var EphemerisData = {
     },
     et: 0,
     nutation: [0,0],
-    mean_node: astroCoords,
-    true_node: astroCoords,
-    mean_apogee: astroCoords,
+    mean_node: {lng: 0,lat: 0,ecl: 0},
+    true_node: {lng: 0,lat: 0,ecl: 0},
+    mean_apogee: {lng: 0,lat: 0,ecl: 0},
     ascendant: 0,
     mc: 0,
     armc: 0,
@@ -514,17 +501,17 @@ var EphemerisData = {
   },
   ayanamsa: 0,
   bodies: {
-    sun: bodyData,
-    moon: bodyData,
-    mercury: bodyData,
-    venus: bodyData,
-    mars: bodyData,
-    jupiter: bodyData,
-    saturn: bodyData,
-    uranus: bodyData,
-    neptune: bodyData,
-    pluto: bodyData/*,
-    ketu: bodyData*/
+    sun: {lng: 0,lat: 0,ecl: 0,house: 0},
+    moon: {lng: 0,lat: 0,ecl: 0,house: 0},
+    mercury: {lng: 0,lat: 0,ecl: 0,house: 0},
+    venus: {lng: 0,lat: 0,ecl: 0,house: 0},
+    mars: {lng: 0,lat: 0,ecl: 0,house: 0},
+    jupiter: {lng: 0,lat: 0,ecl: 0,house: 0},
+    saturn: {lng: 0,lat: 0,ecl: 0,house: 0},
+    uranus: {lng: 0,lat: 0,ecl: 0,house: 0},
+    neptune: {lng: 0,lat: 0,ecl: 0,house: 0},
+    pluto: {lng: 0,lat: 0,ecl: 0,house: 0}/*,
+    ketu: {lng: 0,lat: 0,ecl: 0,house: 0}*/
   },
   name: "",
   datetime: "",
@@ -734,28 +721,28 @@ var app = new Vue({
   },
   methods: {
     parseResults: function(data) {
-      var v1,v2,v3;
+      var v1,v2,v3,k1,k2,k3;
       if (data.astro.ascendant) {
         this.results.valid = true;
       } else {
         this.results.valid = false;
       }
-      for (var k1 in data) {
+      for (k1 in data) {
         if (this.results.hasOwnProperty(k1)) {
           v1 = data[k1];
           if (typeof v1 == 'object') {
-            for (var k2 in v1) {
+            for (k2 in v1) {
               if (this.results[k1].hasOwnProperty(k2)) {
                 v2 = v1[k2];
                 if (typeof v2 == 'object') {
-                  for (var k3 in v2) {
+                  for (k3 in v2) {
                     if (this.results[k1][k2].hasOwnProperty(k3)) {
                       v3 = v2[k3];
                       this.results[k1][k2][k3] = parseAstroResult(v3,k3);
                     }
                   }
                 } else {
-                  this.results[k1][k2] = parseAstroResult(v2,k1+'.'+k2);
+                  this.results[k1][k2] = parseAstroResult(v2,k2);
                 }
               }
             }
