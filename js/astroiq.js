@@ -54,10 +54,15 @@ var initDateBox = function() {
         }
       }
     });
+    db.on('change',function(){
+      if (app) {
+        app.dob = jQuery('#form-dob').val();
+        app.tob = jQuery('#form-tob').val();
+      }
+    });
     setTimeout(function(){
       jQuery('.ui-datebox-container').on('click',function(){
         var cont = jQuery(this);
-          console.log(cont.attr('style'))
           if (cont.length>0) {
             if (cont.css('display') !== 'none') {
               cont.slideUp();
@@ -802,7 +807,7 @@ var app = new Vue({
     },
     searchLocation: function() {
       this.location.showAddress = false;
-      this.syncDatetime();
+      //this.syncDatetime();
       if (this.location.search.length>0) {
           var adStr = this.location.search.trim(),
             href = '/geocode/' + adStr,
@@ -893,7 +898,6 @@ var app = new Vue({
       }
     },
     updateGeoDetails: function(data,key) {
-      this.syncDatetime();
       if (isNumeric(data.lat)) {
         var lat = data.lat,lng = data.lng;
         this.location.coords.lat = lat;
@@ -954,7 +958,6 @@ var app = new Vue({
       
     },
     updateTzFields: function(geoData) {
-      this.syncDatetime();
       if (typeof geoData == 'object') {
        if (geoData.timezone) {
           var tz = geoData.timezone;
@@ -974,7 +977,6 @@ var app = new Vue({
       }
     },
     updateMap: function(coords,name) {
-      this.syncDatetime();
       if (coords) {
         this.toggleDegreeMode('display');
         var parts = coords.split(',');
@@ -994,7 +996,6 @@ var app = new Vue({
       }
     },
     findOnMap: function() {
-      this.syncDatetime();
       var strCoords = this.location.coords.lat +'/'+this.location.coords.lng;
       axios.get('/geolocate/'+ strCoords).then(function(response) {
         if (response.data) {
@@ -1017,7 +1018,7 @@ var app = new Vue({
       this.toggleDegreeMode('display');
       AstroIQ.loadGMap();
     },
-    syncDatetime: function() {
+    /*syncDatetime: function() {
       var dob = document.getElementById('form-dob'),
         tob = document.getElementById('form-tob');
       if (dob) {
@@ -1026,10 +1027,11 @@ var app = new Vue({
       if (tob) {
         this.tob = tob.value;
       }
-      console.log(this.dob)
+    },*/
+    saveSettings: function() {
+
     },
     sendControlForm: function() {
-      this.syncDatetime();
       if (this.dob.length>0 && this.candidateName.length>0) {
           var dobV = this.dob,
           tobV = this.tob,
