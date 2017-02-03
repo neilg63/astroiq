@@ -1266,11 +1266,14 @@ ul.hor-tabs li:not(.disabled):hover {
     max-height: 90vh;
 }
 
-.results-list li span {
+.results-list dd span {
     display: inline-block;
     padding-right: 0.5em;
 }
 
+.results-list {
+    width: 100%;
+}
 
 .results-list li span.label {
     min-width: 5em;
@@ -1283,6 +1286,10 @@ ul.hor-tabs li:not(.disabled):hover {
 
 .results-list dd li span.degree {
    
+}
+
+.bodies-table {
+    width:100%;
 }
 
 #magnifier-controls {
