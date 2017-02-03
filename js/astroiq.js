@@ -738,11 +738,11 @@ var app = new Vue({
                   for (k3 in v2) {
                     if (this.results[k1][k2].hasOwnProperty(k3)) {
                       v3 = v2[k3];
-                      this.results[k1][k2][k3] = parseAstroResult(v3,k3);
+                      this.results[k1][k2][k3] = parseAstroResult(v3,k3,k2);
                     }
                   }
                 } else {
-                  this.results[k1][k2] = parseAstroResult(v2,k2);
+                  this.results[k1][k2] = parseAstroResult(v2,k2,k1);
                 }
               }
             }
@@ -761,6 +761,7 @@ var app = new Vue({
         this.location.coords.lng = geo.lng;
         this.location.coords.alt = geo.alt;
         this.location.address = geo.address;
+
         this.results.geo.display_coords = toLatitudeString(geo.lat,'plain') + ', ' + toLongitudeString(geo.lng,'plain')
       }
       if (this.results.datetime) {
@@ -788,13 +789,24 @@ var app = new Vue({
           this.results.houseBounds = data.houseBounds;
         }
       }
+      if (this.results.houseBounds) {
+        var hb,i=0;
+        for (var i in this.results.houseBounds) {
+          hb = this.results.houseBounds[i];
+          if (hb.lng) {
+            hb.lng = parseAstroResult(hb.lng,'lng');
+            hb.lat = parseAstroResult(hb.lng,'lat');
+            hb.end = parseAstroResult(hb.lng,'end');
+          }
+        }
+      }
       if (this.results.cmd) {
         this.results.cmd = this.results.cmd.replace(/_+/g,' ');
       }
     },
     searchLocation: function() {
       this.location.showAddress = false;
-      //this.syncDatetime();
+      
       if (this.location.search.length>0) {
           var adStr = this.location.search.trim(),
             href = '/geocode/' + adStr,

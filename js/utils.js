@@ -393,15 +393,22 @@ function toAstroDegree(decLat,format) {
   return _toLatLngString(decLat,'plain',format);
 }
 
-function parseAstroResult(val,key) {
+function parseAstroResult(val,key,pKey) {
   switch (key) {
     case 'lat':
     case 'lng':
     case 'ecl':
-    case 'astro.ascendant':
+    case 'ascendant':
     case 'ayanamsa':
-      if (isNumeric(val)) {
-        val = toAstroDegree(val);
+    case 'end':
+      switch (pKey) {
+        case 'geo':
+          break;
+        default:
+          if (isNumeric(val)) {
+            val = toAstroDegree(val);
+          }
+          break;
       }
       break;
     case 'et':
