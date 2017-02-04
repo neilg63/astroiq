@@ -1,10 +1,10 @@
 aside#control-panel
   h2.toggle-aside New Chart
+  ul#sub-tabs.hor-tabs
+    li.form(:class="{active:subPane=='form'}" v-on:click="showSub('form')") Form
+    li.settings(:class="{active:subPane=='settings'}" v-on:click="showSub('settings')") Settings
+    li.queries(:class="{active:subPane=='queries'}" v-on:click="showSub('queries')") Queries
   div.inner
-    ul#sub-tabs.hor-tabs
-      li.form(:class="{active:subPane=='form'}" v-on:click="showSub('form')") Form
-      li.settings(:class="{active:subPane=='settings'}" v-on:click="showSub('settings')") Settings
-      li.queries(:class="{active:subPane=='queries'}" v-on:click="showSub('queries')") Queries
     include control-form.pug
     include settings-form.pug
     div#queries.pane(:class="{active:subPane=='queries'}")
