@@ -189,11 +189,11 @@ span.symbol-radio label {
 }
 
 @media screen and (min-width: 1280px) {
-    body.show-control-panel #pane-tabs,
+    /* body.show-control-panel #pane-tabs,
     body.show-control-panel #main {
         width:  70vw;
         margin-left: 30vw;
-    }
+    } */
 
 }
 
