@@ -725,7 +725,7 @@ var roundDecimal = function(num,decPlaces) {
 
 var dateStringFormatted = function(dateStr) {
   var d = new Date(dateStr);
-  return zeroPad2(d.getDate()) + '/' + zeroPad2(d.getMonth() + 1) +'/'+ d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
+  return zeroPad2(d.getDate()) + '/' + zeroPad2(d.getMonth() + 1) +'/'+ d.getFullYear() + ' ' + zeroPad2(d.getHours()) + ':' + zeroPad2(d.getMinutes());
 }
 
 /*
