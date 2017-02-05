@@ -828,6 +828,9 @@ var app = new Vue({
         this.recordId = data.id;
         this.recordEditable = data.id.length>10;
       }
+      if (data.gender) {
+        this.gender.type = data.gender;
+      }
       if (this.results.cmd) {
         this.results.cmd = this.results.cmd.replace(/_+/g,' ');
       }
@@ -1163,7 +1166,9 @@ var app = new Vue({
               datetime: data.datetime,
               address: data.geo.address
             };
-            app.queries.unshift(item);
+            if (!update) {
+              app.queries.unshift(item);
+            }
           }
         })
         .catch(function (error) {
