@@ -69,6 +69,12 @@ var initDateBox = function() {
             }
           }
       });
+      jQuery('.datetime').on('mouseleave',function(){
+        var cont = jQuery(this).find('.ui-datebox-container');
+          if (cont.length>0) {
+              cont.slideUp();
+          }
+      });
     },250);
 }
 var pDom = {};
@@ -545,6 +551,10 @@ var app = new Vue({
   el: '#astroiq',
   data: {
     initialised: false,
+    recordId: null,
+    recordEditable: false,
+    newRecord: false,
+    personId: null,
     chartType: "birth",
     candidateName: "",
     gender: {
@@ -617,6 +627,8 @@ var app = new Vue({
     subPane: 'form',
     chartSizeClass: 'magnify-1',
     chartMode: 'western',
+    showTopMenu: false,
+    toggleMenuMessage: "Show main menu",
     results: EphemerisData
   },
   created: function() {
@@ -813,6 +825,10 @@ var app = new Vue({
             hb.end = parseAstroResult(hb.lng,'end');
           }
         }
+      }
+      if (data.id) {
+        this.recordId = data.id;
+        this.recordEditable = data.id.length>10;
       }
       if (this.results.cmd) {
         this.results.cmd = this.results.cmd.replace(/_+/g,' ');
@@ -1082,7 +1098,14 @@ var app = new Vue({
           params.gender = genderVal;
           /*var paramStr = toParamString(params,['address']),
           stored = getItem(paramStr);*/
-          this.loadQuery(params);
+          var update = false;
+          if (this.newRecord !==true && this.recordEditable === true) {
+            if (typeof this.recordId == 'string') {
+              params.id = this.recordId;
+              update = true;
+            }
+          }
+          this.loadQuery(params,update);
           
       }
     },
@@ -1109,18 +1132,22 @@ var app = new Vue({
       AstroChart.updateHouses(data.houses);
       AstroChart.moveBodies(data.bodies);
     },
-    loadQuery: function(paramStr) {
+    loadQuery: function(paramStr, update) {
       if (typeof paramStr == 'object') {
-        var params = paramStr;
+        var params = paramStr, hasData = false;
         paramStr = toParamString(paramStr);
       } else {
         var params = fromParamStr(paramStr);
       }
-      var stored = getItem(paramStr);
-      if (stored.valid) {
-          this.parseResults(stored.data);
-          this.updateChartData(stored.data);
-      } else {
+      if (update !== true) {
+        var stored = getItem(paramStr);
+        if (stored.valid) {
+            this.parseResults(stored.data);
+            this.updateChartData(stored.data);
+            hasData = true;
+        }
+      }
+      if (!hasData) {
         axios.get('/sweph', {
           params: params
         })
@@ -1145,6 +1172,7 @@ var app = new Vue({
           console.log(error);
         });
       }
+      app.showSub('form'); 
     },
     deleteQuery: function(paramStr) {
       var matched = _.findIndex(this.queries,['paramStr',paramStr]);
@@ -1170,6 +1198,20 @@ var app = new Vue({
       this.toggleDegreeMode('display');
       this.chartMode = cType;
     },
+    toggleMenu: _.debounce(function(mode) {
+      switch (mode) {
+        case 'hide':
+          this.showTopMenu = false;
+          break;
+        case 'show':
+          this.showTopMenu = true;
+          break;
+        default:
+          this.showTopMenu = !this.showTopMenu;
+          break;
+      }
+      
+    },25),
     toggleDegreeMode: function(mode) {
       var sm = this.coordinatesClass;
       switch (mode) {

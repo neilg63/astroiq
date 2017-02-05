@@ -53,6 +53,66 @@ span.symbol-radio label {
 }
 
 
+#navbar h1.title-logo {
+    position: absolute;
+    top: 0.25em;
+    left:  4em;
+    opacity: 0;
+}
+
+#navbar ul {
+    background-color: #999999;
+    padding: 0.5em 1em;
+    list-style-type: none;
+}
+
+#navbar ul li {
+    font-size:  1.5em;
+    list-style-type: none;
+    font-weight: bold;
+    padding: 0.5em 0;
+    text-align: center;
+}
+
+#navbar li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+}
+
+#navbar li a:hover {
+    color:  yellow;
+}
+
+#navbar nav {
+    position: absolute;
+    right:  0;
+    padding: 0;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 1s ease-in;
+    top: 2em;
+    min-width: 20em;
+    max-width:  24em;
+    pointer-events: none;
+}
+
+.show-menu #navbar nav {
+    max-height: 100vh;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 100;
+}
+
+
+#navbar h1 {
+    font-size: 1em;
+    position: absolute;
+    left: 2.5%;
+    top: 0.25em;
+}
+
+
 #main {
     position: relative;
     margin: 0 auto;
@@ -67,7 +127,7 @@ span.symbol-radio label {
 
 #main .panes {
     position: relative;
-    padding: 6em 0 0 0;
+    padding: 4em 0 0 0;
     width:  100%;
 }
 
@@ -496,17 +556,30 @@ object#chart-pane {
 #infobox {
     opacity: 0;
     position: absolute;
-    top: 0;
-    right: 1em;
-    background: rgba(0,0,0,0.25);
-    color: yellow;
+    top: -0.5em;
+    left: 1em;
+    background: rgba(255,255,255,255.25);
     padding: 1em;
     text-align: left;
+    max-width:  16em;
+}
+
+.show-control-panel #infobox {
+    top: -1em;
+    left: 1.5em;
 }
 
 #infobox p {
     padding: 0;
     margin: 0 0 0.25em 0;
+}
+
+#infobox p em {
+    margin-left: 0.5em;
+}
+
+#infobox .location-name {
+    font-size: 0.75em;
 }
 
 #infobox.has-data {
@@ -521,14 +594,14 @@ object#chart-pane {
     cursor: pointer;
 }
 
-ol.hospitals li.selected {
+ol.listing li.selected {
   color: #00ff00;
 }
 
 ol.geonames li.selected {
    font-style: italic;
 }
-ol.hospitals li:hover {
+ol.listing li:hover {
     color: #0000ff;
 }
 
@@ -622,8 +695,9 @@ line.solid {
 #control-panel ul.hor-tabs {
     position: absolute;
     left:  1em;
-    right:  2em;
-    top: 1.5em;
+    right:  2.5em;
+    top: 0.5em;
+    width:  auto;
 }
 
 #control-panel .pane {
@@ -685,7 +759,7 @@ line.solid {
 #control-panel {
     z-index: 10;
     position: absolute;
-    top: 1em;
+    top: 0;
     left: 0;
     width: 2.75em;
     transition: width .5s ease-in;
@@ -696,7 +770,7 @@ line.solid {
 #control-panel .toggle-aside {
     position: absolute;
     font-size: 0;
-    top: 2rem;
+    top: 0.5rem;
     right: 0.5rem;
     width: 2rem;
     height: 4rem;
@@ -787,6 +861,9 @@ line.solid {
     #control-panel form {
         min-width:  16em;
     }
+    #navbar nav {
+        right:  0.5em;
+    }
 }
 
 
@@ -810,12 +887,12 @@ line.solid {
 
     #pane-tabs {
         width:  auto;
-        top: 1.75em;
+        top: 0;
         left: 0;
         right:  0;
         z-index: 55;
-        height: 1.5em;
-        padding: 1em 0 0.5em 0;
+        height: 1.75em;
+        padding: 0.5em 0;
         background-color: white;
     }
 
@@ -850,6 +927,18 @@ line.solid {
     padding-right: 0.5em;
 }
 
+#control-panel .new-record {
+    position: absolute;
+    right:  0;
+    top: 2.25em;
+    min-width: 14em;
+}
+
+.new-record label,
+.new-record input {
+    float:  left;
+}
+
 #control-panel .input-group-addon {
     position: absolute;
     top: 0;
@@ -877,6 +966,7 @@ line.solid {
 
 #control-panel fieldset.coordinates {
     margin-top: 0;
+    padding-top: 0;
 }
 
 fieldset.show-dms-degrees .mode-controls .dms-mode,
@@ -1047,6 +1137,11 @@ fieldset.coordinates .mode-controls .find-map:before {
     right: 3em;
 }
 
+#control-panel .tob-field .ui-datebox-container {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+}
+
 #control-panel input.altitude {
     max-width: 3.6em;
 }
@@ -1055,6 +1150,12 @@ fieldset.coordinates .mode-controls .find-map:before {
     padding-top: 1.5em;
     width: 100%;
     height: 60vh;
+}
+
+div#map-pane > .inner {
+    position: relative;
+    padding: 0 2.5%;
+    text-align: left;
 }
 
 @media screen and (min-width:768px) {
@@ -1167,26 +1268,40 @@ fieldset.coordinates .mode-controls .find-map:before {
     z-index: -1;
 }
 
+#menu-toggle {
+    margin:  0;
+    padding:  0 0 1em 1em;
+    position: absolute;
+    top: 0.25rem;
+    right: 0.5rem;
+    width:  1em;
+    height:  1em;
+    font-size: 2.5em;
+    cursor: pointer;
+}
+
+#menu-toggle:before {
+    position: absolute;
+    top: 0;
+    right:  0;
+    font-family: "icomoon";
+    content: "\e9bd";
+}
+
 #navbar {
-    z-index: 20;
+    z-index: 3;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 2.5em;
-    background-color: #009999;
-    color: white;
+    color: #999999;
 }
 
-#navbar a {
-    color: white;
-}
-
-#navbar h1 {
-    font-size: 1em;
-    position: absolute;
-    left: 2.5%;
-    top: 0.25em;
+.show-menu #navbar {
+    z-index: 21;
+    height: 4em;
+    pointer-events: auto;
 }
 
 ul.ver-tabs,
@@ -1244,6 +1359,12 @@ ul.hor-tabs li.active {
     }
     #control-panel #form-geobirth {
         max-width: 75%;
+    }
+
+    div#map-pane > .inner .sub-pane {
+        float:  left;
+        width:  45%;
+        padding:  0 0 0 2.5%;
     }
 }
 
@@ -1340,13 +1461,16 @@ ul.hor-tabs li:not(.disabled):hover {
 
 .active #magnifier-controls {
     position: fixed;
-    top:  9em;
+    top:  6em;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
    .active #magnifier-controls {
-        top:  6em;
-    } 
+        top:  3.5em;
+    }
+    #navbar h1.title-logo {
+        opacity: 1;
+    }
 }
 
 #magnifier-controls span {
