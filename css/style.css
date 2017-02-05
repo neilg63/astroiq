@@ -112,6 +112,13 @@ span.symbol-radio label {
     top: 0.25em;
 }
 
+#pane-tabs {
+    z-index:  10;
+}
+
+#pane-tabs li {
+    padding: 0.5em 0;
+}
 
 #main {
     position: relative;
@@ -1296,12 +1303,18 @@ div#map-pane > .inner {
     right: 0;
     height: 2.5em;
     color: #999999;
+    pointer-events: none;
+}
+
+.show-menu #navbar,
+#navbar #menu-toggle,
+#navbar h1 {
+    pointer-events: auto;
 }
 
 .show-menu #navbar {
     z-index: 21;
-    height: 4em;
-    pointer-events: auto;
+    height: 5em;
 }
 
 ul.ver-tabs,
