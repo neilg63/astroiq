@@ -3,7 +3,11 @@
 include mixins.pug
 
 form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method="post" v-on:submit.prevent="sendControlForm")
-  fieldset.collapsible.open
+  fieldset.open
+    input.id.record(type="hidden" v-model="recordId")
+    div.new-record(:class="{hidden:!recordEditable}")
+      input#new-record(type="checkbox" v-bind:checked="!recordEditable" name="new_record" v-model="newRecord")
+      label(for="new-record") New record
     +selectrow('chart_type','Type of Chart',chartTypes,false)(class="select-input" v-model="chartType")
     p.name-row.full-span
       input.name(type="text" id="form-name" name="name" size="10" placeholder="Candidate's Name" v-model="candidateName" required="true" minlength="2" autocomplete="off")
@@ -43,12 +47,6 @@ form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method=
       input(type="text" id="form-location" name="location" size="48" value="" placeholder="Place of birth" v-model="location.search" v-on:click="loadMap" autocomplete="off")
       input#location-finder(type="submit" value="Find" v-on:click.stop.prevent="searchLocation")
       textarea#location-address.location-address.full-width(:class="{collapsed: !location.showAddress, expanded: location.showAddress}" name="location_address" rows="3" cols="40" required="true" minlength="5") {{location.address}}
-    div#geo-alt-places(:class="{hidden:!geonames.active}")
-      fieldset#alt-places-container.listing.collapsible.closed
-        h3.toggle Alternative places #[em ({{geonames.num}})]
-        ol.alt-places
-          template(v-for="item in geonames.items")
-            li(v-on:click="updateMap(item.coords,item.name)") {{item.name}}
     fieldset.coordinates(:class="coordinatesClass")
       p.lat
         label(for="form-lat" title="latitude") Latitude:
@@ -86,12 +84,6 @@ form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method=
         select#form-height-unit.inline(v-model="location.altUnit")
           option(value="m") metres
           option(value="ft") feet
-    div#geo-hospitals(:class="{hidden:!hospitals.active}")
-      fieldset#hospital-container.listing.collapsible.closed
-        h3.toggle Maternity centres #[em ({{hospitals.num}})]
-        ol.hospitals
-          template(v-for="item in hospitals.items")
-            li(:data-coords="item.coords" v-on:click="updateMap(item.coords,item.name)") {{item.name}}
     p.rodden
       label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale:
       select#form-rodden.select-input(name="rodden" v-model="options.rodden")

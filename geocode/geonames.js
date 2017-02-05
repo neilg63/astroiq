@@ -155,7 +155,6 @@ var geonames = {
     if (item.adminName1.length > 1) {
       if (item.adminName1 != item.countryName) {
         nameParts.push(item.adminName1);
-        console.log(item.adminName1.toLowerCase())
         switch (item.adminName1.toLowerCase()) {
           case 'scotland':
           case 'england':
