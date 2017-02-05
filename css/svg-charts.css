@@ -149,3 +149,10 @@ g.bodies-layer g.over text.coords,
 g.bodies-layer g.over text.house {
   visibility: visible;
 }
+
+g.body circle {
+  stroke:#996600;
+}
+g.body path {
+  fill: #996600;
+}

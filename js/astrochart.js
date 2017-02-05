@@ -263,7 +263,7 @@ var AstroChart = {
 
   placeBodies: function() {
     this.bodyLayer = d3.select('g.bodies-layer');
-    var bNames = ['sun','moon','mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto'],
+    var bNames = ['sun','moon','mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto','ketu','rahu'],
     bNum= bNames.length,
     deg = 15,d,
     i=0,bn,body,pos;
