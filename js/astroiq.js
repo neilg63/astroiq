@@ -628,7 +628,8 @@ var app = new Vue({
     chartMode: 'western',
     showTopMenu: false,
     toggleMenuMessage: "Show main menu",
-    results: EphemerisData
+    results: EphemerisData,
+    currId: null
   },
   created: function() {
     
@@ -1136,16 +1137,18 @@ var app = new Vue({
     loadQuery: function(paramStr, update) {
       if (typeof paramStr == 'object') {
         var params = paramStr, hasData = false;
-        paramStr = toParamString(paramStr);
+        paramStr = toParamString(paramStr,['id']);
       } else {
         var params = fromParamStr(paramStr);
       }
+      
       if (update !== true) {
         var stored = getItem(paramStr);
         if (stored.valid) {
             this.parseResults(stored.data);
             this.updateChartData(stored.data);
             hasData = true;
+            this.currId = paramStr;
         }
       }
       if (!hasData) {
@@ -1158,7 +1161,6 @@ var app = new Vue({
             app.parseResults(data);
             app.activeTab = 'chart';
             app.updateChartData(data);
-            storeItem(paramStr,data);
             var item = {
               paramStr: paramStr,
               name: data.name,
@@ -1166,9 +1168,14 @@ var app = new Vue({
               datetime: data.datetime,
               address: data.geo.address
             };
-            if (!update) {
+            if (!update) { 
               app.queries.unshift(item);
+            } else {
+              deleteItem(app.currId);
+              app.replaceQuery(app.currId,item);
             }
+            storeItem(paramStr,data);
+            app.currId = paramStr;
           }
         })
         .catch(function (error) {
@@ -1177,12 +1184,23 @@ var app = new Vue({
       }
       app.showSub('form'); 
     },
+    matchQuery: function(paramStr) {
+      return _.findIndex(this.queries,['paramStr',paramStr]);
+    },
     deleteQuery: function(paramStr) {
-      var matched = _.findIndex(this.queries,['paramStr',paramStr]);
+      var matched = this.matchQuery(paramStr);
       if (matched >= 0) {
         this.queries.splice(matched,1);
       }
       deleteItem(paramStr);
+    },
+    replaceQuery: function(paramStr,updatedItem) {
+      var matched = this.matchQuery(paramStr);
+      console.log(paramStr,matched)
+      if (matched >= 0) {
+
+        this.queries[matched] = updatedItem;
+      }
     },
     showPane: function(pType) {
       this.toggleDegreeMode('display');

@@ -265,13 +265,14 @@ var AstroChart = {
     this.bodyLayer = d3.select('g.bodies-layer');
     var bNames = ['sun','moon','mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto','ketu','rahu'],
     bNum= bNames.length,
+    dist = 420,
     deg = 15,d,
     i=0,bn,body,pos;
     for (;i<bNum;i++) {
       bn = bNames[i];
       body = d3.select('#'+bn+'-symbol');
       d = 270 - deg;
-      pos = AstroChart._xyPos(d,330,-12,-12);
+      pos = AstroChart._xyPos(d,dist,-12,-12);
       body
       .attr('transform','translate('+pos.x+','+pos.y+')')
       .attr('data-lng',d)
@@ -284,15 +285,42 @@ var AstroChart = {
       });*/
       this.bodies.push(body);
       deg += 30;
+      dist -= 10;
     }
+  },
+
+  findCollisions(bodies,key) {
+    var collisions=[],bn, item = bodies[key],lng = -1;
+    if (typeof item == 'object') {
+      if (item.lng) {
+         lng = item.lng;
+      }
+    }
+    if (lng > -1) {
+      for (bn in bodies) {
+        if (bn != key) {
+          item = bodies[bn];
+          if (item.lng < (lng+12) && item.lng > (lng-12)) {
+            collisions.push(bn);
+          }
+        }
+      }
+    }
+    return collisions;
   },
 
   moveBodies: function(bodies) {
     var deg = 15,
     steps=30,
+    dist = 320,
+    collisions=[],
+    offset=0,
+    offsetMap={},
     duration=900,
     i=0,lbl,txt,
-    d,dy,bn,item,body,pos,diff;
+    d,dy,bn,item,body,pos,diff,mult;
+
+
     for (bn in bodies) {
       item = bodies[bn];
       if (typeof item == 'object') {
@@ -312,9 +340,25 @@ var AstroChart = {
           d = 330 - deg;
           oldDeg = parseFloat(body.attr('data-lng')),
           diff=oldDeg-d;
+          collisions = this.findCollisions(bodies,bn);
+          offset = 0;
+          if (collisions.length>0) {
+            mult = (100 / collisions.length) + 20;
+            for (var j=0,colItem;j<collisions.length;j++) {
+              colItem = collisions[j];
+              if (!offsetMap[colItem]) {
+                offsetMap[colItem] = ((j+1) * mult) - 10;
+              }
+            }
+            if (offsetMap[bn]) {
+              offset = offsetMap[bn];
+            } else {
+              offset = -10;
+            }
+          }
           body.attr('data-lng',d);
           for (i=0;i<steps;i++) {
-            pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),330,-12,-12);
+            pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),(dist+offset),-12,-12);
             body.transition()
             .delay(i*(duration/steps))
             .duration((duration/steps))
