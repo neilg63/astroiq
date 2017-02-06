@@ -318,7 +318,7 @@ var AstroChart = {
     offsetMap={},
     duration=900,
     i=0,lbl,txt,
-    d,dy,bn,item,body,pos,diff,mult;
+    d,dy,bn,item,body,pos,diff,mult,td;
 
 
     for (bn in bodies) {
@@ -337,7 +337,7 @@ var AstroChart = {
             lbl.text(txt);
           }
           deg = item.lng;
-          d = 330 - deg;
+          d = 120 - deg;
           oldDeg = parseFloat(body.attr('data-lng')),
           diff=oldDeg-d;
           collisions = this.findCollisions(bodies,bn);
@@ -363,6 +363,11 @@ var AstroChart = {
             .delay(i*(duration/steps))
             .duration((duration/steps))
             .attr('transform','translate('+pos.x+','+pos.y+')');
+            td = (((d%180)+270)%180);
+            if (td > 90) {
+              td += 180;
+            }
+            body.select('.coords').attr('transform','rotate('+td+')');
           }
         }
       }
