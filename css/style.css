@@ -58,6 +58,8 @@ span.symbol-radio label {
     top: 0.25em;
     left:  4em;
     opacity: 0;
+    width:  0;
+    overflow:  hidden;
 }
 
 #navbar ul {
@@ -114,6 +116,7 @@ span.symbol-radio label {
 
 #pane-tabs {
     z-index:  10;
+    margin:  0 auto 1em auto;
 }
 
 #pane-tabs li {
@@ -134,7 +137,7 @@ span.symbol-radio label {
 
 #main .panes {
     position: relative;
-    padding: 4em 0 0 0;
+    padding: 2em 0;
     width:  100%;
 }
 
@@ -624,28 +627,6 @@ ol.geonames li:hover {
     transform: scale(2,2);
     cursor: pointer;
 }
-
-@media screen and (max-width: 959px) {
-    object.large-pane {
-      left: 5vw;
-    }
-/*     .large-pane svg {
-        width: 75vw;
-        height: 75vw;
-    } */
-}
-
-@media screen and (min-width:960px) and (max-width: 1279px) {
-/*     object.large-pane {
-      left: 15vw;
-    }
-    .large-pane svg {
-        width: 66.667vw;
-        height: 66.67vw;
-    } */
-}
-
-
 
 
 .large-pane svg .planet {
@@ -1171,6 +1152,9 @@ div#map-pane > .inner {
         width:  9em;
         padding-right: 1em;
     }
+    #main .panes {
+        padding-top: 3em;
+    }
 }
 
 #control-panel p {
@@ -1483,6 +1467,8 @@ ul.hor-tabs li:not(.disabled):hover {
     }
     #navbar h1.title-logo {
         opacity: 1;
+        width:  auto;
+        overflow: visible;
     }
 }
 
