@@ -5,6 +5,7 @@ include mixins.pug
 form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method="post" v-on:submit.prevent="sendControlForm")
   fieldset.open
     input.id.record(type="hidden" v-model="recordId")
+    input.curr-id.record(type="hidden" v-model="currId")
     div.new-record(:class="{hidden:!recordEditable}")
       input#new-record(type="checkbox" v-bind:checked="!recordEditable" name="new_record" v-model="newRecord")
       label(for="new-record") New record
