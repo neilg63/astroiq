@@ -337,7 +337,7 @@ var AstroChart = {
             lbl.text(txt);
           }
           deg = item.lng;
-          d = 150 - deg;
+          d = 120 - deg;
           oldDeg = parseFloat(body.attr('data-lng')),
           diff=oldDeg-d;
           collisions = this.findCollisions(bodies,bn);
