@@ -810,21 +810,35 @@ line.solid {
     display:  inline-block;
 }
 
+.new-record .delete,
 #queries li span.delete {
     padding-left: 1em;
+    color:  red;
+    cursor: pointer;
+}
+
+#queries li span.delete {
     opacity: 0;
     pointer-events: none;
 }
 
+.new-record:hover .delete,
 #queries li:hover span.delete {
     opacity: 1;
     pointer-events: auto;
 }
 
+.new-record span.delete:after,
 #queries li span.delete:after {
     content:  "-";
     font-size:  1.5em;
     color:  red;
+}
+
+.new-record span.delete:after {
+    position: absolute;
+    left: 0.5em;
+    top: -0.25em;
 }
 
 #control-panel,
@@ -925,8 +939,8 @@ line.solid {
 #control-panel .new-record {
     position: absolute;
     right:  0;
-    top: 2.25em;
-    min-width: 24em;
+    top: .25em;
+    min-width: 18em;
 }
 
 .new-record .delete,
@@ -936,12 +950,25 @@ line.solid {
     width: auto;
 }
 
+.new-record input {
+    margin-top: 0.25em;
+}
+.new-record label {
+    padding-left:  0.25em;
+    padding-right: 0.5em;
+}
+
 .new-record .delete {
-    display: inline-block;
+    display: block;
+     position: relative;
+    padding-left:  1.5em;
+    opacity: 0.75;
 }
 
 .new-record .delete:hover {
     color:  red;
+    opacity: 1;
+    font-weight: bold;
 }
 
 #control-panel .input-group-addon {

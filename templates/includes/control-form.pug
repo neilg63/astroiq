@@ -7,8 +7,8 @@ form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method=
   input.curr-id.record(type="hidden" v-model="currId")
   div.new-record(:class="{hidden:!recordEditable}")
     input#new-record(type="checkbox" v-bind:checked="!recordEditable" name="new_record" v-model="newRecord")
-    span.delete(v-on:click.stop="deleteQuery(item.paramStr,'queries')") delete
     label(for="new-record") New record
+    span.delete(v-on:click.stop="deleteQuery(currId,'queries')") delete
   +selectrow('chart_type','Type of Chart',chartTypes,false)(class="select-input" v-model="chartType")
   p.name-row.full-span
     input.name(type="text" id="form-name" name="name" size="10" placeholder="Candidate's Name" v-model="candidateName" required="true" minlength="2" autocomplete="off")
