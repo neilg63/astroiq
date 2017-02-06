@@ -57,8 +57,10 @@ stroke-width: 3px;
 stroke: blue;
 }
 
-.european-element {
+.western-chart {
 opacity: 1;
+  position: relative;
+  z-index:  10;
 }
 
 .european-element,
@@ -117,6 +119,7 @@ path.segment {
 }
 
 g.bodies-layer {
+  position: relative;
   z-index: 60;
 }
 
@@ -138,20 +141,27 @@ g.body text {
 g.body text.house,
 g.body text.coords {
   font-size: 0.625em;
- /*  visibility: hidden; */
+}
+
+g.body text {
+  opacity: 0;
+}
+
+g.body {
+  fill: white;
 }
 
 g.body text.coords {
-  transform: translate(-12px, -15px);
+  opacity: 1;
 }
 
 g.body text.house {
   transform: translate(6px, -30px);
 }
 
-g.bodies-layer g.over text.coords,
-g.bodies-layer g.over text.house {
-  visibility: visible;
+g.bodies-layer g.body:hover text {
+  opacity: 1;
+  fill: #666666;
 }
 
 g.body circle {

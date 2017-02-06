@@ -568,7 +568,6 @@ object#chart-pane {
     position: absolute;
     top: -0.5em;
     left: 1em;
-    background: rgba(255,255,255,255.25);
     padding: 1em;
     text-align: left;
     max-width:  16em;
