@@ -47,7 +47,7 @@ form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method=
     p.pob-row
       input(type="text" id="form-location" name="location" size="48" value="" placeholder="Place of birth" v-model="location.search" v-on:click="loadMap" autocomplete="off")
       input#location-finder(type="submit" value="Find" v-on:click.stop.prevent="searchLocation")
-      textarea#location-address.location-address.full-width(:class="{collapsed: !location.showAddress, expanded: location.showAddress}" name="location_address" rows="3" cols="40" required="true" minlength="5" v-model="location.address") {{location.address}}
+      textarea#location-address.location-address.full-width(:class="{collapsed: !location.showAddress, expanded: location.showAddress}" name="location_address" rows="3" cols="40" required="true" minlength="5" v-model="location.address")
     fieldset.coordinates(:class="coordinatesClass")
       p.lat
         label(for="form-lat" title="latitude") Latitude:

@@ -289,8 +289,8 @@ var AstroChart = {
     }
   },
 
-  findCollisions(bodies,key) {
-    var collisions=[],bn, item = bodies[key],lng = -1;
+  findCollisions: function(bodies,key) {
+    var collisions=[],item = bodies[key],lng = -1,bn;
     if (typeof item == 'object') {
       if (item.lng) {
          lng = item.lng;
