@@ -598,7 +598,6 @@ var toSwissEphTime = function(strTime) {
     if (parts.length>1) {
 
         t= zeroPad2(parts[0]) + '.' + zeroPad2(parts[1]);
-        console.log(t)
         if (parts.length>2) {
             t += zeroPad2(parts[2]);
         }
