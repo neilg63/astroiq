@@ -1210,6 +1210,8 @@ var app = new Vue({
       switch (pType) {
         case 'map':
           this.loadMap();
+          var c = this.location.coords;
+          GeoMap.updateMap(c.lat,c.lng,true,false);
           break;
       }
       this.activeTab = pType;
