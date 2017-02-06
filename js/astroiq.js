@@ -788,7 +788,9 @@ var app = new Vue({
         this.location.coords.lng = geo.lng;
         this.location.coords.alt = geo.alt;
         this.location.address = geo.address;
-
+        jQuery('#location-address').val(geo.address);
+        jQuery('#form-location').val('');
+        this.location.search = '';
         this.results.geo.display_coords = toLatitudeString(geo.lat,'plain') + ', ' + toLongitudeString(geo.lng,'plain')
       }
       if (this.results.datetime) {
@@ -857,6 +859,7 @@ var app = new Vue({
               if (data.valid) {
                 app.updateGeoDetails(data,key);
                 app.location.address = data.address;
+                jQuery('#location-address').val(data.address);
               } else if (data.message) {
                   msg = data.message;
               }
@@ -1143,7 +1146,8 @@ var app = new Vue({
       } else {
         var params = fromParamStr(paramStr);
       }
-      
+      jQuery('#form-location').val('');
+      app.location.search = '';
       if (update !== true) {
         var stored = getItem(paramStr);
         if (stored.valid) {
@@ -1198,7 +1202,6 @@ var app = new Vue({
     },
     replaceQuery: function(paramStr,updatedItem) {
       var matched = this.matchQuery(paramStr);
-      console.log(paramStr,matched)
       if (matched >= 0) {
 
         this.queries[matched] = updatedItem;
