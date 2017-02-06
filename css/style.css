@@ -246,7 +246,7 @@ span.symbol-radio label {
     height: 0.8em;
 }
 
-#control-panel div > label,
+
 #control-panel p.full-span input {
     width: 92%;
 }
@@ -812,6 +812,13 @@ line.solid {
 
 #queries li span.delete {
     padding-left: 1em;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#queries li:hover span.delete {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 #queries li span.delete:after {
@@ -919,12 +926,22 @@ line.solid {
     position: absolute;
     right:  0;
     top: 2.25em;
-    min-width: 14em;
+    min-width: 24em;
 }
 
+.new-record .delete,
 .new-record label,
 .new-record input {
     float:  left;
+    width: auto;
+}
+
+.new-record .delete {
+    display: inline-block;
+}
+
+.new-record .delete:hover {
+    color:  red;
 }
 
 #control-panel .input-group-addon {

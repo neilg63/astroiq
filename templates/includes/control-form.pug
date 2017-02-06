@@ -3,95 +3,95 @@
 include mixins.pug
 
 form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method="post" v-on:submit.prevent="sendControlForm")
-  fieldset.open
-    input.id.record(type="hidden" v-model="recordId")
-    input.curr-id.record(type="hidden" v-model="currId")
-    div.new-record(:class="{hidden:!recordEditable}")
-      input#new-record(type="checkbox" v-bind:checked="!recordEditable" name="new_record" v-model="newRecord")
-      label(for="new-record") New record
-    +selectrow('chart_type','Type of Chart',chartTypes,false)(class="select-input" v-model="chartType")
-    p.name-row.full-span
-      input.name(type="text" id="form-name" name="name" size="10" placeholder="Candidate's Name" v-model="candidateName" required="true" minlength="2" autocomplete="off")
-    p.gender-row(:class="{collapsed: !gender.active,expanded: gender.active}")
-      input#form-gender-unknown.gender.unknown(type="radio" name="gender" value="unknown" v-model="gender.type")
-      label.sub.gender(for="form-gender-unknown" title="Not specified") N/A
-      
-      input#form-gender-female.gender.female(type="radio" name="gender" value="female" v-model="gender.type")
-      label.sub.gender(for="form-gender-female") Female
+  input.id.record(type="hidden" v-model="recordId")
+  input.curr-id.record(type="hidden" v-model="currId")
+  div.new-record(:class="{hidden:!recordEditable}")
+    input#new-record(type="checkbox" v-bind:checked="!recordEditable" name="new_record" v-model="newRecord")
+    span.delete(v-on:click.stop="deleteQuery(item.paramStr,'queries')") delete
+    label(for="new-record") New record
+  +selectrow('chart_type','Type of Chart',chartTypes,false)(class="select-input" v-model="chartType")
+  p.name-row.full-span
+    input.name(type="text" id="form-name" name="name" size="10" placeholder="Candidate's Name" v-model="candidateName" required="true" minlength="2" autocomplete="off")
+  p.gender-row(:class="{collapsed: !gender.active,expanded: gender.active}")
+    input#form-gender-unknown.gender.unknown(type="radio" name="gender" value="unknown" v-model="gender.type")
+    label.sub.gender(for="form-gender-unknown" title="Not specified") N/A
+    
+    input#form-gender-female.gender.female(type="radio" name="gender" value="female" v-model="gender.type")
+    label.sub.gender(for="form-gender-female") Female
 
-      input#form-gender-male.gender.male(type="radio" name="gender" value="male" v-model="gender.type")
-      label.sub.gender(for="form-gender-male") Male
-      
-      input#form-gender-other.gender.other(type="radio" name="gender" value="other" v-model="gender.type")
-      label.sub.gender(for="form-gender-other") Other
-      input.gender-other-type(:class="{hidden: !gender.otherActive}" type="text" maxlength="32" size="16" name="gender_other" id="form-gender-other-type" placeholder="Other gender definition" v-model="gender.otherType")
-    div.datetime
-      label(for="form-dob") {{dateLabel}}:
-      div.dob-field.half-width.first
-        input.datebox(type="date" id="form-dob" name="dob" size="10" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" v-model="dob")
-      div.tob-field.half-width.second
-        input.datebox(type="time" id="form-tob" name="tob" size="5" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" v-model="tob")
-    fieldset#timezone-settings.collapsible.closed
-      h3.toggle Time Zone #[em {{timezone.display}}]
-      div#tz-settings.full-width
-        div.half-width.first
-          label(for="form-timezone") UTC offset:
-          select.tzoffset(type="number" id="form-tz" name="timezone" v-model="timezone.offset")
-            each opt,index in timezone.offsets
-              option(value = opt.value)= opt.label
-        div.half-width.second
-          label(for="form-daylightsavings") Daylight saving:
-          select.ds(id="form-ds" name="ds" v-model="timezone.ds")
-            each opt,index in timezone.ds_options
-              option(value = opt.value)= opt.label
-    p.pob-row
-      input(type="text" id="form-location" name="location" size="48" value="" placeholder="Place of birth" v-model="location.search" v-on:click="loadMap" autocomplete="off")
-      input#location-finder(type="submit" value="Find" v-on:click.stop.prevent="searchLocation")
-      textarea#location-address.location-address.full-width(:class="{collapsed: !location.showAddress, expanded: location.showAddress}" name="location_address" rows="3" cols="40" required="true" minlength="5" v-model="location.address")
-    fieldset.coordinates(:class="coordinatesClass")
-      p.lat
-        label(for="form-lat" title="latitude") Latitude:
-        input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" title="latitude" v-model="location.coords.lat")
-        span.dms-select.lat
-          input.dms.lat.deg(v-model="location.coords.latComponents.deg" size="2" maxlength="2" pattern="[0-9]+")
-          span.deg
-          input.dms.lat.min(v-model="location.coords.latComponents.min" size="2" maxlength="2" pattern="[0-5]?[0-9]")
-          span.min
-          input.dms.lat.sec(v-model="location.coords.latComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
-          span.sec
-          input.dms.lat.dir(v-model="location.coords.latComponents.dir" size="1" maxlength="1" pattern="[NSns]" v-on:click="swapDirection(false)")
-        span.coordinates.lat.dms {{location.coords.latDms}}
-        div.mode-controls
-          span.mode.dms-mode(v-on:click="toggleDegreeMode('dms')" title="Edit degrees, minutes and seconds") 
-          span.mode.dec-mode(v-on:click="toggleDegreeMode('dec')" title="Edit degrees with decimals")
-          span.mode.show-mode(v-on:click="toggleDegreeMode('display')" title="Show degrees only")
-          span.find-map(v-on:click="findOnMap()" title="Find on Map")
-      p.lng
-        label.degree(for="form-lng" title="longitude") Longitude:
-        input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" title="longitude" v-model="location.coords.lng")
-        span.dms-select.lng
-          input.dms.lng.deg(v-model="location.coords.lngComponents.deg" size="3" maxlength="3" pattern="[0-9]+")
-          span.deg
-          input.dms.lng.min(v-model="location.coords.lngComponents.min" size="2" maxlength="2" pattern="[0-5]?[0-9]")
-          span.min
-          input.dms.lng.sec(v-model="location.coords.lngComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
-          span.sec
-          input.dms.lng.dir(v-model="location.coords.lngComponents.dir" size="1" maxlength="1" pattern="[WEwe]" v-on:click="swapDirection(true)")
-        span.coordinates.lng.dms {{location.coords.lngDms}}
-      p.alt
-        label(for="form-alt-display" title="Altitude") Altitude:
-        input(type="number" id="form-alt-display" name="alt" size="1" v-bind:steps="location.altSteps" min="0" v-bind:max="location.altMax" title="Height above sea level in metres" v-model="location.altDisplay")
-        input(type="hidden" id="form-alt" v-model="location.coords.alt")
-        select#form-height-unit.inline(v-model="location.altUnit")
-          option(value="m") metres
-          option(value="ft") feet
-    p.rodden
-      label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale:
-      select#form-rodden.select-input(name="rodden" v-model="options.rodden")
-        each opt,index in roddenOptions
-          option(value = opt.value)= opt.label
+    input#form-gender-male.gender.male(type="radio" name="gender" value="male" v-model="gender.type")
+    label.sub.gender(for="form-gender-male") Male
+    
+    input#form-gender-other.gender.other(type="radio" name="gender" value="other" v-model="gender.type")
+    label.sub.gender(for="form-gender-other") Other
+    input.gender-other-type(:class="{hidden: !gender.otherActive}" type="text" maxlength="32" size="16" name="gender_other" id="form-gender-other-type" placeholder="Other gender definition" v-model="gender.otherType")
+  div.datetime
+    label(for="form-dob") {{dateLabel}}:
+    div.dob-field.half-width.first
+      input.datebox(type="date" id="form-dob" name="dob" size="10" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" v-model="dob")
+    div.tob-field.half-width.second
+      input.datebox(type="time" id="form-tob" name="tob" size="5" data-options!="{&quot;mode&quot;:&quot;timeflipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" v-model="tob")
+  fieldset#timezone-settings.collapsible.closed
+    h3.toggle Time Zone #[em {{timezone.display}}]
+    div#tz-settings.full-width
+      div.half-width.first
+        label(for="form-timezone") UTC offset:
+        select.tzoffset(type="number" id="form-tz" name="timezone" v-model="timezone.offset")
+          each opt,index in timezone.offsets
+            option(value = opt.value)= opt.label
+      div.half-width.second
+        label(for="form-daylightsavings") Daylight saving:
+        select.ds(id="form-ds" name="ds" v-model="timezone.ds")
+          each opt,index in timezone.ds_options
+            option(value = opt.value)= opt.label
+  p.pob-row
+    input(type="text" id="form-location" name="location" size="48" value="" placeholder="Place of birth" v-model="location.search" v-on:click="loadMap" autocomplete="off")
+    input#location-finder(type="submit" value="Find" v-on:click.stop.prevent="searchLocation")
+    textarea#location-address.location-address.full-width(:class="{collapsed: !location.showAddress, expanded: location.showAddress}" name="location_address" rows="3" cols="40" required="true" minlength="5" v-model="location.address")
+  fieldset.coordinates(:class="coordinatesClass")
+    p.lat
+      label(for="form-lat" title="latitude") Latitude:
+      input.degree.latitude(type="text" pattern="[0-9.-]+" id="form-lat" name="lat" size="4" title="latitude" v-model="location.coords.lat")
+      span.dms-select.lat
+        input.dms.lat.deg(v-model="location.coords.latComponents.deg" size="2" maxlength="2" pattern="[0-9]+")
+        span.deg
+        input.dms.lat.min(v-model="location.coords.latComponents.min" size="2" maxlength="2" pattern="[0-5]?[0-9]")
+        span.min
+        input.dms.lat.sec(v-model="location.coords.latComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
+        span.sec
+        input.dms.lat.dir(v-model="location.coords.latComponents.dir" size="1" maxlength="1" pattern="[NSns]" v-on:click="swapDirection(false)")
+      span.coordinates.lat.dms {{location.coords.latDms}}
+      div.mode-controls
+        span.mode.dms-mode(v-on:click="toggleDegreeMode('dms')" title="Edit degrees, minutes and seconds") 
+        span.mode.dec-mode(v-on:click="toggleDegreeMode('dec')" title="Edit degrees with decimals")
+        span.mode.show-mode(v-on:click="toggleDegreeMode('display')" title="Show degrees only")
+        span.find-map(v-on:click="findOnMap()" title="Find on Map")
+    p.lng
+      label.degree(for="form-lng" title="longitude") Longitude:
+      input.degree.longitude(type="text" pattern="[0-9.-]+" id="form-lng" name="lng" size="4" title="longitude" v-model="location.coords.lng")
+      span.dms-select.lng
+        input.dms.lng.deg(v-model="location.coords.lngComponents.deg" size="3" maxlength="3" pattern="[0-9]+")
+        span.deg
+        input.dms.lng.min(v-model="location.coords.lngComponents.min" size="2" maxlength="2" pattern="[0-5]?[0-9]")
+        span.min
+        input.dms.lng.sec(v-model="location.coords.lngComponents.sec" size="5" maxlength="5" pattern="[0-5]?[0-9](\.[0-9]+)?")
+        span.sec
+        input.dms.lng.dir(v-model="location.coords.lngComponents.dir" size="1" maxlength="1" pattern="[WEwe]" v-on:click="swapDirection(true)")
+      span.coordinates.lng.dms {{location.coords.lngDms}}
+    p.alt
+      label(for="form-alt-display" title="Altitude") Altitude:
+      input(type="number" id="form-alt-display" name="alt" size="1" v-bind:steps="location.altSteps" min="0" v-bind:max="location.altMax" title="Height above sea level in metres" v-model="location.altDisplay")
+      input(type="hidden" id="form-alt" v-model="location.coords.alt")
+      select#form-height-unit.inline(v-model="location.altUnit")
+        option(value="m") metres
+        option(value="ft") feet
+  p.rodden
+    label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale:
+    select#form-rodden.select-input(name="rodden" v-model="options.rodden")
+      each opt,index in roddenOptions
+        option(value = opt.value)= opt.label
 
-    div#form-actions
-      input(type="submit" value="Calculate & Save" id="form-submit" )
+  div.form-actions
+    input(type="submit" value="Calculate & Save" id="form-submit" )
 
 

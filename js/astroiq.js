@@ -1193,12 +1193,15 @@ var app = new Vue({
     matchQuery: function(paramStr) {
       return _.findIndex(this.queries,['paramStr',paramStr]);
     },
-    deleteQuery: function(paramStr) {
+    deleteQuery: function(paramStr,subPane) {
       var matched = this.matchQuery(paramStr);
       if (matched >= 0) {
         this.queries.splice(matched,1);
       }
       deleteItem(paramStr);
+      if (subPane) {
+        this.showSub('queries');
+      }
     },
     replaceQuery: function(paramStr,updatedItem) {
       var matched = this.matchQuery(paramStr);

@@ -1,5 +1,5 @@
-const {mongoose} = require('./../server/db/mongoose');
-const {Nested} = require('./../server/models/nested');
+const {mongoose} = require('./../db/mongoose');
+const {Nested} = require('./../models/nested');
 const conversions = require('./conversions');
 const exec = require('child_process').exec;
 const request = require('request');

@@ -1,6 +1,6 @@
 const request = require('request');
-const {mongoose} = require('./../server/db/mongoose');
-const {Timezone} = require('./../server/models/timezone');
+const {mongoose} = require('./../db/mongoose');
+const {Timezone} = require('./../models/timezone');
 const timezone_db_url = 'http://api.timezonedb.com/v2/get-time-zone';
 const timezone_db_apikey = '0NXJ03JE76B4';
 

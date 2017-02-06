@@ -1,7 +1,7 @@
 const request = require('request');
-const {mongoose} = require('./../server/db/mongoose');
-const {Geo} = require('./../server/models/geo');
-const {HospitalData} = require('./../server/models/hospitalData');
+const {mongoose} = require('./../db/mongoose');
+const {Geo} = require('./../models/geo');
+const {HospitalData} = require('./../models/hospitalData');
 const googleApiKey = 'AIzaSyAOeXTgZTB_cJUyV9B2DOiZI_6LoVU2vs8';
 const googleApiBaseUrl = 'https://maps.googleapis.com/maps/api/';
 const googleGeocodeBaseUrl = googleApiBaseUrl + 'geocode/json';

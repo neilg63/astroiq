@@ -1,5 +1,5 @@
 const request = require('request');
-const {mongoose} = require('./../server/db/mongoose');
+const {mongoose} = require('./../db/mongoose');
 const textutils = require('./../lib/text-utils.js');
 const conversions = require('./../lib/conversions.js');
 const timezone = require('./timezone.js');

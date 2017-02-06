@@ -1,9 +1,9 @@
 const sys = require('util');
 const express = require("express");
 const bodyParser = require("body-parser");
-const {mongoose} = require('./server/db/mongoose');
-const {Nested} = require('./server/models/nested');
-const {Geo} = require('./server/models/geo');
+const {mongoose} = require('./db/mongoose');
+const {Nested} = require('./models/nested');
+const {Geo} = require('./models/geo');
 const pug = require('pug');
 const app = express();
 const geocode = require('./geocode/geocode.js');
@@ -16,8 +16,8 @@ const conversions = require('./lib/conversions.js');
 const astro = require('./lib/astroapp.js');
 const exec = require('child_process').exec;
 const spawn = require('child_process').spawn;
-const variables = require('./content/variables.js');
-var child;
+const variables = require('./../content/variables.js');
+const tplDir = __dirname + '/../templates/';
 
 app.enable('trust proxy');
 
@@ -284,32 +284,32 @@ app.use('/icomoon', express.static('icomoon'));
 app.use('/svgs', express.static('svgs'));
 
 app.get('/', function(req, res) {
-   const page = pug.compileFile(__dirname + '/templates/astro.pug');
+   const page = pug.compileFile(tplDir + '/astro.pug');
     res.send(page(variables));
 });
 
 app.get('/home', function(req, res) {
-   const page = pug.compileFile(__dirname + '/templates/astro.pug');
+   const page = pug.compileFile(tplDir + '/astro.pug');
     res.send(page(variables));
 });
 
 app.get('/astro', function(req, res) {
-   const page = pug.compileFile(__dirname + '/templates/astro.pug');
+   const page = pug.compileFile(tplDir + '/astro.pug');
     res.send(page(variables));
 });
 
 app.get('/zodiac', function(req, res) {
-    const page = pug.compileFile(__dirname + '/templates/astro.pug');
+    const page = pug.compileFile(tplDir + '/astro.pug');
     res.send(page(variables));
 });
 
 app.get('/chart', function(req, res) {
-    const page = pug.compileFile(__dirname + '/templates/astrochart.pug');
+    const page = pug.compileFile(tplDir + '/astrochart.pug');
     res.send(page(variables));
 });
 
 app.get('/about', function(req, res) {
-    const page = pug.compileFile(__dirname + '/templates/about.pug');
+    const page = pug.compileFile(tplDir + '/about.pug');
     res.send(page(variables));
 });
 
