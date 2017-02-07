@@ -1143,7 +1143,8 @@ astro.fetchFromCommand = (cmd, cmdId, res, query, update, debug) => {
         data.datetime = conversions.euroDatePartsToISOString(query.b,query.ut);
         data.dateinfo = {
         	calendar: "greg.",
-        	zone: query.tz
+        	zone: query.tz,
+          gmtOffset: query.gmtOffset
         };
         data.name = query.name;
         data.gender = query.gender;

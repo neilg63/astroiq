@@ -523,9 +523,12 @@ var EphemerisData = {
   },
   name: "",
   datetime: "",
-  display_datetime: "",
   dateinfo: {
     datetime: null,
+    gmtOffset: null,
+    tz: null,
+    display: "",
+    info: ""
   },
   gender: "unknown",
   geo: {
@@ -795,8 +798,21 @@ var app = new Vue({
         this.results.geo.display_coords = toLatitudeString(geo.lat,'plain') + ', ' + toLongitudeString(geo.lng,'plain')
       }
       if (this.results.datetime) {
-        var parts = this.results.datetime.toString().split('T');
+        if (/^\d\d\d\d-\d\d-\d\d?/.test(this.results.datetime)) {
+          var dt =  new Date(this.results.datetime);
+          this.results.dateinfo.tz = data.dateinfo.zone;
+          
+          if (data.dateinfo.hasOwnProperty('gmtOffset')) {
 
+              this.results.dateinfo.gmtOffset = data.dateinfo.gmtOffset;
+              dt.setSeconds(data.dateinfo.gmtOffset);
+              this.results.dateinfo.datetime = dt;
+              this.results.dateinfo.info =   data.dateinfo.zone + ' UTC ' + secondsToHours(this.results.dateinfo.gmtOffset);
+              this.results.dateinfo.display =  dt.dmy('m');
+          }
+          
+        }
+        var parts = this.results.dateinfo.datetime.ymd('s').split(' ');
         if (parts.length>1) {
           this.dob = parts[0];
 
@@ -807,13 +823,6 @@ var app = new Vue({
               this.tob = parts[0]+':'+parts[1];
             }
           }
-        }
-      }
-      if (this.results.datetime) {
-        if (/^\d\d\d\d-\d\d-\d\d?/.test(this.results.datetime)) {
-          var dt =  new Date(this.results.datetime);
-          this.results.dateinfo.datetime = dt;
-          this.results.display_datetime =  dt.dmy('m');
         }
         if (data.houseBounds) {
           this.results.houseBounds = data.houseBounds;

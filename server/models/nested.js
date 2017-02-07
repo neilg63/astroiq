@@ -36,6 +36,7 @@ var Nested = mongoose.model('Nested', {
   dateinfo: {
     calendar: simpleStringType,
     zone: simpleStringType,
+    gmtOffset: simpleNumberType
   },
   geo: {
     lat: simpleNumberType,

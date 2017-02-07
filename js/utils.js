@@ -593,6 +593,23 @@ var toHourOffsetString = function(hourVal,places) {
   return str;
 }
 
+var secondsToHours = function(secs) {
+  var out = '';
+  if (isNumeric(secs)) {
+    var hrs = Math.floor(secs/3600),
+      mins = Math.floor(secs/60) % 60,
+      s = secs%60;
+      out = hrs.toString();
+      if (mins > 0) {
+        out += ':' + zeroPad2(mins);
+      }
+      if (mins > 0) {
+        out += ':' + zeroPad2(s);
+      }
+  }
+  return out;
+}
+
 var toSwissEphTime = function(strTime) {
     var parts = strTime.split(":"), t;
     if (parts.length>1) {
