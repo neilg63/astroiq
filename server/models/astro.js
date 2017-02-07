@@ -28,6 +28,7 @@ var Nested = mongoose.model('Nested', {
   cmd: simpleStringType,
   name: simpleStringType,
   gender: simpleStringType,
+  personId:
   chartType: simpleStringType,
   datetime: {
      type: Date,
