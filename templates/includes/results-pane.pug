@@ -1,6 +1,6 @@
 dl.results-list(:class="{hidden: !results.valid}")
   dt.datetime Date and time
-    dd.datetime(:title="results.datetime") {{results.display_datetime}}
+    dd.datetime(:title="results.datetime") {{results.dateinfo.display}}
   dt.location Location
     dd.location 
       p.coordinates {{results.geo.display_coords}}

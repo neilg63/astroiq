@@ -22,6 +22,7 @@ var Timezone = mongoose.model('Timezone', {
   countryCode: simpleStringType,
   zoneName: simpleStringType,
   abbreviation: simpleStringType,
+  gmtOffset: numberType,
   dst: simpleStringType,
   dstStart: numberType,
   dstEnd: numberType

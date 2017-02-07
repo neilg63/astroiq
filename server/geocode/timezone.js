@@ -10,17 +10,18 @@ var timezone = {
 		data = {
 			coords_date: coords_date
 		};
+		console.log(json)
 		for (var k in json) {
 			switch (k) {
 				case 'countryCode':
-  			case 'zoneName':
-  			case 'abbreviation':
-  			case 'gmtOffset':
-  			case 'dst':
-  			case 'dstStart':
-  			case 'dstEnd':
-  				data[k] = json[k];
-  				break;
+	  			case 'zoneName':
+	  			case 'abbreviation':
+	  			case 'gmtOffset':
+	  			case 'dst':
+	  			case 'dstStart':
+	  			case 'dstEnd':
+	  				data[k] = json[k];
+	  				break;
 			}
 		}
 		return data;
