@@ -265,7 +265,7 @@ var AstroChart = {
     this.bodyLayer = d3.select('g.bodies-layer');
     var bNames = ['sun','moon','mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto','ketu','rahu'],
     bNum= bNames.length,
-    dist = 420,
+    dist = 360,
     deg = 15,d,
     i=0,bn,body,pos;
     for (;i<bNum;i++) {
@@ -285,7 +285,6 @@ var AstroChart = {
       });*/
       this.bodies.push(body);
       deg += 30;
-      dist -= 10;
     }
   },
 
@@ -300,7 +299,7 @@ var AstroChart = {
       for (bn in bodies) {
         if (bn != key) {
           item = bodies[bn];
-          if (item.lng < (lng+12) && item.lng > (lng-12)) {
+          if (item.lng < (lng+9) && item.lng > (lng-9)) {
             collisions.push(bn);
           }
         }
@@ -312,7 +311,7 @@ var AstroChart = {
   moveBodies: function(bodies) {
     var deg = 15,
     steps=30,
-    dist = 320,
+    dist = 375,
     collisions=[],
     offset=0,
     offsetMap={},
@@ -326,16 +325,8 @@ var AstroChart = {
       if (typeof item == 'object') {
         body = d3.select('#'+bn+'-symbol');
         if (body.empty() === false) {
-          if (isNumeric(item.lng)) {
-            lbl = body.select('text.coords');
-            txt = toAstroDegree(item.lng % 30);
-            lbl.text(txt);
-          }
-         if (isNumeric(item.house)) {
-            lbl = body.select('text.house');
-            txt = Math.approxFixed(item.house,2);
-            lbl.text(txt);
-          }
+          
+         
           deg = item.lng;
           d = 120 - deg;
           oldDeg = parseFloat(body.attr('data-lng')),
@@ -343,22 +334,22 @@ var AstroChart = {
           collisions = this.findCollisions(bodies,bn);
           offset = 0;
           if (collisions.length>0) {
-            mult = (100 / collisions.length) + 20;
+            mult = (60 / collisions.length) + 10;
             for (var j=0,colItem;j<collisions.length;j++) {
               colItem = collisions[j];
               if (!offsetMap[colItem]) {
-                offsetMap[colItem] = ((j+1) * mult) - 10;
+                offsetMap[colItem] = ((j+1) * mult) - 5;
               }
             }
             if (offsetMap[bn]) {
               offset = offsetMap[bn];
             } else {
-              offset = -10;
+              offset = -5;
             }
           }
           body.attr('data-lng',d);
           for (i=0;i<steps;i++) {
-            pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),(dist+offset),-12,-12);
+            pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),(dist-offset),-12,-12);
             body.transition()
             .delay(i*(duration/steps))
             .duration((duration/steps))
@@ -368,6 +359,18 @@ var AstroChart = {
               td += 180;
             }
             body.select('.coords').attr('transform','rotate('+td+')');
+          }
+          if (isNumeric(item.lng)) {
+
+            lbl = this.bodyLayer.select('text#'+bn+'-coords');
+            console.log(lbl.empty)
+            txt = toAstroDegree(item.lng % 30);
+            if (isNumeric(item.house)) {
+              lbl.attr('title',Math.approxFixed(item.house,2));
+            }
+            pos = AstroChart._xyPos(d,430);
+            lbl.text(txt)
+              .attr('transform','translate('+pos.x+','+pos.y+') rotate('+(d-270)+',0,0)');
           }
         }
       }

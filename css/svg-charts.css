@@ -128,38 +128,39 @@ g.body .symbol {
 }
 
 g.body {
-  fill: transparent;
   pointer-events: all;
   cursor: pointer;
 }
 
 g.body text {
+  fill: #999999;
+}
+
+
+g.bodies-layer text.coords {
+  font-size: 0.8em;
+}
+
+g.bodies-layer:hover g.body text {
   fill: #333333;
-  opacity: 0.75;
-}
-
-g.body text.house,
-g.body text.coords {
-  font-size: 0.625em;
-}
-
-g.body text {
-  opacity: 0;
-}
-
-g.body {
-  fill: white;
-}
-
-g.body text.coords {
   opacity: 1;
 }
 
-g.body text.house {
-  transform: translate(6px, -30px);
+g.body:hover path {
+  fill:  #330099;
 }
 
-g.bodies-layer g.body:hover text {
+g.body circle.body-bg {
+  fill:white;
+  cx:  20px;
+  cy:  30px;
+  r: 40px;
+  fill: white;
+  stroke:  none;
+  opacity: 0;
+}
+
+g.bodies-layer text.coords {
   opacity: 1;
   fill: #666666;
 }
@@ -168,5 +169,5 @@ g.body circle {
   stroke:#996600;
 }
 g.body path {
-  fill: #996600;
+  fill: #556677;
 }
