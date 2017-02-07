@@ -847,6 +847,11 @@ line.solid {
     color:  red;
 }
 
+#queries li span.refresh:after {
+    content:  "*";
+    margin-left: 0.5em;
+}
+
 .new-record span.delete:after {
     position: absolute;
     left: 0.5em;

@@ -348,6 +348,65 @@ function toHouse(columns) {
 	return data;
 }
 
+function isBetween(v1, lower,upper) {
+  if (upper < lower) {
+    return (v1 > lower || v1 <= upper);
+  } else {
+    return (v1 < upper && v1 >= lower);
+  }
+  
+}
+
+function isInRange(v1, v2,tolerance) {
+  return isBetween(v1,(v2-tolerance),(v2+tolerance));
+}
+
+astro.findCollisions = (bodies,key,degRange=9) => {
+	var aspectData = {
+		collisions: [],
+		aspects: []
+	},
+	item = bodies[key],lng = -1,bn;
+	if (typeof item == 'object') {
+	  if (item.lng) {
+	     lng = item.lng;
+	  }
+	}
+	if (lng > -1) {
+	  for (bn in bodies) {
+	    if (bn != key) {
+	      item = bodies[bn];
+	      if (typeof item == 'object') {
+	      	if (item.lng) {
+	      		if (isInRange(item.lng,lng,degRange)) {
+		          aspectData.collisions.push(bn);
+		        } else if (isBetween(item.lng,(lng+150)%360,(lng+210)%360)) {
+              aspectData.aspects.push({
+                key: bn,
+                to: item.lng,
+                band: 1
+              });
+            } else if (isBetween(item.lng,(lng+105)%360,(lng+150)%360)) {
+              aspectData.aspects.push({
+                key: bn,
+                to: item.lng,
+                band: 2
+              });
+            } else if (isBetween(item.lng,(lng+60)%360,(lng+105)%360)) {
+              aspectData.aspects.push({
+                key: bn,
+                to: item.lng,
+                band: 3
+              });
+            }
+	      	}
+	      }
+	    }
+	  }
+	}
+	return aspectData;
+};
+
 function cleanLine(line) {
 	return line.trim().replace(/(-?\d+)°\s{0,2}(-?\d+)'\s{0,2}(-?\d+)/g,'$1,$2,$3');
 }
@@ -1003,10 +1062,21 @@ astro.fetch = (cmd, res, query, debug) => {
 };
 
 astro.parseBodies = (data) => {
-	var b = {}, rahu, k;
+	var b = {}, rahu, k, as;
 	if (data.bodies) {
 		for (k in data.bodies) {
-			b[k] = data.bodies[k];
+			if (typeof data.bodies[k] == 'object') {
+				if (data.bodies[k].lng) {
+          as = astro.findCollisions(data.bodies,k,9);
+					b[k] = {
+						lng: data.bodies[k].lng,
+						lat: data.bodies[k].lat,
+						ecl: data.bodies[k].ecl,
+						collisions: as.collisions,
+            aspects: as.aspects
+					};
+				}
+			}
 		}
 		if (data.true_node) {
 			rahu = data.true_node;
@@ -1014,12 +1084,26 @@ astro.parseBodies = (data) => {
 	  	rahu = data.astro.true_node;
 	  }
 	  if (rahu) {
-	  	b.rahu = rahu;
+	  	b.rahu = {
+        lng: rahu.lng,
+        lat: rahu.lat,
+        ecl: rahu.ecl,
+        aspects:[],
+        collisions:[]
+      };
 	    b.ketu = {
 	    	lng: (rahu.lng + 180) % 360,
 	    	lat: rahu.lat,
-	    	ecl: rahu.ecl
-	    }
+	    	ecl: rahu.ecl,
+        aspects:[],
+        collisions:[]
+	    };
+      as = astro.findCollisions(b,'rahu',9);
+      b.rahu.collisions = as.collisions;
+      b.rahu.aspects = as.aspects;
+      as = astro.findCollisions(b,'ketu',9);
+      b.ketu.collisions = as.collisions;
+      b.ketu.aspects = as.aspects;
 	  }
 	}
   return b;

@@ -288,26 +288,6 @@ var AstroChart = {
     }
   },
 
-  findCollisions: function(bodies,key) {
-    var collisions=[],item = bodies[key],lng = -1,bn;
-    if (typeof item == 'object') {
-      if (item.lng) {
-         lng = item.lng;
-      }
-    }
-    if (lng > -1) {
-      for (bn in bodies) {
-        if (bn != key) {
-          item = bodies[bn];
-          if (item.lng < (lng+9) && item.lng > (lng-9)) {
-            collisions.push(bn);
-          }
-        }
-      }
-    }
-    return collisions;
-  },
-
   moveBodies: function(bodies) {
     var deg = 15,
     steps=30,
@@ -317,8 +297,8 @@ var AstroChart = {
     offsetMap={},
     duration=900,
     i=0,lbl,txt,
-    d,dy,bn,item,body,pos,diff,mult,td;
-
+    d,dy,bn,item,body,pos,pos2,diff,mult,td;
+    d3.selectAll('line.aspect').remove();
 
     for (bn in bodies) {
       item = bodies[bn];
@@ -329,9 +309,27 @@ var AstroChart = {
          
           deg = item.lng;
           d = 120 - deg;
+          if (item.aspects) {
+          if (item.aspects.length>0) {
+            for (i=0;i<item.aspects.length;i++) {
+              pos = AstroChart._xyPos(d,510);
+              pos2 = AstroChart._xyPos((120-item.aspects[i].to),510);
+              this.bodyLayer.append('line')
+                .attr('x1',pos.x)
+                .attr('y1',pos.y)
+                .attr('x2',pos2.x)
+                .attr('y2',pos2.y)
+                .attr('stroke-width',2)
+                .attr('class','aspect band-' + item.aspects[i].band);
+            }
+          }
+         }
           oldDeg = parseFloat(body.attr('data-lng')),
           diff=oldDeg-d;
-          collisions = this.findCollisions(bodies,bn);
+          collision = [];
+          if (item.collisions) {
+            collisions = item.collisions;
+          }
           offset = 0;
           if (collisions.length>0) {
             mult = (60 / collisions.length) + 10;
@@ -363,7 +361,6 @@ var AstroChart = {
           if (isNumeric(item.lng)) {
 
             lbl = this.bodyLayer.select('text#'+bn+'-coords');
-            console.log(lbl.empty)
             txt = toAstroDegree(item.lng % 30);
             if (isNumeric(item.house)) {
               lbl.attr('title',Math.approxFixed(item.house,2));

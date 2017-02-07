@@ -165,6 +165,18 @@ g.bodies-layer text.coords {
   fill: #666666;
 }
 
+g.bodies-layer line.band-1 {
+  stroke: red;
+}
+
+g.bodies-layer line.band-2 {
+  stroke: orange;
+}
+
+g.bodies-layer line.band-3 {
+  stroke: green;
+}
+
 g.body circle {
   stroke:#996600;
 }

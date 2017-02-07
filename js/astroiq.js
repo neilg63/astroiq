@@ -1055,16 +1055,9 @@ var app = new Vue({
       this.toggleDegreeMode('display');
       AstroIQ.loadGMap();
     },
-    /*syncDatetime: function() {
-      var dob = document.getElementById('form-dob'),
-        tob = document.getElementById('form-tob');
-      if (dob) {
-        this.dob = dob.value;
-      }
-      if (tob) {
-        this.tob = tob.value;
-      }
-    },*/
+    refreshLocalItem: function(paramStr) {
+      this.loadQuery(paramStr,true);
+    },
     saveSettings: function() {
 
     },
