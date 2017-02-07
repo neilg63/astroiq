@@ -800,10 +800,11 @@ var app = new Vue({
       if (this.results.datetime) {
         if (/^\d\d\d\d-\d\d-\d\d?/.test(this.results.datetime)) {
           var dt =  new Date(this.results.datetime);
+          dt.setSeconds(dt.getTimezoneOffset() * 60);
           this.results.dateinfo.tz = data.dateinfo.zone;
           
           if (data.dateinfo.hasOwnProperty('gmtOffset')) {
-
+              
               this.results.dateinfo.gmtOffset = data.dateinfo.gmtOffset;
               dt.setSeconds(data.dateinfo.gmtOffset);
               this.results.dateinfo.datetime = dt;
