@@ -613,7 +613,8 @@ var app = new Vue({
       ayanamsa: "-",
       hsy: "W",
       rodden: "-",
-      mode: 'topo'
+      mode: 'topo',
+      layout: "western"
     },
     queries: [],
     chartData: {
@@ -1136,6 +1137,10 @@ var app = new Vue({
       } else {
         this.chartData.active = false;
       }
+      if (this.activeTab == 'map') {
+        var c = this.location.coords;
+          GeoMap.updateMap(c.lat,c.lng,true,false);
+      }
       AstroChart.updateHouses(data.houses);
       AstroChart.moveBodies(data.bodies);
     },
@@ -1358,6 +1363,7 @@ var app = new Vue({
             var par = $(this).parent();
             e.stopImmediatePropagation();
             if (par.hasClass('closed')) {
+                par.parent().find('fieldset.collapsible.open').removeClass('open').addClass('closed');
                 par.removeClass('closed').addClass('open');
             } else {
                 par.removeClass('open').addClass('closed');

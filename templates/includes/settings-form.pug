@@ -2,29 +2,31 @@
 form#settings-form.pane(:class="{active:subPane=='settings'}" action="/settings" method="post" v-on:submit.prevent="saveSettings")
   h2.form-label Calculation Settings
   //- include settings/calc-house-system.pug
-  fieldset.collapsible.open
-    h4.toggle Default House System
+  fieldset.main.open
     p.sub-section
-      label(for="form-hsy") House system:
+      label.left(for="form-hsy") House system:
       select#form-hsy.select-input(name="hsy" v-model="options.hsy")
         each opt,index in houseSystems
           option(value = opt.value)= opt.label
-  //- include settings/calc-ayanamsha.pug
-  fieldset.collapsible.open
-    h4.toggle Tropical vs. Sidereal (Ayanāṃśa)
     p.sub-section
-      label(for="form-ayanamsa") Ayanāṃśa
+      label.left(for="form-ayanamsa") Tropical vs. Sidereal (Ayanāṃśa)
       select#form-ayanamsa.select-input(name="ayanamsa" v-model="options.ayanamsa")
         each opt,index in ayanamsas
           option(value = opt.value)= opt.label
-  //- include settings/calc-celestial.pug
-  fieldset.collapsible.open
-    h4.toggle Celestial Calculations
     p#form-mode.sub-section.radios
+      label.left(for="form-mode-topo") Celestial Calculations
       input#form-mode-topo.mode(type="radio" value="topo" name="mode" v-model="options.mode")
       label(for="form-mode-topo") Topocentric
       input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode" v-model="options.mode")
       label(for="form-mode-geo") Geocentric
+    p.sub-section
+      label.left(for="form-options-layout") Chart Layout
+      input#form-options-layout-western.checkbox(type="radio" name="options_layout" v-model="options.layout" value="western")
+      label(for="form-options-layout-western") Western
+      input#form-options-layout-northindian.checkbox(type="radio" name="options_layout" v-model="options.layout" value="northindian")
+      label(for="form-options-layout-northindian") North Indian
+      input#form-options-layout-southindian.checkbox(type="radio" name="options_layout" v-model="options.layout" value="southindian")
+      label(for="form-options-layout-southindian") South Indian 
 
 
   fieldset.collapsible.closed
