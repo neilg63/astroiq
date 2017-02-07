@@ -393,6 +393,8 @@ span.symbol-radio label {
     font-size: 1.3333em;
 }
 
+
+
 #control-form .glyphicon-calendar:before {
     content: "\e953";
 }
@@ -413,8 +415,9 @@ span.symbol-radio label {
     display: none;
 }
 
+#control-panel #settings-form.active,
 #control-panel #control-form.active {
-    min-height: 30em;
+    min-height: 50em;
 }
 
 #control-panel span.symbol-radio label {
@@ -462,10 +465,15 @@ span.symbol-radio label {
 }
 
 
-#tween-symbol-container .symbol {
-    fill: none;
-    stroke: #990000;
-    stroke-width: 3px;
+#settings-form label.left {
+    min-width: 12em;
+    text-align: right;
+    padding-right: 0.5em;
+    white-space: normal;
+}
+
+#settings-form fieldset .notes {
+    font-size: 0.8em;
 }
 
 #chart-tabs {
