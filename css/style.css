@@ -185,11 +185,12 @@ span.symbol-radio label {
 
     body.show-control-panel #pane-tabs,
     body.show-control-panel #main {
-        width:  58vw;
-        margin-left: 43vw;
+        width:  59vw;
+        margin-left: 41vw;
     }
 
     body.show-control-panel #results-pane {
+        margin-left: 1em;
         font-size: 92%;
     }
 
