@@ -485,6 +485,26 @@ span.symbol-radio label {
     white-space: normal;
 }
 
+#settings-form span.radio-options {
+    display: inline-block;
+}
+
+#settings-form p > label {
+    float:  left;
+}
+
+#settings-form span.radio-options span.option {
+    display: block;
+    clear:  left;
+}
+
+@media screen and (min-width: 768px) {
+    #settings-form span.radio-options span.option,
+    #settings-form span.radio-options {
+        display: inline;
+    }
+}
+
 #settings-form fieldset .notes {
     font-size: 0.8em;
 }
