@@ -261,6 +261,11 @@ var AstroChart = {
     }
   },
 
+  matchCoordsLabel: function(self) {
+    var lblId = self.attr('id').replace('-symbol','-coords');
+    return d3.select('#'+lblId);
+  },
+
   placeBodies: function() {
     this.bodyLayer = d3.select('g.bodies-layer');
     var bNames = ['sun','moon','mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto','ketu','rahu'],
@@ -277,12 +282,17 @@ var AstroChart = {
       .attr('transform','translate('+pos.x+','+pos.y+')')
       .attr('data-lng',d)
       .attr('data-lat',5);
-      /*body.on('mouseover', function() {
-        d3.select(this).classed("over",true);
+      body.on('mouseover', function() {
+        var self = d3.select(this),
+        lbl = AstroChart.matchCoordsLabel(self);
+        self.classed("over",true);
+        lbl.classed("over",true);
       }).on('mouseout', function() {
-        d3.select(this).classed("over",false);
-        console.log(d3.select(this).attr('class'))
-      });*/
+        var self = d3.select(this),
+        lbl = AstroChart.matchCoordsLabel(self);
+        self.classed("over",false);
+        lbl.classed("over",false);
+      });
       this.bodies.push(body);
       deg += 30;
     }
@@ -332,7 +342,7 @@ var AstroChart = {
           }
           offset = 0;
           if (collisions.length>0) {
-            mult = (60 / collisions.length) + 10;
+            mult = (45 / collisions.length) + 5;
             for (var j=0,colItem;j<collisions.length;j++) {
               colItem = collisions[j];
               if (!offsetMap[colItem]) {
@@ -344,6 +354,12 @@ var AstroChart = {
             } else {
               offset = -5;
             }
+          }
+          switch (bn) {
+            case 'rahu':
+            case 'ketu':
+              offset += 75;
+              break;
           }
           body.attr('data-lng',d);
           for (i=0;i<steps;i++) {
