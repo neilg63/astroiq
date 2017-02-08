@@ -1072,6 +1072,7 @@ astro.parseBodies = (data) => {
 						lng: data.bodies[k].lng,
 						lat: data.bodies[k].lat,
 						ecl: data.bodies[k].ecl,
+            house: data.bodies[k].house,
 						collisions: as.collisions,
             aspects: as.aspects
 					};
