@@ -2,6 +2,7 @@ const request = require('request');
 const geonames = require('./geonames.js');
 const getIP = require('ipware')().get_ip;
 const geoPluginUrl = 'http://www.geoplugin.net/json.gp';
+const config = require('./../config/config');
 
 var geoplugin = {
 

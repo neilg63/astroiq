@@ -1,11 +1,11 @@
 const request = require('request');
+const config = require('./../config/config');
 const {mongoose} = require('./../db/mongoose');
 const textutils = require('./../lib/text-utils.js');
 const conversions = require('./../lib/conversions.js');
 const timezone = require('./timezone.js');
 //const {Geoname} = require('./../server/models/geoname');
 const geoNamesUrl = 'http://api.geonames.org';
-const geoNamesUserName = 'serpentinegallery';
 
 var geonames = {
 
@@ -240,7 +240,7 @@ var geonames = {
 	request: (searchStr = '',bias = 'XX',mode='filtered',callback) => {
     var maxRows = mode == 'narrow'? 5 : geonames.maxRows;
     var valid = false,
-    href = geoNamesUrl + `/search?style=full&type=json&formatted=true&q=${searchStr}&username=${geoNamesUserName}&maxRows=${maxRows}`,
+    href = geoNamesUrl + `/search?style=full&type=json&formatted=true&q=${searchStr}&username=${config.geonames.username}&maxRows=${maxRows}`,
     filterCoords={},matchCoords=false;
     if (conversions.isCoords(bias)) {
       var filterCoords = conversions.strToLatLng(bias);

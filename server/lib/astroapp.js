@@ -366,7 +366,7 @@ astro.findCollisions = (bodies,key,degRange=9) => {
 		collisions: [],
 		aspects: []
 	},
-	item = bodies[key],lng = -1,bn;
+	item = bodies[key],lng = -1,bn,band=0;
 	if (typeof item == 'object') {
 	  if (item.lng) {
 	     lng = item.lng;
@@ -378,27 +378,36 @@ astro.findCollisions = (bodies,key,degRange=9) => {
 	      item = bodies[bn];
 	      if (typeof item == 'object') {
 	      	if (item.lng) {
+            band = 0;
 	      		if (isInRange(item.lng,lng,degRange)) {
 		          aspectData.collisions.push(bn);
-		        } else if (isBetween(item.lng,(lng+150)%360,(lng+210)%360)) {
-              aspectData.aspects.push({
+		        } else if (isBetween(item.lng,(lng+170)%360,(lng+190)%360)) {
+              band = 1;
+               // opposition
+            } else if (isBetween(item.lng,(lng+148)%360,(lng+152)%360)) {
+              band = 2;
+              // inconjunction
+            } else if (isBetween(item.lng,(lng+110)%360,(lng+130)%360)) {
+              band = 3;
+              // trine
+            } else if (isBetween(item.lng,(lng+80)%360,(lng+100)%360)) {
+              band = 4;
+              // square
+            } else if (isBetween(item.lng,(lng+55)%360,(lng+65)%360)) {
+              band = 5;
+              // sextile
+            } else if (isBetween(item.lng,(lng+0)%360,(lng+10)%360)) {
+              band = 6;
+              // conjunction
+            }
+            if (band>0) {
+                aspectData.aspects.push({
                 key: bn,
                 to: item.lng,
-                band: 1
-              });
-            } else if (isBetween(item.lng,(lng+105)%360,(lng+150)%360)) {
-              aspectData.aspects.push({
-                key: bn,
-                to: item.lng,
-                band: 2
-              });
-            } else if (isBetween(item.lng,(lng+60)%360,(lng+105)%360)) {
-              aspectData.aspects.push({
-                key: bn,
-                to: item.lng,
-                band: 3
+                band: band
               });
             }
+            
 	      	}
 	      }
 	    }
@@ -955,12 +964,13 @@ astro.saveData = (model,callback) => {
        var nested = new Nested(data);
        if (update) {
        		Nested.findById(id, function (err, record) {
-					  if (err) {
-					  	return callback(err);
+					  if (err || record === null) {
+					  	return callback({valid:false, msg:"not found"});
 					  }
 					  var k;
 					  for (k in data) {
 					  	if (k !== 'id') {
+
 					  		record[k] = data[k];
 					  	}
 					  }

@@ -1,15 +1,10 @@
 const request = require('request');
+const config = require('./../config/config');
 //const {mongoose} = require('./../server/db/mongoose');
 const geonames = require('./geonames.js');
 const textutils = require('./../lib/text-utils.js');
 const conversions = require('./../lib/conversions.js');
 const querystring = require('querystring');
-
-const arcgisConfig = {
-  client_id: 'NCoF20QyYqi5b0Wk',
-  client_secret: '91cac734947a4885b2baa4446984aaad',
-  url: 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/'
-};
 
 var arcgis = {
   
@@ -20,8 +15,8 @@ var arcgis = {
       json:true,
       form: {
         'f': 'json',
-        'client_id': arcgisAuth.client_id,
-        'client_secret': arcgisAuth.client_secret,
+        'client_id': config.arcgis.client_id,
+        'client_secret': config.arcgis.client_secret,
         'grant_type': 'client_credentials',
         'expiration': '86400'
       }
