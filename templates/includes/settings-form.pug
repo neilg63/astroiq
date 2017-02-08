@@ -15,36 +15,43 @@ form#settings-form.pane(:class="{active:subPane=='settings'}" action="/settings"
           option(value = opt.value)= opt.label
     p#form-mode.sub-section.radios
       label.left(for="form-mode-topo") Celestial Calculations
-      input#form-mode-topo.mode(type="radio" value="topo" name="mode" v-model="options.mode")
-      label(for="form-mode-topo") Topocentric
-      input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode" v-model="options.mode")
-      label(for="form-mode-geo") Geocentric
-    p.sub-section
+      span.radio-options
+        span.option
+          input#form-mode-topo.mode(type="radio" value="topo" name="mode" v-model="options.mode")
+          label(for="form-mode-topo") Topocentric
+        span.option
+          input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode" v-model="options.mode")
+          label(for="form-mode-geo") Geocentric
+    p#form-layout.sub-section.radios
       label.left(for="form-options-layout") Chart Layout
-      input#form-options-layout-western.checkbox(type="radio" name="options_layout" v-model="options.layout" value="western")
-      label(for="form-options-layout-western") Western
-      input#form-options-layout-northindian.checkbox(type="radio" name="options_layout" v-model="options.layout" value="northindian")
-      label(for="form-options-layout-northindian") North Indian
-      input#form-options-layout-southindian.checkbox(type="radio" name="options_layout" v-model="options.layout" value="southindian")
-      label(for="form-options-layout-southindian") South Indian 
+      span.radio-options
+        span.option
+          input#form-options-layout-western.checkbox(type="radio" name="options_layout" v-model="options.layout" value="western")
+          label(for="form-options-layout-western") Western
+        span.option
+          input#form-options-layout-northindian.checkbox(type="radio" name="options_layout" v-model="options.layout" value="northindian")
+          label(for="form-options-layout-northindian") North Indian
+        span.option
+          input#form-options-layout-southindian.checkbox(type="radio" name="options_layout" v-model="options.layout" value="southindian")
+          label(for="form-options-layout-southindian") South Indian 
 
 
+
+  h4.subtitle Solar Year & Lunar Month
+  //- include settings/calc-year-solar.pug
   fieldset.collapsible.closed
-    h4.toggle Solar Year & Lunar Month
-    //- include settings/calc-year-solar.pug
-    fieldset.collapsible.open
-      h5.toggle Astronomical Solar Year
-      div.sub-sub-section
-        p
-          input#form-solar-t.solar(type="radio" value="365.242199" name="solar-t" checked="true" )
-          label(for="form-solar-t") Tropical Year
-        p
-          input#form-solar-s.solar(type="radio" value="365.256366" name="solar-t")
-          label(for="form-solar-s") Sidereal Year
-        p
-          input#form-solar-a.solar(type="radio" value="365.259636" name="solar-t")
-          label(for="form-solar-a") Anomalistic year
-        div.notes!= solarYearOptionNotes
+    h5.toggle Astronomical Solar Year
+    div.sub-sub-section
+      p
+        input#form-solar-t.solar(type="radio" value="365.242199" name="solar-t" checked="true" )
+        label(for="form-solar-t") Tropical Year
+      p
+        input#form-solar-s.solar(type="radio" value="365.256366" name="solar-t")
+        label(for="form-solar-s") Sidereal Year
+      p
+        input#form-solar-a.solar(type="radio" value="365.259636" name="solar-t")
+        label(for="form-solar-a") Anomalistic year
+      div.notes!= solarYearOptionNotes
 
   //- include settings/calc-year-dasha.pug
   fieldset.collapsible.closed
