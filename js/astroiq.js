@@ -3,16 +3,18 @@ var initJQueryDateBox = function() {
     var scrTag = jQuery('<script type="text/javascript"></script>'),
     jr = jQuery('#jq-resources');
     if (jr.length>0) {
-        var jqui = jr.attr('data-jqui'),
-            jqdb = jr.attr('data-jqdb');
-        if (jqui !== undefined && jqdb !== undefined) {
-            var s1 = scrTag.clone(),head = jQuery('head').first();
-            s1.attr('src',jqui);
-            head.append(s1);
-            var s2 = scrTag.clone();
-            s2.attr('src',jqdb);
-            head.append(s2);
-            setTimeout(initDateBox,500);
+        var vl = jr.val();
+        if (vl) {
+          var jScripts = vl.split(',');
+          if (jScripts.length>1) {
+              var s1 = scrTag.clone(),head = jQuery('head').first();
+              s1.attr('src',jScripts[0]);
+              head.append(s1);
+              var s2 = scrTag.clone();
+              s2.attr('src',jScripts[1]);
+              head.append(s2);
+              setTimeout(initDateBox,500);
+          }
         }
     }
     
@@ -462,8 +464,9 @@ var AstroIQ = {
   loadGMap: function(focus,lat,lng) {
     var gMapApi = jQuery('#gmap-api-key');
     if (gMapApi.length>0) {
-      var gMapApiKey = gMapApi.attr('data-key'),
+      var gMapApiKey = gMapApi.val(),
         st = jQuery('#gmap-core');
+
       if (st.length < 1 && gMapApiKey) {
          st = jQuery('<script id="gmap-core" async defer src="https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&callback=initMap"></script>');
           jQuery('body').append(st);

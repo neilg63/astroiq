@@ -1,8 +1,8 @@
 const request = require('request');
 const {mongoose} = require('./../db/mongoose');
+const config = require('./../config/config');
 const {Geo} = require('./../models/geo');
 const {HospitalData} = require('./../models/hospitalData');
-const googleApiKey = 'AIzaSyAOeXTgZTB_cJUyV9B2DOiZI_6LoVU2vs8';
 const googleApiBaseUrl = 'https://maps.googleapis.com/maps/api/';
 const googleGeocodeBaseUrl = googleApiBaseUrl + 'geocode/json';
 const googlePlacesBaseUrl = googleApiBaseUrl + 'place/nearbysearch/json';
@@ -43,7 +43,7 @@ var geocode = {
         href = `${googleGeocodeBaseUrl}?address=${searchStr}`;
         break;
     }
-    href += `&key=${googleApiKey}`;
+    href += `&key=${config.google.geocode_apikey}`;
 
 		return {
 		  url: href,

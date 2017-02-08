@@ -174,17 +174,34 @@ g.body circle.body-bg {
   stroke:  none;
   opacity: 0;
 }
-
+/**/
 g.bodies-layer line.band-1 {
-  stroke: red;
+  stroke: #cc0000;
 }
 
 g.bodies-layer line.band-2 {
-  stroke: orange;
+  stroke: #999999;
 }
 
+/* trine */
 g.bodies-layer line.band-3 {
-  stroke: green;
+  stroke: blue;
+}
+
+
+/* square */
+g.bodies-layer line.band-4 {
+  stroke: #ee4400;
+}
+
+/* sextile */
+g.bodies-layer line.band-5 {
+  stroke: #00cc00;
+}
+
+/* conjunction */
+g.bodies-layer line.band-6 {
+  stroke: #990000;
 }
 
 g.body circle {

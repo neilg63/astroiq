@@ -1,6 +1,7 @@
 const sys = require('util');
 const express = require("express");
 const bodyParser = require("body-parser");
+const config = require('./config/config');
 const {mongoose} = require('./db/mongoose');
 const {Nested} = require('./models/nested');
 const {Geo} = require('./models/geo');

@@ -2,7 +2,7 @@ const request = require('request');
 const {mongoose} = require('./../db/mongoose');
 const {Timezone} = require('./../models/timezone');
 const timezone_db_url = 'http://api.timezonedb.com/v2/get-time-zone';
-const timezone_db_apikey = '0NXJ03JE76B4';
+const config = require('./../config/config');
 
 var timezone = {
 
@@ -56,7 +56,7 @@ var timezone = {
 
 	request: (data,date,method='zone',callback) => {
 		var valid = false,
-			href = timezone_db_url + `?key=${timezone_db_apikey}&format=json&by=${method}`,
+			href = timezone_db_url + `?key=${config.timezonedb.apikey}&format=json&by=${method}`,
 			coords_date = '';
 		if (method == 'zone') {
 			data = data.replace(':','/');

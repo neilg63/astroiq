@@ -1,6 +1,7 @@
 const fs = require('fs');
 const filter = require('./filter-funcs.js');
 const timezones = require('./timezones.js');
+const config = require('./../server/config/config.js');
 
 var vars = {};
 
@@ -86,5 +87,9 @@ vars.chartTypes = [
 vars.solarYearOptionNotes = filter.getHtml('solarYearOptionNotes');
 
 vars.lunarMonthsNoteOptions = filter.getHtml('lunarMonthsNoteOptions');
+
+vars.google = {
+  map_apikey: config.google.map_apikey
+};
 
 module.exports = vars;
