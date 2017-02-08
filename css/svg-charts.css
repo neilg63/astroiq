@@ -13,11 +13,6 @@ svg text {
 font-size: 3em;
 }
 
-.segment-symbol svg,
-.segment-symbol {
-   width: 30px;
-  height:  30px;
-}
 
 text {
   opacity: 1;
@@ -34,8 +29,8 @@ line.ascendant {
 stroke: red;
 }
 
-.segment {
-cursor:  pointer;
+.segment-symbol path {
+  transform: scale(1, -1) translate(0,-700px);
 }
 
 .degree-label {

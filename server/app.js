@@ -296,7 +296,7 @@ app.get('/home', function(req, res) {
 
 app.get('/astro', function(req, res) {
    const page = pug.compileFile(tplDir + '/astro.pug');
-    res.send(page(variables));
+   res.send(page(variables));
 });
 
 app.get('/zodiac', function(req, res) {
