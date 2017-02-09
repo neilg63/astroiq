@@ -561,6 +561,8 @@ var app = new Vue({
     newRecord: false,
     personId: null,
     chartType: "birth",
+    eventType: "",
+    eventTitle: "",
     candidateName: "",
     gender: {
       active: true,
@@ -570,7 +572,10 @@ var app = new Vue({
     },
     dob: '2017-01-01',
     tob: '13:00',
-    dateLabel: "Date and time of birth",
+    labels: {
+      date: "Date and time of birth",
+      promptType: "Event type"
+    },
     timezone: {
       offset: '00:00',
       ds: '0:00',
@@ -679,11 +684,22 @@ var app = new Vue({
       switch (this.chartType) {
         case 'birth':
           this.gender.active = true;
-          this.dateLabel = 'Date and time of birth';
+          this.labels.date = 'Date and time of birth';
           break;
         default:
-          this.dateLabel = 'Date and time';
+          this.labels.date = 'Date and time';
           this.gender.active = false;
+          break;
+      }
+      switch (this.chartType) {
+        case 'question':
+          this.labels.promptType = 'Prompt';
+          break;
+        case 'electional':
+          this.labels.promptType = 'Prompt';
+          break;
+        default:
+          this.labels.promptType = 'Event type';
           break;
       }
     },

@@ -84,6 +84,15 @@ vars.chartTypes = [
   {value:"electional", label: "Electional",selected:false}
 ];
 
+vars.eventTypes = [
+  {value:"Start school", label: "Start school",selected:false},
+  {value:"Meet partner", label: "Meet partner",selected:false},
+  {value:"Give birth", label: "Give birth",selected:false},
+  {value:"Wedding", label: "Wedding",selected:false},
+  {value:"Graduate", label: "Graduate",selected:false},
+  {value:"Start job", label: "Start job",selected:false}
+];
+
 vars.solarYearOptionNotes = filter.getHtml('solarYearOptionNotes');
 
 vars.lunarMonthsNoteOptions = filter.getHtml('lunarMonthsNoteOptions');
