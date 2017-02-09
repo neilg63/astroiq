@@ -10,6 +10,13 @@ form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method=
     label(for="new-record") New record
     span.delete(v-on:click.stop="deleteQuery(currId,'queries')") delete
   +selectrow('chart_type','Type of Chart',chartTypes,false)(class="select-input" v-model="chartType")
+  p.prompt-type-row(:class="{hidden:chartType=='birth'}")
+    label(for="form-prompt-type") {{labels.promptType}}
+    select#form-prompt-type.select-input(name="prompt_type")
+      each opt,index in eventTypes
+        option(value = opt.value)= opt.label
+  p.event-title-row.full-span(:class="{hidden:chartType=='birth'}")
+    input.name(type="text" id="form-event-title" name="event_title" size="10" placeholder="Event title" v-model="event_title" autocomplete="off")
   p.name-row.full-span
     input.name(type="text" id="form-name" name="name" size="10" placeholder="Candidate's Name" v-model="candidateName" required="true" minlength="2" autocomplete="off")
   p.gender-row(:class="{collapsed: !gender.active,expanded: gender.active}")
@@ -26,7 +33,7 @@ form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method=
     label.sub.gender(for="form-gender-other") Other
     input.gender-other-type(:class="{hidden: !gender.otherActive}" type="text" maxlength="32" size="16" name="gender_other" id="form-gender-other-type" placeholder="Other gender definition" v-model="gender.otherType")
   div.datetime
-    label(for="form-dob") {{dateLabel}}:
+    label(for="form-dob") {{labels.date}}:
     div.dob-field.half-width.first
       input.datebox(type="date" id="form-dob" name="dob" size="10" data-options!="{&quot;mode&quot;:&quot;flipbox&quot;,&quot;useInlineBlind&quot;:true,&quot;useInlineAlign&quot;:&quot;center&quot;,&quot;useImmediate&quot;:&quot;true&quot;}" v-model="dob")
     div.tob-field.half-width.second

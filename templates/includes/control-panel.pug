@@ -3,11 +3,12 @@ aside#control-panel
   ul#sub-tabs.hor-tabs
     li.form(:class="{active:subPane=='form'}" v-on:click="showSub('form')") Form
     li.settings(:class="{active:subPane=='settings'}" v-on:click="showSub('settings')") Settings
-    li.queries(:class="{active:subPane=='queries'}" v-on:click="showSub('queries')") Queries
+    li.queries(:class="{active:subPane=='queries'}" v-on:click="showSub('queries')") Charts
   div.inner
     include control-form.pug
     include settings-form.pug
     div#queries.pane(:class="{active:subPane=='queries'}")
+      h3 Recent Charts
       ol.queries
         template(v-for="item in queries")
           li

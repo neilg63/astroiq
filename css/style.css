@@ -430,7 +430,7 @@ span.symbol-radio label {
 
 #control-panel #settings-form.active,
 #control-panel #control-form.active {
-    min-height: 50em;
+    min-height: 60em;
 }
 
 #control-panel span.symbol-radio label {
@@ -490,7 +490,16 @@ span.symbol-radio label {
 }
 
 #settings-form p > label {
-    float:  left;
+    float: left;
+}
+
+#settings-form .radio-options p {
+    padding: 0;
+    margin: 0;
+}
+
+#settings-form .radio-options p > label {
+    float: none;
 }
 
 #settings-form span.radio-options span.option {
@@ -505,8 +514,18 @@ span.symbol-radio label {
     }
 }
 
-#settings-form fieldset .notes {
-    font-size: 0.8em;
+#settings-form div.notes {
+    font-size: 0.75em;
+    padding: 0.75em 0 0.75em 1em;
+}
+
+#settings-form .sub-section {
+    padding: 0 0 0.75em 0;
+}
+
+#settings-form div.notes p {
+    margin: 0;
+    padding: 0.125em 0;
 }
 
 #chart-tabs {
@@ -1293,12 +1312,12 @@ div#map-pane > .inner {
     margin-left: -0.25em;
 }
 
-#control-panel p.radios label {
+form .radios > label {
     width: auto;
-    margin-right: 1.5em;
+    margin-right: 1em;
 }
 
-#control-panel p.radios input {
+form .radios input {
     margin-right: 0.25em;
 }
 
