@@ -1,20 +1,14 @@
 doctype html
 head
   link(type="text/css" href="//unpkg.com/purecss@0.6.1/build/pure-min.css" rel="stylesheet")
+  link(type="text/css" href="/icomoon/style.css" rel="stylesheet")
   style(media="all") @import url('/css/style.css')
 body
   include includes/header.pug
 
   aside#control-panel
-    footer#mini-anim
-      object#tween-symbol-container
-        include ../svgs/charts/tween-symbols.svg
+    //- footer#mini-anim
+    //-   object#tween-symbol-container
+    //-     include ../svgs/charts/tween-symbols.svg
   div#main
     include includes/about-content.html
-
-
-  script(src="/js/kutejs/kute.min.js")
-  
-  script(src="/js/kutejs/kute-attr.min.js")
-  
-  script(src="/js/kutejs/kute-svg.min.js")
