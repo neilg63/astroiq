@@ -1,6 +1,7 @@
 header#navbar(v-on:mouseleave="toggleMenu('hide')")
   h2#menu-toggle(v-on:click="toggleMenu()" v-bind:title="toggleMenuMessage")
-  h1.title-logo= title
+  h1.title-logo
+    a(href="/")= title
   nav.top
     ul
       li
