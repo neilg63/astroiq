@@ -8,13 +8,13 @@ LC="tr '[A-Z]' '[a-z]'"
 KEYCLEAN="sed -r s/^([a-z_-]+)\.?\s\(?([a-z_-]+?)\)?/\1_\2:/"
 KEYTIDY="sed -r s/_:/:/g"
 DEGREETIDY="sed -r s/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/g"
-REM_BODIES="sed -r s/^(isis-transpluto|nxbiru|nibiru|harrington|leverrier_neptune|adams_neptune|lowell_pluto|pickering_pluto|vulcan|proserpina).*?$//g"
+REM_BODIES="sed -r s/^(cupido|hades|zeus|kronos|apollon|admetos|poseidon|isis-transpluto|nxbiru|nibiru|harrington|leverrier_neptune|adams_neptune|lowell_pluto|pickering_pluto|vulcan|proserpina).*?$//g"
 
 OUT=$DATE" "$TIME" -fPLEBS "$TOPO" -pa"
-swetest $OUT | $LC | $KEYCLEAN | $KEYTIDY | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/g' | $REM_BODIES | sed -r 's/^([a-z_-]+):/t.\1:/g'
+swetest $OUT | $LC | $KEYCLEAN | $KEYTIDY | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/g' | $REM_BODIES | sed -r 's/^([a-z_-]+):/t.\1:/g' | sed -r 's/^t\.geo_long:.*?//' | sed -r 's/^.*?version.*?$//' | sed -r 's/\s+(delta)\s*t/,\1_t/'
 
-OUT=$DATE" "$TIME" -fPLEBS "$GEOPOS" -pa" 
-swetest $OUT | $LC | $KEYCLEAN | $KEYTIDY | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/g' | sed -r 's/^(date_dmy|ut|et|geo_long|epsilon_true|nutation):.*?$//g' | $REM_BODIES | sed -r 's/^([a-z_-]+):/g.\1:/g'
+OUT=$DATE" "$TIME" -fPLEBS "$GEOPOS 
+swetest $OUT | $LC | $KEYCLEAN | $KEYTIDY | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/g' | sed -r 's/^(date_dmy|ut|et|geo_long|epsilon_true|nutation|mean_node|true_node|mean_apogee|osc_apogee|intp_apogee|intp_perigee):.*?$//g' | $REM_BODIES | sed -r 's/^([a-z_-]+):/g.\1:/g'
 
 HOUSE="-house"$4","$3",W"
 swetest $DATE $TIME $HOUSE -p | grep 'house ' | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/' | sed -r 's/house\s\s?\s?([0-9]+)\s+/W-\1: /g'
@@ -25,8 +25,8 @@ swetest $DATE $TIME $HOUSE -p | grep 'house ' | sed -r 's/([0-9][^0-9 ])\s?\s?([
 #HOUSE="-house"$4","$3",D"
 #swetest $DATE $TIME $HOUSE -p | grep 'house ' | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/' | sed -r 's/house\s\s?\s?([0-9]+)\s+/D-\1: /g'
 
-HOUSE="-house"$4","$3",CB"
-swetest $DATE $TIME $HOUSE -p | grep 'house ' | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/' | sed -r 's/house\s\s?\s?([0-9]+)\s+/CB-\1: /g'
+#HOUSE="-house"$4","$3",CB"
+#swetest $DATE $TIME $HOUSE -p | grep 'house ' | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/' | sed -r 's/house\s\s?\s?([0-9]+)\s+/CB-\1: /g'
 
 #HOUSE="-house"$4","$3",S"
 #swetest $DATE $TIME $HOUSE -p | grep 'house ' | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/' | sed -r 's/house\s\s?\s?([0-9]+)\s+/S-\1: /g'
