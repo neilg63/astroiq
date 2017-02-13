@@ -85,12 +85,29 @@ vars.chartTypes = [
 ];
 
 vars.eventTypes = [
-  {value:"Start school", label: "Start school",selected:false},
-  {value:"Meet partner", label: "Meet partner",selected:false},
-  {value:"Give birth", label: "Give birth",selected:false},
-  {value:"Wedding", label: "Wedding",selected:false},
-  {value:"Graduate", label: "Graduate",selected:false},
-  {value:"Start job", label: "Start job",selected:false}
+  {value:"education-start-school", label: "Start school",selected:false},
+  {value:"education-gain-degree", label: "Graduate (Degree)",selected:false},
+  {value:"relationship-start", label: "Start relationship",selected:false},
+  {value:"relationship-marriage", label: "Marriage",selected:false},
+  {value:"relationship-separation", label: "Separation",selected:false},
+  {value:"relationship-divorce", label: "Divorce",selected:false},
+  {value:"birth-son", label: "Childbirth (son)",selected:false},
+  {value:"birth-daughter", label: "Childbirth (daughter)",selected:false},
+  {value:"birth-sibling", label: "Birth of a sibling",selected:false},
+  {value:"life-success-job-start-new", label: "Start job",selected:false},
+  {value:"life-success-job-promotion", label: "Job promotion",selected:false},
+  {value:"life-success-job-success", label: "Job success",selected:false},
+  {value:"life-success-great win", label: "Great win",selected:false},
+  {value:"health-accident", label: "Accident",selected:false},
+  {value:"health-illness", label: "Illness",selected:false},
+  {value:"health-hospitalization", label: "Hospitalization",selected:false},
+  {value:"journey-long", label: "Long journey",selected:false},
+  {value:"journey-short", label: "Short journey",selected:false},
+  {value:"journey-relocation", label: "Relocation",selected:false},
+  {value:"death-close-relative", label: "Death of a close relative",selected:false},
+  {value:"death-mother", label: "Death of mother",selected:false},
+  {value:"death-father", label: "Death of father",selected:false},
+  {value:"death-self", label: "Death of self",selected:false}
 ];
 
 vars.solarYearOptionNotes = filter.getHtml('solarYearOptionNotes');
