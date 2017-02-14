@@ -11,7 +11,7 @@ DEGREETIDY="sed -r s/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/g"
 REM_BODIES="sed -r s/^(cupido|hades|zeus|kronos|apollon|admetos|poseidon|isis-transpluto|nxbiru|nibiru|harrington|leverrier_neptune|adams_neptune|lowell_pluto|pickering_pluto|vulcan|proserpina).*?$//g"
 
 OUT=$DATE" "$TIME" -fPLEBS "$TOPO" -pa"
-swetest $OUT | $LC | $KEYCLEAN | $KEYTIDY | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/g' | $REM_BODIES | sed -r 's/^([a-z_-]+):/t.\1:/g' | sed -r 's/^t\.geo_long:.*?//' | sed -r 's/^.*?version.*?$//' | sed -r 's/\s+(delta)\s*t/,\1_t/'
+swetest $OUT | $LC | $KEYCLEAN | $KEYTIDY | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/g' | $REM_BODIES | sed -r 's/^([a-z_-]+):/t.\1:/g' | sed -r 's/^t\.geo_long:.*?//' | sed -r 's/^.*?version.*?$//' | sed -r 's/\s+delta\s*t:?\s*([0-9.-]+).*?/,\1/'
 
 OUT=$DATE" "$TIME" -fPLEBS "$GEOPOS 
 swetest $OUT | $LC | $KEYCLEAN | $KEYTIDY | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/g' | sed -r 's/^(date_dmy|ut|et|geo_long|epsilon_true|nutation|mean_node|true_node|mean_apogee|osc_apogee|intp_apogee|intp_perigee):.*?$//g' | $REM_BODIES | sed -r 's/^([a-z_-]+):/g.\1:/g'
