@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   viewBox="0 0 60 60"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg3298"
+   inkscape:version="0.48.5 r10040"
+   width="100%"
+   height="100%"
+   sodipodi:docname="moon-sign.svg">
+  <metadata
+     id="metadata3308">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3306" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     id="namedview3304"
+     showgrid="false"
+     inkscape:zoom="3.9333333"
+     inkscape:cx="30"
+     inkscape:cy="30"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3298" />
+  <g
+     id="moon-sign"
+     class="planet moon">
+    <g
+       id="Capa_1">
+      <path
+         d="M 46.86368,9.8342413 C 46.86368,4.4116636 42.400206,0 36.91382,0 c -5.486385,0 -9.950062,4.4116636 -9.950062,9.8342413 0,2.9824677 1.413357,5.8610697 3.782177,7.7091497 2.431792,1.897349 4.893697,3.598629 6.489154,6.307002 1.426378,2.420804 2.172376,5.203382 2.172376,8.003355 0,8.76712 -7.216229,15.900027 -16.087021,15.900027 -8.870284,0 -16.086615,-7.132504 -16.086615,-15.900027 0,-1.701682 0.2727424,-3.402158 0.8139546,-5.018072 1.2202705,-3.64287 3.6513504,-6.309817 6.7825474,-8.463564 2.928243,-2.014288 5.069184,-4.896609 5.069184,-8.5378707 C 19.899413,4.4116636 15.435838,0 9.9495541,0 4.4635758,0 0,4.4116636 0,9.8342413 0,13.304068 1.8292359,16.357824 4.5832121,18.108675 1.6412359,22.014982 0,26.795859 0,31.853748 0,44.56287 10.461671,54.90287 23.320444,54.90287 c 12.858671,0 23.320952,-10.34 23.320952,-23.049122 0,-5.017167 -1.612954,-9.762048 -4.510169,-13.650256 2.837295,-1.734461 4.732453,-4.836783 4.732453,-8.3692507 z M 9.9495541,7.1495978 c 1.4975909,0 2.7162339,1.2044698 2.7162339,2.6846435 0,1.1141777 -0.691063,2.0716997 -1.671043,2.4774137 l -0.01282,-0.02011 c -0.02981,0.0185 -0.0589,0.03811 -0.08881,0.05661 -0.29431,0.10829 -0.611407,0.17063 -0.9434592,0.17063 -1.4975909,0 -1.4445386,-1.20447 -1.4445386,-2.6845427 0,-1.4800731 -0.053154,-2.6846435 1.4444369,-2.6846435 z M 36.91382,12.518784 c -1.497591,0 -2.716132,-1.20447 -2.716132,-2.6845427 0,-1.4800731 1.218643,-2.6846435 2.716132,-2.6846435 1.49749,0 2.716132,1.2044698 2.716132,2.6846435 0,1.4801737 -1.218541,2.6845427 -2.716132,2.6845427 z"
+         id="path3302"
+         inkscape:connector-curvature="0"
+         style="fill:#cc9999"
+         sodipodi:nodetypes="sssccssscccsscssscssscccssssssss" />
+    </g>
+  </g>
+</svg>
