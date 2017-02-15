@@ -58,6 +58,10 @@ app.get('/sweph', function(req, res){
 
 });
 
+app.get('/astro-json',(req,res) => {
+  astro.fetchFromBackend(res,req.query);
+});
+
 app.get('/results/:page', function(req, res){ 
   var page = req.params.page.toInt();
   astro.results(res,page);

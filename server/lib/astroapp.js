@@ -1103,7 +1103,7 @@ astro.parseBodies = (data) => {
         collisions:[]
       };
 	    b.ketu = {
-	    	lng: (rahu.lng + 180) % 360,
+	    	lng: (rahu.lng + 180.0) % 360.0,
 	    	lat: rahu.lat,
 	    	ecl: rahu.ecl,
         aspects:[],
@@ -1170,6 +1170,35 @@ astro.fetchFromCommand = (cmd, cmdId, res, query, update, debug) => {
       });
     }
   });
+};
+
+astro.fetchFromBackend = (res, query) => {
+  let script_dir = __dirname + '/../scripts/';
+  var datetime="",location="";
+  if (query.dt && query.lc) {
+    if (/^\s*[21][7890]\d\d-[01]\d-[0123]\dT[012]\d:[0-5]\d:[0-5]\d/.test(query.dt)) {
+      datetime = query.dt;
+    }
+    if (/^-?\d+\.\d+,-?\d+\.\d+,\d+/.test(query.lc)) {
+      location = query.lc;
+    }
+  }
+  if (datetime.length > 5 && location.length > 5) {
+    var cmd = script_dir + 'astro ' + script_dir +'astroiq-all.sh ' + datetime + ' ' + location;
+
+    if (cmd.length > 4) {
+      child = exec(cmd, (error, stdout, stderr) => {
+        if (stderr) {
+          res.send({valid:false,msg:"Server error"});
+        } else {
+          let json = JSON.parse(stdout);
+          res.send(json);
+        }
+      });
+    }
+  } else {
+    res.send({valid:false,msg:"Invalid datetime or location parameters"});
+  }
 };
 
 astro.saveSettings = function(query,res) {
