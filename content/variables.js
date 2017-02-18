@@ -34,7 +34,7 @@ vars.houseSystems = [
    {value:"E", label: "Equal (from ASC)",selected:false},
    {value:"D", label: "Equal (from MC)",selected:false},
    //- not in Swiss Ephemeris
-   {value:"CB", label: "Caleta Bhāva",selected:false},
+   //{value:"CB", label: "Caleta Bhāva",selected:false},
    {value:"S", label: "Śrīpati Bhāva",selected:false},
    {value:"O", label: "Porphyry",selected:false},
    {value:"P", label: "Placidus",selected:false},

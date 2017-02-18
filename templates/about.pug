@@ -3,12 +3,19 @@ head
   link(type="text/css" href="//unpkg.com/purecss@0.6.1/build/pure-min.css" rel="stylesheet")
   link(type="text/css" href="/icomoon/style.css" rel="stylesheet")
   style(media="all") @import url('/css/style.css')
+  script(type="text/javascript" src="/js/lib/lodash.min.js")
+  script(type="text/javascript" src="/js/lib/vue.min.js")
+  
 body
-  include includes/header.pug
+  div#astroiq(:class="{'show-menu':showTopMenu}")
+    include includes/header.pug
 
-  aside#control-panel
-    //- footer#mini-anim
-    //-   object#tween-symbol-container
-    //-     include ../svgs/charts/tween-symbols.svg
-  div#main
-    include includes/about-content.html
+    aside#control-panel
+      //- footer#mini-anim
+      //-   object#tween-symbol-container
+      //-     include ../svgs/charts/tween-symbols.svg
+    div#main
+      div.body-text
+        include includes/about-content.html
+
+  script(type="text/javascript" src="/js/page.js")
