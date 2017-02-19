@@ -63,11 +63,11 @@ vars.ayanamsas = [
   {value:"25", label: "Sūrya Siddhānta Citrā",selected:false},
   {value:"26", label: "Sūrya Siddhānta Revatī",selected:false},
   {value:"23", label: "Āryabhaṭa",selected:false},
-  {value:"27", label: "True Citrā",selected:false},
+ /* {value:"27", label: "True Citrā",selected:false},
   {value:"28", label: "True Revatī",selected:false},
   {value:"29", label: "True Puṣya",selected:false},
   {value:"35", label: "True Mūla (Chandra Hari)",selected:false},
-  {value:"36", label: "Dhruva/Mūla (E. Wilhelm)",selected:false},
+  {value:"36", label: "Dhruva/Mūla (E. Wilhelm)",selected:false},*/
   {value:"6", label: "Djwhal Khul",selected:false},
   {value:"0", label: "Fagan/Bradley",selected:false},
   {value:"2", label: "De Luce",selected:false},

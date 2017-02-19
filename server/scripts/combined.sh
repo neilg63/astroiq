@@ -121,17 +121,17 @@ echo "ay-25: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?
 OUT=$(swetest $DATE $TIME -ay26 | grep 'Ayanamsa')
 echo "ay-26: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
 
-OUT=$(swetest $DATE $TIME -ay27 | grep 'Ayanamsa')
-echo "ay-27: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
+# OUT=$(swetest $DATE $TIME -ay27 | grep 'Ayanamsa')
+# echo "ay-27: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
 
-OUT=$(swetest $DATE $TIME -ay28 | grep 'Ayanamsa')
-echo "ay-28: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
+# OUT=$(swetest $DATE $TIME -ay28 | grep 'Ayanamsa')
+# echo "ay-28: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
 
-OUT=$(swetest $DATE $TIME -ay29 | grep 'Ayanamsa')
-echo "ay-29: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
+# OUT=$(swetest $DATE $TIME -ay29 | grep 'Ayanamsa')
+# echo "ay-29: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
 
-OUT=$(swetest $DATE $TIME -ay30 | grep 'Ayanamsa')
-echo "ay-30: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
+# OUT=$(swetest $DATE $TIME -ay30 | grep 'Ayanamsa')
+# echo "ay-30: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
 
-OUT=$(swetest $DATE $TIME -ay35 | grep 'Ayanamsa')
-echo "ay-35: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
+# OUT=$(swetest $DATE $TIME -ay35 | grep 'Ayanamsa')
+# echo "ay-35: " $OUT | sed -e "s/Ayanamsa\s*//g" | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/'
