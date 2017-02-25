@@ -26,7 +26,7 @@ var dasha = {
 		if (query.lng) {
 			lng = query.lng;
 		}
-
+		lng = parseFloat(lng);
 		if (query.dt) {
 			dt = query.dt;
 		}
