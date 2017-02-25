@@ -41,6 +41,8 @@ var dasha = {
 			data.date = date;
 		}
 		let offsets = dasha.calcOffsets(year_span);
+		data.year_cycle = year_span;
+		data.lng = lng;
 		data.nak = dasha.calc_nak(lng);
 		data.num = Math.floor(data.nak);
 		data.frac = data.nak - data.num;
@@ -53,7 +55,7 @@ var dasha = {
 			data.lord_end = date.clone().add(data.lord_remaining,'years');
 			data.next_lord_end = data.lord_end.clone().add(data.next_lord.years,'years');
 			for (var k in dasha.grahas) {
-				
+
 			}
 		}
 
