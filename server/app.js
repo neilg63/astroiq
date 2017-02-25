@@ -15,6 +15,7 @@ const timezone = require('./geocode/timezone.js');
 const textutils = require('./lib/text-utils.js');
 const conversions = require('./lib/conversions.js');
 const astro = require('./lib/astroapp.js');
+const dasha = require('./lib/dasha.js');
 const exec = require('child_process').exec;
 const spawn = require('child_process').spawn;
 const variables = require('./../content/variables.js');
@@ -76,6 +77,16 @@ app.get('/sweph-item/:id', function(req, res){
 app.get('/sweph-download/:id', function(req, res){ 
   astro.download(req.params.id,function(data){
     res.send(data);
+  });
+});
+
+app.get('/dasha-json',(req,res) => {
+  dasha.calc(req.query,(error,data) => {
+    if (error) {
+      res.status(404).send(error);
+    } else {
+      res.status(200).send(data);
+    }
   });
 });
 
