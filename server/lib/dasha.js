@@ -81,13 +81,14 @@ var dasha = {
 			preceding = lord.years * data.frac,
 			remaining = lord.years * (1-data.frac),
 			tmpDt = date.clone().add(remaining,'years'),
-			stDt = date.clone().subtract(remaining,'years');
+			stDt = date.clone().subtract(preceding,'years');
 			data.lord_key = lord.key;
 			data.lord_remaining = remaining;
 			var firstLord = {
 				key: lord.key,
 				start: stDt,
-				end: tmpDt
+				end: tmpDt,
+				ads: dasha.addLords(stDt.clone(),(data.num-1),lord.years,2)
 			};
 			data.dashas = dasha.addLords(tmpDt.clone(),data.num, 120, 1);
 			data.dashas.unshift(firstLord);
