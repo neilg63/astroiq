@@ -15,6 +15,34 @@ var dasha = {
 		"Me": 17
 	},
 
+	offsets: [],
+
+	addLords: (tmpDt, startIndex,num_years,depth) => {
+		var lords=[],
+		keyName = depth>1? 'pds' : 'ads',
+		num = dasha.offsets.length,
+		i=0,matched, offset,lord,y;
+		for (;i<num;i++) {
+			offset = (startIndex+i) % num;
+			matched = dasha.offsets[offset];
+			y = matched.years;
+			if (typeof num_years == 'number' && num_years !== 120) {
+				y *= (num_years / 120);
+			}
+			lord = {
+				key: matched.key,
+				start: tmpDt,
+				end: tmpDt.clone().add(y,'years')
+			}
+			if (depth < 3) {
+				lord[keyName] = dasha.addLords(tmpDt.clone(),offset,y,depth+1);
+			}
+			tmpDt = lord.end.clone();
+			lords.push(lord);
+		}
+		return lords;
+	},
+
 	calc: (query, callback) => {
 		var valid = false,
 		dt='1970-01-01T00:00:00',
@@ -40,27 +68,31 @@ var dasha = {
 		if (date) {
 			data.date = date;
 		}
-		let offsets = dasha.calcOffsets(year_span);
+		dasha.offsets = dasha.calcOffsets(year_span);
 		data.year_cycle = year_span;
 		data.lng = lng;
 		data.nak = dasha.calc_nak(lng);
 		data.num = Math.floor(data.nak);
 		data.frac = data.nak - data.num;
-		data.num_bodies = offsets.length;
-		data.num_naks = offsets.length * 3;
+		data.num_bodies = dasha.offsets.length;
+		data.num_naks = dasha.offsets.length * 3;
 		if (data.num <= data.num_naks) {
-			data.lord = offsets[(data.num-1) % data.num_bodies];
-			data.lord_remaining = data.lord.years * (1-data.frac);
-			data.next_lord = offsets[data.num % data.num_bodies];
-			data.lord_end = date.clone().add(data.lord_remaining,'years');
-			data.next_lord_end = data.lord_end.clone().add(data.next_lord.years,'years');
-			for (var k in dasha.grahas) {
-
-			}
+			var lord = dasha.offsets[(data.num-1) % data.num_bodies],
+			preceding = lord.years * data.frac,
+			remaining = lord.years * (1-data.frac),
+			tmpDt = date.clone().add(remaining,'years'),
+			stDt = date.clone().subtract(remaining,'years');
+			data.lord_key = lord.key;
+			data.lord_remaining = remaining;
+			var firstLord = {
+				key: lord.key,
+				start: stDt,
+				end: tmpDt
+			};
+			data.dashas = dasha.addLords(tmpDt.clone(),data.num, 120, 1);
+			data.dashas.unshift(firstLord);
 		}
-
-	    data.offsets = offsets;
-
+		data.offsets = dasha.offsets;
 	    valid = data.offsets.length>2;
 		if (valid) {
 			data.valid = true;
