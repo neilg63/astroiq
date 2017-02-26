@@ -2,6 +2,10 @@ const moment = require('moment');
 
 var dasha = {
 
+	minsYear: 0,
+
+	daysYear: 365.25,
+
 	// defined as fractions of 120
 	grahas: {
 		"Ke": 7,
@@ -32,7 +36,7 @@ var dasha = {
 			lord = {
 				key: matched.key,
 				start: tmpDt,
-				end: tmpDt.clone().add(y,'years')
+				end: tmpDt.clone().add((y*dasha.minsYear),'minutes')
 			}
 			if (depth < 3) {
 				lord[keyName] = dasha.addLords(tmpDt.clone(),offset,y,depth+1);
@@ -44,6 +48,7 @@ var dasha = {
 	},
 
 	calc: (query, callback) => {
+		dasha.minsYear = dasha.daysYear * 1440;
 		var valid = false,
 		dt='1970-01-01T00:00:00',
 		data={valid:false},
@@ -80,8 +85,8 @@ var dasha = {
 			var lord = dasha.offsets[(data.num-1) % data.num_bodies],
 			preceding = lord.years * data.frac,
 			remaining = lord.years * (1-data.frac),
-			tmpDt = date.clone().add(remaining,'years'),
-			stDt = date.clone().subtract(preceding,'years');
+			tmpDt = date.clone().add((remaining*dasha.minsYear),'minutes'),
+			stDt = date.clone().subtract((preceding*dasha.minsYear),'minutes');
 			data.lord_key = lord.key;
 			data.lord_remaining = remaining;
 			var firstLord = {
