@@ -1,4 +1,5 @@
 const moment = require('moment');
+const textutils = require('./text-utils.js');
 
 var dasha = {
 
@@ -25,7 +26,7 @@ var dasha = {
 		var lords=[],
 		keyName = depth>1? 'pds' : 'ads',
 		num = dasha.offsets.length,
-		i=0,matched, offset,lord,y;
+		i=0,end,matched, offset,lord,y;
 		for (;i<num;i++) {
 			offset = (startIndex+i) % num;
 			matched = dasha.offsets[offset];
@@ -34,19 +35,23 @@ var dasha = {
 				y *= (num_years / 120);
 			}
 			lord = {
-				key: matched.key,
-				start: tmpDt,
-				end: tmpDt.clone().add((y*dasha.minsYear),'minutes')
+				key: matched.key
 			}
+			if (depth < 2) {
+				lord.start = tmpDt.format('YYYY-MM-DD\THH:MM:SS');
+			}
+			end = tmpDt.clone().add((y*dasha.minsYear),'minutes');
+			lord.end = end.format('YYYY-MM-DD\THH:MM:SS');
 			if (depth < 3) {
 				lord[keyName] = dasha.addLords(tmpDt.clone(),offset,y,depth+1);
 			}
-			tmpDt = lord.end.clone();
+			tmpDt = end.clone();
 			lords.push(lord);
 		}
 		return lords;
 	},
 
+	
 	calc: (query, callback) => {
 		dasha.minsYear = dasha.daysYear * 1440;
 		var valid = false,
@@ -70,6 +75,16 @@ var dasha = {
 		if (query.years) {
 			year_span = query.years;
 		}
+		if (query.yl) {
+			if (typeof query.yl == 'string' || typeof query.yl == 'number') {
+				if (query.yl.isNumeric()) {
+					let yl = parseFloat(query.yl);
+					dasha.daysYear = yl;
+					dasha.minsYear = dasha.daysYear * 1440;
+				}
+				
+			}
+		}
 		if (date) {
 			data.date = date;
 		}
@@ -91,8 +106,8 @@ var dasha = {
 			data.lord_remaining = remaining;
 			var firstLord = {
 				key: lord.key,
-				start: stDt,
-				end: tmpDt,
+				start: stDt.clone().format('YYYY-MM-DD\THH:MM:SS'),
+				end: tmpDt.clone().format('YYYY-MM-DD\THH:MM:SS'),
 				ads: dasha.addLords(stDt.clone(),(data.num-1),lord.years,2)
 			};
 			data.dashas = dasha.addLords(tmpDt.clone(),data.num, 120, 1);
@@ -102,11 +117,14 @@ var dasha = {
 	    valid = data.offsets.length>2;
 		if (valid) {
 			data.valid = true;
+			data.date = data.date.format('YYYY-MM-DD\THH:MM:SS');
 			callback(undefined,data);
 		} else {
 			callback(data,undefined);
 		}
 	},
+
+	
 
 	calcOffsets: (year_span) => {
 	    var outer_offsets=[], index=0,j=0,offsets=[],val,k;
