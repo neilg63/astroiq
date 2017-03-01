@@ -38,10 +38,10 @@ var dasha = {
 				key: matched.key
 			}
 			if (depth < 2) {
-				lord.start = tmpDt.format('YYYY-MM-DD\THH:MM:SS');
+				lord.start = tmpDt.format('YYYY-MM-DD\THH:mm:ss');
 			}
 			end = tmpDt.clone().add((y*dasha.minsYear),'minutes');
-			lord.end = end.format('YYYY-MM-DD\THH:MM:SS');
+			lord.end = end.format('YYYY-MM-DD\THH:mm:ss');
 			if (depth < 3) {
 				lord[keyName] = dasha.addLords(tmpDt.clone(),offset,y,depth+1);
 			}
@@ -106,8 +106,8 @@ var dasha = {
 			data.lord_remaining = remaining;
 			var firstLord = {
 				key: lord.key,
-				start: stDt.clone().format('YYYY-MM-DD\THH:MM:SS'),
-				end: tmpDt.clone().format('YYYY-MM-DD\THH:MM:SS'),
+				start: stDt.clone().format('YYYY-MM-DD\THH:mm:ss'),
+				end: tmpDt.clone().format('YYYY-MM-DD\THH:mm:ss'),
 				ads: dasha.addLords(stDt.clone(),(data.num-1),lord.years,2)
 			};
 			data.dashas = dasha.addLords(tmpDt.clone(),data.num, 120, 1);
@@ -117,7 +117,7 @@ var dasha = {
 	    valid = data.offsets.length>2;
 		if (valid) {
 			data.valid = true;
-			data.date = data.date.format('YYYY-MM-DD\THH:MM:SS');
+			data.date = data.date.format('YYYY-MM-DD\THH:mm:ss');
 			callback(undefined,data);
 		} else {
 			callback(data,undefined);
