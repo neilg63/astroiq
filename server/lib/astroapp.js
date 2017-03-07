@@ -3,6 +3,7 @@ const {Nested} = require('./../models/nested');
 const conversions = require('./conversions');
 const exec = require('child_process').exec;
 const request = require('request');
+const _ = require('lodash');
 var astro = {};
 
 function toItem(columns) {
@@ -1172,7 +1173,73 @@ astro.fetchFromCommand = (cmd, cmdId, res, query, update, debug) => {
   });
 };
 
-astro.fetchFromBackend = (res, query) => {
+var preParseAstro = function(data) {
+  var parsed = {}, k;
+  if (data.values) {
+    for (k in data.values) {
+      parsed[k] = data.values[k];
+    }
+  }
+  if (data.coords) {
+    for (k in data.coords) {
+      parsed[k] = data.coords[k];
+    }
+  }
+  if (data.bodies) {
+    parsed.bodies = [];
+    var i=0,b,body;
+    var bns = ["sun","moon","mercury","venus","mars","jupiter","saturn","uranus","neptune","pluto","ketu","rahu","pallas","ceres","juno","vesta","chiron","pholus"];
+    for (;i<bns.length;i++) {
+    	if (data.bodies[bns[i]]) {
+    		body = data.bodies[bns[i]];
+    		b = {key:bns[i]};
+	    	for (k in body) {
+	    		b[k] = body[k];
+	    	}
+	  		parsed.bodies.push(b);
+    	}
+    	
+    	
+  	}
+  }
+  if (data.ayanamsas) {
+  	parsed.ayanamsas =  [];
+  	for (k in data.ayanamsas) {
+  		parsed.ayanamsas.push({
+  			num: parseInt(k),
+  			value: data.ayanamsas[k]
+  		});
+  	}
+  }
+  if (data.houses) {
+    parsed.houses =  [];
+    var hss = ["W","E","D","S","O","P","K","B","C","M","R","T","A","X","G","H"];
+    for (i=0;i<hss.length;i++) {
+    	if (data.houses[hss[i]]) {
+    		parsed.houses.push({
+  			key: hss[i],
+  			values: data.houses[hss[i]]
+  		});
+    	}
+  		
+  	}
+  }
+  parsed.aspects =  data.aspects;
+  return parsed;
+};
+
+astro.fetchChartData = (query,callback) => {
+	astro.fetchFromBackend(query,(error,result) => {
+		if (error) {
+			callback(error,null);
+		} else {
+			var data = preParseAstro(result);
+			callback(null,data);
+		}
+	});
+};
+
+astro.fetchFromBackend = (query,callback) => {
   let script_dir = __dirname + '/../scripts/';
   var datetime="",location="";
   if (query.dt && query.lc) {
@@ -1192,12 +1259,17 @@ astro.fetchFromBackend = (res, query) => {
           res.send({valid:false,msg:"Server error"});
         } else {
           let json = JSON.parse(stdout);
-          res.send(json);
+          json.valid = false;
+          if (json.values) {
+          	json.valid = true;
+          }
+          callback(null,json);
         }
       });
     }
   } else {
-    res.send({valid:false,msg:"Invalid datetime or location parameters"});
+    json = {valid:false,msg:"Invalid datetime or location parameters"};
+    callback(json,null);
   }
 };
 

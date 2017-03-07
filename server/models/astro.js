@@ -18,18 +18,20 @@ var optionalNumberType = {
 };
 
 var planetType = {
+  key: simpleStringType,
   lng: simpleNumberType,
   lat: simpleNumberType,
-  ecl: simpleNumberType,
-  house: optionalNumberType
+  spd: simpleNumberType,
+  glng: optionalNumberType,
+  glat: optionalNumberType,
+  gspd: optionalNumberType,
 };
 
-var Nested = mongoose.model('Nested', {
+var AstroSchema = new mongoose.Schema({
   cmd: simpleStringType,
-  name: simpleStringType,
-  gender: simpleStringType,
-  personId:
+  personId:  Schema.Types.ObjectId,
   chartType: simpleStringType,
+  tags: [Schema.Types.ObjectId],
   datetime: {
      type: Date,
      required: true
@@ -37,6 +39,7 @@ var Nested = mongoose.model('Nested', {
   dateinfo: {
     calendar: simpleStringType,
     zone: simpleStringType,
+    gmtOffset: simpleNumberType
   },
   geo: {
     lat: simpleNumberType,
@@ -45,65 +48,53 @@ var Nested = mongoose.model('Nested', {
     address: simpleStringType
   },
   astro: {
-    ut: {
-      value: simpleNumberType,
-      delta: simpleNumberType,
-      deltaType: simpleStringType,
-      unit: simpleStringType
-    },
+    ascendant: simpleNumberType,
+    mc: simpleNumberType,
+    armc: simpleNumberType,
+    vertex: simpleNumberType,
+    ut: simpleNumberType,
     et: simpleNumberType,
+    delta_t: simpleNumberType,
     epsilon_true: {
       lng: simpleNumberType,
       lat: optionalNumberType,
-      ecl: optionalNumberType
+      spd: optionalNumberType
     },
-    nutation: [
-      simpleNumberType,
-      simpleNumberType
-    ],
+    nutation: {
+      lng: simpleNumberType,
+      lat: simpleNumberType
+    },
     mean_node: {
       lng: simpleNumberType,
       lat: simpleNumberType,
-      ecl: simpleNumberType
+      spd: simpleNumberType
     },
     true_node: {
       lng: simpleNumberType,
       lat: simpleNumberType,
-      ecl: -simpleNumberType
+      spd: -simpleNumberType
     },
     mean_apogee: {
       lng: simpleNumberType,
       lat: simpleNumberType,
-      ecl: simpleNumberType
+      spd: simpleNumberType
     },
-    ascendant: simpleNumberType,
-    mc: simpleNumberType,
-    armc: simpleNumberType,
-    vertex: simpleNumberType
   },
-  ayanamsa: simpleNumberType,
-  houseData: {
-    letter: simpleStringType,
-    mode: simpleStringType,
-    lng: simpleNumberType,
-    lat: simpleNumberType
-  },
+  ayanamsas: [{
+    num: simpleNumberType,
+    value: simpleNumberType
+  }],
   houses: [
-    simpleNumberType
+    {
+      key: simpleStringType,
+      values: [simpleNumberType]
+    }
   ],
-  bodies: {
-    sun: planetType,
-    moon: planetType,
-    mercury: planetType,
-    venus: planetType,
-    mars: planetType,
-    jupiter: planetType,
-    saturn: planetType,
-    uranus: planetType,
-    neptune: planetType,
-    pluto: planetType/*,
-    ketu: planetType*/
-  },
+  bodies: [
+    planetType
+  ],
 });
 
-module.exports = {Nested};
+var Astro = mongoose.model('Astro', AstroSchema);
+
+module.exports = {Astro};

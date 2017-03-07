@@ -60,7 +60,20 @@ app.get('/sweph', function(req, res){
 });
 
 app.get('/astro-json',(req,res) => {
-  astro.fetchFromBackend(res,req.query);
+  astro.fetchChartData(req.query, (error, data) => {
+    if (error) {
+      res.status(404).send(error);
+    } else {
+      var locParts = req.query.lc.split(',');
+      data.location = {
+        lat: locParts[0],
+        lng: locParts[1],
+        alt: locParts[2]
+      }
+      data.datetime = req.query.dt;
+      res.status(200).send(data);
+    }
+  });
 });
 
 app.get('/results/:page', function(req, res){ 
@@ -314,8 +327,8 @@ app.get('/astro', function(req, res) {
    res.send(page(variables));
 });
 
-app.get('/zodiac', function(req, res) {
-    const page = pug.compileFile(tplDir + '/astro.pug');
+app.get('/new', function(req, res) {
+    const page = pug.compileFile(tplDir + '/aiq.pug');
     res.send(page(variables));
 });
 
