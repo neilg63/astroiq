@@ -363,6 +363,99 @@ var AstroIQ = {
     }
   },
 
+  buildBodyList: function() {
+    var bodies=[],
+      bns=["sun","moon","mercury","venus","mars","jupiter","saturn","uranus","neptune","pluto","ketu","rahu","pallas","ceres","juno"],
+      i=0,
+      nb = bns.length;
+      for (;i<nb;i++) {
+        bodies.push({key:bns[i],lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0});
+      }      
+      return bodies;
+  },
+
+  buildHouses: function() {
+    var houses=[],tot = 36,i=0;
+    for (;i<tot;i++) {
+      houses.push({num:0,lng:-1,end:-1});
+    }
+    return houses;
+  },
+
+  parseResults: function(data,options) {
+    var parsed={}, hsy="W", ayanamsa=1, i=0,matched,k;
+    if (data.ayanamsas) {
+      if (options.ayanamsa) {
+        if (isNumeric(options.ayanamsa)) {
+          options.ayanamsa = parseInt(options.ayanamsa);
+        } else {
+          ayanamsa = 0;
+        }
+      }
+      matched = _.find(data.ayanamsas,function(a){return a.num == ayanamsa});
+      
+      if (matched) {
+        parsed.ayanamsa = matched.value;
+      }
+    }
+    for (k in data) {
+      switch (k) {
+        case 'bodies':
+          var bodies = [],b;
+          if (data[k] instanceof Array) {
+            for (i=0;i<data[k].length;i++) {
+              b = data[k][i];
+              b.lng = ((b.lng - parsed.ayanamsa)+360) % 360;
+              if (b.glng) {
+                 b.glng = ((b.glng - parsed.ayanamsa)+360) % 360;
+              }
+              bodies.push(b);
+            }
+          }
+          parsed.bodies = bodies;
+          break;
+        case 'houses':
+          if (options.hsy) {
+            hsy = options.hsy;
+          }
+          matched = _.find(data.houses,function(h){return h.key == hsy});
+          if (matched) {
+            parsed.houses = [];
+            var nv = matched.values.length,h,lng,end;
+            if (nv > 1) {
+              for (i=0; i < (nv*2); i++) {
+                
+                if (i < nv) {
+                  lng = matched.values[i];
+                } else {
+                  lng = (matched.values[(i-nv)] + 180) % 360;
+                }
+                if (nv - (i % nv) === 1) {
+                  end = matched.values[0];
+                } else {
+                   end = matched.values[((i+1)%nv)];
+                }
+                if ((i+1) >= nv && (i+1) < (nv*2)) {
+                  end = (end+180) % 360;
+                }
+                h = {
+                  num: (i+1),
+                  lng: lng,
+                  end: end,
+                }
+                parsed.houses.push(h);
+              }
+            }
+          }
+          break;
+        default:
+          parsed[k] = data[k];
+          break;
+      }
+    }
+    return parsed;
+  },
+
   loadGMap: function(focus,lat,lng) {
     var gMapApi = jQuery('#gmap-api-key');
     if (gMapApi.length>0) {
@@ -406,23 +499,7 @@ var EphemerisData = {
   armc: 0,
   vertex: 0,
   ayanamsas: [],
-  bodies: [
-    {key:"sun",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"moon",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"mercury",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"venus",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"mars",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"jupiter",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"saturn",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"uranus",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"neptune",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"pluto",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"ketu",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"rahu",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"pallas",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"ceres",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-    {key:"juno",lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0},
-  ],
+  bodies: AstroIQ.buildBodyList(),
   name: "",
   datetime: "",
   dateinfo: {
@@ -439,7 +516,7 @@ var EphemerisData = {
     display_coords: "",
     address: ""
   },
-  houses: [],
+  houses: AstroIQ.buildHouses(),
   chart_type: "birth",
   cmd: ""
 };
@@ -649,7 +726,7 @@ var app = new Vue({
     },250)
   },
   methods: {
-    parseResults: function(data) {
+    assignResults: function(data) {
       var v1,v2,v3,k1,k2,k3;
       if (data.ascendant) {
         this.results.valid = true;
@@ -697,40 +774,40 @@ var app = new Vue({
       }
       if (this.results.datetime) {
         if (/^\d\d\d\d-\d\d-\d\d?/.test(this.results.datetime)) {
-          var dt =  new Date(this.results.datetime);
-          dt.setSeconds(dt.getTimezoneOffset() * 60);
-          this.results.dateinfo.tz = data.dateinfo.zone;
-          
-          if (data.dateinfo.hasOwnProperty('gmtOffset')) {
-              
-              this.results.dateinfo.gmtOffset = data.dateinfo.gmtOffset;
-              dt.setSeconds(data.dateinfo.gmtOffset);
-              this.results.dateinfo.datetime = dt;
-              this.results.dateinfo.info =   data.dateinfo.zone + ' UTC ' + secondsToHours(this.results.dateinfo.gmtOffset);
-              this.results.dateinfo.display =  dt.dmy('m');
-          }
-          
-        }
-        var parts = this.results.dateinfo.datetime.ymd('s').split(' ');
-        if (parts.length>1) {
-          this.dob = parts[0];
-
-          var tob = parts[1];
-          if (typeof tob == 'string') {
-            parts = tob.split(':');
+          if (data.dateinfo) {
+            var dt =  new Date(this.results.datetime);
+            dt.setSeconds(dt.getTimezoneOffset() * 60);
+            this.results.dateinfo.tz = data.dateinfo.zone;
+            if (data.dateinfo.hasOwnProperty('gmtOffset')) {
+                
+                this.results.dateinfo.gmtOffset = data.dateinfo.gmtOffset;
+                dt.setSeconds(data.dateinfo.gmtOffset);
+                this.results.dateinfo.datetime = dt;
+                this.results.dateinfo.info =   data.dateinfo.zone + ' UTC ' + secondsToHours(this.results.dateinfo.gmtOffset);
+                this.results.dateinfo.display =  dt.dmy('m');
+            }
+            var parts = this.results.dateinfo.datetime.ymd('s').split(' ');
             if (parts.length>1) {
-              this.tob = parts[0]+':'+parts[1];
+              this.dob = parts[0];
+
+              var tob = parts[1];
+              if (typeof tob == 'string') {
+                parts = tob.split(':');
+                if (parts.length>1) {
+                  this.tob = parts[0]+':'+parts[1];
+                }
+              }
             }
           }
         }
-        if (data.houseBounds) {
-          this.results.houseBounds = data.houseBounds;
-        }
       }
-      if (this.results.houseBounds) {
+      if (data.houses) {
+        this.results.houses = data.houses;
+      }
+      if (this.results.houses) {
         var hb,i=0;
-        for (var i in this.results.houseBounds) {
-          hb = this.results.houseBounds[i];
+        for (var i in this.results.houses) {
+          hb = this.results.houses[i];
           if (hb.lng) {
             hb.lng = parseAstroResult(hb.lng,'lng');
             hb.lat = parseAstroResult(hb.lng,'lat');
@@ -1058,7 +1135,7 @@ var app = new Vue({
       if (update !== true) {
         var stored = getItem(paramStr);
         if (stored.valid) {
-            this.parseResults(stored.data);
+            this.assignResults(stored.data);
             this.updateChartData(stored.data);
             hasData = true;
             this.currId = paramStr;
@@ -1070,9 +1147,9 @@ var app = new Vue({
         })
         .then(function (response) {
           if (response.data) {
-            var data = response.data;
-            console.log(_.find(data.houses,function(h){return h.key == 'W'}));
-            app.parseResults(data);
+            var data = AstroIQ.parseResults(response.data,app.options);
+            console.log(data)
+            app.assignResults(data);
             app.activeTab = 'chart';
             app.updateChartData(data);
             var item = {

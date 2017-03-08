@@ -390,7 +390,7 @@ function toAstroDegree(decLat,format) {
   if (!format) {
     format = 'plain';
   }
-  return _toLatLngString(decLat,'plain',format);
+  return _toLatLngString(decLat,'plain',format, true);
 }
 
 function parseAstroResult(val,key,pKey) {
@@ -398,6 +398,7 @@ function parseAstroResult(val,key,pKey) {
     case 'lat':
     case 'lng':
     case 'ecl':
+    case 'spd':
     case 'ascendant':
     case 'ayanamsa':
     case 'end':
@@ -438,7 +439,12 @@ var numEntryWidget = function(name,value,decPlaces) {
   return '<input type="number" name="degrees_'+name+'" value="' + value + '" size="3" maxlength=3" />';
 }
 
-function _toLatLngString(dec,degType,format) {
+function _toLatLngString(dec,degType,format,approx) {
+  if (!approx) {
+    approx = false;
+  } else {
+    approx = true;
+  }
   if (isNumeric(dec)) {
     dec = parseFloat(dec);
     var isLng = false,max=90;
@@ -470,7 +476,13 @@ function _toLatLngString(dec,degType,format) {
         break;
     }
     var degree = convertDDToDMS(dec,isLng),
-    out = degree.deg + strDeg + ' ' + degree.min + strApos+' ' + degree.sec + strQuot;
+    out = degree.deg + strDeg;
+    if (!approx || degree.min > 0 || degree.sec > 0) {
+      out +=  ' ' + degree.min + strApos;
+    }
+    if (!approx || degree.sec > 0) {
+      out +=  ' ' + degree.sec + strQuot;
+    }
     if (degType !== 'plain') {
       out += ' ' + degree.dir;
     }
