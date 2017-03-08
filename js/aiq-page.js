@@ -421,19 +421,20 @@ var AstroIQ = {
           matched = _.find(data.houses,function(h){return h.key == hsy});
           if (matched) {
             parsed.houses = [];
+            parsed.houseLngs = [];
             var nv = matched.values.length,h,lng,end;
             if (nv > 1) {
               for (i=0; i < (nv*2); i++) {
                 
                 if (i < nv) {
-                  lng = matched.values[i];
+                  lng = parseFloat(matched.values[i]);
                 } else {
-                  lng = (matched.values[(i-nv)] + 180) % 360;
+                  lng = (parseFloat(matched.values[(i-nv)]) + 180) % 360;
                 }
                 if (nv - (i % nv) === 1) {
-                  end = matched.values[0];
+                  end = parseFloat(matched.values[0]);
                 } else {
-                   end = matched.values[((i+1)%nv)];
+                   end = parseFloat(matched.values[((i+1)%nv)]);
                 }
                 if ((i+1) >= nv && (i+1) < (nv*2)) {
                   end = (end+180) % 360;
@@ -442,7 +443,8 @@ var AstroIQ = {
                   num: (i+1),
                   lng: lng,
                   end: end,
-                }
+                };
+                parsed.houseLngs.push(lng);
                 parsed.houses.push(h);
               }
             }
@@ -517,6 +519,7 @@ var EphemerisData = {
     address: ""
   },
   houses: AstroIQ.buildHouses(),
+  houseLngs: [],
   chart_type: "birth",
   cmd: ""
 };
@@ -1125,8 +1128,9 @@ var app = new Vue({
         var c = this.location.coords;
           GeoMap.updateMap(c.lat,c.lng,true,false);
       }
-      console.log(data.bodies);
-      AstroChart.updateHouses(data.houses);
+      //var houseLngs = _.map(data.houses,function(h){ return h.lng;});
+      console.log(data.houses,data.houseLngs)
+      AstroChart.updateHouses(data.houseLngs);
       AstroChart.moveBodies(data.bodies);
     },
     loadQuery: function(paramStr, update) {
