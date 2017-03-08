@@ -1128,8 +1128,6 @@ var app = new Vue({
         var c = this.location.coords;
           GeoMap.updateMap(c.lat,c.lng,true,false);
       }
-      //var houseLngs = _.map(data.houses,function(h){ return h.lng;});
-      console.log(data.houses,data.houseLngs)
       AstroChart.updateHouses(data.houseLngs);
       AstroChart.moveBodies(data.bodies);
     },
