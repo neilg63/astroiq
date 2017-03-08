@@ -1107,8 +1107,14 @@ var app = new Vue({
         }
         if (data.address) {
           this.chartData.address = data.address;
-        } else if (data.geo.address) {
-          this.chartData.address = data.geo.address;
+        } else if (data.geo) {
+          if (data.geo.address) {
+            this.chartData.address = data.geo.address;
+          }
+        } else if (data.location) {
+          if (data.location.address) {
+            this.chartData.address = data.location.address;
+          }
         } else {
           this.chartData.address = "";
         }
