@@ -1,5 +1,7 @@
 const {mongoose} = require('./../db/mongoose');
 const {Nested} = require('./../models/nested');
+const {Chart} = require('./../models/chart');
+const {Person} = require('./../models/person');
 const conversions = require('./conversions');
 const exec = require('child_process').exec;
 const request = require('request');
@@ -929,6 +931,131 @@ astro.mapData = (doc) => {
   data.stored = true;
   data.valid = true;
   return data;
+}
+
+astro.saveChart = (model,callback) => {
+  var data = {},update=false,id;
+  if (typeof model == 'object') {
+    if (model.geo) {
+       if (!model.name) {
+          model.name = 'unknown';
+       }
+       if (!model.gender) {
+          model.gender = 'unknown';
+       }
+       if (model.id) {
+       	id = model.id;
+       	update = id.length>10;
+       }
+       
+       if (model.newPerson) {
+       	var personData = {
+       		name: model.name,
+       		gender: model.gender
+       	}
+
+        if (model.chartType == 'birth') {
+          personData.dob = new Date(model.dob);
+        }
+       	var person = new Person(personData);
+       		person.save();
+       		data.personId = person._id;
+       }
+       for (k in model) {
+	       	switch (k) {
+				case 'personId':
+				case 'chartType':
+				case 'eventTypeId':
+				case 'eventTitle':
+				case 'notes':
+				case 'tags':
+				case 'datetime':
+				case 'dateinfo':
+				case 'geo':
+				case 'ascendant':
+				case 'mc':
+				case 'armc':
+				case 'vertex':
+				case 'ut':
+				case 'et':
+				case 'delta_t':
+				case 'epsilon_true':
+				case 'nutation':
+				case 'mean_node':
+				case 'true_node':
+				case 'mean_apogee':
+				case 'ayanamsas':
+				case 'houses':
+				case 'bodies':
+		       		data[k] = model[k];
+		       		break;
+	       	}
+       }
+
+       if (update) {
+       		Chart.findById(id, function (err, record) {
+			  if (err || record === null) {
+			  	return callback({valid:false, msg:"not found"});
+			  }
+			  var k;
+			  for (k in data) {
+			  	if (k !== 'id') {
+
+			  		chart[k] = data[k];
+			  	}
+			  }
+			  record.save(function (err, doc) {
+
+			    callback(doc);
+			  });
+			});
+       } else {
+        console.log(data)
+          var chart = new Chart(data);
+	       	chart.save().then((doc) => {
+	          callback(doc);
+	        }, (e) => {
+	          callback({valid:false,msg:"System error 1"});
+	      });
+       }
+       
+    }
+  }
+  return data;
+}
+
+astro.savePerson = (params,callback) => {
+	var data = {
+	  name: params.name,
+	  gender: params.gender
+	};
+	if (params.dob) {
+	  data.dob = new Date(params.dob);
+	}
+	if (params.groups) {
+	  var groups = params.groups.split(',');
+	  if (groups.length > 0) {
+	    data.groups = params.groups;
+	  }
+	}
+	if (params.public) {
+	  data.public = params.public;
+	}
+	if (params.notes) {
+	  if (typeof params.notes == 'string') {
+	    var notes = params.notes.trim();
+	    if (notes.length>1) {
+	      data.notes = params.notes;
+	    }
+	  }
+	}
+	var person = new Person(data);
+	person.save();
+  if (person._id) {
+    callback(null,person);
+  } else {
+    callback({valid:false,msg:"Could not save person"},null);
+  }
 }
 
 astro.saveData = (model,callback) => {

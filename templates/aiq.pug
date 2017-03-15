@@ -6,7 +6,8 @@ head
   link(type="text/css" href="/css/svg-charts.css" rel="stylesheet")
   link(type="text/css" href="/icomoon/style.css" rel="stylesheet")
   script(type="text/javascript" src="/js/lib/lodash.min.js")
-  script(type="text/javascript" src="/js/lib/vue.min.js")
+  script(type="text/javascript" src="/js/lib/vue.js")
+  script(type="text/javascript" src="/js/lib/vue2-autocomplete.js")
   script(type="text/javascript" src="/js/lib/axios.min.js")
   script(type="text/javascript" src="/js/lib/jquery.min.js")
   script(type="text/javascript" src="/js/lib/jquery.mousewheel.min.js")
@@ -60,8 +61,7 @@ body
             li.southindian(v-on:click="showChart('southindian')") South Indian
         div#results-pane.large-pane(:class="{active:activeTab=='results'}")
           div.inner
-            include includes/info-pane.pug       
-
+            include includes/info-pane.pug              
   script(data-source="internal" type="text/javascript" src="/js/aiq-page.js")
   script(data-source="internal" type="text/javascript" src="/js/aiq-chart.js")
   input#gmap-api-key(type="hidden" value=google.map_apikey)

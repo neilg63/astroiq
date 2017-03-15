@@ -4,9 +4,11 @@ const bodyParser = require("body-parser");
 const config = require('./config/config');
 const {mongoose} = require('./db/mongoose');
 const {Nested} = require('./models/nested');
+const {Person} = require('./models/person');
 const {Geo} = require('./models/geo');
 const pug = require('pug');
 const app = express();
+const _ = require('lodash');
 const geocode = require('./geocode/geocode.js');
 const geonames = require('./geocode/geonames.js');
 const geoplugin = require('./geocode/geoplugin.js');
@@ -60,26 +62,80 @@ app.get('/sweph', function(req, res){
 });
 
 app.get('/astro-json',(req,res) => {
-  astro.fetchChartData(req.query, (error, data) => {
-    if (error) {
-      res.status(404).send(error);
+  var locParts = req.query.lc.split(','),
+  location = {
+    lat: locParts[0],
+    lng: locParts[1],
+    alt: locParts[2]
+  },
+  datetime = req.query.dt;
+  timezone.request(location,datetime,'position',(error,tData) => {
+    if (!error) {
+      var dt = conversions.dateOffsetsToISO(datetime,tData.gmtOffset);
+      req.query.dt = dt;
+      req.query.tz = tData.zoneName;
+      req.query.gmtOffset = tData.gmtOffset;
+      astro.fetchChartData(req.query, (error, aData) => {
+        if (error) {
+          res.status(404).send(error);
+        } else {
+          var locParts = req.query.lc.split(',');
+          aData.geo = location;
+          if (req.query.address) {
+            aData.geo.address = req.query.address;
+          }
+          aData.datetime = req.query.dt;
+          aData.dateinfo = {
+            tz: req.query.tz,
+            gmtOffset: req.query.gmtOffset
+          };
+          if (req.query.name) {
+            aData.name = req.query.name;
+          }
+          if (req.query.gender) {
+            aData.gender = req.query.gender;
+            aData.newPerson = 1;
+          }
+          astro.saveChart(aData, (error,cData) => {
+            if (error) {
+              res.status(200).send(aData);
+            } else {
+              res.status(200).send(cData);
+            }
+          });
+        }
+      });
     } else {
-      var locParts = req.query.lc.split(',');
-      data.location = {
-        lat: locParts[0],
-        lng: locParts[1],
-        alt: locParts[2]
-      }
-      data.datetime = req.query.dt;
-      res.status(200).send(data);
+      res.status(404).send({valid:false,msg:"Cannot match timezone"});
     }
+  });
+  
+});
+
+
+app.get('/person-names-match', function(req, res){ 
+  Nested.find({name:RegExp('^' +req.query.q,'i')}, {_id:1,name:1}, { sort: 'name'}, (err,user) => {
+    var data = [];
+    if (!err) {
+      data = _.sortedUniqBy(user,'name');
+    }
+    res.send(data);
   });
 });
 
-app.get('/results/:page', function(req, res){ 
-  var page = req.params.page.toInt();
-  astro.results(res,page);
+app.get('/person-names-all', function(req, res){ 
+  Nested.find({name:/^\w+/}, {_id:1,name:1}, { sort: 'name'}, (err,user) => {
+    var data = [];
+    if (!err) {
+      var toUser = (u) => {
+        return {'id':u._id,name:u.name,hidden:true};
+      }
+      data = _.map(_.sortedUniqBy(user,'name'),toUser);
+    }
+    res.send(data);
+  });
 });
+
 
 app.get('/sweph-item/:id', function(req, res){ 
   astro.getById(req.params.id,function(data){
@@ -363,6 +419,71 @@ app.get('/arcgis/:address', (req,res) => {
       res.send(data);
     }
   });
+});
+
+app.post('/save-person', (req,res) => {
+  if (req.body.name && req.body.gender) {
+    astro.savePerson(req.body,(error,person) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(person);
+      }
+    });
+  } else {
+    res.send({valid:false,msg:"No name or gender specified"});
+  }
+  
+});
+
+app.post('/save-event-type', (req,res) => {
+  var data = {
+    name: req.query.name,
+  };
+  if (req.query.notes) {
+    data.notes = req.query.notes;
+  }
+  
+  if (req.query.public) {
+    data.dob = req.query.public;
+  }
+  var et = new EventType(data);
+  et.save();
+  res.send(et);
+});
+
+app.post('/save-group', (req,res) => {
+  var data = {
+    name: req.query.name,
+  };
+  if (req.query.notes) {
+    data.notes = req.query.notes;
+  }
+  if (req.query.parent) {
+    if (/^[0-9a-e]+$/.test(req.query.parent)) {
+      data.parent = req.query.parent;
+    }
+  }
+  var group = new Group(data);
+  group.save();
+  res.send(group);
+});
+
+app.post('/save-tag', (req,res) => {
+  var data = {
+    name: req.query.name,
+  };
+  if (req.query.notes) {
+    data.notes = req.query.notes;
+  }
+  if (req.query.parent) {
+    if (/^[0-9a-e]+$/.test(req.query.parent)) {
+      data.parent = req.query.parent;
+    }
+  }
+  var group = new Tag(data);
+  group.save();
+  res.send(group);
 });
 
 app.get('/nearby/:coords', (req,res) => {

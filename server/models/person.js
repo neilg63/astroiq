@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var  ObjectId= mongoose.Schema.ObjectId;
 const validator = require('validator');
 const _ = require('lodash');
 
@@ -14,8 +15,12 @@ var PersonSchema = new mongoose.Schema({
     required: false,
     trim: true
   },
-  userId: Schema.Types.ObjectId,
-  groups: [Schema.Types.ObjectId],
+  userId: ObjectId,
+  public: {
+    type: Boolean,
+    default: false
+  },
+  groups: [ObjectId],
   gender: {
     type: String,
     required: false,

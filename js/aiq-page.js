@@ -384,6 +384,7 @@ var AstroIQ = {
 
   parseResults: function(data,options) {
     var parsed={}, hsy="W", ayanamsa=1, i=0,matched,k;
+    parsed.ayanamsa = 0;
     if (data.ayanamsas) {
       if (options.ayanamsa) {
         if (isNumeric(options.ayanamsa)) {
@@ -449,6 +450,9 @@ var AstroIQ = {
               }
             }
           }
+          break;
+        case 'ascendant':
+          parsed[k] = ((parseFloat(data[k]) - parsed.ayanamsa)+360) % 360;
           break;
         default:
           parsed[k] = data[k];
@@ -525,17 +529,27 @@ var EphemerisData = {
 };
 
 var app = new Vue({
+  components: {
+    autocomplete: Vue2Autocomplete
+  },
   el: '#astroiq',
   data: {
     initialised: false,
     recordId: null,
     recordEditable: false,
+    personEditable: false,
     newRecord: false,
+    newPerson: false,
     personId: null,
     chartType: "birth",
     eventType: "",
     eventTitle: "",
     candidateName: "",
+    people: {
+      persons:[],
+      num:0,
+      showSelected:false
+    },
     gender: {
       active: true,
       type: "unknown",
@@ -649,6 +663,12 @@ var app = new Vue({
       c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
       this.updateDms(c,false);
       this.updateDms(c,true);
+      axios.get('/person-names-all').then(function(response){
+        if (response.data instanceof Array) {
+          app.people.persons = response.data;
+          app.people.num = app.people.persons.length;
+        }
+      });
     }
   },
   watch: {
@@ -729,6 +749,40 @@ var app = new Vue({
     },250)
   },
   methods: {
+    matchPerson: function() {
+      var txt = this.candidateName.trim(),numSelected=0;
+      if (txt.length > 0) {
+        var p=this.people.persons,i=0,
+        sl = txt.length>2? '' : '^',
+        rgx = new RegExp(sl + txt,'i');
+        for (;i<this.people.num;i++) {
+          if (rgx.test(p[i].name)) {
+            p[i].hidden = false;
+            numSelected++;
+            if (numSelected === 1) {
+              app.people.showSelected = true;
+            }
+          } else {
+            p[i].hidden = true;
+          }
+        }
+      }
+      if (numSelected <1) {
+        app.people.showSelected = false;
+      }
+    },
+    resetPersons: function() {
+      _.each(this.people.persons,function(p) { p.hidden = true; });
+      this.people.showSelected = false;
+    },
+    selectPerson: function(person) {
+      if (person) {
+        this.candidateName = person.name;
+        this.personId = person.id;
+        this.personEditable = true;
+        this.resetPersons();
+      }
+    },
     assignResults: function(data) {
       var v1,v2,v3,k1,k2,k3;
       if (data.ascendant) {

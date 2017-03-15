@@ -79,11 +79,13 @@ var timezone = {
 					valid = true;
 				}
 			}
+
 			if (valid) {
 				href += `&lat=${lat}&lng=${lng}`;
 				coords_date = Math.approxFixed(lat,3) + ',' + Math.approxFixed(lng,3);
 			}
 		}
+
 		if (valid) {
 			if (typeof date == 'string' && date !== 'NOW') {
 				var date = new Date(date);
@@ -93,17 +95,23 @@ var timezone = {
 				href += `&time=${timestamp}`;
 				coords_date += '_' + date.toISOString().split('T').shift();
 			}
-			var matched = false;
-			Timezone.findOne({
+
+		var matched = false;
+		Timezone.findOne({
 	      coords_date: coords_date
 	    }).then((doc) => {
 	    	if (doc !== null) {
+	    		matched = true;
 	    		callback(undefined, doc);
 	    	} else {
 	    		timezone.requestRemote(href,coords_date,callback);
+	    		matched = true;
 	    	}
 	    }).catch((e) => {
-	    	callback({valid:false,msg:"application error"});
+	    	if (!matched) {
+	    		callback({valid:false,msg:"application error",e:e});
+	    	}
+	    	
 	    });
 			
 		}

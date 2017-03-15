@@ -279,8 +279,13 @@ h1.title-logo a:hover {
 }
 
 
-#control-panel p.full-span input {
+#control-panel .full-span input {
     width: 92%;
+}
+
+#control-form > div,
+#control-form > p {
+    position: relative;
 }
 
 #control-panel div > label {
@@ -343,11 +348,48 @@ h1.title-logo a:hover {
 }
 
 
+
 #control-panel fieldset > .toggle {
     position: absolute;
     top: 0;
     cursor: pointer;
     color: #999999;
+}
+
+#control-form .persons li {
+    margin:  0; 
+    cursor: pointer;
+    height:  1.125em;
+    padding: 0.125em 0.25em;
+}
+
+#control-form .persons {
+    position: absolute;
+    top: 0.5em;
+    left:  0;
+    width:  92%;
+    background-color: white;
+    padding:0;
+    border:  solid 1px #dddddd;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in; 
+}
+
+#control-form:hover .persons {
+    z-index:  100;
+}
+
+#control-form .name-row:hover .persons {
+    
+    max-height: 40em;
+}
+
+
+
+#control-panel .persons li:hover {
+    background: #dddddd;
+    font-style:  italic;
 }
 
 #control-panel fieldset > .toggle-icon {
@@ -1024,24 +1066,37 @@ line.solid {
     padding-right: 0.5em;
 }
 
-#control-panel .new-record {
+#control-panel .new-item {
     position: absolute;
     right:  0;
     top: .25em;
-    min-width: 18em;
+    width: 7.5em;
+    white-space: nowrap;
 }
 
-.new-record .delete,
-.new-record label,
-.new-record input {
+#control-panel .new-record {
+    right:  9em;
+}
+
+#control-panel .new-person {
+    right:  0em;
+}
+
+.new-item .delete,
+.new-item label,
+.new-item input {
     float:  left;
     width: auto;
 }
 
-.new-record input {
+.new-item label {
+    font-size:  0.75em;
+}
+
+.new-item input {
     margin-top: 0.25em;
 }
-.new-record label {
+.new-item label {
     padding-left:  0.25em;
     padding-right: 0.5em;
 }

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "assert": "^1.4.1",
+    "autocomplete-vue": "^1.0.1",
     "bcryptjs": "^2.4.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
@@ -25,7 +26,9 @@
     "validator": "^6.2.0",
     "yargs": "^6.6.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^2.2.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

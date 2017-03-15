@@ -3,6 +3,7 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
+var  ObjectId= mongoose.Schema.ObjectId;
 
 var UserSchema = new mongoose.Schema({
   email: {
@@ -30,7 +31,12 @@ var UserSchema = new mongoose.Schema({
       type: String,
       required: true
     }
-  }]
+  }],
+  eventTypes:[{
+    type: String,
+    required: false
+  }],
+  groups:[ObjectId]
 });
 
 UserSchema.methods.toJSON = function () {

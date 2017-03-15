@@ -97,6 +97,12 @@ var conversions = {
 		let m = moment(datetime);
 		m.subtract(offset,'seconds');
 		return {b: m.format('DD.MM.YYYY'), ut: m.format('HH:mm')};
+	},
+
+	dateOffsetsToISO: (datetime,offset) => {
+		let m = moment(datetime);
+		m.subtract(offset,'seconds');
+		return m.format('YYYY-MM-DD\THH:mm:ss');
 	}
 
 }
