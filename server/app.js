@@ -62,54 +62,13 @@ app.get('/sweph', function(req, res){
 });
 
 app.get('/astro-json',(req,res) => {
-  var locParts = req.query.lc.split(','),
-  location = {
-    lat: locParts[0],
-    lng: locParts[1],
-    alt: locParts[2]
-  },
-  datetime = req.query.dt;
-  timezone.request(location,datetime,'position',(error,tData) => {
-    if (!error) {
-      var dt = conversions.dateOffsetsToISO(datetime,tData.gmtOffset);
-      req.query.dt = dt;
-      req.query.tz = tData.zoneName;
-      req.query.gmtOffset = tData.gmtOffset;
-      astro.fetchChartData(req.query, (error, aData) => {
-        if (error) {
-          res.status(404).send(error);
-        } else {
-          var locParts = req.query.lc.split(',');
-          aData.geo = location;
-          if (req.query.address) {
-            aData.geo.address = req.query.address;
-          }
-          aData.datetime = req.query.dt;
-          aData.dateinfo = {
-            tz: req.query.tz,
-            gmtOffset: req.query.gmtOffset
-          };
-          if (req.query.name) {
-            aData.name = req.query.name;
-          }
-          if (req.query.gender) {
-            aData.gender = req.query.gender;
-            aData.newPerson = 1;
-          }
-          astro.saveChart(aData, (error,cData) => {
-            if (error) {
-              res.status(200).send(aData);
-            } else {
-              res.status(200).send(cData);
-            }
-          });
-        }
-      });
+  astro.processChartRequest(req.query,(error,result) => {
+    if (error) {
+      res.status(404).send(error);
     } else {
-      res.status(404).send({valid:false,msg:"Cannot match timezone"});
+      res.status(200).send(result);
     }
   });
-  
 });
 
 

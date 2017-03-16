@@ -15,7 +15,9 @@ var simpleNumberType = {
 
 var optionalStringType = {
   type: String,
-  required: true,
+  required: false,
+  trim: true,
+  default: ""
 };
 
 var optionalNumberType = {
@@ -36,7 +38,10 @@ var planetType = {
 var ChartSchema = new mongoose.Schema({
   personId:  ObjectId,
   chartType: simpleStringType,
-  eventTypeId: ObjectId,
+  eventTypeId: {
+    type: ObjectId,
+    required: false
+  },
   eventTitle: optionalStringType,
   notes: optionalStringType,
   tags: [ObjectId],
@@ -61,11 +66,7 @@ var ChartSchema = new mongoose.Schema({
   ut: simpleNumberType,
   et: simpleNumberType,
   delta_t: simpleNumberType,
-  epsilon_true: {
-    lng: simpleNumberType,
-    lat: optionalNumberType,
-    spd: optionalNumberType
-  },
+  epsilon_true: simpleNumberType,
   nutation: {
     lng: simpleNumberType,
     lat: simpleNumberType

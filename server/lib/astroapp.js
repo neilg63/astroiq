@@ -5,6 +5,7 @@ const {Person} = require('./../models/person');
 const conversions = require('./conversions');
 const exec = require('child_process').exec;
 const request = require('request');
+const timezone = require('../geocode/timezone.js');
 const _ = require('lodash');
 var astro = {};
 
@@ -1010,7 +1011,6 @@ astro.saveChart = (model,callback) => {
 			  });
 			});
        } else {
-        console.log(data)
           var chart = new Chart(data);
 	       	chart.save().then((doc) => {
 	          callback(doc);
@@ -1022,6 +1022,61 @@ astro.saveChart = (model,callback) => {
     }
   }
   return data;
+}
+
+
+astro.processChartRequest = (query,callback) => {
+  var locParts = query.lc.split(','),
+  location = {
+    lat: locParts[0],
+    lng: locParts[1],
+    alt: locParts[2]
+  },
+  datetime = query.dt;
+  timezone.request(location,datetime,'position',(error,tData) => {
+    if (!error) {
+      var dt = conversions.dateOffsetsToISO(datetime,tData.gmtOffset);
+      query.dt = dt;
+      query.tz = tData.zoneName;
+      query.gmtOffset = tData.gmtOffset;
+      astro.fetchChartData(query, (error, aData) => {
+        if (error) {
+          res.status(404).send(error);
+        } else {
+          aData.geo = location;
+          if (query.address) {
+            aData.geo.address = query.address;
+          }
+          aData.datetime = query.dt;
+          aData.dateinfo = {
+            zone: query.tz,
+            gmtOffset: query.gmtOffset
+          };
+          if (query.name) {
+            aData.name = query.name;
+          }
+          if (query.chartType) {
+            aData.chartType = query.chartType;
+          } else {
+            aData.chartType = 'birth';
+          }
+          if (query.gender) {
+            aData.gender = query.gender;
+            aData.newPerson = 1;
+          }
+          astro.saveChart(aData, (error,cData) => {
+            if (error) {
+              callback(undefined,aData);
+            } else {
+              callback(undefined,cData);
+            }
+          });
+        }
+      });
+    } else {
+      callback({valid:false,msg:"Cannot match timezone"},undefined);
+    }
+  });
 }
 
 astro.savePerson = (params,callback) => {

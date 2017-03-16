@@ -17,6 +17,9 @@ OUT=$DATE" "$TIME" -fPLEBS "$GEOPOS
 swetest $OUT | $LC | $KEYCLEAN | $KEYTIDY | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/g' | sed -r 's/^(date_dmy|ut|et|geo_long|epsilon_true|nutation|mean_node|true_node|mean_apogee|osc_apogee|intp_apogee|intp_perigee):.*?$//g' | $REM_BODIES | sed -r 's/^([a-z_-]+):/g.\1:/g'
 
 HOUSE="-house"$4","$3",W"
+swetest $DATE $TIME $HOUSE -p | $LC | egrep '^(ascendant|vertex|mc|armc) ' | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/' | sed -r 's/^([a-z_-]+)/t.\1:/g'
+
+HOUSE="-house"$4","$3",W"
 swetest $DATE $TIME $HOUSE -p | grep 'house ' | sed -r 's/([0-9][^0-9 ])\s?\s?([0-9][^0-9 ])\s?\s?([0-9])/\1\2\3/' | sed -r 's/house\s\s?\s?([0-9]+)\s+/W-\1: /g'
 
 HOUSE="-house"$4","$3",E"
