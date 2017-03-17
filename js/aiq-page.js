@@ -535,6 +535,16 @@ var app = new Vue({
   el: '#astroiq',
   data: {
     initialised: false,
+    user: {
+      loggedin: false,
+      showForm: false,
+      registerMode: "",
+      submitLabel: "Log in!",
+      name: "",
+      id: "",
+      type: "",
+      isAdmin: false
+    },
     recordId: null,
     recordEditable: false,
     personEditable: false,
@@ -1376,6 +1386,23 @@ var app = new Vue({
         l.sec = parts[2].toFloat();
         l.dir = parts[3].toUpperCase();
       }
+    },
+    showLogin: function(mode) {
+      this.user.showForm = true;
+      this.toggleMenu('hide');
+      if (mode == 'register') {
+        this.user.registerMode = "email";
+        this.user.submitLabel = "Register";
+      } else {
+        this.user.registerMode = "";
+        this.user.submitLabel = "Log in";
+      }
+    },
+    login: function() {
+      //
+    },
+    logout: function() {
+      //
     }
   }
 });

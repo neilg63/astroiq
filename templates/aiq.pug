@@ -18,7 +18,7 @@ head
   link(type="text/css" href="/js/datebox/css/custom-datebox.css" rel="stylesheet")
   title= title
 body
-  div#astroiq(:class="{'show-menu':showTopMenu}")
+  div#astroiq(:class="{'show-menu':showTopMenu,'show-login':user.showForm}")
     include includes/header.pug
     include includes/control-panel.pug
     div#main

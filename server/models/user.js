@@ -22,6 +22,11 @@ var UserSchema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
+  isAdmin: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
   tokens: [{
     access: {
       type: String,
@@ -32,11 +37,7 @@ var UserSchema = new mongoose.Schema({
       required: true
     }
   }],
-  eventTypes:[{
-    type: String,
-    required: false
-  }],
-  groups:[ObjectId]
+  userGroups:[ObjectId]
 });
 
 UserSchema.methods.toJSON = function () {

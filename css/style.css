@@ -1724,3 +1724,31 @@ ul.hor-tabs li:not(.disabled):hover {
 #control-panel .ui-datebox-container {
     cursor:  pointer;
 }
+
+#user-form.hidden {
+    display: none;
+}
+
+.show-login #user-form {
+    z-index: 100;
+    pointer-events: all;
+    position: fixed;
+    background: white;
+    height:  2em;
+    right:  5em;
+    min-width: 20em;
+    padding: 0.5em 1em;
+}
+
+#user-form p {
+    padding: 0.25em 0;
+    margin: 0;
+}
+
+#user-form p.username {
+    width: 10em;
+}
+
+#user-form p.password {
+    width: 6em;
+}

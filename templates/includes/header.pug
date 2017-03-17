@@ -4,9 +4,23 @@ header#navbar(v-on:mouseleave="toggleMenu('hide')")
     a(href="/")= title
   nav.top
     ul
+      li(v-if="!user.loggedin")
+        a(href="/login" v-on:click.stop.prevent="showLogin()") Sign in
+      li(v-if="!user.loggedin")
+        a(href="/login" v-on:click.stop.prevent="showLogin('register')") Register
+      li(v-if="user.loggedin")
+        a(href="/logout" v-on:click.stop.prevent="logout()") Log out
       li
-        a(href="/") Astro Chart
+        a(href="/") Home
       li
         a(href="/about") About
       li
         a(href="/command") Command Test
+  div#user-status(:class="{hidden:!user.loggedin}")
+  div#user-form(:class="{hidden:!user.showForm}")
+    form(method="post" class="user-form" v-on:submit.stop.prevent="processUser()")
+      p
+        input.user-name(type="text" placeholder="Email" name="username" id="user-usernme" minlength="4" required="true")
+        input.password(type="password" placeholder="Password" name="password" id="user-password" minlength="6" required="true")
+        input.password(v-if="user.registerMode === 'email'" type="password" placeholder="Confirm password" name="confirm_password" id="login-confirm-password" minlength="6" required="true")
+        input.submit(type="submit" v-bind:value="user.submitLabel" name="submit_login" id="login-submit")

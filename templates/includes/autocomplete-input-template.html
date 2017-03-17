@@ -1,0 +1,15 @@
+<script id="autocomplete-input-template" type="text/x-template">
+  <div class="autocomplete-input">
+    <p class="control has-icon has-icon-right">
+      <input v-model="candidateName" class="input is-large" placeholder="Search..." @input="onInput($event.target.value)" @keyup.esc="isOpen = false" @blur="isOpen = false" @keydown.down="moveDown" @keydown.up="moveUp" @keydown.enter="select">
+      <i class="fa fa-angle-down"></i>
+    </p>
+    <ul v-show="isOpen" class="options-list">
+      <li v-for="(option, index) in fOptions" :class="{
+          'highlighted': index === highlightedPosition
+        }" @mouseenter="highlightedPosition = index" @mousedown="select">
+        <slot name="item" :value="option.value" :name="option.description">
+      </li>
+    </ul>
+  </div>
+</script>

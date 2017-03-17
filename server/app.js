@@ -298,7 +298,7 @@ app.post('/git/:cmd', (req,res) => {
   }
 });
 
-app.get('/ayanamsa', function(req, res){
+/*app.get('/ayanamsa', function(req, res){
      var cmd = astro.composeSwetestQueryAyanamsa(req.query);
      if (cmd.length > 4) {
 	     cmd = cmd.cleanCommand();
@@ -317,7 +317,7 @@ app.get('/ayanamsa', function(req, res){
 			});
 	     }
 	}
-});
+});*/
 
 app.use('/js', express.static('js'));
 
@@ -396,19 +396,31 @@ app.post('/save-person', (req,res) => {
 });
 
 app.post('/save-event-type', (req,res) => {
-  var data = {
-    name: req.query.name,
-  };
-  if (req.query.notes) {
-    data.notes = req.query.notes;
+  if (req.body.userId && req.body.name) {
+    astro.saveEventType(req.body,(error,eventType) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(eventType);
+      }
+    });
+  } else {
+    res.send({valid:false,msg:"No name or user id specified"});
   }
-  
-  if (req.query.public) {
-    data.dob = req.query.public;
+});
+
+app.post('/save-user', (req,res) => {
+  if (req.body.username && req.body.password) {
+    astro.saveUser(req.body,(error,user) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(user);
+      }
+    });
+  } else {
+    res.send({valid:false,msg:"No name or password specified"});
   }
-  var et = new EventType(data);
-  et.save();
-  res.send(et);
 });
 
 app.post('/save-group', (req,res) => {

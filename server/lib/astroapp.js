@@ -2,6 +2,10 @@ const {mongoose} = require('./../db/mongoose');
 const {Nested} = require('./../models/nested');
 const {Chart} = require('./../models/chart');
 const {Person} = require('./../models/person');
+const {User} = require('./../models/user');
+const {Group} = require('./../models/group');
+const {EventType} = require('./../models/eventType');
+const {Tag} = require('./../models/tag');
 const conversions = require('./conversions');
 const exec = require('child_process').exec;
 const request = require('request');
@@ -954,7 +958,6 @@ astro.saveChart = (model,callback) => {
        		name: model.name,
        		gender: model.gender
        	}
-
         if (model.chartType == 'birth') {
           personData.dob = new Date(model.dob);
         }
@@ -1018,7 +1021,6 @@ astro.saveChart = (model,callback) => {
 	          callback({valid:false,msg:"System error 1"});
 	      });
        }
-       
     }
   }
   return data;
@@ -1110,6 +1112,37 @@ astro.savePerson = (params,callback) => {
     callback(null,person);
   } else {
     callback({valid:false,msg:"Could not save person"},null);
+  }
+}
+
+astro.saveUser = (query,callback) => {
+  var user = new User(data);
+  user.save();
+  if (user._id) {
+    data._id = user._id;
+    callback(undefined,data);
+  } else {
+    callback({valid:false,msg:"Could not save user"},undefined);
+  }
+}
+
+astro.saveEventType = (query,callback) => {
+  var data = {
+    name: query.name,
+  };
+  if (query.notes) {
+    data.notes = query.notes;
+  }
+  if (query.public) {
+    data.public = query.public;
+  }
+  var et = new EventType(data);
+  et.save();
+  if (et._id) {
+    data._id = et._id;
+    callback(undefined,data);
+  } else {
+    callback({valid:false,msg:"Could not save event type"},undefined);
   }
 }
 
