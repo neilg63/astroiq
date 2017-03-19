@@ -6,11 +6,11 @@ const bcrypt = require('bcryptjs');
 var  ObjectId= mongoose.Schema.ObjectId;
 
 var UserSchema = new mongoose.Schema({
-  email: {
+  username: {
     type: String,
     required: true,
     trim: true,
-    minlength: 1,
+    minlength: 6,
     unique: true,
     validate: {
       validator: validator.isEmail,
@@ -22,10 +22,34 @@ var UserSchema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
+  screenname: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 4
+  },
   isAdmin: {
     type: Boolean,
     required: true,
     default: false
+  },
+  authType: {
+    type: String,
+    required: true,
+    default: "email"
+  },
+  active: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  created: {
+    type: Date,
+    required: true
+  },
+  accessed: {
+    type: Date,
+    required: false
   },
   tokens: [{
     access: {
@@ -123,5 +147,23 @@ UserSchema.pre('save', function (next) {
 });
 
 var User = mongoose.model('User', UserSchema);
+
+// Get User By Id
+User.getUserById = (id, callback) => {
+  User.findById(id, callback);
+}
+
+User.getUserByUsername = (username, callback) => {
+  var query = {username: username};
+  User.findOne(query, callback);
+}
+
+// Compare password
+User.comparePassword = (candidatePassword, hash, callback) => {
+  bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+    if(err) throw err;
+    callback(null, isMatch);
+  });
+}
 
 module.exports = {User}

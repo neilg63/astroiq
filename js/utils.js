@@ -676,6 +676,10 @@ function getItem(key,maxAge) {
     if (data) {
       parts = data.split(':');
       if (parts.length>2) {
+        if (!maxAge) {
+          maxAge = (86400 * 7);
+        };
+
         obj.ts = parts.shift();
         obj.ts = obj.ts - 0;
         obj.type = parts.shift();
@@ -684,7 +688,7 @@ function getItem(key,maxAge) {
           obj.data = JSON.parse(obj.data); 
         }
         obj.valid = true;
-        if ((ts - maxAge) > obj.ts) {
+        if (obj.ts > (ts - maxAge)) {
           obj.expired = false;
         }
       }
@@ -703,16 +707,16 @@ function deleteItem(key) {
   return false;
 }
 
-var toParamString = function(obj, excludes) {
-  var str = '', parts=[],excludeKeys=[];
-  if (excludes instanceof Array) {
-    excludeKeys = excludes;
+var toParamString = function(obj, keys) {
+  var str = '', parts=[],aKeys=[];
+  if (keys instanceof Array) {
+    aKeys = keys;
   }
   if (typeof obj == 'object') {
     var keys = Object.keys(obj),len=keys.length,i=0,k;
     for (;i<len;i++) {
       k = keys[i];
-      if (excludeKeys.indexOf(k) < 0) {
+      if (aKeys.length < 1 || aKeys.indexOf(k) > -1) {
         k = keys[i];
         parts.push(k + '=' + obj[k].toString());
       }

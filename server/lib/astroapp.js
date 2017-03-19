@@ -1116,14 +1116,30 @@ astro.savePerson = (params,callback) => {
 }
 
 astro.saveUser = (query,callback) => {
-  var user = new User(data);
-  user.save();
-  if (user._id) {
-    data._id = user._id;
-    callback(undefined,data);
-  } else {
-    callback({valid:false,msg:"Could not save user"},undefined);
-  }
+  var data = {
+    username: query.username,
+    password: query.password,
+    screenname: query.screenname,
+    isAdmin: false,
+    authType: "email",
+    created: new Date(),
+    active: false
+  };
+  User.find({username:data.username}, (err,user) => {
+    
+    if (user instanceof Array && user.length>0) {
+      callback({valid:false,msg:"A user with the same email address already exists."},undefined);
+    } else {
+      var user = new User(data);
+      user.save().then((doc) => {
+        callback(undefined,doc);
+
+      }, (e) => {
+        callback(e,undefined);
+      });
+    }
+  });
+  
 }
 
 astro.saveEventType = (query,callback) => {

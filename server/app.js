@@ -5,7 +5,11 @@ const config = require('./config/config');
 const {mongoose} = require('./db/mongoose');
 const {Nested} = require('./models/nested');
 const {Person} = require('./models/person');
+const {User} = require('./models/user');
 const {Geo} = require('./models/geo');
+const passport = require('passport');
+const session = require('express-session');
+const LocalStrategy = require('passport-local').Strategy;
 const pug = require('pug');
 const app = express();
 const _ = require('lodash');
@@ -27,6 +31,17 @@ app.enable('trust proxy');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Express Session
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/sweph', function(req, res){ 
   var debug = false,swCoords;
@@ -409,17 +424,89 @@ app.post('/save-event-type', (req,res) => {
   }
 });
 
+app.post('/login', passport.authenticate('local'), function(req, res, next) {
+    var ud={}, k; 
+    if (req.user) {
+      for (k in req.user) {
+        switch (k) {
+          case '_id':
+            ud.id = req.user[k];
+            break;
+          case 'username':
+          case 'screenname':
+          case 'userGroups':
+          case 'created':
+          case 'isAdmin':
+          case 'active':
+            ud[k] = req.user[k];
+            break;
+        }
+      }
+    }
+    var data = {
+      msg: 'You are now logged in',
+      user: ud
+    };
+    res.send(data);
+});
+
+passport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
+
+
+passport.deserializeUser(function(id, done) {
+  User.getUserById(id, function (err, user) {
+    done(err, user);
+  });
+});
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.getUserByUsername(username, function(err, user){
+      if (err) throw err;
+      if(!user){
+        return done(null, false, { message: 'Unknown user ' + username }); 
+      }
+
+      User.comparePassword(password, user.password, function(err, isMatch) {
+          if (err) return done(err);
+          if(isMatch) {
+            return done(null, user);
+          } else {
+            // Success Message
+            return done(null, false, { message: 'Invalid password' });
+          }
+      });
+    });
+  }
+));
+
 app.post('/save-user', (req,res) => {
-  if (req.body.username && req.body.password) {
+  if (req.body.username && req.body.password && req.body.screenname) {
     astro.saveUser(req.body,(error,user) => {
       if (error) {
         res.send(error);
       } else {
-        res.send(user);
+        var ud = {};
+        for (k in user) {
+          switch (k) {
+            case "_id":
+              ud.id = user[k];
+              break;
+            case 'username':
+            case 'screenname':
+            case 'isAdmin':
+            case 'active':
+              ud[k] = user[k];
+              break;
+          }
+        }
+        res.send(ud);
       }
     });
   } else {
-    res.send({valid:false,msg:"No name or password specified"});
+    res.send({valid:false,msg:"No user name, screen name or password specified"});
   }
 });
 

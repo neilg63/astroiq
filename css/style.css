@@ -1729,6 +1729,12 @@ ul.hor-tabs li:not(.disabled):hover {
     display: none;
 }
 
+#user-status {
+    position: absolute;
+    top: 0.25em;
+    right:  5em;
+}
+
 .show-login #user-form {
     z-index: 100;
     pointer-events: all;
@@ -1740,15 +1746,29 @@ ul.hor-tabs li:not(.disabled):hover {
     padding: 0.5em 1em;
 }
 
+#user-form input,
+#user-form button {
+    display: inline-block;
+}
+
+#user-form button.register {
+    margin-right: 3em;
+}
+
 #user-form p {
     padding: 0.25em 0;
     margin: 0;
 }
 
-#user-form p.username {
-    width: 10em;
+#user-form p input {
+    padding: 0.125em;
+    margin:  0 0.25em 0 0;
 }
 
-#user-form p.password {
-    width: 6em;
+#user-form p input.username {
+    width: 12em;
+}
+
+#user-form p input.password {
+    width: 9em;
 }

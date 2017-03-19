@@ -116,7 +116,9 @@ var GeoMap = {
           animation: google.maps.Animation.DROP,
           map: this.map
         });
-        this.addDragendEvent(this.marker);
+        if (this.marker) {
+          this.addDragendEvent(this.marker);
+        }
         if (updateCoords === true) {
           this.updateCoords(coords);
         }
@@ -324,14 +326,18 @@ var AstroIQ = {
 
   fetchGeoFromIp: function() {
     var geoData = getItem('geodata',3600);
+
     if (geoData.valid == false) {
-        axios.get('/geoip').then(function(data) {
+        axios.get('/geoip').then(function(response) {
+          if (response.data) {
+            var data = response.data;
             if (data.coords) {
               User.geo.coords = data.coords;
               storeItem('geodata',data);
               GeoMap.updateAddress(data);
               app.updateTzFields(data);
             }
+          }
         });
     } else {
         if (geoData.data) {
@@ -538,12 +544,17 @@ var app = new Vue({
     user: {
       loggedin: false,
       showForm: false,
-      registerMode: "",
+      registerMode: "login",
       submitLabel: "Log in!",
-      name: "",
+      username: "",
+      screenname: "",
+      password: "",
+      cpassword: "",
       id: "",
       type: "",
-      isAdmin: false
+      isAdmin: false,
+      statusMsg: "Not logged in",
+      errorMsg: ""
     },
     recordId: null,
     recordEditable: false,
@@ -643,12 +654,22 @@ var app = new Vue({
     
     var c = this.location.coords;
     
+    var ud = getItem('user');
+    if (ud.data) {
+      if (ud.data.id) {
+        this.user = ud.data;
+        this.user.showForm = false;
+      }
+    }
     
     if (localStorageSupported()) {
       var items = [], item,li;
       for (k in window.localStorage) {
-        if (k.indexOf('b=') >= 0 && k.indexOf('b=') <= 2) {
-          item = getItem(k);
+        item = getItem(k);
+        if (item.expired) {
+          deleteItem(k);
+        }
+        if (k.indexOf('lc=') >= 0 && k.indexOf('lc=') <= 2) {
           if (item.valid) {
             li = {
               ts: item.ts,
@@ -660,7 +681,7 @@ var app = new Vue({
             };
             items.push(li);
           }
-        }
+        } 
       }
       items = items.sort(function(a,b){
         return b.ts - a.ts
@@ -1137,7 +1158,7 @@ var app = new Vue({
             timeParts[2] = secs;
             tobV = timeParts.join(':');
           }
-          params.lc = lngV + ',' + latV + ',' + altV;
+          params.lc = latV + ',' + lngV + ',' + altV;
 
           params.dt = dobV+'T'+tobV;
           
@@ -1149,8 +1170,6 @@ var app = new Vue({
           }
           params.address = this.location.address;
           params.gender = genderVal;
-          /*var paramStr = toParamString(params,['address']),
-          stored = getItem(paramStr);*/
           var update = false;
           if (this.newRecord !==true && this.recordEditable === true) {
             if (typeof this.recordId == 'string') {
@@ -1198,10 +1217,11 @@ var app = new Vue({
     loadQuery: function(paramStr, update) {
       if (typeof paramStr == 'object') {
         var params = paramStr, hasData = false;
-        paramStr = toParamString(paramStr,['id']);
+        paramStr = toParamString(paramStr,['lc','dt','name']).toLowerCase();
       } else {
-        var params = fromParamStr(paramStr);
+        var params = fromParamStr(paramStr,['lc','dt','name']);
       }
+
       jQuery('#form-location').val('');
       app.location.search = '';
       if (update !== true) {
@@ -1220,7 +1240,6 @@ var app = new Vue({
         .then(function (response) {
           if (response.data) {
             var data = AstroIQ.parseResults(response.data,app.options);
-            console.log(data)
             app.assignResults(data);
             app.activeTab = 'chart';
             app.updateChartData(data);
@@ -1231,7 +1250,7 @@ var app = new Vue({
               datetime: data.datetime,
               address: data.geo.address
             };
-            if (!update) { 
+            if (!update) {
               app.queries.unshift(item);
             } else {
               deleteItem(app.currId);
@@ -1298,7 +1317,9 @@ var app = new Vue({
           this.showTopMenu = !this.showTopMenu;
           break;
       }
-      
+      if (this.showTopMenu && this.user.showForm) {
+        this.user.showForm = false;
+      }
     },25),
     toggleDegreeMode: function(mode) {
       var sm = this.coordinatesClass;
@@ -1394,15 +1415,90 @@ var app = new Vue({
         this.user.registerMode = "email";
         this.user.submitLabel = "Register";
       } else {
-        this.user.registerMode = "";
+        this.user.registerMode = "login";
         this.user.submitLabel = "Log in";
       }
     },
-    login: function() {
-      //
+    processUser: function() {
+      switch (this.user.registerMode) {
+        case "login":
+          this.errorMsg = "";
+          var data = {
+            username: this.user.username,
+            password: this.user.password
+          };
+          axios.post('/login',data).then(function(response) {
+            if (response.data) {
+              var data = response.data;
+              if (data.user) {
+                var ud = data.user;
+                if (ud.id) {
+                  app.user.id = ud.id;
+                  app.user.username = ud.username;
+                  app.user.isAdmin = ud.isAdmin;
+                  app.user.showForm = false;
+                  app.user.screenname = ud.screenname;
+                  app.user.loggedin = true;
+                  app.user.statusMsg = 'Logged in as ' + ud.screenname;
+                  storeItem('user',app.user);
+                }
+              }
+            }
+          }).catch(function (error) {
+            app.user.statusMsg = "Cannot match your username or password";
+          });
+          break;
+        case "email":
+          var data = {
+            username: this.user.username,
+            password: this.user.password,
+            cpassword: this.user.cpassword,
+            screenname: this.user.screenname
+          },
+          valid = true;
+          if (data.password.length < 7) {
+            app.user.errorMsg = "Please enter pass";
+          }
+          if (data.password !== data.cpassword) {
+            valid = false;
+            app.user.errorMsg = "Your passwords do not match";
+          }
+          if (valid) {
+            axios.post('/save-user',data).then(function(response) {
+              if (response.data) {
+                var ud = response.data;
+                if (ud.id) {
+                  app.user.id = ud.id;
+                  app.user.username = ud.username;
+                  app.user.showForm = false;
+                  app.user.screenname = ud.screenname;
+                  app.user.loggedin = true;
+                  app.user.statusMsg = 'Thank you for registering as ' + ud.screenname;
+                  setTimeout(function() {
+                    app.user.statusMsg = 'Logged in as ' + ud.screenname;
+                     storeItem('user',app.user);
+                  }, 2000);
+                }
+              }
+            }).catch(function (error) {
+              app.user.statusMsg = "Cannot match your username or password";
+            });
+          }
+          break;
+      } 
+      
+      this.user.password = "";
+      
     },
     logout: function() {
-      //
+      deleteItem('user');
+      this.user.id = "";
+      this.user.isAdmin = false;
+      this.user.username = "";
+      this.user.screenname = "";
+      this.user.statusMsg = "Logged out";
+      this.user.loggedin = false;
+      this.user.showForm = false;
     }
   }
 });

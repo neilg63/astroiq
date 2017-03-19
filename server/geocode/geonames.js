@@ -280,7 +280,7 @@ var geonames = {
         return;
       }
       var valid = false,
-      href = geoNamesUrl + `/findNearbyPlaceNameJSON?formatted=true?style=full&type=json&formatted=true&lat=${coords.lat}&lng=${coords.lng}&username=${geoNamesUserName}`;
+      href = geoNamesUrl + `/findNearbyPlaceNameJSON?formatted=true?style=full&type=json&formatted=true&lat=${coords.lat}&lng=${coords.lng}&username=${config.geonames.username}`;
       if (radius > 1) {
         href += `&radius=${radius}`;
       }
