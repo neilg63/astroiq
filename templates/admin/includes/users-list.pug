@@ -1,0 +1,16 @@
+table.users-table
+  thead
+    tr
+      th User name / email
+      th Screen name
+      th Active
+      th Authentication type
+      th Date joined
+  tbody
+    template(v-for="user in users")
+      tr
+        th.label {{user.username}}
+        td.screenname {{user.screennane}}
+        td.active {{user.active_text}}
+        td.authType {{user.authType}}
+        td.created {{user.created_ds}}

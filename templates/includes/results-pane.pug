@@ -20,6 +20,14 @@ dl.results-list(:class="{hidden: !results.valid}")
       li.ascendant
         span.label Ascendant
         strong.value {{results.astro.ascendant}}
+      li.vertex
+        span.label Vertex
+        strong.value {{results.astro.vertex}}
+      li.delta
+        span.label Vertex
+        strong.value
+          span.base {{results.astro.delta}}
+          span.offset {{results.astro.delta_t}}
       li.et
         span.label ET
         strong.value {{results.astro.et}}

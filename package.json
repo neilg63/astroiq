@@ -11,6 +11,7 @@
     "autocomplete-vue": "^1.0.1",
     "bcryptjs": "^2.4.0",
     "body-parser": "^1.15.2",
+    "cookies": "^0.7.0",
     "express": "^4.14.0",
     "express-session": "^1.15.1",
     "hbs": "^4.0.1",

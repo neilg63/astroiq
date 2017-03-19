@@ -518,6 +518,7 @@ var EphemerisData = {
     gmtOffset: null,
     tz: null,
     display: "",
+    display_utc: "",
     info: ""
   },
   gender: "unknown",
@@ -867,12 +868,14 @@ var app = new Vue({
             dt.setSeconds(dt.getTimezoneOffset() * 60);
             this.results.dateinfo.tz = data.dateinfo.zone;
             if (data.dateinfo.hasOwnProperty('gmtOffset')) {
-                
+                this.results.dateinfo.display_utc =  "UTC: " + dt.dmy('m');
                 this.results.dateinfo.gmtOffset = data.dateinfo.gmtOffset;
+                
                 dt.setSeconds(data.dateinfo.gmtOffset);
                 this.results.dateinfo.datetime = dt;
                 this.results.dateinfo.info =   data.dateinfo.zone + ' UTC ' + secondsToHours(this.results.dateinfo.gmtOffset);
                 this.results.dateinfo.display =  dt.dmy('m');
+
             }
             var parts = this.results.dateinfo.datetime.ymd('s').split(' ');
             if (parts.length>1) {

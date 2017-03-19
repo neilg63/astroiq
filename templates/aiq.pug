@@ -52,7 +52,7 @@ body
               span.label Name: 
               strong.person-name {{chartData.name}}
               em.chart-type {{results.chart_type}}
-            p.datetime {{results.dateinfo.display}}
+            p.datetime(v-bind:title="results.dateinfo.display_utc") {{results.dateinfo.display}}
             p.notes.zoneinfo {{results.dateinfo.info}}
             p.location-name(:title="chartData.coords") {{chartData.address}}
           ul#chart-tabs.hor-tabs

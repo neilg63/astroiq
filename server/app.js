@@ -27,6 +27,7 @@ const spawn = require('child_process').spawn;
 const variables = require('./../content/variables.js');
 const tplDir = __dirname + '/../templates/';
 
+
 app.enable('trust proxy');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,37 +44,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/sweph', function(req, res){ 
-  var debug = false,swCoords;
-  if (req.query.debug) {
-    if (req.query.debug == 1) {
-      debug = true;
-    }
-  }
+const admin = require('./routes/admin');
+app.use('/admin', admin);
 
-  if (req.query.topo) {
-    swCoords = req.query.topo;
-  } else if (req.query.geopos) {
-    swCoords = req.query.geopos;
-  }
-  if (swCoords !== null) {
-    let coords = conversions.swephTopoStrToLatLng(swCoords),
-        datetime = conversions.euroDatePartsToISOString(req.query.b,req.query.ut);
-   
-    timezone.request(coords,datetime,'position',(error,tData) => {
-      if (!error) {
-        var dt = conversions.dateOffsetsToEuroDateTimeParts(datetime,tData.gmtOffset);
-        req.query.b = dt.b;
-        req.query.ut = dt.ut;
-        req.query.tz = tData.zoneName;
-        req.query.gmtOffset = tData.gmtOffset;
-      }
-      astro.get(req.query,res);
-    });
-  } else {
-    res.send({valid: false});
-  }
 
+// Makes the user object global in all views
+app.get('*', function(req, res, next) {
+  // put user into res.locals for easy access from templates
+  res.locals.user = req.user || null;
+
+  if(req.user){
+    res.locals.type = req.user.type;
+  }
+  next();
 });
 
 app.get('/astro-json',(req,res) => {
@@ -131,51 +114,6 @@ app.get('/dasha-json',(req,res) => {
       res.status(200).send(data);
     }
   });
-});
-
-app.get('/swetest-backend',function(req,res) {
-	if (req.query.cmd) {
-		var cmd = req.query.cmd,
-			valid = false,
-			msg = "Please enter a valid command";
-		if (typeof cmd == 'string') {
-			cmd = cmd.cleanCommand();
-			if (cmd.length>1) {
-					cmd = cmd.trim();
-				
-				if (cmd !== 'whoami') {
-					if (cmd.startsWith('-')) {
-						var cmd = 'swetest ' + cmd;
-						valid = true;
-					} else {
-						msg = "Swetest command options must begin with a hyphen (-)";
-					}
-				} else {
-					valid = true;
-				}
-			}
-		}
-		if (valid) {
-
-			child = exec(cmd, function (error, stdout, stderr) {
-			  var data = {};
-			  if (!stderr) {
-			  	data.output = stdout;
-			  	data.valid = true;
-			  } else {
-			  	data.output = stderr;
-			  	data.valid = true;
-			  }
-			  res.send(data);
-			});
-		} else {
-			var data = {
-				valid: true,
-				output: msg
-			};
-			res.send(data);
-		}
-	}
 });
 
 app.get('/server-datetime', (req,res) => {
@@ -260,79 +198,7 @@ app.get('/geoip', (req,res) => {
     });
 });
 
-app.post('/git/:cmd', (req,res) => {
-  if (req.body.password) {
-    var password = req.body.password,
-      cmd = req.params.cmd,
-      valid = false,
-      msg = "Cannot validate your password.";
-    
-    var compPass = 'vimshottari',
-      dt = new Date(),
-      dtStr = ';' + ( dt.getHours() + dt.getDate() ),
-      matchedStr = compPass + dtStr,
-      valid = password === matchedStr;
 
-    if (valid) {
-      var cmds = [];
-      switch (cmd) {
-        case 'pull':
-          cmds = ['pull','origin','dev'];
-          break;
-        case 'log':
-          cmds = ['log'];
-          break;
-        case 'status':
-          cmds = ['status'];
-          break;
-      }
-      var process = spawn('git',cmds);
-      var buf='', tmp='';
-      process.stdout.on('data', (data) => {
-        tmp = data.toString();
-        if (typeof tmp == 'string') {
-          if (tmp.length>0) {
-            buf += tmp.split('<').join('&lt;').split('>').join('&gt;');
-          }
-        }
-        
-      });
-      process.on('close', (data) => {
-        res.send({
-          valid: true,
-          output: buf
-        });
-      });
-    } else {
-      var data = {
-        valid: true,
-        output: msg
-      };
-      res.send(data);
-    }
-  }
-});
-
-/*app.get('/ayanamsa', function(req, res){
-     var cmd = astro.composeSwetestQueryAyanamsa(req.query);
-     if (cmd.length > 4) {
-	     cmd = cmd.cleanCommand();
-	     if (cmd.length > 4) {
-	     	child = exec(cmd, function (error, stdout, stderr) {
-			  var data = astro.parseOutput(stdout,debug);
-
-			  res.setHeader('Content-Type', 'application/json');
-			  if (error !== null) {
-			    data = {"valid": false,"msg": "Server error"};
-			  } else {
-			  	data.valid = true;
-			  	data.msg = "OK";
-			  }
-			  res.send(data);
-			});
-	     }
-	}
-});*/
 
 app.use('/js', express.static('js'));
 
@@ -343,12 +209,12 @@ app.use('/icomoon', express.static('icomoon'));
 app.use('/svgs', express.static('svgs'));
 
 app.get('/', function(req, res) {
-   const page = pug.compileFile(tplDir + '/astro.pug');
+   const page = pug.compileFile(tplDir + '/aiq.pug');
     res.send(page(variables));
 });
 
 app.get('/home', function(req, res) {
-   const page = pug.compileFile(tplDir + '/astro.pug');
+  const page = pug.compileFile(tplDir + '/aiq.pug');
     res.send(page(variables));
 });
 
@@ -370,10 +236,6 @@ app.get('/chart', function(req, res) {
 app.get('/about', function(req, res) {
     const page = pug.compileFile(tplDir + '/about.pug');
     res.send(page(variables));
-});
-
-app.get('/command', function(req, res) {
-    res.sendfile('./swetest.html');
 });
 
 app.get('/settings', function(req, res) {
@@ -443,6 +305,7 @@ app.post('/login', passport.authenticate('local'), function(req, res, next) {
         }
       }
     }
+    console.log(req.user);
     var data = {
       msg: 'You are now logged in',
       user: ud
@@ -547,6 +410,60 @@ app.post('/save-tag', (req,res) => {
 app.get('/nearby/:coords', (req,res) => {
   var coords = req.params.coords.despace();
   geocode.fetchHospitals(coords, res);
+});
+
+/* Legacy services */
+/*app.get('/ayanamsa', function(req, res){
+     var cmd = astro.composeSwetestQueryAyanamsa(req.query);
+     if (cmd.length > 4) {
+       cmd = cmd.cleanCommand();
+       if (cmd.length > 4) {
+        child = exec(cmd, function (error, stdout, stderr) {
+        var data = astro.parseOutput(stdout,debug);
+
+        res.setHeader('Content-Type', 'application/json');
+        if (error !== null) {
+          data = {"valid": false,"msg": "Server error"};
+        } else {
+          data.valid = true;
+          data.msg = "OK";
+        }
+        res.send(data);
+      });
+       }
+  }
+});*/
+app.get('/sweph', function(req, res){ 
+  var debug = false,swCoords;
+  if (req.query.debug) {
+    if (req.query.debug == 1) {
+      debug = true;
+    }
+  }
+
+  if (req.query.topo) {
+    swCoords = req.query.topo;
+  } else if (req.query.geopos) {
+    swCoords = req.query.geopos;
+  }
+  if (swCoords !== null) {
+    let coords = conversions.swephTopoStrToLatLng(swCoords),
+        datetime = conversions.euroDatePartsToISOString(req.query.b,req.query.ut);
+   
+    timezone.request(coords,datetime,'position',(error,tData) => {
+      if (!error) {
+        var dt = conversions.dateOffsetsToEuroDateTimeParts(datetime,tData.gmtOffset);
+        req.query.b = dt.b;
+        req.query.ut = dt.ut;
+        req.query.tz = tData.zoneName;
+        req.query.gmtOffset = tData.gmtOffset;
+      }
+      astro.get(req.query,res);
+    });
+  } else {
+    res.send({valid: false});
+  }
+
 });
 
 var port = process.env.PORT || 9862;

@@ -1772,3 +1772,7 @@ ul.hor-tabs li:not(.disabled):hover {
 #user-form p input.password {
     width: 9em;
 }
+
+body.admin #main {
+    top: 4em;
+}

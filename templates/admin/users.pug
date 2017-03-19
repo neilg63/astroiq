@@ -1,0 +1,17 @@
+doctype html
+head
+  link(type="text/css" href="//unpkg.com/purecss@0.6.1/build/pure-min.css" rel="stylesheet")
+  link(type="text/css" href="/icomoon/style.css" rel="stylesheet")
+  style(media="all") @import url('/css/style.css')
+  script(type="text/javascript" src="/js/lib/lodash.min.js")
+  script(type="text/javascript" src="/js/lib/vue.min.js")
+  script(type="text/javascript" src="/js/lib/axios.min.js")
+  script(type="text/javascript" src="/js/utils.min.js")
+body.admin
+  div#astroiq(:class="{'show-menu':showTopMenu}")
+    include ../includes/header.pug
+    div#main
+      div.body-text
+        include includes/users-list.pug
+
+  script(type="text/javascript" src="/js/admin.js")

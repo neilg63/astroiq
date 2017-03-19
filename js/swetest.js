@@ -14,7 +14,7 @@
                 var params = {
                     cmd: cmd
                 }
-                var href = '/swetest-backend';
+                var href = '/admin/swetest-backend';
                 $.ajax({
                     url: href,
                     data: params,
@@ -49,7 +49,7 @@
             if (passwd.length>0) {
                 pw = $.trim(passwd.val());
                 if (pw.length > 8) {
-                   $.post('/git/' + cmd,{
+                   $.post('/admin/git/' + cmd,{
                         password: pw
                     },function(data) {
                         if (data.valid) {

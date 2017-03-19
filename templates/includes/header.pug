@@ -15,7 +15,9 @@ header#navbar(v-on:mouseleave="toggleMenu('hide')")
       li
         a(href="/about") About
       li(v-if="user.isAdmin")
-        a(href="/command") Command Test
+        a(href="/admin/command") Command Test
+      li(v-if="user.isAdmin")
+        a(href="/admin/users") Users
   div#user-status(:class="{active:user.loggedin}") {{user.statusMsg}}
   div#user-form(:class="{hidden:!user.showForm}")
     form(method="post" class="user-form" v-on:submit.stop.prevent="processUser()")
