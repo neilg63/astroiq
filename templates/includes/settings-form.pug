@@ -3,6 +3,7 @@ form#settings-form.pane(:class="{active:subPane=='settings'}" action="/settings"
   h2.form-label Calculation Settings
   //- include settings/calc-house-system.pug
   fieldset.main.open
+    h3.toggle Toggle
     p.sub-section
       label.left(for="form-hsy") House system:
       select#form-hsy.select-input(name="hsy" v-model="options.hsy")

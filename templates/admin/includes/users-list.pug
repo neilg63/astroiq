@@ -10,7 +10,9 @@ table.users-table
     template(v-for="user in users")
       tr
         th.label {{user.username}}
-        td.screenname {{user.screennane}}
-        td.active {{user.active_text}}
+        td.screenname {{user.screenname}}
+        td.active(v-on:click="toggleUserStatus(user.id,'active',user.active)") {{user.active_text}}
+        td.admin(v-on:click="toggleUserStatus(user.id,'isAdmin',user.isAdmin)") {{user.isAdmin_text}}
         td.authType {{user.authType}}
         td.created {{user.created_ds}}
+        td.delete(v-on:click="deleteUser(user.id)") delete

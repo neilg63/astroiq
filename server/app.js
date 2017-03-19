@@ -9,6 +9,7 @@ const {User} = require('./models/user');
 const {Geo} = require('./models/geo');
 const passport = require('passport');
 const session = require('express-session');
+const Cookies = require( "cookies" );
 const LocalStrategy = require('passport-local').Strategy;
 const pug = require('pug');
 const app = express();
@@ -50,9 +51,7 @@ app.use('/admin', admin);
 
 // Makes the user object global in all views
 app.get('*', function(req, res, next) {
-  // put user into res.locals for easy access from templates
   res.locals.user = req.user || null;
-
   if(req.user){
     res.locals.type = req.user.type;
   }
@@ -305,7 +304,10 @@ app.post('/login', passport.authenticate('local'), function(req, res, next) {
         }
       }
     }
-    console.log(req.user);
+    var cookies = new Cookies( req, res, { "keys": ['xyz'] } );
+    cookies
+      .set( "uid", ud.id, { httpOnly: false } )
+      .set( "isAdmin", ud.isAdmin, { signed: true } );
     var data = {
       msg: 'You are now logged in',
       user: ud

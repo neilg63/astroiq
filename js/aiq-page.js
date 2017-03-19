@@ -80,6 +80,12 @@ var initDateBox = function() {
     },250);
 }
 
+/*d3 extensions*/
+
+d3.selection.prototype.trigger = function(evtName, data) {  
+  this.on(evtName)(data);
+}
+
 var pDom = {};
 
 var User = {
@@ -109,7 +115,6 @@ var GeoMap = {
           center: loc,
           streetViewControl: true,
         });
-
         this.marker = new google.maps.Marker({
           position: loc,
           draggable: true,
@@ -266,8 +271,8 @@ var GeoMap = {
           app.location.coords.lat = coords.lat;
           app.location.coords.lng = coords.lng;
         } else {
-          jQuery('#form-lat').val(coords.lat).trigger('change');
-          jQuery('#form-lng').val(coords.lng).trigger('change');
+          d3.select('#form-lat').property('value',coords.lat).trigger('change');
+          d3.select('#form-lng').property('value',coords.lng).trigger('change');
         }
 
     },
@@ -309,8 +314,9 @@ var GeoMap = {
     init: function() {
         setTimeout(function() {
             if (document.getElementById('form-lat')) {
-                var lat = jQuery('#form-lat').val(),
-                lng = jQuery('#form-lng').val();
+                var lat = d3.select('#form-lat').property('value'),
+                lng = d3.select('#form-lng').property('value');
+                console.log(lat)
                 if (isNumeric(lat) && isNumeric(lng)) {
                     lat = parseFloat(lat);
                     lng = parseFloat(lng);
@@ -1506,6 +1512,52 @@ var app = new Vue({
   }
 });
 
+
+d3.select('#control-panel').on('click',function() {
+    var tg = d3.select(d3.event.target), b = d3.select("body"), refCl='show-control-panel';
+    if (tg.classed('toggle-aside') || (b.classed(refCl)==false && tg.attr('id')=='control-panel')) {
+      d3.event.stopImmediatePropagation();
+      if (b.classed(refCl)) {
+         b.classed(refCl,false);
+      } else {
+         b.classed(refCl,true);
+      }
+    }
+});
+
+setTimeout(function(){
+  pDom.geoLocAllowed = GeoMap.geoLocAllowed();
+
+  if (!pDom.geoLocAllowed) {
+     AstroIQ.fetchGeoFromIp();
+     /*setTimeout(function(){
+         pDom.geoLocAllowed = GeoMap.geoLocAllowed();
+     }, 10000);*/
+  } else {
+    setTimeout(function() {
+      if (!User.geo.coords) {
+          User.geo.coords = {
+              lat: d3.select('#form-lat').property('value'),
+              lng: d3.select('#form-lng').property('value'),
+          };
+          app.updateTzFields(User.geo);
+      }
+    }, 4000);
+  }
+}, 1000);
+
+/*d3.select('#control-panel fieldset .toggle').on('click',function(){
+    var e = d3.event, par = d3.select(this.parentNode);
+    
+    e.stopImmediatePropagation();
+    if (par.classed('closed')) {
+        d3.select(this.parentNode.parentNode).select('fieldset.collapsible.open').classed('open',false).classed('closed',true);
+        par.classed('closed',false).classed('open',true);
+    } else {
+        par.classed('open',false).classed('closed',true);
+    }
+});*/
+
 (function($) {
 
     $( document ).ready(function() {
@@ -1527,16 +1579,7 @@ var app = new Vue({
           p.height = p.window.height();
         });
 
-        $('#control-panel fieldset .toggle').on('click',function(e){
-            var par = $(this).parent();
-            e.stopImmediatePropagation();
-            if (par.hasClass('closed')) {
-                par.parent().find('fieldset.collapsible.open').removeClass('open').addClass('closed');
-                par.removeClass('closed').addClass('open');
-            } else {
-                par.removeClass('open').addClass('closed');
-            }
-        });
+        
 
         /*$('#control-panel .symbol-radio').on('click',function(e){
             var it = $(this), radio = it.find('input[type=radio]');
@@ -1552,17 +1595,7 @@ var app = new Vue({
             } 
         });*/
 
-        $('#control-panel').on('click',function(e) {
-            var tg = $(e.target), b = pDom.body, refCl='show-control-panel';
-            if (tg.hasClass('toggle-aside') || (b.hasClass(refCl)==false && tg.attr('id')=='control-panel')) {
-              e.stopImmediatePropagation();
-              if (b.hasClass(refCl)) {
-                 b.removeClass(refCl);
-              } else {
-                 b.addClass(refCl);
-              }
-            }
-        });
+        
 
         
 
@@ -1570,26 +1603,7 @@ var app = new Vue({
           p.body.addClass('show-control-panel');
         }
 
-        setTimeout(function(){
-          pDom.geoLocAllowed = GeoMap.geoLocAllowed();
         
-          if (!pDom.geoLocAllowed) {
-             AstroIQ.fetchGeoFromIp();
-             /*setTimeout(function(){
-                 pDom.geoLocAllowed = GeoMap.geoLocAllowed();
-             }, 10000);*/
-          } else {
-            setTimeout(function() {
-              if (!User.geo.coords) {
-                  User.geo.coords = {
-                      lat: $('#form-lat').val(),
-                      lng: $('#form-lng').val()
-                  };
-                  app.updateTzFields(User.geo);
-              }
-            }, 4000);
-          }
-        }, 1000)
 
         if (screen.width > p.mobileMax) {
           // setTimeout(initJQueryDateBox, 250);

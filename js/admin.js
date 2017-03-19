@@ -56,5 +56,27 @@ var app = new Vue({
       }
       
     },25),
+    deleteUser: function(id) {
+      axios.post('/admin/user/delete',{id:id}).then(function(response) {
+
+        var matched = _.findIndex(app.users,['id', id]);
+        if (matched >= 0) {
+          app.users.splice(matched,1);
+        }
+    });
+    },
+    toggleUserStatus: function(id,fieldName,status) {
+      axios.post('/admin/user/toggle-status',{id:id,status:status,fn:fieldName}).then(function(response) {
+        if (response.data) {
+          var data=response.data,
+            matched = _.findIndex(app.users,['id', id]),
+            fieldLbl = fieldName + '_text';
+          if (matched >= 0) {
+            app.users[matched][fieldName] = data.status;
+            app.users[matched][fieldLbl] = data.status? "yes" : "no";
+          }
+        }
+    });
+    },
   }
 });
