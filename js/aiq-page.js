@@ -1,89 +1,29 @@
-initJQueryDateBox// Flipbox
-var initJQueryDateBox = function() {
-    var scrTag = jQuery('<script type="text/javascript"></script>'),
-    jr = jQuery('#jq-resources');
-    if (jr.length>0) {
-        var vl = jr.val();
-        if (vl) {
-          var jScripts = vl.split(',');
-          if (jScripts.length>1) {
-              var s1 = scrTag.clone(),head = jQuery('head').first();
-              s1.attr('src',jScripts[0]);
-              head.append(s1);
-              var s2 = scrTag.clone();
-              s2.attr('src',jScripts[1]);
-              head.append(s2);
-              setTimeout(initDateBox,500);
-          }
-        }
-    }
-    
-}
-var initDateBox = function() {
-    jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, {
-  'en': {
-        timeFormat: 24,
-        dateFieldOrder: ["d", "m", "y"],
-        timeFieldOrder: ["h", "i", "a"],
-        slideFieldOrder: ["y", "m", "d"],
-        dateFormat: "%Y-%m-%d",
-        headerFormat: "%A, %-d %B %Y",
-      }
-    });
-    jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
-      useLang: 'en'
-    });
-    var db = jQuery('input.datebox');
-    ctrls = jQuery('<div class="mode-controls"><span class="mode disable-datebox"></span></div>');
-    db.parent().last().append(ctrls);
-    db.datebox();
-    ctrls.find('span').on('click',function(e){
-      e.stopImmediatePropagation();
-      var ctrl = jQuery(this),
-      cont = ctrl.parent().parent(), 
-      it = cont.find('input.datebox');
-      if (it.length>0) {
-        var par = it.parent();
-        if (par.hasClass('input-group')) {
-          cont.parent().find('input.datebox').datebox('destroy');
-          cont.parent().find('.ui-datebox-container,.input-group').remove();
-        } else {
-          if (it.hasClass('clicked')) {
-            it.attr('type','text').removeClass('clicked').addClass('plain');
-          } else if (it.hasClass('plain')==false) {
-            it.addClass('clicked');
-          }
-        }
-      }
-    });
-    db.on('change',function(){
-      if (app) {
-        app.dob = jQuery('#form-dob').val();
-        app.tob = jQuery('#form-tob').val();
-      }
-    });
-    setTimeout(function(){
-      jQuery('.ui-datebox-container').on('click',function(){
-        var cont = jQuery(this);
-          if (cont.length>0) {
-            if (cont.css('display') !== 'none') {
-              cont.slideUp();
-            }
-          }
-      });
-      jQuery('.datetime').on('mouseleave',function(){
-        var cont = jQuery(this).find('.ui-datebox-container');
-          if (cont.length>0) {
-              cont.slideUp();
-          }
-      });
-    },250);
-}
-
 /*d3 extensions*/
 
 d3.selection.prototype.trigger = function(evtName, data) {  
   this.on(evtName)(data);
+}
+
+d3.selection.prototype.length = function() {  
+  if (this._groups) {
+    if (this._groups[0] instanceof Object) {
+      return this._groups[0].length;
+    }
+  }
+  return 0;
+}
+
+d3.selection.prototype.exists = function() { 
+  if (this._groups) {
+    if (this._groups.length>0) {
+      return this._groups[0][0] !== null;
+    }
+  }
+  return false;
+}
+
+d3.selection.prototype.eq = function(index) {  
+  return d3.select(this[0][index]);
 }
 
 var pDom = {};
@@ -200,7 +140,7 @@ var GeoMap = {
             GeoMap.setMode(mode);
             if (updateMarker) {
               GeoMap.marker.setPosition(pos);
-              GeoMap.addDragendEvent(this.marker);
+              GeoMap.addDragendEvent(GeoMap.marker);
             }
           }
         }, ts);
@@ -475,14 +415,18 @@ var AstroIQ = {
   },
 
   loadGMap: function(focus,lat,lng) {
-    var gMapApi = jQuery('#gmap-api-key');
-    if (gMapApi.length>0) {
-      var gMapApiKey = gMapApi.val(),
-        st = jQuery('#gmap-core');
-
-      if (st.length < 1 && gMapApiKey) {
-         st = jQuery('<script id="gmap-core" async defer src="https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&callback=initMap"></script>');
-          jQuery('body').append(st);
+    var gMapApi = d3.select('#gmap-api-key');
+    
+    if (gMapApi.exists()) {
+      var gMapApiKey = gMapApi.property('value'),
+        st = d3.select('#gmap-core');
+      if (!st.exists() && gMapApiKey) {
+          d3.select('body')
+          .append('script')
+          .attr('id',"gmap-core")
+          .attr('async',true)
+          .attr('defer',true)
+          .attr('src','https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&callback=initMap');
           if (focus === true) {
             GeoMap.setFocus = true;
           }
@@ -492,9 +436,20 @@ var AstroIQ = {
             }
           }
       }
-      
     }
-    
+  },
+  init: function() {
+    AstroChart.init();
+    var p = pDom;
+    if (window.viewportSize) {
+       p.width = window.viewportSize.getWidth();
+       p.height = window.viewportSize.getHeight();
+    } else {
+       p.width = document.body.clientWidth;
+       p.height = document.body.clientHeight;
+    }
+    p.mobileMax = 959;
+    p.medDesktopMin = 1280;
   }
 }
 
@@ -862,8 +817,8 @@ var app = new Vue({
         this.location.coords.lng = geo.lng;
         this.location.coords.alt = geo.alt;
         this.location.address = geo.address;
-        jQuery('#location-address').val(geo.address);
-        jQuery('#form-location').val('');
+        d3.select('#location-address').property('value',geo.address);
+        d3.select('#form-location').property('value','');
         this.location.search = '';
         this.results.geo.display_coords = toLatitudeString(geo.lat,'plain') + ', ' + toLongitudeString(geo.lng,'plain')
       }
@@ -942,7 +897,7 @@ var app = new Vue({
               if (data.valid) {
                 app.updateGeoDetails(data,key);
                 app.location.address = data.address;
-                jQuery('#location-address').val(data.address);
+                d3.select('#location-address').property('value',data.address);
               } else if (data.message) {
                   msg = data.message;
               }
@@ -1108,7 +1063,7 @@ var app = new Vue({
           if (typeof name == 'string') {
             if (name.length>2) {
               this.location.address = name;
-              jQuery('#location-address').val(name);
+              d3.select('#location-address').property('value',name);
             }
           }
         }
@@ -1231,13 +1186,14 @@ var app = new Vue({
         var params = fromParamStr(paramStr,['lc','dt','name']);
       }
 
-      jQuery('#form-location').val('');
+      d3.select('#form-location').property('value','');
       app.location.search = '';
       if (update !== true) {
         var stored = getItem(paramStr);
         if (stored.valid) {
-            this.assignResults(stored.data);
-            this.updateChartData(stored.data);
+            var data = AstroIQ.parseResults(stored.data,app.options);
+            this.assignResults(data);
+            this.updateChartData(data);
             hasData = true;
             this.currId = paramStr;
         }
@@ -1265,7 +1221,7 @@ var app = new Vue({
               deleteItem(app.currId);
               app.replaceQuery(app.currId,item);
             }
-            storeItem(paramStr,data);
+            storeItem(paramStr,response.data);
             app.currId = paramStr;
           }
         })
@@ -1558,55 +1514,5 @@ setTimeout(function(){
     }
 });*/
 
-(function($) {
+AstroIQ.init();
 
-    $( document ).ready(function() {
-        AstroChart.init();
-
-        var p = pDom;
-        p.body = $('body');
-        p.window = $(window);
-        p.width = p.window.width();
-        p.height = p.window.height();
-        p.mobileMax = 959;
-        p.medDesktopMin = 1280;
-        
-
-
-        p.window.on('resize',function() {
-          var p = pDom;
-          p.width = p.window.width();
-          p.height = p.window.height();
-        });
-
-        
-
-        /*$('#control-panel .symbol-radio').on('click',function(e){
-            var it = $(this), radio = it.find('input[type=radio]');
-            e.stopImmediatePropagation();
-            if (radio.length > 0) {
-                if (radio.is(':checked') == false) {
-                    it.parent().find('span.checked').removeClass('checked');
-                    it.addClass('checked');
-                    it.parent().find('input[type=radio]').prop('checked',false);
-                    radio.prop('checked',true);
-                }
-                
-            } 
-        });*/
-
-        
-
-        
-
-        if (p.width > p.medDesktopMin) {
-          p.body.addClass('show-control-panel');
-        }
-
-        
-
-        if (screen.width > p.mobileMax) {
-          // setTimeout(initJQueryDateBox, 250);
-        }       
-    });
-})(jQuery);
