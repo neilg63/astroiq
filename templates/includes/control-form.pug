@@ -3,7 +3,7 @@
 include mixins.pug
 
 form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method="post" v-on:submit.prevent="sendControlForm")
-  input.id.record(type="hidden" v-model="recordId")
+  //- input.id.record(type="hidden" v-model="recordId")
   input.id.person(type="hidden" v-model="personId")
   input.curr-id.record(type="hidden" v-model="currId")
   div.new-record.new-item(:class="{hidden:!recordEditable}")

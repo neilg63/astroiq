@@ -256,7 +256,6 @@ var GeoMap = {
             if (document.getElementById('form-lat')) {
                 var lat = d3.select('#form-lat').property('value'),
                 lng = d3.select('#form-lng').property('value');
-                console.log(lat)
                 if (isNumeric(lat) && isNumeric(lng)) {
                     lat = parseFloat(lat);
                     lng = parseFloat(lng);
@@ -411,6 +410,7 @@ var AstroIQ = {
           break;
       }
     }
+    parsed.person = data.person
     return parsed;
   },
 
@@ -459,7 +459,11 @@ function initMap() {
 
 var EphemerisData = {
   valid: false,
-  name: "",
+  person: {
+    id: null,
+    name: "",
+    gender: "unknown"
+  },
   ascendant: 0,
   ut: 0,
   delta_t: 0,
@@ -610,7 +614,7 @@ var app = new Vue({
     showTopMenu: false,
     toggleMenuMessage: "Show main menu",
     results: EphemerisData,
-    currId: null
+    currId: ""
   },
   created: function() {
     
@@ -631,12 +635,12 @@ var app = new Vue({
         if (item.expired) {
           deleteItem(k);
         }
-        if (k.indexOf('lc=') >= 0 && k.indexOf('lc=') <= 2) {
+        if (k.indexOf('ch_')===0) {
           if (item.valid) {
             li = {
               ts: item.ts,
               paramStr: k,
-              name: item.data.name,
+              name: item.data.person.name,
               dateStr: dateStringFormatted(item.data.datetime),
               datetime: item.data.datetime,
               address: item.data.address
@@ -656,7 +660,7 @@ var app = new Vue({
       c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
       this.updateDms(c,false);
       this.updateDms(c,true);
-      axios.get('/person-names-all').then(function(response){
+      axios.get('/person-names-all/' + this.user.id).then(function(response){
         if (response.data instanceof Array) {
           app.people.persons = response.data;
           app.people.num = app.people.persons.length;
@@ -745,6 +749,7 @@ var app = new Vue({
     matchPerson: function() {
       var txt = this.candidateName.trim(),numSelected=0;
       if (txt.length > 0) {
+        this.personEditable = true;
         var p=this.people.persons,i=0,
         sl = txt.length>2? '' : '^',
         rgx = new RegExp(sl + txt,'i');
@@ -807,8 +812,8 @@ var app = new Vue({
           }
         }
       }
-      if (this.results.name) {
-        this.candidateName = this.results.name;
+      if (this.results.person) {
+        this.candidateName = this.results.person.name;
 
       }
       if (this.results.geo.lat) {
@@ -867,9 +872,13 @@ var app = new Vue({
           }
         }
       }
-      if (data.id) {
-        this.recordId = data.id;
-        this.recordEditable = data.id.length>10;
+      if (data._id) {
+        this.currId = data._id;
+        this.recordEditable = data._id.length>10;
+      }
+      if (data.personId) {
+        this.personId = data.personId;
+        this.personEditable = data.personId.length>10;
       }
       if (data.gender) {
         this.gender.type = data.gender;
@@ -1107,8 +1116,15 @@ var app = new Vue({
           altV = this.location.coords.alt;
           lngV = roundDecimal(lngV,5);
           latV = roundDecimal(latV,5);
+
           var params={}, timeParts = tobV.split(':');
           if (timeParts.length>1) {
+            if (typeof this.currId == 'string') {
+              params.id = this.currId;
+            }
+            if (typeof this.personId == 'string') {
+              params.personId = this.personId;
+            }
             var secs = '00',secStr='';
             if (timeParts.length>2) {
               secStr = timeParts[2];
@@ -1136,10 +1152,7 @@ var app = new Vue({
           params.gender = genderVal;
           var update = false;
           if (this.newRecord !==true && this.recordEditable === true) {
-            if (typeof this.recordId == 'string') {
-              params.id = this.recordId;
-              update = true;
-            }
+            update = params.id.length>5;
           }
           this.loadQuery(params,update);
           
@@ -1149,7 +1162,7 @@ var app = new Vue({
       this.toggleDegreeMode('display');
       if (typeof data == 'object') {
         this.chartData.active = true;
-        this.chartData.name = data.name;
+        this.chartData.name = data.person.name;
         if (data.dateStr) {
           this.chartData.dateStr = data.dateStr;
         } else {
@@ -1178,27 +1191,28 @@ var app = new Vue({
       AstroChart.updateHouses(data.houseLngs);
       AstroChart.moveBodies(data.bodies);
     },
-    loadQuery: function(paramStr, update) {
-      if (typeof paramStr == 'object') {
-        var params = paramStr, hasData = false;
-        paramStr = toParamString(paramStr,['lc','dt','name']).toLowerCase();
-      } else {
-        var params = fromParamStr(paramStr,['lc','dt','name']);
-      }
-
+    loadQuery: function(params, update) {
       d3.select('#form-location').property('value','');
+      var objId = '', hasId = false, chartKey = '',hasData=false;
+      if (typeof params == 'string') {
+        objId = params.split('_').pop();
+        chartKey = 'ch_' + objId;
+        hasId = objId.length > 5;
+        params = {};
+      }
       app.location.search = '';
-      if (update !== true) {
-        var stored = getItem(paramStr);
+      if (update !== true && hasId) {
+        var stored = getItem(chartKey);
         if (stored.valid) {
             var data = AstroIQ.parseResults(stored.data,app.options);
             this.assignResults(data);
             this.updateChartData(data);
             hasData = true;
-            this.currId = paramStr;
+            this.currId = objId;
         }
       }
       if (!hasData) {
+        params.userId = this.user.id;
         axios.get('/astro-json', {
           params: params
         })
@@ -1208,9 +1222,10 @@ var app = new Vue({
             app.assignResults(data);
             app.activeTab = 'chart';
             app.updateChartData(data);
+            objId = data._id;
             var item = {
-              paramStr: paramStr,
-              name: data.name,
+              id: objId,
+              name:data.person.name,
               dateStr: dateStringFormatted(data.datetime),
               datetime: data.datetime,
               address: data.geo.address
@@ -1218,11 +1233,13 @@ var app = new Vue({
             if (!update) {
               app.queries.unshift(item);
             } else {
-              deleteItem(app.currId);
-              app.replaceQuery(app.currId,item);
+              deleteItem(chartKey);
+              app.replaceQuery(chartKey,item);
             }
-            storeItem(paramStr,response.data);
-            app.currId = paramStr;
+            chartKey = 'ch_' + objId;
+            storeItem(chartKey,response.data);
+            app.currId = objId;
+            app.personId = data.personId;
           }
         })
         .catch(function (error) {

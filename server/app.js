@@ -70,7 +70,7 @@ app.get('/astro-json',(req,res) => {
 
 
 app.get('/person-names-match', function(req, res){ 
-  Nested.find({name:RegExp('^' +req.query.q,'i')}, {_id:1,name:1}, { sort: 'name'}, (err,user) => {
+  Person.find({name:RegExp('^' +req.query.q,'i'),userId:req.query.uid}, {_id:1,name:1}, { sort: 'name'}, (err,user) => {
     var data = [];
     if (!err) {
       data = _.sortedUniqBy(user,'name');
@@ -79,8 +79,8 @@ app.get('/person-names-match', function(req, res){
   });
 });
 
-app.get('/person-names-all', function(req, res){ 
-  Nested.find({name:/^\w+/}, {_id:1,name:1}, { sort: 'name'}, (err,user) => {
+app.get('/person-names-all/:uid', function(req, res){ 
+  Person.find({name:/^\w+/,userId:req.params.uid}, {_id:1,name:1}, { sort: 'name'}, (err,user) => {
     var data = [];
     if (!err) {
       var toUser = (u) => {

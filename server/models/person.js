@@ -15,7 +15,10 @@ var PersonSchema = new mongoose.Schema({
     required: false,
     trim: true
   },
-  userId: ObjectId,
+  userId: {
+    type:ObjectId,
+    required: false
+  },
   public: {
     type: Boolean,
     default: false

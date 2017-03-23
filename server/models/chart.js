@@ -36,6 +36,10 @@ var planetType = {
 };
 
 var ChartSchema = new mongoose.Schema({
+  userId: {
+    type: ObjectId,
+    required: false
+  },
   personId:  ObjectId,
   chartType: simpleStringType,
   eventTypeId: {

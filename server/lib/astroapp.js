@@ -939,7 +939,7 @@ astro.mapData = (doc) => {
 }
 
 astro.saveChart = (model,callback) => {
-  var data = {},update=false,id;
+  var data = {},objId;
   if (typeof model == 'object') {
     if (model.geo) {
        if (!model.name) {
@@ -949,81 +949,100 @@ astro.saveChart = (model,callback) => {
           model.gender = 'unknown';
        }
        if (model.id) {
-       	id = model.id;
-       	update = id.length>10;
+       	objId = model.id;
        }
-       
+       if (typeof model.personId == 'string') {
+       		model.newPerson = false;
+       } else {
+       		model.newPerson = true;
+       }
        if (model.newPerson) {
        	var personData = {
+       		userId: model.userId,
        		name: model.name,
-       		gender: model.gender
+       		gender: model.gender,
+       		gmtOffset: model.dateinfo.gmtOffset
        	}
         if (model.chartType == 'birth') {
-          personData.dob = new Date(model.dob);
+          personData.dob = new Date(model.datetime);
         }
        	var person = new Person(personData);
-       		person.save();
-       		data.personId = person._id;
-       }
-       for (k in model) {
-	       	switch (k) {
-				case 'personId':
-				case 'chartType':
-				case 'eventTypeId':
-				case 'eventTitle':
-				case 'notes':
-				case 'tags':
-				case 'datetime':
-				case 'dateinfo':
-				case 'geo':
-				case 'ascendant':
-				case 'mc':
-				case 'armc':
-				case 'vertex':
-				case 'ut':
-				case 'et':
-				case 'delta_t':
-				case 'epsilon_true':
-				case 'nutation':
-				case 'mean_node':
-				case 'true_node':
-				case 'mean_apogee':
-				case 'ayanamsas':
-				case 'houses':
-				case 'bodies':
-		       		data[k] = model[k];
-		       		break;
-	       	}
-       }
-
-       if (update) {
-       		Chart.findById(id, function (err, record) {
-			  if (err || record === null) {
-			  	return callback({valid:false, msg:"not found"});
-			  }
-			  var k;
-			  for (k in data) {
-			  	if (k !== 'id') {
-
-			  		chart[k] = data[k];
-			  	}
-			  }
-			  record.save(function (err, doc) {
-
-			    callback(doc);
-			  });
-			});
+       	person.save();
+       	data.personId = person._id;
+        astro.saveChartRecord(model,data,person,objId,callback);
        } else {
-          var chart = new Chart(data);
-	       	chart.save().then((doc) => {
-	          callback(doc);
-	        }, (e) => {
-	          callback({valid:false,msg:"System error 1"});
-	      });
+       		Person.findById(model.personId,(err,pd) => {
+       			if (err) {
+              callback({valid:false,msg:"Invalid person details"},undefined)
+       			} else {
+       				person = pd.toObject();
+              data.personId = model.personId;
+              astro.saveChartRecord(model,data,person,objId,callback);
+       			}
+       		});
+       		
        }
+       
     }
   }
-  return data;
+}
+
+astro.saveChartRecord = (model,data,person,objId,callback) => {
+	for (k in model) {
+   	switch (k) {
+   		case 'userId':
+    	case 'personId':
+    	case 'chartType':
+    	case 'eventTypeId':
+    	case 'eventTitle':
+    	case 'notes':
+    	case 'tags':
+    	case 'datetime':
+    	case 'dateinfo':
+    	case 'geo':
+    	case 'ascendant':
+    	case 'mc':
+    	case 'armc':
+    	case 'vertex':
+    	case 'ut':
+    	case 'et':
+    	case 'delta_t':
+    	case 'epsilon_true':
+    	case 'nutation':
+    	case 'mean_node':
+    	case 'true_node':
+    	case 'mean_apogee':
+    	case 'ayanamsas':
+    	case 'houses':
+    	case 'bodies':
+         		data[k] = model[k];
+         		break;
+       	}
+     }
+     if (typeof objId == 'string') {
+     		Chart.findByIdAndUpdate(objId, { $set: data}, (err, doc) => {
+        if (err) {
+        	callback({valid:false, msg:"not found"},undefined);
+        } else {
+          var json = doc.toObject();
+          if (person.toObject) {
+            json.person = person.toObject();
+          } else {
+            json.person = person;
+          }
+            callback(undefined,json);
+        }        
+      });
+     } else {
+        var chart = new Chart(data);
+       	chart.save().then((doc) => {
+       	  var json = doc.toObject();
+       	  json.person = person.toObject();
+       	  callback(undefined,json);
+        }, (e) => {
+          callback({valid:false,msg:"System error 1"});
+      });
+  }
 }
 
 
@@ -1045,6 +1064,9 @@ astro.processChartRequest = (query,callback) => {
         if (error) {
           res.status(404).send(error);
         } else {
+          if (query.userId) {
+          	aData.userId = query.userId;
+          }
           aData.geo = location;
           if (query.address) {
             aData.geo.address = query.address;
@@ -1064,7 +1086,17 @@ astro.processChartRequest = (query,callback) => {
           }
           if (query.gender) {
             aData.gender = query.gender;
-            aData.newPerson = 1;
+          }
+          if (query.newPerson) {
+            aData.newPerson = true;
+          } else {
+          	aData.newPerson = false;
+          }
+          if (query.id) {
+          	aData.id = query.id;
+          }
+          if (query.personId) {
+          	aData.personId = query.personId;
           }
           astro.saveChart(aData, (error,cData) => {
             if (error) {
@@ -1162,7 +1194,7 @@ astro.saveEventType = (query,callback) => {
   }
 }
 
-astro.saveData = (model,callback) => {
+/*astro.saveData = (model,callback) => {
   var data = {},update=false,id;
 
   if (typeof model == 'object') {
@@ -1222,7 +1254,7 @@ astro.saveData = (model,callback) => {
     }
   }
   return data;
-}
+}*/
 
 astro.results = (res,page) => {
   Nested.find().then((data) => {
@@ -1251,16 +1283,16 @@ astro.download = (id,callback) => {
   if (cmd.length > 4) {
   	var child = exec(cmd, (error, stdout, stderr) => {
 	  	callback({href:'/screengrab-' + id + '.pdf'});
-		});
+	});
   }
 }
 
 astro.getById = (id,callback) => {
-	Nested.findById(id).then((doc) => {
+	Chart.findById(id).then((doc) => {
     var matched = false;
     if (typeof doc == 'object') {
       if (doc.houses) {
-      	var data = astro.mapData(doc);
+      	
         matched = true;
         callback(data);
       }
