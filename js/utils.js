@@ -670,7 +670,7 @@ function storeItem(key,data) {
   }
 }
 
-function getItem(key,maxAge) {
+function getItem(key,maxAge,unit) {
   var ts = Date.now() / 1000,obj={expired:true,valid:false},data=localStorage.getItem(key);
   if (localStorageSupported()) {
     if (data) {
@@ -678,8 +678,21 @@ function getItem(key,maxAge) {
       if (parts.length>2) {
         if (!maxAge) {
           maxAge = (86400 * 7);
-        };
-
+        }
+        switch (unit) {
+          case 'y':
+            maxAge *= (86400 * 365.25);
+            break;
+          case 'w':
+            maxAge *= (86400 * 7);
+            break;
+          case 'd':
+            maxAge *= 86400;
+            break;
+          case 'h':
+            maxAge *= 3600;
+            break;
+        }
         obj.ts = parts.shift();
         obj.ts = obj.ts - 0;
         obj.type = parts.shift();

@@ -486,7 +486,7 @@ h1.title-logo a:hover {
 
 #control-panel #settings-form.active,
 #control-panel #control-form.active {
-    min-height: 60em;
+    min-height: 80em;
 }
 
 #control-panel span.symbol-radio label {

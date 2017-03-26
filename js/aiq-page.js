@@ -371,13 +371,19 @@ var AstroIQ = {
             hsy = options.hsy;
           }
           matched = _.find(data.houses,function(h){return h.key == hsy});
+          console.log(matched)
           if (matched) {
             parsed.houses = [];
             parsed.houseLngs = [];
-            var nv = matched.values.length,h,lng,end;
+            var nv = matched.values.length,nvTot=nv,h,lng,end;
+            switch (nv) {
+              case 6:
+              case 18:
+                nvTot = (nv*2);
+                break;
+            }
             if (nv > 1) {
-              for (i=0; i < (nv*2); i++) {
-                
+              for (i=0; i < nvTot; i++) {
                 if (i < nv) {
                   lng = parseFloat(matched.values[i]);
                 } else {
@@ -461,6 +467,17 @@ var AstroIQ = {
         }
       }
     }, 1000);
+    d3.select('#control-panel fieldset > .toggle').on('click',function(){
+      var e = d3.event, par = d3.select(this.parentNode);
+      console.log(3838)
+      e.stopImmediatePropagation();
+      if (par.classed('closed')) {
+          d3.select(this.parentNode.parentNode).select('fieldset.collapsible.open').classed('open',false).classed('closed',true);
+          par.classed('closed',false).classed('open',true);
+      } else {
+          par.classed('open',false).classed('closed',true);
+      }
+  });
   }
 }
 
@@ -649,12 +666,26 @@ var app = new Vue({
       c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
       this.updateDms(c,false);
       this.updateDms(c,true);
-      axios.get('/person-names-all/' + this.user.id).then(function(response){
-        if (response.data instanceof Array) {
-          app.people.persons = response.data;
-          app.people.num = app.people.persons.length;
+      if (this.user.loggedin) {
+        var stored = getItem('persons');
+        if (stored.data) {
+            this.people.persons = stored.data;
+            this.people.num = this.people.persons.length;
+        } else {
+          axios.get('/person-names-all/' + this.user.id).then(function(response){
+          if (response.data instanceof Array) {
+            app.people.persons = response.data;
+            app.people.num = app.people.persons.length;
+            storeItem('persons',app.people.persons);
+          }
+          });
         }
-      });
+        var stored = getItem('options',1,'y');
+        if (stored.data) {
+          this.options = stored.data;
+        }
+      }
+      
     }
   },
   mounted: function() {
@@ -1140,7 +1171,7 @@ var app = new Vue({
       this.loadQuery(paramStr,true);
     },
     saveSettings: function() {
-
+      storeItem('options',this.options);
     },
     sendControlForm: function() {
       if (this.dob.length>0 && this.candidateName.length>0) {
@@ -1199,7 +1230,7 @@ var app = new Vue({
       var data = AstroIQ.parseResults(inData,this.options);
       this.assignResults(data);
       this.updateChartData(data);
-      this.currId = objId;
+      this.currId = inData._id;
       return data;
     },
     updateChartData: function(data) {
@@ -1576,17 +1607,7 @@ setTimeout(function(){
   }
 }, 1000);
 
-/*d3.select('#control-panel fieldset .toggle').on('click',function(){
-    var e = d3.event, par = d3.select(this.parentNode);
-    
-    e.stopImmediatePropagation();
-    if (par.classed('closed')) {
-        d3.select(this.parentNode.parentNode).select('fieldset.collapsible.open').classed('open',false).classed('closed',true);
-        par.classed('closed',false).classed('open',true);
-    } else {
-        par.classed('open',false).classed('closed',true);
-    }
-});*/
+
 
 AstroIQ.init();
 
