@@ -1,0 +1,18 @@
+ul.dashas
+  template(v-for="dasha in dashaData.dashas")
+    li
+      strong.label {{dasha.key}}
+      span.start {{dasha.start}}
+      span.end {{dasha.end}}
+      ul.ads
+        template(v-for="ad in dasha.ads")
+          li
+            strong.label {{ad.key}}
+            span.start {{ad.start}}
+            span.end {{ad.end}}
+            ul.pds
+              template(v-for="pd in ad.pds")
+                li
+                  strong.label {{pd.key}}
+                  span.start {{pd.start}}
+                  span.end {{pd.end}}

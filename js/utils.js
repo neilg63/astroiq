@@ -357,6 +357,28 @@ function convertDDToDMS(D, lng){
   };
 }
 
+function convertDegStringToDec(degStr) {
+  if (/^\d+/.test(degStr)) {
+    var parts = degStr.split(/[^0-9a-z_-]/),
+      numParts=parts.length,i=0,deg=0,min=0,sec=0;
+      console.log(parts)
+    for (;i<numParts;i++) {
+      switch (i) {
+        case 0:
+          deg = parseInt(parts[i]);
+          break;
+        case 1:
+          min = parseInt(parts[i]);
+          break;
+        case 2:
+          sec = parseFloat(parts[i]);
+          break;
+      }
+    }
+    return convertDmsToDec(deg, min,sec);
+  }
+}
+
 function convertDmsToDec(deg, min,sec, dir) {
   var degrees = 0;
   if (isNumeric(deg)) {
@@ -421,7 +443,6 @@ function parseAstroResult(val,key,pKey) {
       }
       break;
   }
-
   return val;
 }
 

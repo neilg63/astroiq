@@ -371,7 +371,6 @@ var AstroIQ = {
             hsy = options.hsy;
           }
           matched = _.find(data.houses,function(h){return h.key == hsy});
-          console.log(matched)
           if (matched) {
             parsed.houses = [];
             parsed.houseLngs = [];
@@ -389,6 +388,7 @@ var AstroIQ = {
                 } else {
                   lng = (parseFloat(matched.values[(i-nv)]) + 180) % 360;
                 }
+                lng = ((lng - parsed.ayanamsa) + 360) % 360; 
                 if (nv - (i % nv) === 1) {
                   end = parseFloat(matched.values[0]);
                 } else {
@@ -644,6 +644,10 @@ var app = new Vue({
     showTopMenu: false,
     toggleMenuMessage: "Show main menu",
     results: EphemerisData,
+    dashaData: {
+      active: false,
+      dashas: []
+    },
     currId: ""
   },
   created: function() {
@@ -1364,8 +1368,39 @@ var app = new Vue({
           var c = this.location.coords;
           GeoMap.updateMap(c.lat,c.lng,true,false);
           break;
+        case 'dashas':
+          if (this.dashaData.active !== true) {
+            this.loadDashas();
+          }
+          break;
       }
       this.activeTab = pType;
+    },
+    loadDashas: function() {
+      var bodies = _.filter(this.results.bodies,['key','moon']),body;
+      if (bodies.length>0) {
+        body = bodies.shift();
+        if (body.lng) {
+          var bodyLng = convertDegStringToDec(body.lng),
+          params = {
+            years: 120,
+            lng: bodyLng,
+            dt: this.results.datetime
+          };
+          axios.get('api/dasha', {params:params}).then(function(response) {
+            if (response.data) {
+              if (response.data.dashas) {
+                app.dashaData = response.data;
+                app.dashaData.valid = true;
+                console.log(app.dashaData);
+              }
+            }
+          })
+          .catch(function(error){
+            console.log(error) 
+          });
+        }
+      }
     },
     showSub: function(pType) {
       this.toggleDegreeMode('display');

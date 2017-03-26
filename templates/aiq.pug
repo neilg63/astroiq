@@ -27,6 +27,7 @@ body
         li.chart(:class="{active:activeTab=='chart'}" v-on:click="showPane('chart')") Chart
         li.map(:class="{active:activeTab=='map'}" v-on:click="showPane('map')") Map
         li.results(:class="{disabled:!results.valid,active:activeTab=='results'}" v-on:click="showPane('results')") Results
+        li.results(:class="{disabled:!results.valid,active:activeTab=='dashas'}" v-on:click="showPane('dashas')") Dashas
       div#main-panes.panes
         div#map-pane.large-pane(:class="{active:activeTab=='map'}")
           div#gmap
@@ -62,7 +63,10 @@ body
             li.southindian(v-on:click="showChart('southindian')") South Indian
         div#results-pane.large-pane(:class="{active:activeTab=='results'}")
           div.inner
-            include includes/info-pane.pug              
+            include includes/info-pane.pug
+        div#dashas-pane.large-pane(:class="{active:activeTab=='dashas'}")
+          div.inner
+            include includes/dasha-pane.pug             
   script(data-source="internal" type="text/javascript" src="/js/aiq-chart.js")
   script(data-source="internal" type="text/javascript" src="/js/aiq-page.js")
   input#gmap-api-key(type="hidden" value=google.map_apikey)

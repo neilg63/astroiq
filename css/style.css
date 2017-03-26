@@ -71,11 +71,20 @@ h1.title-logo a:hover {
     color:  #000099;
 }
 
+ul.dashas,
+ul.dashas li,
+ul.dashas ul,
+#results-pane dl dd ul,
+#navbar ul,
+#navbar ul li {
+    list-style-type: none;
+}
+
 #navbar ul {
     background-color: #999999;
     padding: 0.5em 1em;
-    list-style-type: none;
 }
+
 
 #navbar ul li {
     font-size:  1.5em;
@@ -1775,4 +1784,22 @@ ul.hor-tabs li:not(.disabled):hover {
 
 body.admin #main {
     top: 4em;
+}
+
+ul.dashas li span {
+    display: inline-block;
+    padding: 0 0 0 1em;
+}
+#dashas-pane {
+    text-align: left;
+}
+
+#dashas-pane ul.dashas > li {
+    padding: 0;
+    margin: 0;
+}
+
+#dashas-pane ul.dashas > li li {
+    padding: 0 0 0 1em;
+    margin: 0 0 0 1em;
 }
