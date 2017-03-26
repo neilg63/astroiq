@@ -1307,9 +1307,11 @@ var app = new Vue({
           if (response.data) {
             var data = app.updateChartResults(response.data);
             app.activeTab = 'chart';
+            chartKey = 'ch_' + objId;
             objId = data._id;
             var item = {
               id: objId,
+              chartId: chartKey,
               name:data.person.name,
               dateStr: dateStringFormatted(data.datetime),
               datetime: data.datetime,
@@ -1321,7 +1323,6 @@ var app = new Vue({
               deleteItem(chartKey);
               app.replaceQuery(chartKey,item);
             }
-            chartKey = 'ch_' + objId;
             storeItem(chartKey,response.data);
             app.currId = objId;
             app.personId = data.personId;
