@@ -1307,8 +1307,8 @@ var app = new Vue({
           if (response.data) {
             var data = app.updateChartResults(response.data);
             app.activeTab = 'chart';
-            chartKey = 'ch_' + objId;
             objId = data._id;
+            chartKey = 'ch_' + objId;
             var item = {
               id: objId,
               chartId: chartKey,
