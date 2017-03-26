@@ -73,5 +73,68 @@ router.get('/chart/:id', function(req, res){
   });
 });
 
+router.post('/person/save', (req,res) => {
+  if (req.body.name && req.body.gender) {
+    astro.savePerson(req.body,(error,person) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(person);
+      }
+    });
+  } else {
+    res.send({valid:false,msg:"No name or gender specified"});
+  }
+  
+});
+
+router.post('/event-type/save', (req,res) => {
+  if (req.body.userId && req.body.name) {
+    astro.saveEventType(req.body,(error,eventType) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(eventType);
+      }
+    });
+  } else {
+    res.send({valid:false,msg:"No name or user id specified"});
+  }
+});
+
+router.post('/group/save', (req,res) => {
+  var data = {
+    name: req.query.name,
+  };
+  if (req.query.notes) {
+    data.notes = req.query.notes;
+  }
+  if (req.query.parent) {
+    if (/^[0-9a-e]+$/.test(req.query.parent)) {
+      data.parent = req.query.parent;
+    }
+  }
+  var group = new Group(data);
+  group.save();
+  res.send(group);
+});
+
+router.post('/tag/save', (req,res) => {
+  var data = {
+    name: req.query.name,
+  };
+  if (req.query.notes) {
+    data.notes = req.query.notes;
+  }
+  if (req.query.parent) {
+    if (/^[0-9a-e]+$/.test(req.query.parent)) {
+      data.parent = req.query.parent;
+    }
+  }
+  var group = new Tag(data);
+  group.save();
+  res.send(group);
+});
+
 
 module.exports = router;

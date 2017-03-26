@@ -191,12 +191,12 @@ app.get('/home', function(req, res) {
     res.send(page(variables));
 });
 
-app.get('/astro', function(req, res) {
+app.get('/old', function(req, res) {
    const page = pug.compileFile(tplDir + '/astro.pug');
    res.send(page(variables));
 });
 
-app.get('/new', function(req, res) {
+app.get('/astro', function(req, res) {
     const page = pug.compileFile(tplDir + '/aiq.pug');
     res.send(page(variables));
 });
@@ -228,35 +228,6 @@ app.get('/arcgis/:address', (req,res) => {
       res.send(data);
     }
   });
-});
-
-app.post('/save-person', (req,res) => {
-  if (req.body.name && req.body.gender) {
-    astro.savePerson(req.body,(error,person) => {
-      if (error) {
-        res.send(error);
-      } else {
-        res.send(person);
-      }
-    });
-  } else {
-    res.send({valid:false,msg:"No name or gender specified"});
-  }
-  
-});
-
-app.post('/save-event-type', (req,res) => {
-  if (req.body.userId && req.body.name) {
-    astro.saveEventType(req.body,(error,eventType) => {
-      if (error) {
-        res.send(error);
-      } else {
-        res.send(eventType);
-      }
-    });
-  } else {
-    res.send({valid:false,msg:"No name or user id specified"});
-  }
 });
 
 app.post('/login', passport.authenticate('local'), function(req, res, next) {
@@ -349,40 +320,6 @@ app.post('/save-user', (req,res) => {
   }
 });
 
-app.post('/save-group', (req,res) => {
-  var data = {
-    name: req.query.name,
-  };
-  if (req.query.notes) {
-    data.notes = req.query.notes;
-  }
-  if (req.query.parent) {
-    if (/^[0-9a-e]+$/.test(req.query.parent)) {
-      data.parent = req.query.parent;
-    }
-  }
-  var group = new Group(data);
-  group.save();
-  res.send(group);
-});
-
-app.post('/save-tag', (req,res) => {
-  var data = {
-    name: req.query.name,
-  };
-  if (req.query.notes) {
-    data.notes = req.query.notes;
-  }
-  if (req.query.parent) {
-    if (/^[0-9a-e]+$/.test(req.query.parent)) {
-      data.parent = req.query.parent;
-    }
-  }
-  var group = new Tag(data);
-  group.save();
-  res.send(group);
-});
-
 app.get('/nearby/:coords', (req,res) => {
   var coords = req.params.coords.despace();
   geocode.fetchHospitals(coords, res);
@@ -409,7 +346,7 @@ app.get('/nearby/:coords', (req,res) => {
        }
   }
 });*/
-app.get('/sweph', function(req, res){ 
+/*app.get('/sweph', function(req, res){ 
   var debug = false,swCoords;
   if (req.query.debug) {
     if (req.query.debug == 1) {
@@ -440,7 +377,7 @@ app.get('/sweph', function(req, res){
     res.send({valid: false});
   }
 
-});
+});*/
 
 var port = process.env.PORT || 9862;
 app.listen(port, function() {
