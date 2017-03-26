@@ -10,7 +10,6 @@ var timezone = {
 		data = {
 			coords_date: coords_date
 		};
-		console.log(json)
 		for (var k in json) {
 			switch (k) {
 				case 'countryCode':
