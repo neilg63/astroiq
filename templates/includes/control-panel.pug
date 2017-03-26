@@ -12,5 +12,5 @@ aside#control-panel
       ol.queries
         template(v-for="item in queries")
           li
-            span.load(v-on:click.stop="loadQuery(item.paramStr)") {{item.name}}, {{item.dateStr}}
-            span.delete(v-on:click.stop="deleteQuery(item.paramStr)")
+            span.load(v-on:click.stop="loadQuery(item.chartId)") {{item.name}}, {{item.dateStr}}
+            span.delete(v-on:click.stop="deleteQuery(item.chartId)")

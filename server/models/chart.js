@@ -63,6 +63,7 @@ var ChartSchema = new mongoose.Schema({
     alt: simpleNumberType,
     address: simpleStringType
   },
+  rodden: optionalStringType,
   ascendant: simpleNumberType,
   mc: simpleNumberType,
   armc: simpleNumberType,

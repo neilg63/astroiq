@@ -298,7 +298,7 @@ var AstroChart = {
     }
   },
 
-  moveBodies: function(bodies) {
+  moveBodies: function(bodies,mode) {
     var deg = 15,
     steps=30,
     dist = 375,
@@ -316,7 +316,11 @@ var AstroChart = {
         bn = item.key;
         body = d3.select('#'+bn+'-symbol');
         if (body.empty() === false) {
-          deg = item.lng;
+          if (mode == 'geo' && item.hasOwnProperty('glng')) {
+            deg = item.glng;
+          } else {
+            deg = item.lng;
+          }
           d = 120 - deg;
           if (item.aspects) {
           if (item.aspects.length>0) {

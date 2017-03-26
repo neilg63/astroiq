@@ -6,22 +6,22 @@ form#settings-form.pane(:class="{active:subPane=='settings'}" action="/settings"
     h3.toggle Toggle
     p.sub-section
       label.left(for="form-hsy") House system:
-      select#form-hsy.select-input(name="hsy" v-model="options.hsy")
+      select#form-hsy.select-input(name="hsy" v-model="options.hsy" v-on:change="updateChartOptions()")
         each opt,index in houseSystems
           option(value = opt.value)= opt.label
     p.sub-section
       label.left(for="form-ayanamsa") Tropical vs. Sidereal (Ayanāṃśa)
-      select#form-ayanamsa.select-input(name="ayanamsa" v-model="options.ayanamsa")
+      select#form-ayanamsa.select-input(name="ayanamsa" v-model="options.ayanamsa" v-on:change="updateChartOptions()")
         each opt,index in ayanamsas
           option(value = opt.value)= opt.label
     p#form-mode.sub-section.radios
       label.left(for="form-mode-topo") Celestial Calculations
       span.radio-options
         span.option
-          input#form-mode-topo.mode(type="radio" value="topo" name="mode" v-model="options.mode")
+          input#form-mode-topo.mode(type="radio" value="topo" name="mode" v-model="options.mode" v-on:change="updateChartOptions()")
           label(for="form-mode-topo") Topocentric
         span.option
-          input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode" v-model="options.mode")
+          input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode" v-model="options.mode" v-on:change="updateChartOptions()")
           label(for="form-mode-geo") Geocentric
     p#form-layout.sub-section.radios
       label.left(for="form-options-layout") Chart Layout

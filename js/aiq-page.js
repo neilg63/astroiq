@@ -450,6 +450,17 @@ var AstroIQ = {
     }
     p.mobileMax = 959;
     p.medDesktopMin = 1280;
+    setTimeout(function(){
+      if (app) {
+      if (app.currId) {
+          if (typeof app.currId == 'string') {
+            if (app.currId.length>8) {
+              app.loadQuery(app.currId);
+            }
+          }
+        }
+      }
+    }, 1000);
   }
 }
 
@@ -464,6 +475,7 @@ var EphemerisData = {
     name: "",
     gender: "unknown"
   },
+  rodden: "-",
   ascendant: 0,
   ut: 0,
   delta_t: 0,
@@ -532,6 +544,7 @@ var app = new Vue({
     eventType: "",
     eventTitle: "",
     candidateName: "",
+    currName: "",
     people: {
       persons:[],
       num:0,
@@ -629,32 +642,8 @@ var app = new Vue({
     }
     
     if (localStorageSupported()) {
-      var items = [], item,li;
-      for (k in window.localStorage) {
-        item = getItem(k);
-        if (item.expired) {
-          deleteItem(k);
-        }
-        if (k.indexOf('ch_')===0) {
-          if (item.valid) {
-            li = {
-              ts: item.ts,
-              paramStr: k,
-              name: item.data.person.name,
-              dateStr: dateStringFormatted(item.data.datetime),
-              datetime: item.data.datetime,
-              address: item.data.address
-            };
-            items.push(li);
-          }
-        } 
-      }
-      items = items.sort(function(a,b){
-        return b.ts - a.ts
-      });
-      for (var i=0;i<items.length;i++) {
-        this.queries.push(items[i]);
-      }
+      this.loadQueries();
+      
       this.initDate();
       c.latDms = toLatitudeString(this.location.coords.lat,'plain');
       c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
@@ -666,6 +655,13 @@ var app = new Vue({
           app.people.num = app.people.persons.length;
         }
       });
+    }
+  },
+  mounted: function() {
+    var idData = getItem('curr_id');
+    if (idData.valid) {
+      this.currId = idData.data;
+      d3.select('body').classed('mounted',true);
     }
   },
   watch: {
@@ -764,10 +760,15 @@ var app = new Vue({
             p[i].hidden = true;
           }
         }
+        if (txt.length>1 && this.currName.startsWith(this.candidateName,'i') == false) {
+          this.newPerson = true;
+          this.newRecord = true;
+        }
       }
       if (numSelected <1) {
         app.people.showSelected = false;
       }
+
     },
     resetPersons: function() {
       _.each(this.people.persons,function(p) { p.hidden = true; });
@@ -775,10 +776,42 @@ var app = new Vue({
     },
     selectPerson: function(person) {
       if (person) {
-        this.candidateName = person.name;
+        this.updateRefName(person.name);
         this.personId = person.id;
         this.personEditable = true;
         this.resetPersons();
+      }
+    },
+    updateRefName: function(name) {
+      this.candidateName = name;
+      this.currName = name;
+    },
+    loadQueries: function() {
+      var items = [], item,li;
+      for (k in window.localStorage) {
+        item = getItem(k);
+        if (item.expired) {
+          deleteItem(k);
+        }
+        if (k.indexOf('ch_')===0) {
+          if (item.valid) {
+            li = {
+              ts: item.ts,
+              chartId: k,
+              name: item.data.person.name,
+              dateStr: dateStringFormatted(item.data.datetime),
+              datetime: item.data.datetime,
+              address: item.data.address
+            };
+            items.push(li);
+          }
+        } 
+      }
+      items = items.sort(function(a,b){
+        return b.ts - a.ts
+      });
+      for (var i=0;i<items.length;i++) {
+        this.queries.push(items[i]);
       }
     },
     assignResults: function(data) {
@@ -812,10 +845,7 @@ var app = new Vue({
           }
         }
       }
-      if (this.results.person) {
-        this.candidateName = this.results.person.name;
 
-      }
       if (this.results.geo.lat) {
         var geo = this.results.geo;
         this.location.coords.lat = geo.lat;
@@ -880,12 +910,17 @@ var app = new Vue({
         this.personId = data.personId;
         this.personEditable = data.personId.length>10;
       }
+      if (this.results.person) {
+        this.updateRefName(this.results.person.name);
+      }
       if (data.gender) {
         this.gender.type = data.gender;
       }
       if (this.results.cmd) {
         this.results.cmd = this.results.cmd.replace(/_+/g,' ');
       }
+      this.newPerson = false;
+      this.newRecord = false;
     },
     searchLocation: function() {
       this.location.showAddress = false;
@@ -1119,7 +1154,7 @@ var app = new Vue({
 
           var params={}, timeParts = tobV.split(':');
           if (timeParts.length>1) {
-            if (typeof this.currId == 'string') {
+            if (typeof this.currId == 'string' && this.newRecord !== true) {
               params.id = this.currId;
             }
             if (typeof this.personId == 'string') {
@@ -1150,13 +1185,22 @@ var app = new Vue({
           }
           params.address = this.location.address;
           params.gender = genderVal;
+          params.rodden = this.options.rodden;
           var update = false;
           if (this.newRecord !==true && this.recordEditable === true) {
             update = params.id.length>5;
           }
-          this.loadQuery(params,update);
-          
+          params.newRecord = this.newRecord;
+          params.newPerson = this.newPerson;
+          this.loadQuery(params,update); 
       }
+    },
+    updateChartResults: function(inData) {
+      var data = AstroIQ.parseResults(inData,this.options);
+      this.assignResults(data);
+      this.updateChartData(data);
+      this.currId = objId;
+      return data;
     },
     updateChartData: function(data) {
       this.toggleDegreeMode('display');
@@ -1189,39 +1233,45 @@ var app = new Vue({
           GeoMap.updateMap(c.lat,c.lng,true,false);
       }
       AstroChart.updateHouses(data.houseLngs);
-      AstroChart.moveBodies(data.bodies);
+      AstroChart.moveBodies(data.bodies,this.options.mode);
+    },
+    updateChartOptions: function() {
+      if (this.currId) {
+        var chartKey = 'ch_' + this.currId,
+        stored = getItem(chartKey);
+        if (stored.valid) {
+          this.updateChartResults(stored.data);
+        }
+      }
     },
     loadQuery: function(params, update) {
       d3.select('#form-location').property('value','');
       var objId = '', hasId = false, chartKey = '',hasData=false;
       if (typeof params == 'string') {
         objId = params.split('_').pop();
+        storeItem('curr_id',objId);
         chartKey = 'ch_' + objId;
         hasId = objId.length > 5;
         params = {};
       }
-      app.location.search = '';
+      if (!params) {
+        params={};
+      }
+      this.location.search = '';
       if (update !== true && hasId) {
         var stored = getItem(chartKey);
         if (stored.valid) {
-            var data = AstroIQ.parseResults(stored.data,app.options);
-            this.assignResults(data);
-            this.updateChartData(data);
-            hasData = true;
-            this.currId = objId;
+          this.updateChartResults(stored.data);
+          hasData = true;
         }
       }
-      if (!hasData) {
+      if (!hasData && params.lc) {
         params.userId = this.user.id;
-        axios.get('/astro-json', {
-          params: params
-        })
-        .then(function (response) {
+        axios.post('/api/astro',params).then(function (response) {
+
           if (response.data) {
-            var data = AstroIQ.parseResults(response.data,app.options);
-            app.assignResults(data);
+            var data = app.updateChartResults(response.data);
             app.activeTab = 'chart';
-            app.updateChartData(data);
             objId = data._id;
             var item = {
               id: objId,
@@ -1248,18 +1298,25 @@ var app = new Vue({
       }
       app.showSub('form'); 
     },
-    matchQuery: function(paramStr) {
-      return _.findIndex(this.queries,['paramStr',paramStr]);
+    matchQuery: function(chartId) {
+      return _.findIndex(this.queries,['chartId',chartId]);
     },
-    deleteQuery: function(paramStr,subPane) {
-      var matched = this.matchQuery(paramStr);
+    deleteQuery: function(chartId,subPane) {
+      var matched = this.matchQuery(chartId);
       if (matched >= 0) {
-        this.queries.splice(matched,1);
+        this.queries.splice(chartId,1);
       }
-      deleteItem(paramStr);
+      deleteItem(chartId);
       if (subPane) {
         this.showSub('queries');
       }
+      var data = {
+        id: chartId.split('_').pop(),
+        userId: this.user.id
+      };
+      axios.post('api/chart/delete', data).catch(function(error){
+        console.log(error) 
+      });
     },
     replaceQuery: function(paramStr,updatedItem) {
       var matched = this.matchQuery(paramStr);

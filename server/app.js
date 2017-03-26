@@ -47,7 +47,8 @@ app.use(passport.session());
 
 const admin = require('./routes/admin');
 app.use('/admin', admin);
-
+const api = require('./routes/api');
+app.use('/api', api);
 
 // Makes the user object global in all views
 app.get('*', function(req, res, next) {
@@ -57,17 +58,6 @@ app.get('*', function(req, res, next) {
   }
   next();
 });
-
-app.get('/astro-json',(req,res) => {
-  astro.processChartRequest(req.query,(error,result) => {
-    if (error) {
-      res.status(404).send(error);
-    } else {
-      res.status(200).send(result);
-    }
-  });
-});
-
 
 app.get('/person-names-match', function(req, res){ 
   Person.find({name:RegExp('^' +req.query.q,'i'),userId:req.query.uid}, {_id:1,name:1}, { sort: 'name'}, (err,user) => {
@@ -93,25 +83,9 @@ app.get('/person-names-all/:uid', function(req, res){
 });
 
 
-app.get('/sweph-item/:id', function(req, res){ 
-  astro.getById(req.params.id,function(data){
-    res.send(data);
-  });
-});
-
 app.get('/sweph-download/:id', function(req, res){ 
   astro.download(req.params.id,function(data){
     res.send(data);
-  });
-});
-
-app.get('/dasha-json',(req,res) => {
-  dasha.calc(req.query,(error,data) => {
-    if (error) {
-      res.status(404).send(error);
-    } else {
-      res.status(200).send(data);
-    }
   });
 });
 
