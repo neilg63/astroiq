@@ -7,8 +7,8 @@ dl.results-list(:class="{hidden: !results.valid}")
       p.address {{results.geo.address}}
   dt.name-gender Name / gender
   dd.name-gender
-    span.name {{results.name}}
-    span.gender {{results.gender}}
+    span.name {{results.person.name}}
+    span.gender {{results.person.gender}}
   dt.chart-type Chart type
   dd.chart-type {{results.chartType}}
   dt.astro-data Astrological Data

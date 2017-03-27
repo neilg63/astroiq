@@ -49,14 +49,17 @@ body
               span.magnify.two(v-on:click="magnifyChart(2)") 2x
               span.magnify.four(v-on:click="magnifyChart(4)") 4x
             include ../svgs/charts/combined.svg
-          div#infobox(:class="{'has-data': chartData.active}")
+          div#infobox(:class="{'has-data': chartActive}")
             p.name
               span.label Name: 
-              strong.person-name {{chartData.name}}
-              em.chart-type {{results.chart_type}}
+              strong.person-name {{results.person.name}}
+              em.chart-type {{results.chartType}}
             p.datetime(v-bind:title="results.dateinfo.display_utc") {{results.dateinfo.display}}
             p.notes.zoneinfo {{results.dateinfo.info}}
-            p.location-name(:title="chartData.coords") {{chartData.address}}
+            p.location-name(:title="results.geo.coords") {{results.geo.address}}
+            p.ayanamsa
+              strong.label Ayanamsa
+              span.value {{results.ayanamsa}}
           ul#chart-tabs.hor-tabs
             li.western(v-on:click="showChart('western')") Western
             li.northindian(v-on:click="showChart('northindian')") North Indian

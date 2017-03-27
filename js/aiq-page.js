@@ -26,6 +26,14 @@ d3.selection.prototype.eq = function(index) {
   return d3.select(this[0][index]);
 }
 
+var config = {
+  version: 0.2,
+  storage: {
+    maxRecs: 20,
+    maxKb: 2048
+  }
+};
+
 var pDom = {};
 
 var User = {
@@ -268,6 +276,7 @@ var GeoMap = {
 
 var AstroIQ = {
  
+  bodies: ["sun","moon","mercury","venus","mars","jupiter","saturn","uranus","neptune","pluto","ketu","rahu","pallas","ceres","juno"],
 
   fetchGeoFromIp: function() {
     var geoData = getItem('geodata',3600);
@@ -316,13 +325,41 @@ var AstroIQ = {
 
   buildBodyList: function() {
     var bodies=[],
-      bns=["sun","moon","mercury","venus","mars","jupiter","saturn","uranus","neptune","pluto","ketu","rahu","pallas","ceres","juno"],
+    bns = AstroIQ.bodies,
       i=0,
       nb = bns.length;
       for (;i<nb;i++) {
         bodies.push({key:bns[i],lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0});
       }      
       return bodies;
+  },
+
+  matchBody: function(key) {
+    var b = _.find(AstroIQ.bodies,function(b) { return b.startsWith(key,'i'); });
+    if (typeof b == 'string') {
+      return b.capitalize();
+    }
+  },
+
+  translateDashas: function(dashas) {
+    if (dashas instanceof Array) {
+      var d,k;
+      for (k in dashas) {
+        d = dashas[k];
+        if (typeof d == 'object') {
+          if (d.key) {
+            d.name = AstroIQ.matchBody(d.key);
+            if (d.pds) {
+              d.pds = AstroIQ.translateDashas(d.pds);
+            }
+            if (d.ads) {
+              d.ads = AstroIQ.translateDashas(d.ads);
+            }
+          }
+        }
+      }
+    }
+    return dashas;
   },
 
   buildHouses: function() {
@@ -339,13 +376,12 @@ var AstroIQ = {
     if (data.ayanamsas) {
       if (options.ayanamsa) {
         if (isNumeric(options.ayanamsa)) {
-          options.ayanamsa = parseInt(options.ayanamsa);
+          ayanamsa = parseInt(options.ayanamsa);
         } else {
           ayanamsa = 0;
         }
       }
       matched = _.find(data.ayanamsas,function(a){return a.num == ayanamsa});
-      
       if (matched) {
         parsed.ayanamsa = matched.value;
       }
@@ -416,7 +452,7 @@ var AstroIQ = {
           break;
       }
     }
-    parsed.person = data.person
+    parsed.person = data.person;
     return parsed;
   },
 
@@ -557,6 +593,7 @@ var app = new Vue({
     newRecord: false,
     newPerson: false,
     personId: null,
+    chartActive: false,
     chartType: "birth",
     eventType: "",
     eventTitle: "",
@@ -630,12 +667,6 @@ var app = new Vue({
       layout: "western"
     },
     queries: [],
-    chartData: {
-      active: false,
-      name: '',
-      dateStr: '',
-
-    },
     coordinatesClass: 'display',
     activeTab: 'chart',
     subPane: 'form',
@@ -653,7 +684,12 @@ var app = new Vue({
   created: function() {
     
     var c = this.location.coords;
-    
+    this.initDate();
+    c.latDms = toLatitudeString(this.location.coords.lat,'plain');
+    c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
+    this.updateDms(c,false);
+    this.updateDms(c,true);
+
     var ud = getItem('user');
     if (ud.data) {
       if (ud.data.id) {
@@ -663,33 +699,7 @@ var app = new Vue({
     }
     
     if (localStorageSupported()) {
-      this.loadQueries();
-      
-      this.initDate();
-      c.latDms = toLatitudeString(this.location.coords.lat,'plain');
-      c.lngDms = toLongitudeString(this.location.coords.lng,'plain');
-      this.updateDms(c,false);
-      this.updateDms(c,true);
-      if (this.user.loggedin) {
-        var stored = getItem('persons');
-        if (stored.data) {
-            this.people.persons = stored.data;
-            this.people.num = this.people.persons.length;
-        } else {
-          axios.get('/person-names-all/' + this.user.id).then(function(response){
-          if (response.data instanceof Array) {
-            app.people.persons = response.data;
-            app.people.num = app.people.persons.length;
-            storeItem('persons',app.people.persons);
-          }
-          });
-        }
-        var stored = getItem('options',1,'y');
-        if (stored.data) {
-          this.options = stored.data;
-        }
-      }
-      
+      this.loadUserData();
     }
   },
   mounted: function() {
@@ -777,6 +787,30 @@ var app = new Vue({
     },250)
   },
   methods: {
+    loadUserData: function() {
+      this.loadQueries();
+      
+      
+      if (this.user.loggedin) {
+        var stored = getItem('persons');
+        if (stored.data) {
+            this.people.persons = stored.data;
+            this.people.num = this.people.persons.length;
+        } else {
+          axios.get('/person-names-all/' + this.user.id).then(function(response){
+          if (response.data instanceof Array) {
+            app.people.persons = response.data;
+            app.people.num = app.people.persons.length;
+            storeItem('persons',app.people.persons);
+          }
+          });
+        }
+        var stored = getItem('options',1,'y');
+        if (stored.data) {
+          this.options = stored.data;
+        }
+      }
+    },
     matchPerson: function() {
       var txt = this.candidateName.trim(),numSelected=0;
       if (txt.length > 0) {
@@ -822,14 +856,16 @@ var app = new Vue({
       this.currName = name;
     },
     loadQueries: function() {
-      var items = [], item,li;
+      var items = [], index=0, size=0,sz=0,item,li;
+      maxSize = config.storage.maxKb * 1024;
       for (k in window.localStorage) {
         item = getItem(k);
-        if (item.expired) {
+        if (item.expired && size < maxSize) {
           deleteItem(k);
         }
+        
         if (k.indexOf('ch_')===0) {
-          if (item.valid) {
+          if (item.valid && index < config.storage.maxRecs) {
             li = {
               ts: item.ts,
               chartId: k,
@@ -839,8 +875,11 @@ var app = new Vue({
               address: item.data.address
             };
             items.push(li);
+            index++;
           }
-        } 
+        }
+        sz = window.localStorage[k].length;
+        size += sz
       }
       items = items.sort(function(a,b){
         return b.ts - a.ts
@@ -1232,6 +1271,7 @@ var app = new Vue({
     },
     updateChartResults: function(inData) {
       var data = AstroIQ.parseResults(inData,this.options);
+      this.results.ayanamsa = data.ayanamsa;
       this.assignResults(data);
       this.updateChartData(data);
       this.currId = inData._id;
@@ -1240,35 +1280,17 @@ var app = new Vue({
     updateChartData: function(data) {
       this.toggleDegreeMode('display');
       if (typeof data == 'object') {
-        this.chartData.active = true;
-        this.chartData.name = data.person.name;
-        if (data.dateStr) {
-          this.chartData.dateStr = data.dateStr;
-        } else {
-          this.chartData.dateStr = dateStringFormatted(data.datetime);
+          if (this.activeTab == 'map') {
+          var c = this.location.coords;
+            GeoMap.updateMap(c.lat,c.lng,true,false);
         }
-        if (data.address) {
-          this.chartData.address = data.address;
-        } else if (data.geo) {
-          if (data.geo.address) {
-            this.chartData.address = data.geo.address;
-          }
-        } else if (data.location) {
-          if (data.location.address) {
-            this.chartData.address = data.location.address;
-          }
-        } else {
-          this.chartData.address = "";
-        }
+        AstroChart.updateHouses(data.houseLngs);
+        AstroChart.moveBodies(data.bodies,this.options.mode);
+        this.chartActive = true;
       } else {
-        this.chartData.active = false;
+        this.chartActive = false;
       }
-      if (this.activeTab == 'map') {
-        var c = this.location.coords;
-          GeoMap.updateMap(c.lat,c.lng,true,false);
-      }
-      AstroChart.updateHouses(data.houseLngs);
-      AstroChart.moveBodies(data.bodies,this.options.mode);
+      
     },
     updateChartOptions: function() {
       if (this.currId) {
@@ -1391,9 +1413,12 @@ var app = new Vue({
           axios.get('api/dasha', {params:params}).then(function(response) {
             if (response.data) {
               if (response.data.dashas) {
-                app.dashaData = response.data;
+                var dData = response.data;
+                dData.dashas = AstroIQ.translateDashas(dData.dashas);
+                app.dashaData = dData;
                 app.dashaData.valid = true;
-                console.log(app.dashaData);
+                var dKey = 'da_' + app.currId; 
+                storeItem(dKey,app.dashaData);
               }
             }
           })

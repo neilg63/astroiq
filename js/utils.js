@@ -359,9 +359,8 @@ function convertDDToDMS(D, lng){
 
 function convertDegStringToDec(degStr) {
   if (/^\d+/.test(degStr)) {
-    var parts = degStr.split(/[^0-9a-z_-]/),
+    var parts = degStr.split(/[^0-9a-z._-]+/),
       numParts=parts.length,i=0,deg=0,min=0,sec=0;
-      console.log(parts)
     for (;i<numParts;i++) {
       switch (i) {
         case 0:
