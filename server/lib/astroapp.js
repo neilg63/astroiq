@@ -82,6 +82,56 @@ astro.saveChart = (model,callback) => {
   }
 }
 
+astro.getByUserId = (uid,mode,limit,callback) => {
+    if (/^\d+/.test(limit)) {
+      limit = parseInt(limit);
+    } else {
+      limit =100;
+    }
+    var projection;
+    switch (mode) {
+      case 'full':
+        projection = null;
+        break;
+      default:
+        projection = {_id:1,userId:1,personId:1,datetime:1,geo:1,chartType:1,eventTypeId:1,eventTitle:1,tags:1};
+        break;
+    }
+   Chart.find()
+   .where('userId').equals(uid)
+   .sort('-_id')
+   .limit(limit)
+   .select(projection)
+   .exec((error,items) =>{
+      if (items instanceof Array) {
+        callback(items);
+      } else {
+        callback([]);
+      }
+    });
+};
+
+astro.getPersonsByUserId = (uid,limit,callback) => {
+    if (/^\d+/.test(limit)) {
+      limit = parseInt(limit);
+    } else {
+      limit =100;
+    }
+    var projection = null;
+   Person.find()
+   .where('userId').equals(uid)
+   .sort('-_id')
+   .limit(limit)
+   .select(projection)
+   .exec((error,items) =>{
+      if (items instanceof Array) {
+        callback(items);
+      } else {
+        callback([]);
+      }
+    });
+};
+
 astro.saveChartRecord = (model,data,person,objId,callback) => {
 	for (k in model) {
    	switch (k) {

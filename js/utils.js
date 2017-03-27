@@ -687,6 +687,7 @@ function storeItem(key,data) {
       sd += 'sca:' + data;
     }
     localStorage.setItem(key,sd);
+    return ts;
   }
 }
 

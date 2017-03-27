@@ -29,7 +29,7 @@ d3.selection.prototype.eq = function(index) {
 var config = {
   version: 0.2,
   storage: {
-    maxRecs: 20,
+    maxRecs:50,
     maxKb: 2048
   }
 };
@@ -456,6 +456,20 @@ var AstroIQ = {
     return parsed;
   },
 
+  addRecord: function(items,item,k,ts) {
+    if (item.person) {
+      var li = {
+        ts: ts,
+        chartId: k,
+        name: item.person.name,
+        dateStr: dateStringFormatted(item.datetime),
+        datetime: item.datetime,
+        address: item.address
+      };
+      items.push(li);
+    }
+  },
+
   loadGMap: function(focus,lat,lng) {
     var gMapApi = d3.select('#gmap-api-key');
     
@@ -799,10 +813,10 @@ var app = new Vue({
         } else {
           axios.get('/person-names-all/' + this.user.id).then(function(response){
           if (response.data instanceof Array) {
-            app.people.persons = response.data;
-            app.people.num = app.people.persons.length;
-            storeItem('persons',app.people.persons);
-          }
+              app.people.persons = response.data;
+              app.people.num = app.people.persons.length;
+              storeItem('persons',app.people.persons);
+            }
           });
         }
         var stored = getItem('options',1,'y');
@@ -855,38 +869,32 @@ var app = new Vue({
       this.candidateName = name;
       this.currName = name;
     },
-    loadQueries: function() {
-      var items = [], index=0, size=0,sz=0,item,li;
-      maxSize = config.storage.maxKb * 1024;
-      for (k in window.localStorage) {
-        item = getItem(k);
-        if (item.expired && size < maxSize) {
-          deleteItem(k);
-        }
-        
-        if (k.indexOf('ch_')===0) {
-          if (item.valid && index < config.storage.maxRecs) {
-            li = {
-              ts: item.ts,
-              chartId: k,
-              name: item.data.person.name,
-              dateStr: dateStringFormatted(item.data.datetime),
-              datetime: item.data.datetime,
-              address: item.data.address
-            };
-            items.push(li);
-            index++;
-          }
-        }
-        sz = window.localStorage[k].length;
-        size += sz
-      }
+    addQueryItems: function(items) {
       items = items.sort(function(a,b){
         return b.ts - a.ts
       });
       for (var i=0;i<items.length;i++) {
         this.queries.push(items[i]);
       }
+    },
+    loadQueries: function() {
+      var items = [], index=0, size=0,sz=0,item;
+      maxSize = config.storage.maxKb * 1024;
+      for (k in window.localStorage) {
+        item = getItem(k);
+        if (item.expired && size < maxSize) {
+          deleteItem(k);
+        }
+        if (k.startsWith('ch_')) {
+          if (item.valid && index < config.storage.maxRecs) {
+            AstroIQ.addRecord(items,item.data,k,item.ts);
+            index++;
+          }
+        }
+        sz = window.localStorage[k].length;
+        size += sz
+      }
+      this.addQueryItems(items);
     },
     assignResults: function(data) {
       var v1,v2,v3,k1,k2,k3;
@@ -1572,6 +1580,7 @@ var app = new Vue({
                   app.user.loggedin = true;
                   app.user.statusMsg = 'Logged in as ' + ud.screenname;
                   storeItem('user',app.user);
+                  app.loadUserRecords();
                 }
               }
             }
@@ -1622,7 +1631,6 @@ var app = new Vue({
       
     },
     logout: function() {
-      deleteItem('user');
       this.user.id = "";
       this.user.isAdmin = false;
       this.user.username = "";
@@ -1630,6 +1638,49 @@ var app = new Vue({
       this.user.statusMsg = "Logged out";
       this.user.loggedin = false;
       this.user.showForm = false;
+      deleteItem('persons');
+      deleteItem('user');
+      this.deleteLocalRecords();
+
+    },
+    loadUserRecords: function() {
+      axios.get('/api/charts/'+this.user.id+'/full/'+config.storage.maxRecs).then(function(response){
+        if (response.data) {
+          if (response.data.persons instanceof Array) {
+            var persons = {},numItems=response.data.persons.length,i=0,person;
+            for (;i<numItems;i++) {
+              person = response.data.persons[i];
+              persons[person._id] = person;
+            }
+          }
+          if (response.data.records instanceof Array) {
+            var items=[], i=0,numItems=response.data.records.length,cKey,item,ts;
+            for (;i<numItems;i++) {
+              item = response.data.records[i];
+              cKey = 'ch_' + item._id;
+              if (i < config.storage.maxRecs) {
+                item.chartId = cKey;
+                if (persons.hasOwnProperty(item.personId)) {
+                  item.person = persons[item.personId];
+                  ts = storeItem(cKey,item);
+                  AstroIQ.addRecord(items,item,cKey,ts);
+                }
+              } else {
+                break;
+              }
+            }
+          }
+          app.addQueryItems(items);
+        }
+      });
+      
+    },
+    deleteLocalRecords: function() {
+      for (k in window.localStorage) {
+        if (k.startsWith('ch_')) {
+          deleteItem(k);
+        }
+      }
     }
   }
 });
