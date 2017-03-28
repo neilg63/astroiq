@@ -509,14 +509,15 @@ var AstroIQ = {
     }
   },
   addListCollapse: function() {
-    console.log(d3.selectAll('ul li.toggle').length());
     d3.selectAll('ul li.toggle').on('click',function(){
       d3.event.stopImmediatePropagation();
       var list = d3.select(this).select('ul');
       if (list.classed('closed')) {
           list.classed('closed',false).classed('open',true);
+          d3.select(this).classed('expanded',true);
       } else {
           list.classed('open',false).classed('closed',true);
+          d3.select(this).classed('expanded',false);
       }
     });
   },

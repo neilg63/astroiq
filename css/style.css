@@ -1823,6 +1823,24 @@ ul.dashas li span {
     cursor: pointer;
 }
 
+#dashas-pane ul.dashas li.toggle:before {
+    font-family: icomoon;
+    content:  "\ea34";
+    font-size:  0.75em;
+    display: inline-block;
+    margin-right: 0.25em;
+    opacity: 0.5;
+}
+
+#dashas-pane ul.dashas li.toggle:hover:before {
+    color: #000099;
+    opacity: 1;
+}
+
+#dashas-pane ul.dashas li.toggle.expanded:before {
+    content:  "\ea36";
+}
+
 #dashas-pane ul.dashas li.toggle:hover > strong {
     font-style: italic;
 }
