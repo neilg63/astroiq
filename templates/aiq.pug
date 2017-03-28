@@ -56,13 +56,13 @@ body
               strong.person-name {{results.person.name}}
               em.chart-type {{results.chartType}}
             p.datetime(v-bind:title="results.dateinfo.display_utc") {{results.dateinfo.display}}
-            p.notes.zoneinfo {{results.dateinfo.info}}
-            p.location-name(:title="results.geo.coords") {{results.geo.address}}
-            p.ayanamsa
+            p.notes.zoneinfo.small {{results.dateinfo.info}}
+            p.location-name.small(:title="results.geo.coords") {{results.geo.address}}
+            p.ayanamsa.small
               strong.label Ayanamsa
               span.value {{results.ayanamsa}}
               em.type {{options.ayanamsaName}}
-            p.hsy
+            p.hsy.small
               strong.label House System
               span.value {{options.houseName}}
           ul#chart-tabs.hor-tabs

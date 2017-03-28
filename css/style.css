@@ -706,7 +706,7 @@ object#chart-pane {
     left: 1em;
     padding: 1em;
     text-align: left;
-    max-width:  16em;
+    max-width:  20em;
 }
 
 .show-control-panel #infobox {
@@ -727,7 +727,7 @@ object#chart-pane {
     margin-left: 0.5em;
 }
 
-#infobox .location-name {
+#infobox .small {
     font-size: 0.75em;
 }
 
