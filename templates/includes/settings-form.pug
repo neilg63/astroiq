@@ -3,7 +3,6 @@ form#settings-form.pane(:class="{active:subPane=='settings'}" action="/settings"
   h2.form-label Calculation Settings
   //- include settings/calc-house-system.pug
   fieldset.main.open
-    h3.toggle Toggle
     p.sub-section
       label.left(for="form-hsy") House system:
       select#form-hsy.select-input(name="hsy" v-model="options.hsy" v-on:change="updateChartOptions()")
@@ -23,6 +22,11 @@ form#settings-form.pane(:class="{active:subPane=='settings'}" action="/settings"
         span.option
           input#form-mode-geo.mode(type="radio" value="geo" name="mode" class="mode" v-model="options.mode" v-on:change="updateChartOptions()")
           label(for="form-mode-geo") Geocentric
+    p#form-mode.datetime
+      label.left(for="form-mode-topo") Date format
+      select#form-date-format.select-input(name="date_format" v-model="options.dateFormat")
+        each opt,index in dateFormats
+          option(value = opt.value)= opt.label         
     p#form-layout.sub-section.radios
       label.left(for="form-options-layout") Chart Layout
       span.radio-options
@@ -93,3 +97,7 @@ form#settings-form.pane(:class="{active:subPane=='settings'}" action="/settings"
   //- sub-section
   div.form-actions
     input(type="submit" value="Save settings" id="settings-submit")
+  div.info
+    p.storage
+      strong.label Local storage
+      span.value {{user.storage_kb}} kb

@@ -56,15 +56,18 @@ router.get('/dasha',(req,res) => {
 router.post('/chart/delete', function(req, res) {
 	var login = checkLogin(res.req);
    if (login.valid) {
-	 User.findOneAndRemove({_id:req.body.id,userId:req.body.userId},(err, data) => {
+   Chart.findOneAndRemove({_id:req.body.id,userId:req.body.userId},(err, data) => {
    if (err) {
 	    res.send({valid:false,msg:"Could not find user"});
 	  } else {
+      if (!data) {
+        data = {valid:false,msg:"Could not find user"};
+      }
 	    res.send(data);
 	  }
 	});
 	} else {
-		res.send({valid:false,msg:"Could not loggedin"});
+		res.send({valid:false,msg:"Not logged in"});
 	}
 });
 

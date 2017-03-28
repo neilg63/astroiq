@@ -110,6 +110,12 @@ vars.eventTypes = [
   {value:"death-self", label: "Death of self",selected:false}
 ];
 
+vars.dateFormats = [
+  {value:"DD/MM/YYYY", label: "Day month year e.g. 23/04/1998",selected:true},
+  {value:"MM/DD/YYYY", label: "Month day year e.g. 04/23/1998",selected:false},
+  {value:"YYYY-MM-DD", label: "Year month day e.g. 1998-04-23",selected:false}
+];
+
 vars.solarYearOptionNotes = filter.getHtml('solarYearOptionNotes');
 
 vars.lunarMonthsNoteOptions = filter.getHtml('lunarMonthsNoteOptions');

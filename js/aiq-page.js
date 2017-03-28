@@ -341,19 +341,33 @@ var AstroIQ = {
     }
   },
 
-  translateDashas: function(dashas) {
+  translateDashas: function(dashas,dateFormat,prevDate,level) {
     if (dashas instanceof Array) {
+      if (!level) {
+        level = 1;
+      }
       var d,k;
       for (k in dashas) {
         d = dashas[k];
         if (typeof d == 'object') {
           if (d.key) {
             d.name = AstroIQ.matchBody(d.key);
-            if (d.pds) {
-              d.pds = AstroIQ.translateDashas(d.pds);
+            d.dt = '';
+            if (!d.start) {
+              d.start = prevDate;
             }
-            if (d.ads) {
-              d.ads = AstroIQ.translateDashas(d.ads);
+            if (d.start) {
+              d.dt = moment(d.start).format(dateFormat) + ' - ';
+            }
+            if (d.end) {
+              d.dt += moment(d.end).format(dateFormat);
+            }
+            prevDate = d.end;
+            if (level == 1 && d.ads) {
+              d.ads = AstroIQ.translateDashas(d.ads,dateFormat,d.start,2);
+            }
+            if (level == 2 && d.pds) {
+              d.pds = AstroIQ.translateDashas(d.pds,dateFormat,d.start,3);
             }
           }
         }
@@ -456,13 +470,13 @@ var AstroIQ = {
     return parsed;
   },
 
-  addRecord: function(items,item,k,ts) {
+  addRecord: function(items,item,k,ts,dateFormat) {
     if (item.person) {
       var li = {
         ts: ts,
         chartId: k,
         name: item.person.name,
-        dateStr: dateStringFormatted(item.datetime),
+        dateStr: moment(item.datetime).format(dateFormat),
         datetime: item.datetime,
         address: item.address
       };
@@ -494,6 +508,18 @@ var AstroIQ = {
       }
     }
   },
+  addListCollapse: function() {
+    console.log(d3.selectAll('ul li.toggle').length());
+    d3.selectAll('ul li.toggle').on('click',function(){
+      d3.event.stopImmediatePropagation();
+      var list = d3.select(this).select('ul');
+      if (list.classed('closed')) {
+          list.classed('closed',false).classed('open',true);
+      } else {
+          list.classed('open',false).classed('closed',true);
+      }
+    });
+  },
   init: function() {
     AstroChart.init();
     var p = pDom;
@@ -517,9 +543,9 @@ var AstroIQ = {
         }
       }
     }, 1000);
-    d3.select('#control-panel fieldset > .toggle').on('click',function(){
+
+    d3.selectAll('#control-panel .collapsible > .toggle').on('click',function(){
       var e = d3.event, par = d3.select(this.parentNode);
-      console.log(3838)
       e.stopImmediatePropagation();
       if (par.classed('closed')) {
           d3.select(this.parentNode.parentNode).select('fieldset.collapsible.open').classed('open',false).classed('closed',true);
@@ -599,7 +625,9 @@ var app = new Vue({
       type: "",
       isAdmin: false,
       statusMsg: "Not logged in",
-      errorMsg: ""
+      errorMsg: "",
+      storage: 0,
+      storage_kb: 0
     },
     recordId: null,
     recordEditable: false,
@@ -612,6 +640,7 @@ var app = new Vue({
     eventType: "",
     eventTitle: "",
     candidateName: "",
+    rodden: "-",
     currName: "",
     people: {
       persons:[],
@@ -663,6 +692,13 @@ var app = new Vue({
       altSteps: 10,
       altMax: 9000
     },
+    options: {
+      ayanamsa: "-",
+      hsy: "W",
+      mode: 'topo',
+      layout: "western",
+      dateFormat: 'DD/MM/YYYY'
+    },
     geonames: {
       active: false,
       items: [],
@@ -672,13 +708,6 @@ var app = new Vue({
       active: false,
       items: [],
       num: 0
-    },
-    options: {
-      ayanamsa: "-",
-      hsy: "W",
-      rodden: "-",
-      mode: 'topo',
-      layout: "western"
     },
     queries: [],
     coordinatesClass: 'display',
@@ -878,7 +907,9 @@ var app = new Vue({
       }
     },
     loadQueries: function() {
-      var items = [], index=0, size=0,sz=0,item;
+      var items = [], 
+      fmt = this.matchDateFormat(),
+      index=0, size=0,sz=0,item;
       maxSize = config.storage.maxKb * 1024;
       for (k in window.localStorage) {
         item = getItem(k);
@@ -887,14 +918,19 @@ var app = new Vue({
         }
         if (k.startsWith('ch_')) {
           if (item.valid && index < config.storage.maxRecs) {
-            AstroIQ.addRecord(items,item.data,k,item.ts);
+            AstroIQ.addRecord(items,item.data,k,item.ts,fmt);
             index++;
           }
         }
-        sz = window.localStorage[k].length;
-        size += sz
+        if (typeof window.localStorage[k] == 'string') {
+          sz = window.localStorage[k].length;
+          size += sz;
+          size += k.length;
+        }
       }
       this.addQueryItems(items);
+      this.user.storage = size;
+      this.user.storage_kb = parseInt(size / 1024);
     },
     assignResults: function(data) {
       var v1,v2,v3,k1,k2,k3;
@@ -942,30 +978,24 @@ var app = new Vue({
       if (this.results.datetime) {
         if (/^\d\d\d\d-\d\d-\d\d?/.test(this.results.datetime)) {
           if (data.dateinfo) {
-            var dt =  new Date(this.results.datetime);
-            dt.setSeconds(dt.getTimezoneOffset() * 60);
+            var fmt = app.matchDateFormat(), dt = this.results.datetime;
             this.results.dateinfo.tz = data.dateinfo.zone;
             if (data.dateinfo.hasOwnProperty('gmtOffset')) {
-                this.results.dateinfo.display_utc =  "UTC: " + dt.dmy('m');
+                this.results.dateinfo.display_utc =  "UTC: " + moment(dt).format(fmt);
                 this.results.dateinfo.gmtOffset = data.dateinfo.gmtOffset;
                 
-                dt.setSeconds(data.dateinfo.gmtOffset);
-                this.results.dateinfo.datetime = dt;
-                this.results.dateinfo.info =   data.dateinfo.zone + ' UTC ' + secondsToHours(this.results.dateinfo.gmtOffset);
-                this.results.dateinfo.display =  dt.dmy('m');
-
-            }
-            var parts = this.results.dateinfo.datetime.ymd('s').split(' ');
-            if (parts.length>1) {
-              this.dob = parts[0];
-
-              var tob = parts[1];
-              if (typeof tob == 'string') {
-                parts = tob.split(':');
-                if (parts.length>1) {
-                  this.tob = parts[0]+':'+parts[1];
+                var localDt = moment(dt).add(data.dateinfo.gmtOffset, 'seconds');
+                this.results.dateinfo.datetime = localDt.toDate();
+                this.results.dateinfo.info =   data.dateinfo.zone;
+                if (this.results.dateinfo.gmtOffset === 0) {
+                  this.results.dateinfo.info =   data.dateinfo.zone += ' UTC ' + secondsToHours(this.results.dateinfo.gmtOffset);
                 }
-              }
+                this.results.dateinfo.display =  localDt.format(fmt);
+            }
+            var dtMap = isoDateTimeToMap(localDt.toISOString());
+            if (dtMap.valid) {
+              this.dob = dtMap.date;
+              this.tob = dtMap.time;
             }
           }
         }
@@ -995,8 +1025,12 @@ var app = new Vue({
       if (this.results.person) {
         this.updateRefName(this.results.person.name);
       }
-      if (data.gender) {
-        this.gender.type = data.gender;
+
+      if (data.person.gender) {
+        this.gender.type = data.person.gender;
+      }
+      if (data.person.name) {
+        this.candidateName = data.person.name;
       }
       if (this.results.cmd) {
         this.results.cmd = this.results.cmd.replace(/_+/g,' ');
@@ -1267,7 +1301,7 @@ var app = new Vue({
           }
           params.address = this.location.address;
           params.gender = genderVal;
-          params.rodden = this.options.rodden;
+          params.rodden = this.rodden;
           var update = false;
           if (this.newRecord !==true && this.recordEditable === true) {
             update = params.id.length>5;
@@ -1343,7 +1377,7 @@ var app = new Vue({
               id: objId,
               chartId: chartKey,
               name:data.person.name,
-              dateStr: dateStringFormatted(data.datetime),
+              dateStr: moment(data.datetime).format(app.matchDateFormat()),
               datetime: data.datetime,
               address: data.geo.address
             };
@@ -1356,6 +1390,22 @@ var app = new Vue({
             storeItem(chartKey,response.data);
             app.currId = objId;
             app.personId = data.personId;
+            var stored = getItem('persons');
+            if (stored.valid) {
+              var persons = stored.data,
+                matches = _.filter(persons,function(p){return p.id == app.personId;});
+                if (matches.length < 1) {
+                  var p = {
+                    id: app.personId,
+                    name: person.name,
+                    hidden:true
+                  }
+                  persons.push(p);
+                  this.people.persons = _.sortedUniqBy(persons,'name');
+                  this.people.num_persons = this.people.persons.length;
+                  storeItem('persons',persons);
+                }
+            }
           }
         })
         .catch(function (error) {
@@ -1421,12 +1471,15 @@ var app = new Vue({
           axios.get('api/dasha', {params:params}).then(function(response) {
             if (response.data) {
               if (response.data.dashas) {
-                var dData = response.data;
-                dData.dashas = AstroIQ.translateDashas(dData.dashas);
+                var dData = response.data, fmt = app.matchDateFormat();
+                dData.dashas = AstroIQ.translateDashas(dData.dashas,fmt);
                 app.dashaData = dData;
                 app.dashaData.valid = true;
                 var dKey = 'da_' + app.currId; 
                 storeItem(dKey,app.dashaData);
+                setTimeout(function(){
+                  AstroIQ.addListCollapse();
+                }, 500);
               }
             }
           })
@@ -1460,6 +1513,15 @@ var app = new Vue({
         this.user.showForm = false;
       }
     },25),
+    matchDateFormat: function() {
+      var fmt = 'DD/MM/YYYY';
+      if (this.options.dateFormat) {
+        if (typeof this.options.dateFormat == 'string' && /YY/.test(this.options.dateFormat) ) {
+          fmt = this.options.dateFormat;
+        }
+      }
+      return fmt + ' HH:mm:ss';
+    },
     toggleDegreeMode: function(mode) {
       var sm = this.coordinatesClass;
       switch (mode) {
@@ -1651,10 +1713,13 @@ var app = new Vue({
             for (;i<numItems;i++) {
               person = response.data.persons[i];
               persons[person._id] = person;
+
             }
           }
           if (response.data.records instanceof Array) {
-            var items=[], i=0,numItems=response.data.records.length,cKey,item,ts;
+            var items=[], i=0,
+            fmt = app.matchDateFormat(),
+            numItems=response.data.records.length,cKey,item,ts;
             for (;i<numItems;i++) {
               item = response.data.records[i];
               cKey = 'ch_' + item._id;
@@ -1663,7 +1728,7 @@ var app = new Vue({
                 if (persons.hasOwnProperty(item.personId)) {
                   item.person = persons[item.personId];
                   ts = storeItem(cKey,item);
-                  AstroIQ.addRecord(items,item,cKey,ts);
+                  AstroIQ.addRecord(items,item,cKey,ts,fmt);
                 }
               } else {
                 break;

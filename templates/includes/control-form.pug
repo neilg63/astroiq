@@ -101,7 +101,7 @@ form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method=
         option(value="ft") feet
   p.rodden
     label(for="form-rodden" title="Rodden Birth Time Accuracy Scale") Rodden Scale:
-    select#form-rodden.select-input(name="rodden" v-model="options.rodden")
+    select#form-rodden.select-input(name="rodden" v-model="rodden")
       each opt,index in roddenOptions
         option(value = opt.value)= opt.label
 

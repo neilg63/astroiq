@@ -306,6 +306,11 @@ ul.dashas ul,
     width: 45%;
 }
 
+p > strong.label {
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
 #control-panel > fieldset,
 #control-panel fieldset div.full-width {
     position:  relative;
@@ -1796,10 +1801,42 @@ ul.dashas li span {
 
 #dashas-pane ul.dashas > li {
     padding: 0;
-    margin: 0;
+    margin: 0.25em 0;
+    font-size: 1.33em;
+}
+
+#dashas-pane ul.dashas ul.closed {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 1s ease-in,opacity 250ms ease-in 0;
+}
+
+#dashas-pane ul.dashas ul.open {
+    max-height: 100em;
+    opacity: 1;
+    margin-bottom: 0.5em;
+    transition: max-height 1s ease-in,opacity 250ms ease-in 250ms;
+}
+
+#dashas-pane ul.dashas li.toggle {
+    cursor: pointer;
+}
+
+#dashas-pane ul.dashas li.toggle:hover > strong {
+    font-style: italic;
 }
 
 #dashas-pane ul.dashas > li li {
     padding: 0 0 0 1em;
-    margin: 0 0 0 1em;
+    margin: 0 0 0.25em 1em;
+    font-size: 0.8667em;
+}
+
+table thead tr th {
+    padding: 0.5em 0.25em;
+}
+
+table td, table th {
+    padding: 0.25em;
 }

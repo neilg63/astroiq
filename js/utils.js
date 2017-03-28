@@ -581,6 +581,25 @@ Date.prototype.ymd = function(time) {
   return this.format('ymd',time,'-');
 }
 
+var isoDateTimeToMap = function(isoString) {
+  var parts = isoString.split('T'), obj={date:"",time:"00:00:00",valid:false};
+  if (parts.length>1) {
+    obj.date = parts[0];
+    var tob = parts[1].split('.').shift();
+    if (typeof tob == 'string') {
+      parts = tob.split(':');
+      if (parts.length>1) {
+        obj.time = parts[0]+':'+parts[1];
+        obj.valid = true;
+        if (parts.length>2) {
+          obj.time += ':'+parts[2];
+        }
+      }
+    }
+  }
+  return obj;
+}
+
 var zeroPad2 = function(num) {
     var isString = typeof num == 'string',
     isNum = typeof num == 'number', str;

@@ -169,7 +169,11 @@ astro.saveChartRecord = (model,data,person,objId,callback) => {
         if (err) {
         	callback({valid:false, msg:"not found"},undefined);
         } else {
-          astro.combineRecord(doc,person,callback);
+          var json = doc.toObject(), k;
+          for (k in data) {
+            json[k] = data[k];
+          }
+          astro.combineRecord(json,person,callback);
         }        
       });
      } else {
@@ -184,7 +188,11 @@ astro.saveChartRecord = (model,data,person,objId,callback) => {
 
 
 astro.combineRecord = (doc,person,callback) => {
-  var json = doc.toObject();
+  if (typeof doc.toObject == 'function') {
+    var json = doc.toObject();
+  } else {
+    var json = doc;
+  }
   if (person.toObject) {
     json.person = person.toObject();
   } else {
