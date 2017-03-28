@@ -357,10 +357,10 @@ var AstroIQ = {
               d.start = prevDate;
             }
             if (d.start) {
-              d.dt = moment(d.start).format(dateFormat) + ' - ';
+              d.dt = moment.utc(d.start).format(dateFormat) + ' - ';
             }
             if (d.end) {
-              d.dt += moment(d.end).format(dateFormat);
+              d.dt += moment.utc(d.end).format(dateFormat);
             }
             prevDate = d.end;
             if (level == 1 && d.ads) {
@@ -476,7 +476,7 @@ var AstroIQ = {
         ts: ts,
         chartId: k,
         name: item.person.name,
-        dateStr: moment(item.datetime).format(dateFormat),
+        dateStr: moment.utc(item.datetime).format(dateFormat),
         datetime: item.datetime,
         address: item.address
       };
@@ -544,7 +544,6 @@ var AstroIQ = {
         }
       }
     }, 1000);
-
     d3.selectAll('#control-panel .collapsible > .toggle').on('click',function(){
       var e = d3.event, par = d3.select(this.parentNode);
       e.stopImmediatePropagation();
@@ -695,7 +694,9 @@ var app = new Vue({
     },
     options: {
       ayanamsa: "-",
+      ayanamsaName: "",
       hsy: "W",
+      houseName: "Equal",
       mode: 'topo',
       layout: "western",
       dateFormat: 'DD/MM/YYYY'
@@ -785,6 +786,26 @@ var app = new Vue({
         default:
           this.gender.otherActive = false;
           break;
+      }
+    },
+    'options.ayanamsa': function() {
+      if (vars) {
+        if (vars.ayanamsas) {
+          var opt = this.options.ayanamsa.toString();
+          if (vars.ayanamsas[opt]) {
+            this.options.ayanamsaName = vars.ayanamsas[opt];
+          }
+        }
+      }
+    },
+    'options.hsy': function() {
+      if (vars) {
+        if (vars.houseSystems) {
+          var opt = this.options.hsy.toString();
+          if (vars.houseSystems[opt]) {
+            this.options.houseName = vars.houseSystems[opt];
+          }
+        }
       }
     },
     'location.altUnit': function() {
@@ -982,10 +1003,10 @@ var app = new Vue({
             var fmt = app.matchDateFormat(), dt = this.results.datetime;
             this.results.dateinfo.tz = data.dateinfo.zone;
             if (data.dateinfo.hasOwnProperty('gmtOffset')) {
-                this.results.dateinfo.display_utc =  "UTC: " + moment(dt).format(fmt);
+                this.results.dateinfo.display_utc =  "UTC: " + moment.utc(dt).format(fmt);
                 this.results.dateinfo.gmtOffset = data.dateinfo.gmtOffset;
                 
-                var localDt = moment(dt).add(data.dateinfo.gmtOffset, 'seconds');
+                var localDt = moment.utc(dt).add(data.dateinfo.gmtOffset, 'seconds');
                 this.results.dateinfo.datetime = localDt.toDate();
                 this.results.dateinfo.info =   data.dateinfo.zone;
                 if (this.results.dateinfo.gmtOffset === 0) {
@@ -1378,7 +1399,7 @@ var app = new Vue({
               id: objId,
               chartId: chartKey,
               name:data.person.name,
-              dateStr: moment(data.datetime).format(app.matchDateFormat()),
+              dateStr: moment.utc(data.datetime).format(app.matchDateFormat()),
               datetime: data.datetime,
               address: data.geo.address
             };

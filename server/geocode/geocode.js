@@ -37,7 +37,7 @@ var geocode = {
           keywordStr = `&keyword=${filter}`;
         }
         href = `${googlePlacesBaseUrl}?location=${searchStr}&type=hospital&query=maternity${keywordStr}&radius=5000`;
-       
+
         break;
       default:
         searchStr = encodeURIComponent(data);

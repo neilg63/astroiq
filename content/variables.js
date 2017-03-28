@@ -124,4 +124,29 @@ vars.google = {
   map_apikey: config.google.map_apikey
 };
 
+var parseLookups = (varNames,vars) => {
+  var data={},i=0,j=0,n=varNames.length,n2,k,items;
+  for (; i<n;i++) {
+    k = varNames[i];
+    console.log(k)
+    if (vars.hasOwnProperty(k)) {
+      items = vars[k];
+
+      if (items instanceof Array) {
+        data[k] = {};
+        n2 = items.length;
+        for (j=0;j<n2;j++) { 
+          if (typeof items[j] == 'object') {
+            data[k][items[j].value] = items[j].label;
+          }
+        }
+      }
+      
+    }
+  }
+  return data;
+}
+var varNames = ['ayanamsas','houseSystems'];
+vars.dataVars = 'var vars = ' + JSON.stringify(parseLookups(varNames,vars));
+
 module.exports = vars;
