@@ -9,15 +9,15 @@ var dasha = {
 
 	// defined as fractions of 120
 	grahas: {
-		"Ke": 7,
-		"Ve": 20,
-		"Su": 6,
-		"Mo": 10,
-		"Ma": 7,
-		"Ra": 18,
-		"Ju": 16,
-		"Sa": 19,
-		"Me": 17
+		"ke": 7,
+		"ve": 20,
+		"su": 6,
+		"mo": 10,
+		"ma": 7,
+		"ra": 18,
+		"ju": 16,
+		"sa": 19,
+		"me": 17
 	},
 
 	offsets: [],
@@ -86,7 +86,7 @@ var dasha = {
 			}
 		}
 		if (date) {
-			data.date = date;
+			data.datetime = date;
 		}
 		dasha.offsets = dasha.calcOffsets(year_span);
 		data.year_cycle = year_span;
@@ -117,7 +117,7 @@ var dasha = {
 	    valid = data.offsets.length>2;
 		if (valid) {
 			data.valid = true;
-			data.date = data.date.format('YYYY-MM-DD\THH:mm:ss');
+			data.datetime = data.datetime.format('YYYY-MM-DD\THH:mm:ss');
 			callback(undefined,data);
 		} else {
 			callback(data,undefined);

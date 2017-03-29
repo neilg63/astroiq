@@ -6,9 +6,9 @@ text,
 svg text {
     font-family: genlight, Helvetica, Arial, sans-serif;
 }
-/*.main-disc {
-    transform-origin: 50% 50% 0;
-}*/
+.main-disc {
+    transform-origin: center center;
+}
 .house-label text {
 font-size: 3em;
 }
@@ -17,7 +17,7 @@ font-size: 3em;
 text {
   opacity: 1;
   transition: all 250s ease-in;
-  fill: #99999;
+  fill: #999999;
   font-family: Helvetica;
 }
 

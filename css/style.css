@@ -52,6 +52,17 @@ span.symbol-radio label {
     font-family: genlight, Helvetica, Arial, sans-serif;
 }
 
+#dashas-pane li strong {
+   font-family: genlight, Helvetica, Arial, sans-serif  !important;
+}
+
+#control-form .glyphicon-time,
+#control-form .glyphicon-calendar,
+#control-panel .toggle-aside:before,
+.mode-controls span:before,
+#dashas-pane li strong:before {
+    font-family: "icomoon" !important;
+}
 
 #navbar h1.title-logo {
     position: absolute;
@@ -472,7 +483,6 @@ p > strong.label {
 
 #control-form .glyphicon-time,
 #control-form .glyphicon-calendar {
-    font-family: "icomoon";
     font-size: 1.3333em;
 }
 
@@ -786,8 +796,8 @@ ol.geonames li:hover {
 
 .line-label,
 .boundary {
-    transform-origin: 100% 100% 0;
-    transition: transform .5s ease-in;
+  transform-origin: 100% 100% 0;
+  transition: transform .5s ease-in;
 }
 
 line.solid {
@@ -844,45 +854,6 @@ line.solid {
     max-width: 100%;
 }
 
-#dial {
-    animation: spin 60s infinite;
-    transform-origin: 50% 50% 0;
-}
-
-.planet path {
-    fill: #999999;
-    transform: scale(0.5);
-}
-
-.mars path {
-    fill: #ff0000;
-}
-
-.jupiter path {
-    fill: #996000;
-}
-
-.mercury path {
-    fill: #66ff00;
-}
-
-.venus path {
-    fill: #004499;
-}
-
-.saturn path {
-    fill: #0000ff;
-}
-
-.neptune path {
-    fill: #990066;
-}
-
-.uranus path {
-    fill: #229966;
-}
-
-
 #control-panel {
     z-index: 10;
     position: absolute;
@@ -909,7 +880,6 @@ line.solid {
 }
 
 #control-panel .toggle-aside:before {
-    font-family: "icomoon";
     font-size: 2rem;
     content: "\e994";
     cursor:pointer;
@@ -1165,9 +1135,6 @@ fieldset.display .mode-controls .find-map {
     display:  none;
 }
 
-.mode-controls span:before {
-    font-family: "icomoon";
-}
 
 fieldset.coordinates .mode-controls .dms-mode:before {
     content:  "\e910";
@@ -1830,6 +1797,32 @@ ul.dashas li span {
     display: inline-block;
     margin-right: 0.25em;
     opacity: 0.5;
+}
+
+#dashas-pane li {
+   clear:  both;
+}
+
+#dashas-pane li strong {
+   color: #999999;
+   font-size: 0.8em;
+}
+
+#dashas-pane li strong:before {
+   font-size: 2em;
+   display: inline-block;
+   color: #00aa00;
+   position: relative;
+   margin:  0 0.25em 0 0;
+   top:  0.125em;
+}
+
+#dashas-pane li ul.ads > li strong:before {
+   color: #118866;
+}
+
+#dashas-pane li ul.pds > li strong:before {
+   color: #668844;
 }
 
 #dashas-pane ul.dashas li.toggle:hover:before {

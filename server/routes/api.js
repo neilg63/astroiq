@@ -53,6 +53,60 @@ router.get('/dasha',(req,res) => {
   });
 });
 
+router.get('/dasha-person',(req,res) => {
+  if (req.query.personId && req.query.ayanamsa) {
+    Chart.findOne({personId:req.query.personId,chartType:'birth'}).sort({_id:-1}).exec((err,data) => {
+      var valid = false,params={};
+      if (!err && typeof data == 'object') {
+        params.dt = moment.utc(data.datetime).format('YYYY-MM-DD\THH:mm:ss');
+        if (data.bodies) {
+          var body = _.find(data.bodies,(b)=> { return b.key == 'moon'});
+          if (data.ayanamsas) {
+            var ayNum = parseInt(req.query.ayanamsa),
+            ayMatched = _.find(data.ayanamsas,(b)=> { return b.num === ayNum}),
+            mode = 'topo',
+            ayanamsa = 0;
+            if (req.query.mode) {
+              mode = req.query.mode;
+            }
+            if (typeof ayMatched == 'object') {
+              ayanamsa = parseFloat(ayMatched.value);
+            }
+            valid = true;
+          }
+        }
+      } 
+      if (!valid) {
+        res.status(404).send({valid:false,msg:"Cannot match person's birth chart"});
+      } else {
+        switch (mode) {
+          case 'geo':
+            if (body.glng) {
+              params.lng = body.glng;
+            } else {
+              params.lng = body.lng;
+            }
+            break;
+          default:
+            params.lng = body.lng;
+            break;
+        }
+        params.lng = ((params.lng - ayanamsa) + 360) % 360;
+        dasha.calc(params,(error,dd) => {
+          if (error) {
+              res.status(404).send(error);
+          } else {
+            dd.geo = data.geo;
+            dd.dateinfo = data.dateinfo;
+            res.status(200).send(dd);
+          }
+        });
+      }
+    });
+  }
+  
+});
+
 router.post('/chart/delete', function(req, res) {
 	var login = checkLogin(res.req);
    if (login.valid) {

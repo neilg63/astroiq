@@ -1,15 +1,19 @@
+h3 {{results.person.name}}
+p.datetime {{dashaData.datetime_lc}}
+p.coords {{dashaData.coords_str}}
+p.address {{dashaData.address}}
 ul.dashas.open
   template(v-for="dasha in dashaData.dashas")
     li.toggle(v-bind:class="dasha.key")
-      strong.label {{dasha.name}}
+      strong.label(v-bind:class="dasha.iconClass") {{dasha.name}}
       span.date(v-bind:data-start="dasha.start" v-bind:data-end="dasha.end") {{dasha.dt}}
       ul.ads.closed
         template(v-for="ad in dasha.ads")
           li.toggle(v-bind:class="ad.key")
-            strong.label {{ad.name}}
+            strong.label(v-bind:class="ad.iconClass") {{ad.name}}
             span.date(v-bind:data-start="ad.start" v-bind:data-end="ad.end") {{ad.dt}}
             ul.pds.closed
               template(v-for="pd in ad.pds")
                 li(v-bind:class="pd.key")
-                  strong.label {{pd.name}}
+                  strong.label(v-bind:class="pd.iconClass") {{pd.name}}
                   span.date(v-bind:data-start="pd.start" v-bind:data-end="pd.end") {{pd.dt}}

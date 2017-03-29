@@ -352,6 +352,7 @@ var AstroIQ = {
         if (typeof d == 'object') {
           if (d.key) {
             d.name = AstroIQ.matchBody(d.key);
+            d.iconClass = 'icon-'+d.name.toLowerCase()+'-devanagari';
             d.dt = '';
             if (!d.start) {
               d.start = prevDate;
@@ -421,6 +422,9 @@ var AstroIQ = {
             hsy = options.hsy;
           }
           matched = _.find(data.houses,function(h){return h.key == hsy});
+          if (!matched) {
+            matched = _.find(data.houses,function(h){return h.key == "E"});
+          }
           if (matched) {
             parsed.houses = [];
             parsed.houseLngs = [];
@@ -1479,37 +1483,49 @@ var app = new Vue({
       }
       this.activeTab = pType;
     },
-    loadDashas: function() {
-      var bodies = _.filter(this.results.bodies,['key','moon']),body;
-      if (bodies.length>0) {
-        body = bodies.shift();
-        if (body.lng) {
-          var bodyLng = convertDegStringToDec(body.lng),
-          params = {
-            years: 120,
-            lng: bodyLng,
-            dt: this.results.datetime
-          };
-          axios.get('api/dasha', {params:params}).then(function(response) {
-            if (response.data) {
-              if (response.data.dashas) {
-                var dData = response.data, fmt = app.matchDateFormat();
-                dData.dashas = AstroIQ.translateDashas(dData.dashas,fmt);
-                app.dashaData = dData;
-                app.dashaData.valid = true;
-                var dKey = 'da_' + app.currId; 
-                storeItem(dKey,app.dashaData);
-                setTimeout(function(){
-                  AstroIQ.addListCollapse();
-                }, 500);
-              }
-            }
-          })
-          .catch(function(error){
-            console.log(error) 
-          });
-        }
+    injectDashas: function(data,store) {
+      var fmt = app.matchDateFormat();
+      data.dashas = AstroIQ.translateDashas(data.dashas,fmt);
+      var utcDate = moment.utc(data.datetime);
+      data.datetime_utc = utcDate.format(fmt);
+      data.datetime_lc = utcDate.add(data.dateinfo.gmtOffset,'seconds').format(fmt);
+      if (data.geo) {
+        data.coords_str = toLatitudeString(data.geo.lat,'plain') + ', ' + toLongitudeString(data.geo.lng,'plain');
+        data.address = data.geo.address;
       }
+      app.dashaData = data;
+      app.dashaData.valid = true;
+      if (store === true) {
+        var dKey = 'da_' + app.personId;
+        storeItem(dKey,app.dashaData);
+      }
+      setTimeout(function(){
+        AstroIQ.addListCollapse();
+      }, 500);
+    },
+    loadDashas: function() {
+      var params = {
+        years: 120,
+        personId: this.personId,
+        ayanamsa: this.options.ayanamsa,
+        mode: this.options.mode
+      };
+      var dKey = 'da_' + this.personId;
+      var stored = getItem(dKey);
+      if (stored.valid) {
+        this.injectDashas(stored.data);
+      } else {
+        axios.get('api/dasha-person', {params:params}).then(function(response) {
+          if (response.data) {
+            if (response.data.dashas) {
+              app.injectDashas(response.data,true);
+            }
+          }
+        })
+        .catch(function(error){
+          console.log(error) 
+        });
+      } 
     },
     showSub: function(pType) {
       this.toggleDegreeMode('display');

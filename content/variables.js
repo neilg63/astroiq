@@ -32,7 +32,7 @@ vars.roddenOptions = [
 vars.houseSystems = [
    {value:"W", label: "Equal (Rāśi-Bhāva)",selected:true},
    {value:"E", label: "Equal (from ASC)",selected:false},
-   {value:"D", label: "Equal (from MC)",selected:false},
+   //{value:"D", label: "Equal (from MC)",selected:false},
    //- not in Swiss Ephemeris
    //{value:"CB", label: "Caleta Bhāva",selected:false},
    {value:"S", label: "Śrīpati Bhāva",selected:false},
@@ -111,9 +111,11 @@ vars.eventTypes = [
 ];
 
 vars.dateFormats = [
-  {value:"DD/MM/YYYY", label: "Day month year e.g. 23/04/1998",selected:true},
-  {value:"MM/DD/YYYY", label: "Month day year e.g. 04/23/1998",selected:false},
-  {value:"YYYY-MM-DD", label: "Year month day e.g. 1998-04-23",selected:false}
+  {value:"DD/MM/YYYY", label: "DD/MM/YYYY e.g. 23/04/1998",selected:true},
+  {value:"DD.MM.YYYY", label: "DD.MM.YYYY e.g. 23.04.1998",selected:false},
+  {value:"DD-MM-YYYY", label: "DD-MM-YYYY e.g. 23-04-1998",selected:false},
+  {value:"MM/DD/YYYY", label: "MM/DD/YYYY (USA/Can) e.g. 04/23/1998",selected:false},
+  {value:"YYYY-MM-DD", label: "YYYY-MM-DD (Intl.) e.g. 1998-04-23",selected:false}
 ];
 
 vars.solarYearOptionNotes = filter.getHtml('solarYearOptionNotes');
@@ -128,7 +130,6 @@ var parseLookups = (varNames,vars) => {
   var data={},i=0,j=0,n=varNames.length,n2,k,items;
   for (; i<n;i++) {
     k = varNames[i];
-    console.log(k)
     if (vars.hasOwnProperty(k)) {
       items = vars[k];
 
