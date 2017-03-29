@@ -6,9 +6,9 @@ text,
 svg text {
     font-family: genlight, Helvetica, Arial, sans-serif;
 }
-.main-disc {
+/*.main-disc {
     transform-origin: 50% 50% 0;
-}
+}*/
 .house-label text {
 font-size: 3em;
 }
