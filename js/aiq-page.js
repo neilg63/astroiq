@@ -745,9 +745,12 @@ var app = new Vue({
         this.user = ud.data;
         this.user.showForm = false;
       }
+    } else {
+      if (vars.public.userId) {
+        this.user.id = vars.public.userId;
+      }
     }
-    
-    if (localStorageSupported()) {
+    if (localStorageSupported() && this.user.loggedin) {
       this.loadUserData();
     }
   },
@@ -1343,6 +1346,13 @@ var app = new Vue({
       this.assignResults(data);
       this.updateChartData(data);
       this.currId = inData._id;
+      this.dashaData = {
+        active: false,
+        dashas: []
+      };
+      if (this.activeTab == 'dashas') {
+        this.loadDashas();
+      }
       return data;
     },
     updateChartData: function(data) {
@@ -1446,7 +1456,7 @@ var app = new Vue({
     deleteQuery: function(chartId,subPane) {
       var matched = this.matchQuery(chartId);
       if (matched >= 0) {
-        this.queries.splice(chartId,1);
+        this.queries.splice(matched,1);
       }
       deleteItem(chartId);
       if (subPane) {
@@ -1483,7 +1493,7 @@ var app = new Vue({
       }
       this.activeTab = pType;
     },
-    injectDashas: function(data,store) {
+    injectDashas: function(data,dKey) {
       var fmt = app.matchDateFormat();
       data.dashas = AstroIQ.translateDashas(data.dashas,fmt);
       var utcDate = moment.utc(data.datetime);
@@ -1493,11 +1503,17 @@ var app = new Vue({
         data.coords_str = toLatitudeString(data.geo.lat,'plain') + ', ' + toLongitudeString(data.geo.lng,'plain');
         data.address = data.geo.address;
       }
+      data.ayanamsaDegrees = toLongitudeString(data.ayanamsa,'plain');
+      data.ayanamsaName = "";
+      if (vars.ayanamsas.hasOwnProperty(data.ayanamsaNum)) {
+        data.ayanamsaName = vars.ayanamsas[data.ayanamsaNum];
+      }
       app.dashaData = data;
       app.dashaData.valid = true;
-      if (store === true) {
-        var dKey = 'da_' + app.personId;
-        storeItem(dKey,app.dashaData);
+      if (dKey) {
+        if (typeof dKey == 'string') {
+          storeItem(dKey,app.dashaData);
+        }
       }
       setTimeout(function(){
         AstroIQ.addListCollapse();
@@ -1510,7 +1526,7 @@ var app = new Vue({
         ayanamsa: this.options.ayanamsa,
         mode: this.options.mode
       };
-      var dKey = 'da_' + this.personId;
+      var dKey = 'da_' + this.personId + '_' + params.ayanamsa+ '_' + params.mode;
       var stored = getItem(dKey);
       if (stored.valid) {
         this.injectDashas(stored.data);
@@ -1518,7 +1534,7 @@ var app = new Vue({
         axios.get('api/dasha-person', {params:params}).then(function(response) {
           if (response.data) {
             if (response.data.dashas) {
-              app.injectDashas(response.data,true);
+              app.injectDashas(response.data,dKey);
             }
           }
         })

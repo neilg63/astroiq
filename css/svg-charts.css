@@ -6,11 +6,12 @@ text,
 svg text {
     font-family: genlight, Helvetica, Arial, sans-serif;
 }
-.main-disc {
+/* .main-disc {
     transform-origin: center center;
-}
+} */
+
 .house-label text {
-font-size: 3em;
+  font-size: 3em;
 }
 
 

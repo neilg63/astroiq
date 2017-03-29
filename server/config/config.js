@@ -23,6 +23,9 @@ const config = {
 	},
 	timezonedb: {
 		apikey: '0NXJ03JE76B4'
+	},
+	public: {
+		username: 'public@astroiq.com'
 	}
 };
 

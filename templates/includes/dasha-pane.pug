@@ -2,6 +2,10 @@ h3 {{results.person.name}}
 p.datetime {{dashaData.datetime_lc}}
 p.coords {{dashaData.coords_str}}
 p.address {{dashaData.address}}
+p.ayanamsa
+  strong.label Ayanamsa
+  span.value {{dashaData.ayanamsaDegrees}}
+  span.type {{dashaData.ayanamsaName}}
 ul.dashas.open
   template(v-for="dasha in dashaData.dashas")
     li.toggle(v-bind:class="dasha.key")

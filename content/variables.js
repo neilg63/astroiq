@@ -147,7 +147,7 @@ var parseLookups = (varNames,vars) => {
   }
   return data;
 }
-var varNames = ['ayanamsas','houseSystems'];
-vars.dataVars = 'var vars = ' + JSON.stringify(parseLookups(varNames,vars));
+var varNames = ['ayanamsas','houseSystems','public'];
+vars.data = parseLookups(varNames,vars);
 
 module.exports = vars;

@@ -4,6 +4,7 @@ const {Chart} = require('./../models/chart');
 const {Person} = require('./../models/person');
 const {User} = require('./../models/user');
 const {Group} = require('./../models/group');
+const config = require('./../config/config');
 const {EventType} = require('./../models/eventType');
 const {Tag} = require('./../models/tag');
 const conversions = require('./conversions');
@@ -22,7 +23,26 @@ function isNumeric(val) {
 	return false;
 }
 
-
+astro.publicData = (callback) => {
+  User.findOne({username:config.public.username}).exec((err,data) => {
+    if (err || data === null) {
+      var userData = {
+        username: config.public.username,
+        password: 'abc1234567',
+        active: true,
+        isAdmin: false,
+        screenname: 'Public user',
+        authType: 'email',
+        created: new Date()
+      };
+      var user = new User(userData);
+      user.save();
+      callback({userId:user._id});
+    } else {
+      callback({userId:data._id});
+    }
+  });
+};
 
 astro.saveChart = (model,callback) => {
   var data = {},objId;

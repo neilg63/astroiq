@@ -96,6 +96,9 @@ router.get('/dasha-person',(req,res) => {
           if (error) {
               res.status(404).send(error);
           } else {
+            dd.mode = mode;
+            dd.ayanamsa = ayanamsa;
+            dd.ayanamsaNum = ayNum;
             dd.geo = data.geo;
             dd.dateinfo = data.dateinfo;
             res.status(200).send(dd);

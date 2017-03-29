@@ -29,6 +29,17 @@ const variables = require('./../content/variables.js');
 const tplDir = __dirname + '/../templates/';
 
 
+var loadApp = (res) => {
+  const page = pug.compileFile(tplDir + '/aiq.pug');
+   astro.publicData( (data) => {
+    if (variables.data) {
+      _.merge(variables.data,{public:data});
+      variables.dataVars = 'var vars = ' + JSON.stringify(variables.data);
+    }
+    res.send(page(variables));
+  });
+};
+
 app.enable('trust proxy');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -182,13 +193,11 @@ app.use('/icomoon', express.static('icomoon'));
 app.use('/svgs', express.static('svgs'));
 
 app.get('/', function(req, res) {
-   const page = pug.compileFile(tplDir + '/aiq.pug');
-    res.send(page(variables));
+   loadApp(res);
 });
 
 app.get('/home', function(req, res) {
-  const page = pug.compileFile(tplDir + '/aiq.pug');
-    res.send(page(variables));
+  loadApp(res);
 });
 
 app.get('/old', function(req, res) {
@@ -197,8 +206,7 @@ app.get('/old', function(req, res) {
 });
 
 app.get('/astro', function(req, res) {
-    const page = pug.compileFile(tplDir + '/aiq.pug');
-    res.send(page(variables));
+    loadApp(res);
 });
 
 app.get('/chart', function(req, res) {

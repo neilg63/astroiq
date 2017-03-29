@@ -1494,7 +1494,7 @@ ul.hor-tabs li,
 nav.horizontal ul,
 nav.horizontal li {
     list-style-type: none;
-    padding: none;
+    padding: 0;
 }
 
 ul.hor-tabs {
@@ -1515,7 +1515,7 @@ ul.hor-tabs li {
 ul.hor-tabs li,
 nav.horizontal li {
     display: inline-block;
-    margin: 0 1.5em;
+    margin: 0 0.5em;
     font-weight: bold;
 }
 
@@ -1533,6 +1533,10 @@ ul.hor-tabs li.active {
     #main ul.hor-tabs li {
         font-size: 1.25em;
     }
+    ul.hor-tabs li,
+    nav.horizontal li {
+        margin: 0 0.75em;
+    }
 }
 
 @media screen and (min-width:960px) {
@@ -1549,17 +1553,29 @@ ul.hor-tabs li.active {
         width:  45%;
         padding:  0 0 0 2.5%;
     }
+    ul.hor-tabs li,
+    nav.horizontal li {
+      margin: 0 1em;
+    }
 }
 
 @media screen and (min-width:1280px) {
     #control-panel #form-geobirth {
         max-width: 80%;
     }
+    ul.hor-tabs li,
+    nav.horizontal li {
+      margin: 0 1.25em;
+    }
 }
 
 @media screen and (min-width:1440px) {
     #control-panel #form-geobirth {
         max-width: 85%;
+    }
+    ul.hor-tabs li,
+    nav.horizontal li {
+      margin: 0 1.5em;
     }
 }
 
