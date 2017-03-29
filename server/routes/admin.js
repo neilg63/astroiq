@@ -10,7 +10,7 @@ const moment = require('moment');
 const variables = require('./../../content/variables.js');
 const tplDir = __dirname + '/../../templates/';
 const {User} = require('./../models/user');
-
+const config = require('./../config/config');
 
 var checkAdminUid = (req,res,callback) => {
   var cookies = new Cookies( req, res, { "keys": ['xyz'] } );
@@ -49,13 +49,15 @@ router.get('/users-json', function(req, res) {
         res.send({valid:false,num_users:0});
        } else {
         var users = _.map(data,(u) => {
-          var d = moment.utc(u.created);
+          var d = moment.utc(u.created),
+            isPublic = u.username == config.public.username;
           return {
             id:u._id,
             username:u.username,
             screenname:u.screenname,
             active:u.active,
             isAdmin:u.isAdmin,
+            public: isPublic,
             isAdmin_text: u.isAdmin? "yes" : "no",
             authType:u.authType,
             active_text:u.active? "yes" : "no",

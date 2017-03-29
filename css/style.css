@@ -1867,3 +1867,8 @@ table thead tr th {
 table td, table th {
     padding: 0.25em;
 }
+
+td.inactive {
+    pointer-events: none;
+    opacity: 0
+}

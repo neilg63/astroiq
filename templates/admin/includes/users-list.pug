@@ -4,6 +4,7 @@ table.users-table
       th User name / email
       th Screen name
       th Active
+      th Administrator
       th Authentication type
       th Date joined
   tbody
@@ -11,8 +12,8 @@ table.users-table
       tr
         th.label {{user.username}}
         td.screenname {{user.screenname}}
-        td.active(v-on:click="toggleUserStatus(user.id,'active',user.active)") {{user.active_text}}
-        td.admin(v-on:click="toggleUserStatus(user.id,'isAdmin',user.isAdmin)") {{user.isAdmin_text}}
+        td.active(v-on:click="toggleUserStatus(user.id,'active',user.active)" v-bind:class="{inactive:user.public}") {{user.active_text}}
+        td.admin(v-on:click="toggleUserStatus(user.id,'isAdmin',user.isAdmin)" v-bind:class="{inactive:!user.active}") {{user.isAdmin_text}}
         td.authType {{user.authType}}
         td.created {{user.created_ds}}
-        td.delete(v-on:click="deleteUser(user.id)") delete
+        td.delete(v-on:click="deleteUser(user.id)" v-bind:class="{inactive:user.public || user.active}") delete
