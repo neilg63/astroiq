@@ -569,6 +569,7 @@ c24 83 84 146 156 164 42 11 45 13 45 45 0 29 -4 34 -22 34 -34 -1 -99 -33
   <g class="house-lines-group">
     <polyline points="20,730 0,750 20,770" class="ascendant" fill="none" stroke="red" stroke-width="3">
     </polyline>
+    <line class="house-line horizon" data-deg="270" x1="750" y1="0" x2="750" y2="750" stroke="#550000" stroke-width="1" transform="rotate(270,750,750)" data-next-deg="270"></line>
   </g>
   <circle cy="750" cx="750" r="240" fill="white" class="inner-hub" stroke="#999999" stroke-width="2"></circle>
 </g>

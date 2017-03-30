@@ -191,9 +191,8 @@ var AstroChart = {
         cls += ' ascendant';
         this.houseLayer.append('polyline')
           .attr('points','20,730 0,750 20,770')
-          .attr('class','ascendant')
           .attr('fill','none')
-          .attr('stroke','red')
+          .attr('stroke','green')
           .attr('stroke-width',3)
       }
       if (i < (numHouses/2)) {
