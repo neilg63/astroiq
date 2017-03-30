@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const {Person} = require('./person');
+const {Tag} = require('./tag');
 var ObjectId= mongoose.Schema.ObjectId;
 
 var simpleStringType = {
@@ -40,15 +42,18 @@ var ChartSchema = new mongoose.Schema({
     type: ObjectId,
     required: false
   },
-  personId:  ObjectId,
+  personId:  {
+    type: ObjectId,
+    ref: 'Person'
+  },
   chartType: simpleStringType,
-  eventTypeId: {
+  eventType: {
     type: ObjectId,
     required: false
   },
   eventTitle: optionalStringType,
   notes: optionalStringType,
-  tags: [ObjectId],
+  tags: [{type:ObjectId,ref:'Tag'}],
   datetime: {
      type: Date,
      required: true

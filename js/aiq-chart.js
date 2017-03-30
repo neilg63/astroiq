@@ -119,7 +119,6 @@ var AstroChart = {
       vl = 360 - deg;
     }
     var off = vl / 6;
-    
     AstroChart.labelLayer.attr('transform','translate('+off+','+off+')')
   },
 
@@ -235,7 +234,7 @@ var AstroChart = {
     }
   },
 
-  updateHouses: function(newHouses,duration) {
+  updateHouses: function(newHouses,duration,ascendant) {
     if (!isNumeric(duration)) {
       duration = 2000;
     }
@@ -245,15 +244,12 @@ var AstroChart = {
       }
     }
     if (newHouses instanceof Array) {
-      var ascendant = newHouses[0];
+         
       if (duration > 100) {
         AstroChart.tweenMain(ascendant,duration);
       } else {
-
-        this.main.attr('transform','rotate('+ascendant+','+this.radius+','+this.radius+')')
-        
+        this.main.attr('transform','rotate('+ascendant+','+this.radius+','+this.radius+')')  
       }
-      
       for (var i=0;i<newHouses.length;i++) {
         newHouses[i] -= ascendant;
       }

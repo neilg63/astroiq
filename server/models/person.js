@@ -40,4 +40,4 @@ var PersonSchema = new mongoose.Schema({
 
 var Person = mongoose.model('Person', PersonSchema);
 
-module.exports = {Person}
+module.exports = {Person};

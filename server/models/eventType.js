@@ -13,6 +13,14 @@ var EventType = mongoose.model('EventType', {
     required: false,
     trim: true
   },
+  public: {
+    type: Boolean,
+    default: false
+  },
+  weight: {
+    type: Number,
+    default: 0
+  },
   userId: {
     type: ObjectId,
     required: true

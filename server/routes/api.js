@@ -137,16 +137,11 @@ router.get('/chart/:id', function(req, res){
 router.get('/charts/:uid/:mode/:limit', function(req, res){ 
   var login = checkLogin(res.req), data = {records:[],persons:[]};
   if (login.valid && login.uid == req.params.uid) {
-  	astro.getPersonsByUserId(req.params.uid,req.params.limit,(persons) => {
 	  astro.getByUserId(req.params.uid,req.params.mode,req.params.limit,(records) => {
 		  data.num_records = records.length;
-		  data.num_persons = persons.length;
-		  data.persons = persons;
 		  data.records = records;
 		  res.send(data);
 	  });
-	});
-  	
   } else {
   	res.send(data);
   }

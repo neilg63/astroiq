@@ -1,12 +1,13 @@
 const {mongoose} = require('./../db/mongoose');
 const {Nested} = require('./../models/nested');
-const {Chart} = require('./../models/chart');
 const {Person} = require('./../models/person');
+const {Tag} = require('./../models/tag');
+const {EventType} = require('./../models/eventType');
+const {Chart} = require('./../models/chart');
 const {User} = require('./../models/user');
 const {Group} = require('./../models/group');
+const moment = require('moment');
 const config = require('./../config/config');
-const {EventType} = require('./../models/eventType');
-const {Tag} = require('./../models/tag');
 const conversions = require('./conversions');
 const request = require('request');
 const timezone = require('../geocode/timezone.js');
@@ -43,6 +44,37 @@ astro.publicData = (callback) => {
     }
   });
 };
+
+astro.coreEventTypes = (variables,uid,callback) => {
+  EventType.find({public:true}).sort('weight').exec((err,data) => {
+    if (err || data.length < 1) {
+      var ets = variables.eventTypes,n=ets.length,i=0,et;
+      for (;i<n;i++) {
+        et = ets[i];
+        var etData = {
+          name: et.label,
+          public: 1,
+          weight: i,
+          userId: uid
+        };
+        var et = new EventType(etData);
+        et.save();
+      }
+    } else {
+      var n = data.length, i=0,ets=[],et;
+      for (;i<n;i++) {
+        et = data[i];
+        ets.push({
+          value: et._id,
+          label: et.name,
+          selected: false
+        });
+      }
+      variables.eventTypes = ets;
+      callback(variables);
+    }
+  });
+}
 
 astro.saveChart = (model,callback) => {
   var data = {},objId;
@@ -122,9 +154,24 @@ astro.getByUserId = (uid,mode,limit,callback) => {
    .sort('-_id')
    .limit(limit)
    .select(projection)
+   .populate('personId')
    .exec((error,items) =>{
       if (items instanceof Array) {
-        callback(items);
+        var toChar = (c) => {
+          var fc={},k;
+          for (k in c.toObject()) {
+            switch (k) {
+              case 'personId':
+                fc.person = c[k];
+                break;
+              default:
+                fc[k] = c[k];
+                break;
+            }
+          }
+          return fc;
+        };
+        callback(_.map(items,toChar));
       } else {
         callback([]);
       }
@@ -230,10 +277,8 @@ astro.processChartRequest = (query,callback) => {
   },
   datetime = query.dt;
   timezone.request(location,datetime,'position',(error,tData) => {
-
     if (!error) {
-      var dt = conversions.dateOffsetsToISO(datetime,tData.gmtOffset);
-
+      var dt = moment.utc(datetime).subtract(tData.gmtOffset,'seconds').format('YYYY-MM-DD\THH:mm:ss');
       query.dt = dt;
       query.tz = tData.zoneName;
       query.gmtOffset = tData.gmtOffset;

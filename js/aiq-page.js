@@ -1362,7 +1362,7 @@ var app = new Vue({
           var c = this.location.coords;
             GeoMap.updateMap(c.lat,c.lng,true,false);
         }
-        AstroChart.updateHouses(data.houseLngs);
+        AstroChart.updateHouses(data.houseLngs,2000,data.ascendant);
         AstroChart.moveBodies(data.bodies,this.options.mode);
         this.chartActive = true;
       } else {
@@ -1400,10 +1400,10 @@ var app = new Vue({
           hasData = true;
         }
       }
+
       if (!hasData && params.lc) {
         params.userId = this.user.id;
         axios.post('/api/astro',params).then(function (response) {
-
           if (response.data) {
             var data = app.updateChartResults(response.data);
             app.activeTab = 'chart';
@@ -1433,19 +1433,19 @@ var app = new Vue({
                 if (matches.length < 1) {
                   var p = {
                     id: app.personId,
-                    name: person.name,
+                    name: data.person.name,
                     hidden:true
                   }
                   persons.push(p);
-                  this.people.persons = _.sortedUniqBy(persons,'name');
-                  this.people.num_persons = this.people.persons.length;
+                  app.people.persons = _.sortedUniqBy(persons,'name');
+                  app.people.num_persons = app.people.persons.length;
                   storeItem('persons',persons);
                 }
             }
           }
         })
         .catch(function (error) {
-          console.log(error);
+          console.log({error:error});
         });
       }
       app.showSub('form'); 
@@ -1762,16 +1762,10 @@ var app = new Vue({
     loadUserRecords: function() {
       axios.get('/api/charts/'+this.user.id+'/full/'+config.storage.maxRecs).then(function(response){
         if (response.data) {
-          if (response.data.persons instanceof Array) {
-            var persons = {},numItems=response.data.persons.length,i=0,person;
-            for (;i<numItems;i++) {
-              person = response.data.persons[i];
-              persons[person._id] = person;
-
-            }
-          }
+          
           if (response.data.records instanceof Array) {
             var items=[], i=0,
+            persons = {},
             fmt = app.matchDateFormat(),
             numItems=response.data.records.length,cKey,item,ts;
             for (;i<numItems;i++) {
@@ -1779,11 +1773,9 @@ var app = new Vue({
               cKey = 'ch_' + item._id;
               if (i < config.storage.maxRecs) {
                 item.chartId = cKey;
-                if (persons.hasOwnProperty(item.personId)) {
-                  item.person = persons[item.personId];
-                  ts = storeItem(cKey,item);
-                  AstroIQ.addRecord(items,item,cKey,ts,fmt);
-                }
+                item.person = persons[item.personId];
+                ts = storeItem(cKey,item);
+                AstroIQ.addRecord(items,item,cKey,ts,fmt);
               } else {
                 break;
               }

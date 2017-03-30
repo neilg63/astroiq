@@ -35,8 +35,13 @@ var loadApp = (res) => {
     if (variables.data) {
       _.merge(variables.data,{public:data});
       variables.dataVars = 'var vars = ' + JSON.stringify(variables.data);
+      astro.coreEventTypes(variables,data.userId,function(variables) {
+        res.send(page(variables));
+      });
+    } else {
+      res.send(page(variables));
     }
-    res.send(page(variables));
+    
   });
 };
 

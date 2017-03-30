@@ -15,8 +15,8 @@ form#control-form.pane(:class="{active:subPane=='form'}" action="/sweph" method=
     label.new-person-label(for="new-person") New person
   +selectrow('chart_type','Type of Chart',chartTypes,false)(class="select-input" v-model="chartType")
   p.prompt-type-row(:class="{hidden:chartType=='birth'}")
-    label(for="form-prompt-type") {{labels.promptType}}
-    select#form-prompt-type.select-input(name="prompt_type")
+    label(for="form-event-type") {{labels.promptType}}
+    select#form-prompt-type.select-input(name="eventType")
       each opt,index in eventTypes
         option(value = opt.value)= opt.label
   p.event-title-row.full-span(:class="{hidden:chartType=='birth'}")
