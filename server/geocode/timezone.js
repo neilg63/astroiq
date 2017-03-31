@@ -1,4 +1,5 @@
 const request = require('request');
+const moment = require('moment-timezone');
 const {mongoose} = require('./../db/mongoose');
 const {Timezone} = require('./../models/timezone');
 const timezone_db_url = 'http://api.timezonedb.com/v2/get-time-zone';
@@ -26,7 +27,18 @@ var timezone = {
 		return data;
 	},
 
-	requestRemote: (href,coords_date,callback) => {
+	checkGmtOffset: (data,datetime) => {
+		var mom = moment.utc(datetime).tz(data.zoneName),
+        	parts = mom.format('Z').split(':');
+        if (parts.length>1) {
+          var hrs = parseInt(parts[0].replace('+','')) * 3600,
+            mins = parseInt(parts[1]) * 60;
+            data.gmtOffset = hrs + mins;
+        }
+        return data;
+	},
+
+	requestRemote: (href,coords_date,callback,dt) => {
 		request(href, (error, response, body) => {
 	    if (error){
 	      callback({valid:false,msg:"Invalid parameters"},undefined);
@@ -36,7 +48,7 @@ var timezone = {
 	  			if (body.indexOf('{') === 0) {
 	  				let json = JSON.parse(body),
 	  					data = timezone.parseData(json,coords_date);
-	  				
+	  					data = timezone.checkGmtOffset(data,dt);
 	  				var tz = new Timezone(data);
 	  				tz.save().then((doc) => {
 	            callback(undefined,data);
@@ -86,24 +98,25 @@ var timezone = {
 		}
 
 		if (valid) {
-			if (typeof date == 'string' && date !== 'NOW') {
-				var date = new Date(date);
+			if (date !== 'NOW') {
+				var mt = moment.utc();
+				date = mt.format('YYYY-MM-DD');
+			} else {
+				var mt = moment.utc(date);
 			}
-			if (date instanceof Date) {
-				var timestamp = date.getTime() / 1000;
-				href += `&time=${timestamp}`;
-				coords_date += '_' + date.toISOString().split('T').shift();
-			}
-
+			var timestamp = parseInt(mt.format('x'));
+			href += `&time=${timestamp}`;
+			coords_date += '_' + moment.utc(date).format('YYYY-MM-DD');
 		var matched = false;
 		Timezone.findOne({
 	      coords_date: coords_date
 	    }).then((doc) => {
 	    	if (doc !== null) {
 	    		matched = true;
+	    		var data = timezone.checkGmtOffset(doc.toObject(),date);
 	    		callback(undefined, doc);
 	    	} else {
-	    		timezone.requestRemote(href,coords_date,callback);
+	    		timezone.requestRemote(href,coords_date,callback,date);
 	    		matched = true;
 	    	}
 	    }).catch((e) => {
