@@ -329,7 +329,7 @@ var AstroIQ = {
       i=0,
       nb = bns.length;
       for (;i<nb;i++) {
-        bodies.push({key:bns[i],lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0});
+        bodies.push({key:bns[i],lng: 0,lat: 0,spd: 0,glat:0,glng: 0,gspd:0,pos:0});
       }      
       return bodies;
   },
@@ -429,6 +429,7 @@ var AstroIQ = {
             parsed.houses = [];
             parsed.houseLngs = [];
             var nv = matched.values.length,nvTot=nv,h,lng,end;
+
             switch (nv) {
               case 6:
               case 18:
@@ -456,6 +457,7 @@ var AstroIQ = {
                   lng: lng,
                   end: end,
                 };
+
                 parsed.houseLngs.push(lng);
                 parsed.houses.push(h);
               }
@@ -470,6 +472,7 @@ var AstroIQ = {
           break;
       }
     }
+
     parsed.person = data.person;
     return parsed;
   },
@@ -962,7 +965,41 @@ var app = new Vue({
       this.user.storage = size;
       this.user.storage_kb = parseInt(size / 1024);
     },
+    assignBodyPositions: function(data) {
+      if (data.bodies) {
+          var numLngs = data.houseLngs.length,  lastLng = data.houseLngs[0];
+          data.bodies = _.map(data.bodies,function(b) {
+              var i=0,len=0,start,end,matched,frac;
+              for (;i<numLngs;i++) {
+                start = data.houseLngs[i];
+                matched = false;
+                if (i < (numLngs-1)) {
+                  end = data.houseLngs[(i+1)];
+                } else {
+                  end = lastLng;
+                }
+                if (start < end) {
+                  matched = (b.lng >= start && b.lng < end);
+                  len = end - start;
+                } else {
+                  matched = (b.lng <= end || b.lng > start);
+                  len = (end+360) - start;
+                }
+                if (matched) {
+                  if (b.lng > start) {
+                    frac = (b.lng-start)/len;
+                  } else {
+                    frac = ((b.lng+360)-start)/len;
+                  }
+                  b.pos = Math.approxFixed((i+1) + frac,3);
+                }
+              }
+              return b;
+          });
+        }
+    },
     assignResults: function(data) {
+      this.assignBodyPositions(data);
       var v1,v2,v3,k1,k2,k3;
       if (data.ascendant) {
         this.results.valid = true;
@@ -1530,7 +1567,7 @@ var app = new Vue({
         data.coords_str = toLatitudeString(data.geo.lat,'plain') + ', ' + toLongitudeString(data.geo.lng,'plain');
         data.address = data.geo.address;
       }
-      data.ayanamsaDegrees = toLongitudeString(data.ayanamsa,'plain');
+      data.ayanamsaDegrees = parseAstroResult(data.ayanamsa,'lng');
       data.ayanamsaName = "";
       if (vars.ayanamsas.hasOwnProperty(data.ayanamsaNum)) {
         data.ayanamsaName = vars.ayanamsas[data.ayanamsaNum];
