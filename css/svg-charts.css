@@ -171,32 +171,32 @@ g.body circle.body-bg {
   opacity: 0;
 }
 /**/
-g.bodies-layer line.band-1 {
+line.aspect {
   stroke: #cc0000;
 }
 
-g.bodies-layer line.band-2 {
+g.bodies-layer line.aspect-trine {
   stroke: #999999;
 }
 
 /* trine */
-g.bodies-layer line.band-3 {
+g.bodies-layer line.aspect-square {
   stroke: blue;
 }
 
 
 /* square */
-g.bodies-layer line.band-4 {
+g.bodies-layer line.aspect-sextile {
   stroke: #ee4400;
 }
 
 /* sextile */
-g.bodies-layer line.band-5 {
+g.bodies-layer line.aspect-opposition {
   stroke: #00cc00;
 }
 
 /* conjunction */
-g.bodies-layer line.band-6 {
+g.bodies-layer line.aspect-inconjunction {
   stroke: #990000;
 }
 

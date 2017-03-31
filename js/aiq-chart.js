@@ -21,6 +21,7 @@ var AstroChart = {
 
     bodyLayer: null,
     bodies: [],
+    bodyOffset: 120,
 
   westernLayer: null,
 
@@ -187,14 +188,9 @@ var AstroChart = {
     for (var i=0;i<numHouses;i++) {
       color = colors[(i%colors.length)];
       cls = 'house-line house-line-' + (i+1);
-      if (i===0) {
+/*      if (i===0) {
         cls += ' ascendant';
-        this.houseLayer.append('polyline')
-          .attr('points','20,730 0,750 20,770')
-          .attr('fill','none')
-          .attr('stroke','green')
-          .attr('stroke-width',3)
-      }
+      }*/
       if (i < (numHouses/2)) {
         deg = this.houses[i];
       } else {
@@ -303,7 +299,6 @@ var AstroChart = {
     duration=900,
     i=0,lbl,txt,
     d,dy,bn,index=0,item,body,pos,pos2,diff,mult,td;
-    d3.selectAll('line.aspect').remove();
 
     for (index in bodies) {
       item = bodies[index];
@@ -316,22 +311,8 @@ var AstroChart = {
           } else {
             deg = item.lng;
           }
-          d = 120 - deg;
-          if (item.aspects) {
-          if (item.aspects.length>0) {
-            for (i=0;i<item.aspects.length;i++) {
-              pos = AstroChart._xyPos(d,510);
-              pos2 = AstroChart._xyPos((120-item.aspects[i].to),510);
-              this.bodyLayer.append('line')
-                .attr('x1',pos.x)
-                .attr('y1',pos.y)
-                .attr('x2',pos2.x)
-                .attr('y2',pos2.y)
-                .attr('stroke-width',2)
-                .attr('class','aspect band-' + item.aspects[i].band);
-            }
-          }
-         }
+          d = this.bodyOffset - deg;
+          
           oldDeg = parseFloat(body.attr('data-lng')),
           diff=oldDeg-d;
           collision = [];
@@ -386,6 +367,38 @@ var AstroChart = {
         }
       }
     }
+  },
+
+  updateAspects: function(aspects,ayanamsa) {
+    d3.selectAll('line.aspect').remove();
+    var i=0, offset = this.bodyOffset+ayanamsa, k, cat, num, aspect,pos,pos2;
+    if (typeof aspects == 'object') {
+      for (k in aspects) {
+        cat = aspects[k];
+        if (cat instanceof Array) {
+          num = cat.length;
+          for (i=0;i<num;i++) {
+            aspect = cat[i];
+            
+            pos = AstroChart._xyPos(offset-(aspect.start-ayanamsa),510);
+            pos2 = AstroChart._xyPos(offset-(aspect.end-ayanamsa),510);
+            this.bodyLayer.append('line')
+              .attr('x1',pos.x)
+              .attr('y1',pos.y)
+              .attr('x2',pos2.x)
+              .attr('y2',pos2.y)
+              .attr('stroke-width',2)
+              .attr('class','aspect aspect-' + k);
+          }
+        }
+      }
+    }
+  },
+
+  refresh: function(data,mode) {
+    AstroChart.updateHouses(data.houseLngs,2000,data.ascendant);
+    AstroChart.moveBodies(data.bodies,mode);
+    AstroChart.updateAspects(data.aspects,data.ayanamsa);
   },
 
   addDiscDrag: function() {

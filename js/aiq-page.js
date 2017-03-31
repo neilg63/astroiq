@@ -1362,8 +1362,7 @@ var app = new Vue({
           var c = this.location.coords;
             GeoMap.updateMap(c.lat,c.lng,true,false);
         }
-        AstroChart.updateHouses(data.houseLngs,2000,data.ascendant);
-        AstroChart.moveBodies(data.bodies,this.options.mode);
+        AstroChart.refresh(data,this.options.mode);
         this.chartActive = true;
       } else {
         this.chartActive = false;

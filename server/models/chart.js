@@ -27,6 +27,13 @@ var optionalNumberType = {
   required: false,
 };
 
+var AspectType = {
+  from: String,
+  to: String,
+  start: Number,
+  end: Number
+}
+
 var planetType = {
   key: simpleStringType,
   lng: simpleNumberType,
@@ -109,6 +116,14 @@ var ChartSchema = new mongoose.Schema({
   bodies: [
     planetType
   ],
+  aspects: {
+    opposition: [AspectType],
+    trine: [AspectType],
+    square: [AspectType],
+    sextile: [AspectType],
+    inconjunction:[AspectType],
+    proxim: [AspectType]
+  }
 });
 
 var Chart = mongoose.model('Chart', ChartSchema);

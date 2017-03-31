@@ -200,6 +200,7 @@ astro.getPersonsByUserId = (uid,limit,callback) => {
 };
 
 astro.saveChartRecord = (model,data,person,objId,callback) => {
+
 	for (k in model) {
    	switch (k) {
    		case 'userId':
@@ -227,6 +228,7 @@ astro.saveChartRecord = (model,data,person,objId,callback) => {
     	case 'ayanamsas':
     	case 'houses':
     	case 'bodies':
+      case 'aspects':
          		data[k] = model[k];
          		break;
        	}
