@@ -606,7 +606,8 @@ var EphemerisData = {
   houses: AstroIQ.buildHouses(),
   houseLngs: [],
   chart_type: "birth",
-  cmd: ""
+  aspects: {},
+  hasAspects: false
 };
 
 var app = new Vue({
@@ -1061,8 +1062,35 @@ var app = new Vue({
       if (data.person.name) {
         this.candidateName = data.person.name;
       }
-      if (this.results.cmd) {
-        this.results.cmd = this.results.cmd.replace(/_+/g,' ');
+      if (data.aspects) {
+        this.results.hasAspects = false;
+        for (k in data.aspects) {
+          if (data.aspects[k] instanceof Array) {
+            if (data.aspects[k].length>0) {
+              this.results.hasAspects = true;
+              break;
+            }
+          } 
+        }
+        var toAspect = function(aspect) {
+
+          aspect.startDms = parseAstroResult(aspect.start,'lng');
+          aspect.endDms = parseAstroResult(aspect.end,'lng');
+          return aspect;
+        }
+        var toAspectSets = function(aspectSet,key) {
+          var items = _.map(aspectSet,toAspect);
+          return {
+            key: key,
+            items: items,
+            numItems: items.length
+          };
+        }
+        if (this.results.hasAspects) {
+          this.results.aspects = _.map(data.aspects,toAspectSets);
+        } else {
+          this.results.aspects = {};
+        }
       }
       this.newPerson = false;
       this.newRecord = false;

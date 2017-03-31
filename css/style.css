@@ -1634,6 +1634,37 @@ ul.hor-tabs li:not(.disabled):hover {
     width: 100%;
 }
 
+#results-pane .section {
+    clear:  both;
+}
+
+ol.plain {
+    list-style-type: none;
+}
+
+#results-pane li em,
+#results-pane li strong,
+#results-pane li span {
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+#results-pane td.separator:before,
+#results-pane li span.separator:before {
+    content: "—";
+}
+
+#results-pane table.aspect-group caption {
+    font-size: 1.25em;
+    text-align: left;
+    margin-top: 0.75em;
+    font-style: italic;
+}
+
+#results-pane table.aspect-group tbody th {
+    text-align: right;
+}
+
 .results-list li span.label {
     min-width: 5em;
 }

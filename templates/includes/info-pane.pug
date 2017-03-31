@@ -61,3 +61,18 @@ dl.results-list
         li(v-if="house.num > 0")
           span.label {{house.num}}
           span.coords {{house.lng}} to {{house.end}}
+
+
+div.aspects-list.section(v-if="results.hasAspects")
+  h3 Aspects
+  template(v-for="set in results.aspects")
+    table.aspect-group(v-if="set.items.length>0")
+      caption {{set.key}}
+      tbody.aspect-list.plain
+        template(v-for="item in set.items")
+          tr
+            th.body.from {{item.from}}
+            td.dms.from {{item.startDms}}
+            td.separator
+            th.body.to {{item.to}}
+            td.dms.to {{item.endDms}}
