@@ -27,14 +27,33 @@ var timezone = {
 		return data;
 	},
 
+	convertCountryCode: (countryCode) => {
+		var zoneName = '';
+		switch (countryCode) {
+			case 'IS':
+				zoneName = 'Atlantic/Reykjavik';
+				break;
+		}
+		return zoneName;
+	},
+
 	checkGmtOffset: (data,datetime) => {
-		var mom = moment.utc(datetime).tz(data.zoneName),
-        	parts = mom.format('Z').split(':');
-        if (parts.length>1) {
-          var hrs = parseInt(parts[0].replace('+','')) * 3600,
-            mins = parseInt(parts[1]) * 60;
-            data.gmtOffset = hrs + mins;
-        }
+		if (!data.zoneName) {
+			data.zoneName = '';
+		}
+		if (data.zoneName.length < 2) {
+			data.zoneName = timezone.convertCountryCode(data.countryCode);
+		}
+		if (data.zoneName.length > 2) {
+			var mom = moment.utc(datetime).tz(data.zoneName),
+				parts = mom.format('Z').split(':');
+	        if (parts.length>1) {
+	          var hrs = parseInt(parts[0].replace('+','')) * 3600,
+	            mins = parseInt(parts[1]) * 60;
+	            data.gmtOffset = hrs + mins;
+	        }
+		}
+		
         return data;
 	},
 
@@ -98,7 +117,7 @@ var timezone = {
 		}
 
 		if (valid) {
-			if (date !== 'NOW') {
+			if (date === 'NOW') {
 				var mt = moment.utc();
 				date = mt.format('YYYY-MM-DD');
 			} else {
