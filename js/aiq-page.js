@@ -1749,6 +1749,7 @@ var app = new Vue({
           axios.post('/login',data).then(function(response) {
             if (response.data) {
               var data = response.data;
+              
               if (data.user) {
                 var ud = data.user;
                 if (ud.id) {
@@ -1765,7 +1766,9 @@ var app = new Vue({
               }
             }
           }).catch(function (error) {
-            app.user.statusMsg = "Cannot match your username or password";
+            if (error && !app.user.loggedin) {
+              app.user.statusMsg = "Cannot match your username or password";
+            }
           });
           break;
         case "email":
@@ -1824,7 +1827,10 @@ var app = new Vue({
 
     },
     loadUserRecords: function() {
-      axios.get('/api/charts/'+this.user.id+'/full/'+config.storage.maxRecs).then(function(response){
+      var href = '/api/charts/'+this.user.id+'/full/'+config.storage.maxRecs;
+      
+      axios.get(href).then(function(response){
+        
         if (response.data) {
           
           if (response.data.records instanceof Array) {
@@ -1837,7 +1843,6 @@ var app = new Vue({
               cKey = 'ch_' + item._id;
               if (i < config.storage.maxRecs) {
                 item.chartId = cKey;
-                item.person = persons[item.personId];
                 ts = storeItem(cKey,item);
                 AstroIQ.addRecord(items,item,cKey,ts,fmt);
               } else {
