@@ -65,6 +65,12 @@ body
             p.hsy.small
               strong.label House System
               span.value {{options.houseName}}
+          div#aspect-controls
+            h4 Show Aspects
+            input#show-main-aspects.checkbox(type="checkbox" name="show_main_aspects"  checked="true")
+            label.aspect-label(for="show-main-aspects") Main
+            input#show-minor-aspects.checkbox(type="checkbox" name="show_minor_aspects")
+            label.aspect-label(for="show-minor-aspects") Minor
           ul#chart-tabs.hor-tabs
             li.western(v-on:click="showChart('western')") Western
             li.northindian(v-on:click="showChart('northindian')") North Indian

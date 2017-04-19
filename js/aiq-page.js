@@ -1881,6 +1881,12 @@ d3.select('#control-panel').on('click',function() {
     }
 });
 
+d3.selectAll('#aspect-controls input.checkbox').on('change',function() {
+    var it = d3.select(this), c = d3.select("#chart-pane"),idClass = it.attr('id');
+    console.log(idClass)
+    c.classed(idClass,it.property('checked'));
+});
+
 setTimeout(function(){
   pDom.geoLocAllowed = GeoMap.geoLocAllowed();
 

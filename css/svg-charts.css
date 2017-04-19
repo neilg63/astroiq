@@ -219,3 +219,16 @@ line.aspect {
 .show-main-aspects line.aspect-trine {
   opacity: 1;
 }
+
+.show-minor-aspects line.aspect-quadnovile,
+.show-minor-aspects line.aspect-inconjunction,
+.show-minor-aspects line.aspect-triseptile,
+.show-minor-aspects line.aspect-sesquisquare,
+.show-minor-aspects line.aspect-tridecile,
+.show-minor-aspects line.aspect-biseptile,
+.show-minor-aspects line.aspect-binovile,
+.show-minor-aspects line.aspect-novile,
+.show-minor-aspects line.aspect-dectile,
+.show-minor-aspects line.aspect-semisextile {
+  opacity: 1;
+}
