@@ -207,3 +207,15 @@ g.body path {
   fill: #556677;
 }
 
+line.aspect {
+    opacity: 0;
+}
+
+.show-main-aspects line.aspect-conjunction,
+.show-main-aspects line.aspect-inconjunction,
+.show-main-aspects line.aspect-opposition,
+.show-main-aspects line.aspect-square,
+.show-main-aspects line.aspect-sextile,
+.show-main-aspects line.aspect-trine {
+  opacity: 1;
+}

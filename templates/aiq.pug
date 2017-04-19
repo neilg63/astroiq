@@ -43,7 +43,7 @@ body
               ol.listing.hospitals
                 template(v-for="item in hospitals.items")
                   li(:data-coords="item.coords" v-on:click="updateMap(item.coords,item.name)") {{item.name}}
-        object#chart-pane.large-pane(:class="{active:activeTab=='chart'}")
+        object#chart-pane.large-pane.show-main-aspects(:class="{active:activeTab=='chart'}")
           div.container(:class="chartSizeClass")
             div#magnifier-controls
               span.magnify.one(v-on:click="magnifyChart(1)") 1x

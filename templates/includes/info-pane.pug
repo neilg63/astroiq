@@ -20,11 +20,14 @@ dl.results-list(:class="{hidden: !results.valid}")
       li.ascendant
         span.label Ascendant
         strong.value {{results.ascendant}}
+      li.mc
+        span.label(title="Medium Coeli") Midheaven
+        strong.value {{results.mc}}
       li.et
-        span.label ET
+        span.label Ephemeris Time
         strong.value {{results.et}}
       li.ut
-        span.label UT
+        span.label Universal Time
         span.value {{results.ut}}
         span.value {{results.delta_t}}
   dt.rahu Rahu

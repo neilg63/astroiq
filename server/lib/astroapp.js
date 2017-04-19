@@ -518,9 +518,23 @@ var preParseAstro = function(data) {
   		
   	}
   }
-  parsed.aspects =  data.aspects;
+  parsed.aspects =  astro.cleanAspects(data.aspects);
   return parsed;
 };
+
+astro.cleanAspects = (aspects) => {
+  var data={};
+  if (aspects instanceof Array) {
+    var i=0, numBands = aspects.length,band;
+    for (;i<numBands;i++) {
+      band = aspects[i];
+      if (band.items.length>0) {
+        data[band.name] = band.items;
+      }
+    }
+  }
+  return data;
+}
 
 astro.fetchFromBackend = (query,callback) => {
   let script_dir = __dirname + '/../scripts/';
