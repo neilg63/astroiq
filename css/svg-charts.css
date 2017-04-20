@@ -172,7 +172,31 @@ g.body circle.body-bg {
 }
 /**/
 line.aspect {
-  stroke: #cc0000;
+  stroke: #cccccc;
+}
+
+line.aspect-semisquare {
+  stroke: #ff9999;
+}
+
+line.aspect-semisextile {
+  stroke: #ff99ff;
+}
+
+line.aspect-binovile,
+line.aspect-novile {
+  stroke: #99ccff;
+}
+
+line.aspect-quintile,
+line.aspect-dectile {
+  stroke: #ffcccc;
+}
+
+line.aspect-triseptile,
+line.aspect-biseptile,
+line.aspect-septile {
+  stroke: #dddd99;
 }
 
 g.bodies-layer line.aspect-trine {

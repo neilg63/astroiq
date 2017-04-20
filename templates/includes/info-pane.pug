@@ -24,12 +24,10 @@ dl.results-list(:class="{hidden: !results.valid}")
         span.label(title="Medium Coeli") Midheaven
         strong.value {{results.mc}}
       li.et
-        span.label Ephemeris Time
-        strong.value {{results.et}}
-      li.ut
-        span.label Universal Time
-        span.value {{results.ut}}
-        span.value {{results.delta_t}}
+        span.label Ephemeris time
+        strong.value
+          span.ut(v-bind:title="results.ut_info") {{results.et}}
+          sup.delta.small(title="Delta") {{results.delta_t}} 
   dt.rahu Rahu
   dd.rahu
     p.true-node

@@ -1084,6 +1084,9 @@ var app = new Vue({
       if (this.results.mc) {
         this.results.mc = parseAstroResult(this.results.mc,'lng');
       }
+      if (this.results.ut) {
+        this.results.ut_info = "Universal time: " + this.results.ut;
+      }
       if (data._id) {
         this.currId = data._id;
         this.recordEditable = data._id.length>10;
