@@ -3,7 +3,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const config = require('./config/config');
 const {mongoose} = require('./db/mongoose');
-const {Nested} = require('./models/nested');
 const {Person} = require('./models/person');
 const {User} = require('./models/user');
 const {Geo} = require('./models/geo');
@@ -65,6 +64,8 @@ const admin = require('./routes/admin');
 app.use('/admin', admin);
 const api = require('./routes/api');
 app.use('/api', api);
+const geo = require('./routes/geo');
+app.use('/geo', geo);
 
 // Makes the user object global in all views
 app.get('*', function(req, res, next) {
@@ -99,7 +100,7 @@ app.get('/person-names-all/:uid', function(req, res){
 });
 
 
-app.get('/sweph-download/:id', function(req, res){ 
+app.get('/chart-download/:id', function(req, res){ 
   astro.download(req.params.id,function(data){
     res.send(data);
   });
@@ -117,76 +118,6 @@ app.get('/server-datetime', (req,res) => {
   data.seconds = dt.getSeconds();
   res.send(data);
 });
-
-app.get('/tz-match/:first/:second/:date', (req,res) => {
-  var data = {}, valid = false,inData,type;
-  if (req.params.date == 'now') {
-    var d = new Date();
-  } else {
-    var d = new Date(req.params.date);
-  }
-  if (d instanceof Date) {
-    let numRgx = new RegExp('^\s*-?[0-9]+(\\.[0-9]+)?\s*$');
-    if (numRgx.test(req.params.first) && numRgx.test(req.params.second)) {
-       type = 'position';
-       inData = {
-          lat: req.params.first,
-          lng: req.params.second
-       };
-       valid = true;
-    } else if (req.params.first.length>1 && req.params.second.length>1) {
-      type = 'zone';
-      valid = true;
-      inData = `${req.params.first}/${req.params.second}`;
-    }
-  }
-  if (valid) {
-    timezone.request(inData,d,type,(error,data) => {
-      if (error) {
-        res.status(404).send(data);
-      } else {
-        res.status(200).send(data);
-      }
-    });
-  } else {
-    res.send(data);
-  }
-});
-
-app.get('/geomatch/:search/:bias', (req,res) => {
-  geonames.request(req.params.search,req.params.bias,'filtered',(error,data) => {
-      if (error) {
-        res.status(404).send(data);
-      } else {
-        res.status(200).send(data);
-      }
-    });
-});
-
-app.get('/geolocate/:lat/:lng', (req,res) => {
-  let coords = {
-    lat: req.params.lat,
-    lng: req.params.lng
-  }
-  geonames.mapCoords(coords,(error,data) => {
-    if (error) {
-      res.status(404).send(data);
-    } else {
-      res.status(200).send(data);
-    }
-  });
-});
-
-app.get('/geoip', (req,res) => {
-  geoplugin.request(req,(error,data) => {
-      if (error) {
-        res.status(404).send(data);
-      } else {
-        res.status(200).send(data);
-      }
-    });
-});
-
 
 
 app.use('/js', express.static('js'));
@@ -226,21 +157,6 @@ app.get('/about', function(req, res) {
 
 app.get('/settings', function(req, res) {
     astro.saveSettings(req.query,res);
-});
-
-app.get('/geocode/:address', (req,res) => {
-  var searchString = req.params.address.despace();
-  geocode.matchLocation(searchString,res);
-});
-
-app.get('/arcgis/:address', (req,res) => {
-  arcgis.match(req.params.address,(error, data) => {
-    if (error) {
-      res.send(error);
-    } else {
-      res.send(data);
-    }
-  });
 });
 
 app.post('/login', passport.authenticate('local'), function(req, res, next) {
@@ -333,64 +249,6 @@ app.post('/save-user', (req,res) => {
   }
 });
 
-app.get('/nearby/:coords', (req,res) => {
-  var coords = req.params.coords.despace();
-  geocode.fetchHospitals(coords, res);
-});
-
-/* Legacy services */
-/*app.get('/ayanamsa', function(req, res){
-     var cmd = astro.composeSwetestQueryAyanamsa(req.query);
-     if (cmd.length > 4) {
-       cmd = cmd.cleanCommand();
-       if (cmd.length > 4) {
-        child = exec(cmd, function (error, stdout, stderr) {
-        var data = astro.parseOutput(stdout,debug);
-
-        res.setHeader('Content-Type', 'application/json');
-        if (error !== null) {
-          data = {"valid": false,"msg": "Server error"};
-        } else {
-          data.valid = true;
-          data.msg = "OK";
-        }
-        res.send(data);
-      });
-       }
-  }
-});*/
-/*app.get('/sweph', function(req, res){ 
-  var debug = false,swCoords;
-  if (req.query.debug) {
-    if (req.query.debug == 1) {
-      debug = true;
-    }
-  }
-
-  if (req.query.topo) {
-    swCoords = req.query.topo;
-  } else if (req.query.geopos) {
-    swCoords = req.query.geopos;
-  }
-  if (swCoords !== null) {
-    let coords = conversions.swephTopoStrToLatLng(swCoords),
-        datetime = conversions.euroDatePartsToISOString(req.query.b,req.query.ut);
-   
-    timezone.request(coords,datetime,'position',(error,tData) => {
-      if (!error) {
-        var dt = conversions.dateOffsetsToEuroDateTimeParts(datetime,tData.gmtOffset);
-        req.query.b = dt.b;
-        req.query.ut = dt.ut;
-        req.query.tz = tData.zoneName;
-        req.query.gmtOffset = tData.gmtOffset;
-      }
-      astro.get(req.query,res);
-    });
-  } else {
-    res.send({valid: false});
-  }
-
-});*/
 
 var port = process.env.PORT || 9862;
 app.listen(port, function() {

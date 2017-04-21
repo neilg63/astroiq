@@ -184,7 +184,7 @@ var GeoMap = {
               lng: position.coords.longitude
             };
             var strCoords = User.geo.coords.lat + '/' + User.geo.coords.lng;
-            axios.get('/geolocate/'+ strCoords).then(function(response) {
+            axios.get('/geo/locate/'+ strCoords).then(function(response) {
               if (response.data) {
                 var data = response.data;
                 if (data.coords) {
@@ -282,7 +282,7 @@ var AstroIQ = {
     var geoData = getItem('geodata',3600);
 
     if (geoData.valid == false) {
-        axios.get('/geoip').then(function(response) {
+        axios.get('/geo/ip').then(function(response) {
           if (response.data) {
             var data = response.data;
             if (data.coords) {
@@ -1143,7 +1143,7 @@ var app = new Vue({
       
       if (this.location.search.length>0) {
           var adStr = this.location.search.trim(),
-            href = '/geocode/' + adStr,
+            href = '/geo/code/' + adStr,
             key = 'geocode' + adStr.replace(/\s+/g,'_');
           var stored = getItem(key);
           if (stored.valid) {
@@ -1331,7 +1331,7 @@ var app = new Vue({
     },
     findOnMap: function() {
       var strCoords = this.location.coords.lat +'/'+this.location.coords.lng;
-      axios.get('/geolocate/'+ strCoords).then(function(response) {
+      axios.get('/geo/locate/'+ strCoords).then(function(response) {
         if (response.data) {
           var data = response.data;
           if (data.coords) {
