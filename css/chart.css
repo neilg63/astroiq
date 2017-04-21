@@ -62,10 +62,10 @@
     color: black;
 }
 
-#astro-disc #segments {
+/* #astro-disc #segments {
     transform: translate(150px,150px) rotate(-90deg);
     transform-origin: 600px 600px;
-}
+} */
 
 #top-circles {
     transform: translate(0px,0px);

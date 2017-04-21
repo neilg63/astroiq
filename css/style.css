@@ -821,6 +821,10 @@ line.solid {
     stroke: black;
 }
 
+.main-segments {
+    transform-origin: center center 0;
+}
+
 @keyframes spin {
     0% {transform: rotate(0deg);}
     8.3333% {transform: rotate(30deg);}
