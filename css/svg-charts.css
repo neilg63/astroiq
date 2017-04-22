@@ -146,8 +146,8 @@ g.body text {
 
 text.coords {
   font-size: 0.8em;
-  x:  0;
-  y:  0;
+  x:  750px;
+  y:  750px;
 }
 
 /* g.bodies-layer text.coords:hover,
