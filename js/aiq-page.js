@@ -754,7 +754,7 @@ var app = new Vue({
         this.user.id = vars.public.userId;
       }
     }
-    if (localStorageSupported() && this.user.loggedin) {
+    if (localStorageSupported()) {
       this.loadUserData();
     }
   },

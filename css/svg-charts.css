@@ -21,7 +21,6 @@ text {
   transition: all 250s ease-in;
   fill: #999999;
   font-family: Helvetica;
-  transform-origin: center center 0;
 }
 
 .invisible {
