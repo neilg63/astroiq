@@ -393,7 +393,7 @@ var AstroIQ = {
         if (isNumeric(options.ayanamsa)) {
           ayanamsa = parseInt(options.ayanamsa);
         } else {
-          ayanamsa = 0;
+          ayanamsa = -1;
         }
       }
       matched = _.find(data.ayanamsas,function(a){return a.num == ayanamsa});
@@ -1412,6 +1412,7 @@ var app = new Vue({
       }
     },
     updateChartResults: function(inData) {
+      console.log(inData.ayanamsas)
       var data = AstroIQ.parseResults(inData,this.options);
       this.results.ayanamsa = data.ayanamsa;
       this.assignResults(data);
@@ -1475,10 +1476,11 @@ var app = new Vue({
         params.userId = this.user.id;
         axios.post('/api/astro',params).then(function (response) {
           if (response.data) {
-            var data = app.updateChartResults(response.data);
             app.activeTab = 'chart';
-            objId = data._id;
+            objId = response.data._id;
             chartKey = 'ch_' + objId;
+            storeItem(chartKey,response.data);
+            var data = app.updateChartResults(response.data);
             var item = {
               id: objId,
               chartId: chartKey,
@@ -1490,11 +1492,10 @@ var app = new Vue({
             if (!update) {
               app.queries.unshift(item);
             } else {
-              deleteItem(chartKey);
               app.replaceQuery(chartKey,item);
             }
-            storeItem(chartKey,response.data);
             app.currId = objId;
+            
             app.personId = data.personId;
             var stored = getItem('persons');
             if (stored.valid) {
@@ -1540,10 +1541,9 @@ var app = new Vue({
         console.log(error) 
       });
     },
-    replaceQuery: function(paramStr,updatedItem) {
-      var matched = this.matchQuery(paramStr);
+    replaceQuery: function(chartKey,updatedItem) {
+      var matched = this.matchQuery(chartKey);
       if (matched >= 0) {
-
         this.queries[matched] = updatedItem;
       }
     },

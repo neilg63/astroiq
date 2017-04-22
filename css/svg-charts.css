@@ -9,19 +9,19 @@ svg text {
 
 /* Not compatible FF latest + Chrome on Windows
 .main-disc {
-    transform-origin: center center;
+    transform-origin: center center 0;
 }*/
 
 .house-label text {
   font-size: 3em;
 }
 
-
 text {
   opacity: 1;
   transition: all 250s ease-in;
   fill: #999999;
   font-family: Helvetica;
+  transform-origin: center center 0;
 }
 
 .invisible {

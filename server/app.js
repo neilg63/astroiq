@@ -155,9 +155,7 @@ app.get('/about', function(req, res) {
     res.send(page(variables));
 });
 
-app.get('/settings', function(req, res) {
-    astro.saveSettings(req.query,res);
-});
+
 
 app.post('/login', passport.authenticate('local'), function(req, res, next) {
     var ud={}, k; 

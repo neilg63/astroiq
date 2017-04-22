@@ -211,5 +211,9 @@ router.post('/tag/save', (req,res) => {
   res.send(group);
 });
 
+router.get('/settings', function(req, res) {
+    astro.saveSettings(req.query,res);
+});
+
 
 module.exports = router;
