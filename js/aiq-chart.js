@@ -100,19 +100,7 @@ var AstroChart = {
       var it = d3.select(this), x = it.attr('x'), y = it.attr('y');
       return 'rotate('+(0-deg)+','+x+','+y+')';
     });
-    //AstroChart.signGlyphs.attr('transform','rotate('+(0-deg)+','+x+','+y+')');
     AstroChart.signGlyphs.select('g.glyph').attr('transform',function(){
-      /*var it = d3.select(this), 
-      tr = it.attr('transform'),
-      ps = tr.split('translate(').pop().split(')').shift().split(',');
-      if (ps.length>1) {
-        x = parseFloat(ps[0]), y = parseFloat(ps[0]);
-
-        tr = tr.replace(/\s+rotate\(.*?\)/,'');
-        tr = tr + ' rotate('+(0-deg)+','+x+','+y+')';
-      } 
-      
-      return tr;*/
       return 'rotate('+(0-deg)+')';
     });
     var vl = Math.abs(deg);
@@ -351,18 +339,18 @@ var AstroChart = {
             if (td > 90) {
               td += 180;
             }
-            body.select('.coords').attr('transform','rotate('+td+')');
+            d3.select('#'+bn+'-coords').attr('transform','rotate('+td+')');
           }
           if (isNumeric(item.lng)) {
 
-            lbl = this.bodyLayer.select('text#'+bn+'-coords');
+            lbl = d3.select('#'+bn+'-coords');
             txt = toAstroDegree(item.lng % 30);
             if (isNumeric(item.house)) {
               lbl.attr('title',Math.approxFixed(item.house,2));
             }
             pos = AstroChart._xyPos(d,430);
-            lbl.text(txt)
-              .attr('transform','translate('+pos.x+','+pos.y+') rotate('+(d-270)+',0,0)');
+            lbl.select('text').text(txt);
+            lbl.attr('transform','translate('+pos.x+','+pos.y+') rotate('+(d-270)+',0,0)');
           }
         }
       }

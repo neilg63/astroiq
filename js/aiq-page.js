@@ -1412,7 +1412,6 @@ var app = new Vue({
       }
     },
     updateChartResults: function(inData) {
-      console.log(inData.ayanamsas)
       var data = AstroIQ.parseResults(inData,this.options);
       this.results.ayanamsa = data.ayanamsa;
       this.assignResults(data);
@@ -1886,7 +1885,6 @@ d3.select('#control-panel').on('click',function() {
 
 d3.selectAll('#aspect-controls input.checkbox').on('change',function() {
     var it = d3.select(this), c = d3.select("#chart-pane"),idClass = it.attr('id');
-    console.log(idClass)
     c.classed(idClass,it.property('checked'));
 });
 

@@ -23,6 +23,10 @@ text {
   font-family: Helvetica;
 }
 
+text.degreeLabels {
+  transform-origin: center center 0;
+}
+
 .invisible {
   opacity:  0;
 }
@@ -143,11 +147,11 @@ g.body text {
 }
 
 
-text.coords {
+g.coords text {
   font-size: 0.8em;
-  x:  750px;
-  y:  750px;
 }
+
+
 
 /* g.bodies-layer text.coords:hover,
 g.bodies-layer text.over {
