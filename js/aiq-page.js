@@ -722,6 +722,7 @@ var app = new Vue({
     queries: [],
     coordinatesClass: 'display',
     activeTab: 'chart',
+    paneClass: '',
     subPane: 'form',
     chartSizeClass: 'magnify-1',
     chartMode: 'western',
@@ -807,6 +808,13 @@ var app = new Vue({
             this.options.ayanamsaName = vars.ayanamsas[opt];
           }
         }
+      }
+    },
+    activeTab: function() {
+      if (this.results.valid) {
+        this.paneClass = 'show-' + this.activeTab;
+      } else {
+         this.paneClass = '';
       }
     },
     'options.hsy': function() {
