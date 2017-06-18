@@ -814,7 +814,7 @@ var app = new Vue({
       if (this.results.valid) {
         this.paneClass = 'show-' + this.activeTab;
       } else {
-         this.paneClass = '';
+        this.paneClass = '';
       }
     },
     'options.hsy': function() {
