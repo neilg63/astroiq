@@ -500,13 +500,13 @@ p > strong.label {
     content: "\e94e";
 }
 
-#control-panel span.icon-female-bust {
+/* #control-panel span.icon-female-bust {
     color: #ff5555;
 }
 
 #control-panel span.icon-male-bust {
     color: #3333ff;
-}
+} */
 
 #control-panel span.symbol-radio input {
     display: none;
@@ -1013,7 +1013,7 @@ line.solid {
 @media screen and (min-width: 960px) {
     .show-control-panel #control-panel {
         width: 40vw;
-        max-width: 36em;
+        max-width: 32em;
     }
     #control-panel #form-location {
         min-width: 14em;
@@ -1926,6 +1926,53 @@ ul.dashas li span {
     font-style: italic;
 }
 
+@media screen and (min-width:1200px) {
+
+    
+    #main .panes.show-results #results-pane,
+    #main .panes.show-dashas #dashas-pane {
+        width:  50%;
+        margin-left: 50%;
+    }
+
+    #main .panes.show-chart #chart-pane {
+        width:  66.667%;
+    }
+    .hide-control-panel #main .panes.show-map #map-pane {
+        width:  50%;
+    }
+
+    #main .panes.show-chart #results-pane {
+        margin-left:  66.667%;
+    }
+
+    #main .panes.show-chart #results-pane table {
+        font-size: 80%;
+    }
+
+    .hide-control-panel #main .panes.show-map #chart-pane {
+        margin-left:  50%;
+    }
+
+    #main .panes.show-chart #results-pane,
+    .hide-control-panel #main .panes.show-map #chart-pane,
+    #main .panes.show-results #chart-pane,
+    #main .panes.show-dashas #chart-pane {
+        left:  0;
+        pointer-events: all;
+    }
+
+    #main .panes.show-chart #results-pane {
+        width:  33.333%;
+    }
+
+    .hide-control-panel #main .panes.show-map #chart-pane,
+    #main .panes.show-results #chart-pane,
+    #main .panes.show-dashas #chart-pane {
+        width:  50%;
+    }
+}
+
 #dashas-pane ul.dashas > li li {
     padding: 0 0 0 1em;
     margin: 0 0 0.25em 1em;
@@ -1944,3 +1991,4 @@ td.inactive {
     pointer-events: none;
     opacity: 0
 }
+

@@ -762,7 +762,7 @@ var app = new Vue({
     var idData = getItem('curr_id');
     if (idData.valid) {
       this.currId = idData.data;
-      d3.select('body').classed('mounted',true);
+      d3.select('body').classed('mounted',true).classed('hide-control-panel',true);
     }
   },
   watch: {
@@ -1872,13 +1872,17 @@ var app = new Vue({
 
 
 d3.select('#control-panel').on('click',function() {
-    var tg = d3.select(d3.event.target), b = d3.select("body"), refCl='show-control-panel';
+    var tg = d3.select(d3.event.target), b = d3.select("body"),
+    refCl='show-control-panel',
+    hdCl='hide-control-panel';
     if (tg.classed('toggle-aside') || (b.classed(refCl)==false && tg.attr('id')=='control-panel')) {
       d3.event.stopImmediatePropagation();
       if (b.classed(refCl)) {
          b.classed(refCl,false);
+         b.classed(hdCl,true);
       } else {
          b.classed(refCl,true);
+         b.classed(hdCl,false);
       }
     }
 });

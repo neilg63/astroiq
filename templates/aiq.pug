@@ -33,7 +33,7 @@ body
         li.map(:class="{active:activeTab=='map'}" v-on:click="showPane('map')") Map
         li.results(:class="{disabled:!results.valid,active:activeTab=='results'}" v-on:click="showPane('results')") Results
         li.results(:class="{disabled:!results.valid,active:activeTab=='dashas'}" v-on:click="showPane('dashas')") Dashas
-      div#main-panes.panes
+      div#main-panes.panes(:class="'show-'+activeTab")
         div#map-pane.large-pane(:class="{active:activeTab=='map'}")
           div#gmap
           div#geo-info.inner
