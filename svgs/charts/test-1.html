@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+<style type="text/css">
+svg#chart {
+  max-width: 100%;
+}
+</style>
+</head>
+<body>
+  <svg id="chart" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1500 1500" height="1500" width="1500">
+
+    <circle cx="750" cy="750" r="600" fill="#ffff66"> 
+    </circle>
+    <circle cx="300" cy="750" r="10" fill="blue">
+      <animateTransform attributeName="transform"
+            begin="0s"
+            dur="30s"
+            type="rotate"
+            from="0 750 750"
+            to="180 750 750"
+            repeatCount="1"
+        />
+    </circle>
+    <g class="body mars">
+      <circle cx="300" cy="750" r="10" fill="green">
+      
+    </circle>
+      <animateTransform attributeName="transform"
+            begin="0s"
+            dur="30s"
+            type="rotate"
+            from="20 750 750"
+            to="206 750 750"
+            repeatCount="1" />
+      <text x="315" y="755" fill="black">Mars</text>
+    </g>
+    
+</svg>
+</body>
+</html>
