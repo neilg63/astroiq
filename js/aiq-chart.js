@@ -277,7 +277,10 @@ var AstroChart = {
     }
   },
 
-  moveBodies: function(bodies,mode) {
+  moveBodies: function(bodies,mode, ayanamsa) {
+    if (!ayanamsa) {
+      ayanamsa = 0;
+    }
     var deg = 15,
     steps=30,
     dist = 375,
@@ -287,7 +290,6 @@ var AstroChart = {
     duration=900,
     i=0,lbl,txt,
     d,dy,bn,index=0,item,body,pos,pos2,diff,mult,td;
-
     for (index in bodies) {
       item = bodies[index];
       if (typeof item == 'object') {
@@ -300,7 +302,7 @@ var AstroChart = {
             deg = item.lng;
           }
           
-          d = this.bodyOffset - deg;
+          d = this.bodyOffset - deg + ayanamsa;
           
           oldDeg = parseFloat(body.attr('data-lng')),
           diff=oldDeg-d;
@@ -387,7 +389,7 @@ var AstroChart = {
   refresh: function(data,mode) {
     this.bodyOffset = 90 - (180 - data.ascendant);
     AstroChart.updateHouses(data.houseLngs,2000,data.ascendant);
-    AstroChart.moveBodies(data.bodies,mode);
+    AstroChart.moveBodies(data.bodies,mode,data.ayanamsa);
     AstroChart.updateAspects(data.aspects,data.ayanamsa);
   },
 
