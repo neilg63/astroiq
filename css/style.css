@@ -61,7 +61,7 @@ span.symbol-radio label {
 #control-panel .toggle-aside:before,
 .mode-controls span:before,
 #dashas-pane li strong:before {
-    font-family: "icomoon" !important;
+    font-family: "glyphs" !important;
 }
 
 #navbar h1.title-logo {
@@ -946,6 +946,38 @@ line.solid {
     cursor: pointer;
 }
 
+#control-panel .new-record .delete,
+#control-panel .new-record input {
+    opacity: 0;
+}
+
+#control-panel .widget label {
+    height: 2rem;
+    width: 2rem;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    font-size: 0;
+}
+
+#control-panel .widget.active label:before {
+    color: black;
+}
+
+#control-panel .new-record label:before {
+    content: "\e906";
+    color: #999999;
+}
+
+#control-panel .widget label:before {
+  position: absolute;
+  top:  0;
+  left: 0;
+  font-family: 'AstroIQ';
+  font-size: 2rem;
+  cursor: pointer;
+}
+
 #queries li span.delete {
     opacity: 0;
     pointer-events: none;
@@ -1349,6 +1381,19 @@ div#map-pane > .inner {
     padding: 0;
 }
 
+
+#control-form > div.datetime,
+#control-form > div.full-span,
+#control-form > p {
+    float:  left;
+    clear:  both;
+}
+
+#control-form > div.full-span,
+#control-form > div.full-span input.text {
+    width:  100%;
+}
+
 #control-panel p label {
     display: inline-block;
     min-width: 5em;
@@ -1463,7 +1508,7 @@ form .radios input {
     position: absolute;
     top: 0;
     right:  0;
-    font-family: "icomoon";
+    font-family: "glyphs";
     content: "\e9bd";
 }
 
@@ -1762,7 +1807,7 @@ ol.plain {
 }
 
 #magnifier-controls span:before {
-    font-family: "icomoon";
+    font-family: "glyphs";
     display: inline-block;
     padding-right: 0.125em;
 }
@@ -1879,7 +1924,7 @@ ul.dashas li span {
 }
 
 #dashas-pane ul.dashas li.toggle:before {
-    font-family: icomoon;
+    font-family: "glyphs";
     content:  "\ea34";
     font-size:  0.75em;
     display: inline-block;
@@ -1926,10 +1971,13 @@ ul.dashas li span {
     font-style: italic;
 }
 
-@media screen and (min-width:1200px) {
+@media screen and (min-width:1080px) {
 
     
-    #main .panes.show-results #results-pane,
+    #main .panes.show-results #results-pane {
+        width:  55%;
+        margin-left: 45%;
+    }
     #main .panes.show-dashas #dashas-pane {
         width:  50%;
         margin-left: 50%;
@@ -1962,16 +2010,29 @@ ul.dashas li span {
         pointer-events: all;
     }
 
+    #main .panes.show-dashas #dashas-pane ul.dashas > li {
+        font-size: 1.2em;
+    }
+
+    .show-control-panel #main .panes.show-dashas #dashas-pane {
+        font-size: 90%;
+    }
+
     #main .panes.show-chart #results-pane {
         width:  33.333%;
     }
 
     .hide-control-panel #main .panes.show-map #chart-pane,
-    #main .panes.show-results #chart-pane,
     #main .panes.show-dashas #chart-pane {
         width:  50%;
     }
+
+    #main .panes.show-results #chart-pane {
+        width:  45%;
+    }
 }
+
+
 
 #dashas-pane ul.dashas > li li {
     padding: 0 0 0 1em;

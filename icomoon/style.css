@@ -1,17 +1,16 @@
 @font-face {
-  font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?uxe4bq');
-  src:  url('fonts/icomoon.eot?uxe4bq#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?uxe4bq') format('truetype'),
-    url('fonts/icomoon.woff?uxe4bq') format('woff'),
-    url('fonts/icomoon.svg?uxe4bq#icomoon') format('svg');
+  font-family: 'AstroIQ';
+  src:
+    url('fonts/AstroIQ.ttf?lxmj7w') format('truetype'),
+    url('fonts/AstroIQ.woff?lxmj7w') format('woff'),
+    url('fonts/AstroIQ.svg?lxmj7w#AstroIQ') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
+  font-family: 'AstroIQ' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -24,109 +23,282 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-pencil2:before {
-  content: "\e914";
-}
-.icon-pencil:before {
-  content: "\e913";
-}
-.icon-finder:before {
-  content: "\e911";
-}
-.icon-clock:before {
-  content: "\e94e";
-}
-.icon-calendar:before {
-  content: "\e953";
-}
-.icon-database:before {
-  content: "\e964";
-}
-.icon-wrench:before {
-  content: "\e991";
-}
-.icon-cog:before {
-  content: "\e994";
-}
-.icon-menu:before {
-  content: "\e9bd";
-}
-.icon-cross:before {
-  content: "\ea0f";
-}
-.icon-checkmark:before {
-  content: "\ea10";
-}
-.icon-arrow-up:before {
-  content: "\ea32";
-}
-.icon-arrow-right:before {
-  content: "\ea34";
-}
-.icon-arrow-down:before {
-  content: "\ea36";
-}
-.icon-arrow-left:before {
-  content: "\ea38";
-}
-.icon-compass:before {
-  content: "\e910";
-}
-.icon-paperclip:before {
-  content: "\e02d";
-}
-.icon-global:before {
-  content: "\e052";
-}
-.icon-lightbulb:before {
-  content: "\e90e";
-}
-.icon-gearwheel:before {
-  content: "\e90f";
-}
-.icon-magnifier:before {
-  content: "\e912";
-}
-.icon-male-sign:before {
-  content: "\e90c";
-}
-.icon-female-sign:before {
-  content: "\e90d";
-}
-.icon-lagna:before {
+.icon-chart-style_east:before {
   content: "\e900";
 }
-.icon-ketu-devanagari:before {
+.icon-chart-style_north:before {
   content: "\e901";
 }
-.icon-rahu-devanagari:before {
+.icon-chart-style_north2:before {
   content: "\e902";
 }
-.icon-saturn-devanagari:before {
+.icon-chart-style_south:before {
   content: "\e903";
 }
-.icon-venus-devanagari:before {
+.icon-chart-style_west:before {
   content: "\e904";
 }
-.icon-jupiter2-devanagari:before {
+.icon-chart-style_west2:before {
   content: "\e905";
 }
-.icon-jupiter-devanagari:before {
+.icon-edit:before {
   content: "\e906";
 }
-.icon-mercury-devanagari:before {
+.icon-edit_east:before {
   content: "\e907";
 }
-.icon-mars2-devanagari:before {
+.icon-edit_north:before {
   content: "\e908";
 }
-.icon-mars-devanagari:before {
+.icon-edit_north2:before {
   content: "\e909";
 }
-.icon-moon-devanagari:before {
+.icon-edit_south:before {
   content: "\e90a";
 }
-.icon-sun-devanagari:before {
+.icon-edit_west:before {
   content: "\e90b";
 }
-
+.icon-edit_west2:before {
+  content: "\e90c";
+}
+.icon-folder_a_open:before {
+  content: "\e90d";
+}
+.icon-folder_a_save:before {
+  content: "\e90e";
+}
+.icon-folder_east_open:before {
+  content: "\e90f";
+}
+.icon-folder_east_save:before {
+  content: "\e910";
+}
+.icon-folder_north_open:before {
+  content: "\e911";
+}
+.icon-folder_north_save:before {
+  content: "\e912";
+}
+.icon-folder_north2_open:before {
+  content: "\e913";
+}
+.icon-folder_north2_save:before {
+  content: "\e914";
+}
+.icon-folder_south_open:before {
+  content: "\e915";
+}
+.icon-folder_south_save:before {
+  content: "\e916";
+}
+.icon-folder_west_open:before {
+  content: "\e917";
+}
+.icon-folder_west_save:before {
+  content: "\e918";
+}
+.icon-folder_west2_open:before {
+  content: "\e919";
+}
+.icon-folder_west2_save:before {
+  content: "\e91a";
+}
+.icon-new_chart_a:before {
+  content: "\e91b";
+}
+.icon-new_chart_east:before {
+  content: "\e91c";
+}
+.icon-new_chart_north:before {
+  content: "\e91d";
+}
+.icon-new_chart_north2:before {
+  content: "\e91e";
+}
+.icon-new_chart_south:before {
+  content: "\e91f";
+}
+.icon-new_chart_west:before {
+  content: "\e920";
+}
+.icon-new_chart_west2:before {
+  content: "\e921";
+}
+.icon-search:before {
+  content: "\e922";
+}
+.icon-search_east:before {
+  content: "\e923";
+}
+.icon-search_north:before {
+  content: "\e924";
+}
+.icon-search_north2:before {
+  content: "\e925";
+}
+.icon-search_south:before {
+  content: "\e926";
+}
+.icon-search_west:before {
+  content: "\e927";
+}
+.icon-search_west2:before {
+  content: "\e928";
+}
+.icon-01:before {
+  content: "\e942";
+}
+.icon-02:before {
+  content: "\e943";
+}
+.icon-03:before {
+  content: "\e944";
+}
+.icon-04:before {
+  content: "\e945";
+}
+.icon-05:before {
+  content: "\e94a";
+}
+.icon-06:before {
+  content: "\e94b";
+}
+.icon-07:before {
+  content: "\e946";
+}
+.icon-08:before {
+  content: "\e947";
+}
+.icon-09:before {
+  content: "\e948";
+}
+.icon-10:before {
+  content: "\e949";
+}
+.icon-11:before {
+  content: "\e94c";
+}
+.icon-12:before {
+  content: "\e94d";
+}
+.icon-Angle-1-Ascendant:before {
+  content: "\e94e";
+}
+.icon-Angle-2-Imnium-Coeli:before {
+  content: "\e94f";
+}
+.icon-Angle-3-Descendant:before {
+  content: "\e950";
+}
+.icon-Angle-4-Medium-Coeli:before {
+  content: "\e951";
+}
+.icon-graha-1-sun:before {
+  content: "\e929";
+}
+.icon-graha-2-moon:before {
+  content: "\e952";
+}
+.icon-graha-3-mars:before {
+  content: "\e953";
+}
+.icon-graha-4-mercury:before {
+  content: "\e954";
+}
+.icon-graha-5-jupiter:before {
+  content: "\e955";
+}
+.icon-graha-6-venus:before {
+  content: "\e956";
+}
+.icon-graha-7-saturn:before {
+  content: "\e957";
+}
+.icon-graha-8-rahu:before {
+  content: "\e958";
+}
+.icon-graha-9-ketu:before {
+  content: "\e959";
+}
+.icon-planet-uranus:before {
+  content: "\e95a";
+}
+.icon-planet-neptune:before {
+  content: "\e95b";
+}
+.icon-planet-pluto:before {
+  content: "\e95c";
+}
+.icon-Lagna:before {
+  content: "\e92a";
+}
+.icon-Sun:before {
+  content: "\e92b";
+}
+.icon-Moon:before {
+  content: "\e92c";
+}
+.icon-Mars-1:before {
+  content: "\e92d";
+}
+.icon-Mars-2:before {
+  content: "\e92e";
+}
+.icon-Mercury:before {
+  content: "\e92f";
+}
+.icon-Jupiter-1:before {
+  content: "\e930";
+}
+.icon-Jupiter-2:before {
+  content: "\e931";
+}
+.icon-Venus:before {
+  content: "\e932";
+}
+.icon-Saturn:before {
+  content: "\e933";
+}
+.icon-Rahu:before {
+  content: "\e934";
+}
+.icon-Ketu:before {
+  content: "\e935";
+}
+.icon-Aries:before {
+  content: "\e936";
+}
+.icon-Taurus:before {
+  content: "\e937";
+}
+.icon-Gemini:before {
+  content: "\e938";
+}
+.icon-Cancer:before {
+  content: "\e939";
+}
+.icon-Leo:before {
+  content: "\e93a";
+}
+.icon-Virgo:before {
+  content: "\e93b";
+}
+.icon-Libra:before {
+  content: "\e93c";
+}
+.icon-Scorpio:before {
+  content: "\e93e";
+}
+.icon-Sagittarius:before {
+  content: "\e93d";
+}
+.icon-Capricorn:before {
+  content: "\e93f";
+}
+.icon-Aquarius:before {
+  content: "\e940";
+}
+.icon-Pisces:before {
+  content: "\e941";
+}

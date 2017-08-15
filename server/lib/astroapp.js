@@ -519,8 +519,39 @@ var preParseAstro = function(data) {
   	}
   }
   parsed.aspects =  astro.cleanAspects(data.aspects);
-  return parsed;
+  
+  return astro.sortDataByKeys(parsed);
 };
+
+astro.sortDataByKeys = (parsed) => {
+  let dataSet = {}, i = 0, k;
+  let keys = ['ascendant',
+    'vertex',
+    'epsilon_true',
+    'ut',
+    'delta_t',
+    'et',
+    'mc',
+    'armc',
+    'nutation',
+    'mean_node',
+    'true_node',
+    'mean_apogee',
+    'osc_apogee',
+    'intp_apogee',
+    'intp_perigee',
+    'bodies',
+    'ayanamsas',
+    'houses',
+    'aspects'];
+  for (; i < keys.length; i++) {
+    k = keys[i];
+    if (parsed.hasOwnProperty(k)) {
+      dataSet[k] = parsed[k];
+    }
+  }
+  return dataSet;
+}
 
 astro.cleanAspects = (aspects) => {
   var data={};
@@ -571,6 +602,7 @@ astro.fetchFromBackend = (query,callback) => {
 };
 
 astro.fetchChartData = (query,callback) => {
+
 	astro.fetchFromBackend(query,(error,result) => {
 		if (error) {
 			callback(error,null);

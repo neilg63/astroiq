@@ -352,7 +352,7 @@ var AstroIQ = {
         if (typeof d == 'object') {
           if (d.key) {
             d.name = AstroIQ.matchBody(d.key);
-            d.iconClass = 'icon-'+d.name.toLowerCase()+'-devanagari';
+            d.iconClass = 'glyph-'+d.name.toLowerCase()+'-devanagari';
             d.dt = '';
             if (!d.start) {
               d.start = prevDate;
@@ -789,6 +789,9 @@ var app = new Vue({
           this.labels.promptType = 'Event type';
           break;
       }
+    },
+    newRecord: function() {
+      console.log(this.newRecord)
     },
     'gender.type': function() {
       switch (this.gender.type) {

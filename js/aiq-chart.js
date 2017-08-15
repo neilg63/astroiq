@@ -250,7 +250,7 @@ var AstroChart = {
     var bNames = ['sun','moon','mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto','ketu','rahu'],
     bNum= bNames.length,
     dist = 360,
-    deg = 15,d,
+    deg = 0,d,
     i=0,bn,body,pos;
     for (;i<bNum;i++) {
       bn = bNames[i];
@@ -299,6 +299,7 @@ var AstroChart = {
           } else {
             deg = item.lng;
           }
+          
           d = this.bodyOffset - deg;
           
           oldDeg = parseFloat(body.attr('data-lng')),
@@ -384,6 +385,7 @@ var AstroChart = {
   },
 
   refresh: function(data,mode) {
+    this.bodyOffset = 90 - (180 - data.ascendant);
     AstroChart.updateHouses(data.houseLngs,2000,data.ascendant);
     AstroChart.moveBodies(data.bodies,mode);
     AstroChart.updateAspects(data.aspects,data.ayanamsa);

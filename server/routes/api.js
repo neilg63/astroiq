@@ -29,6 +29,29 @@ var checkLogin = (req,res) => {
   return data;
 };
 
+router.get('/astrodata/:coords/:datetime',(req,res) => {
+
+  if (req.params.coords && req.params.datetime) {
+    let locParts = req.params.coords.split(',')
+    if (locParts.length < 3) {
+      locParts.push('30');
+    }
+    let query = {
+      dt: req.params.datetime,
+      lc: locParts.join(',')
+    };
+    astro.fetchChartData(query,(error,result) => {
+      if (error) {
+        res.status(404).send(error);
+      } else {
+        res.status(200).send(result);
+      }
+    });
+  } else {
+    res.status(404).send({valid:false,msg:"invalid parameters"});
+  }
+});
+
 router.post('/astro',(req,res) => {
   if (req.body.lc && req.body.dt) {
     astro.processChartRequest(req.body,(error,result) => {
