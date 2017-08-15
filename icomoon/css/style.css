@@ -1,0 +1,1998 @@
+@font-face {
+    font-family: 'genlight';
+    src: url('fonts/Gen-Light.eot');
+    src: local('☺'), url('fonts/Gen-Light.woff') format('woff'), url('fonts/Gen-Light.ttf') format('truetype'), url('fonts/Gen-Light.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+ul {
+    -webkit-padding-start: 0;
+}
+
+#astro-disc,
+html {
+    font-size: 16px;
+}
+
+#astroiq {
+    position: relative;
+    max-width: 100vw;
+    padding: 0;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+@media screen and (min-width: 1280px) {
+    html {
+        font-size: 17px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    html {
+        font-size: 19px;
+    }
+}
+
+@media screen and (min-width: 1800px) {
+    html {
+        font-size: 20px;
+    }
+}
+
+body, input, textarea, select, option,
+span.symbol-radio label {
+    font-family: genlight, Helvetica, Arial, sans-serif;
+}
+
+#dashas-pane li strong {
+   font-family: genlight, Helvetica, Arial, sans-serif  !important;
+}
+
+#control-form .glyphicon-time,
+#control-form .glyphicon-calendar,
+#control-panel .toggle-aside:before,
+.mode-controls span:before,
+#dashas-pane li strong:before {
+    font-family: "icomoon" !important;
+}
+
+#navbar h1.title-logo {
+    position: absolute;
+    top: 0.25em;
+    left:  4em;
+    opacity: 0;
+    width:  0;
+    overflow:  hidden;
+}
+
+h1.title-logo a {
+    text-decoration: none;
+    color:  #999999;
+}
+
+h1.title-logo a:hover {
+    color:  #000099;
+}
+
+ul.dashas,
+ul.dashas li,
+ul.dashas ul,
+#results-pane dl dd ul,
+#navbar ul,
+#navbar ul li {
+    list-style-type: none;
+}
+
+#navbar ul {
+    background-color: #999999;
+    padding: 0.5em 1em;
+}
+
+
+#navbar ul li {
+    font-size:  1.5em;
+    list-style-type: none;
+    font-weight: bold;
+    padding: 0.5em 0;
+    text-align: center;
+}
+
+#navbar li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+}
+
+#navbar li a:hover {
+    color:  yellow;
+}
+
+#navbar nav {
+    position: absolute;
+    right:  0;
+    padding: 0;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 1s ease-in;
+    top: 2em;
+    min-width: 20em;
+    max-width:  24em;
+    pointer-events: none;
+}
+
+.show-menu #navbar nav {
+    max-height: 100vh;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 100;
+}
+
+
+#navbar h1 {
+    font-size: 1em;
+    position: absolute;
+    left: 2.5%;
+    top: 0.25em;
+}
+
+#pane-tabs {
+    z-index:  10;
+    margin:  0 auto 1em auto;
+    height:  1em;
+}
+
+#pane-tabs li {
+    padding: 0.5em 0;
+}
+
+#pane-tabs li ul li {
+
+}
+
+#main {
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    width:  100%;
+    overflow: hidden;
+    overflow-y: visible;
+    padding: 0;
+    z-index: 1;
+    min-height:  100vh;
+}
+
+#main .body-text {
+    text-align: left;
+    margin: 3.5em 4% 3em 4%;
+}
+
+#main .panes {
+    position: relative;
+    padding: 0;
+    width:  100%;
+}
+
+@media screen and (min-height: 400px) {
+    #main .panes {
+        padding: 3vh 0;
+    }
+}
+
+@media screen and (min-height: 800px) {
+    #main .panes {
+        padding: 2em 0;
+    }
+}
+
+.large-pane {
+    position: absolute;
+    left: 100vw;
+    pointer-events: none;
+    width: 100%;
+    padding:  0 0 2em 0;
+    transition: left 1s ease-in;
+    min-height: 60vh;
+    max-height:  90vh;
+    background-color: white;
+}
+
+#main > .panes > .active {
+    left: 0;
+    opacity: 1;
+    pointer-events: auto;
+    max-height: none;
+}
+
+.large-pane > .inner {
+    padding: 0 2.5% 4em 2.5%;
+}
+
+
+#results-pane {
+    text-align: left;
+    min-height: 50vh;
+}
+
+/*#control-panel .input-group-addon,
+#control-panel .ui-datebox-container {
+    opacity: 0;
+    pointer-events: none;
+}*/
+
+@media screen and (min-width: 960px) {
+
+    #pane-tabs,
+    #main {
+        transition: margin-left 0.5s ease-in;
+    }
+
+    body.show-control-panel #pane-tabs,
+    body.show-control-panel #main {
+        width:  59vw;
+        margin-left: 41vw;
+    }
+
+    body.show-control-panel #results-pane {
+        margin-left: 1em;
+        font-size: 92%;
+    }
+
+}
+
+@media screen and (min-width: 1280px) {
+    /* body.show-control-panel #pane-tabs,
+    body.show-control-panel #main {
+        width:  70vw;
+        margin-left: 30vw;
+    } */
+
+}
+
+#control-panel hr {
+    border:none;
+    border-bottom: solid 0.25em #F87431;
+}
+
+#control-panel fieldset {
+    border: none;
+    padding: 1em 0;
+    margin: 0;
+}
+
+#control-panel .datetime,
+#control-panel fieldset {
+    position: relative;
+}
+
+#control-panel fieldset.closed {
+  padding: 1em 0 0.25em 0;
+}
+
+#control-panel fieldset.closed > div {
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#control-panel p.has-dms input.degree {
+    display: none;
+}
+
+#control-panel fieldset fieldset p {
+    margin: 0.25em 0;
+    padding: 0;
+}
+#control-panel input.gender {
+    margin-left: 0.5em;
+    width: 0.8em;
+}
+#control-panel label.gender {
+    font-size: 0.8em;
+}
+#control-panel .gender {
+    line-height: 24%;
+    height: 0.8em;
+}
+
+
+#control-panel .full-span input {
+    width: 92%;
+}
+
+#control-form > div,
+#control-form > p {
+    position: relative;
+}
+
+#control-panel div > label {
+    display: block;
+}
+
+#control-panel div > .half-width {
+    float: left;
+    width: 45%;
+}
+
+p > strong.label {
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+#control-panel > fieldset,
+#control-panel fieldset div.full-width {
+    position:  relative;
+    width:  100%;
+}
+
+#control-panel div > .first {
+    clear:  both;
+}
+
+#control-panel div.datetime > .first {
+    max-width:  60%;
+    width:  60%;
+}
+
+#control-panel fieldset {
+    clear:  both;
+}
+
+#control-panel #timezone-settings {
+    padding:  1em 0 0 0;
+    min-height: 1em;
+}
+
+#control-panel #timezone-settings.open {
+    padding:  2em 0 0 0;
+    margin: 0 0 0.5em 0;
+    min-height: 2em;
+}
+
+#control-panel #timezone-settings h3.toggle {
+    left:  0;
+    padding-top: 0.5em;
+}
+
+#control-panel div.datetime > .second {
+    width:  36%;
+    max-width:  36%;
+}
+
+#control-panel #form-location {
+    min-width: 10em;
+    max-width: 75%;
+}
+
+#control-panel textarea.full-width {
+    width:  90%;
+    clear:  both;
+}
+
+
+
+#control-panel fieldset > .toggle {
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    color: #999999;
+}
+
+#control-form .persons li {
+    margin:  0; 
+    cursor: pointer;
+    height:  1.125em;
+    padding: 0.125em 0.25em;
+}
+
+#control-form .persons {
+    position: absolute;
+    top: 0.5em;
+    left:  0;
+    width:  92%;
+    background-color: white;
+    padding:0;
+    border:  solid 1px #dddddd;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in; 
+}
+
+#control-form:hover .persons {
+    z-index:  100;
+}
+
+#control-form .name-row:hover .persons {
+    
+    max-height: 40em;
+}
+
+
+
+#control-panel .persons li:hover {
+    background: #dddddd;
+    font-style:  italic;
+}
+
+#control-panel fieldset > .toggle-icon {
+    left: 0;
+    width: 1em;
+    height: 1em;
+}
+
+#control-panel fieldset.closed > .toggle-icon:before {
+    content: "+";
+}
+
+#control-panel fieldset h5.toggle,
+#control-panel fieldset h4.toggle,
+#control-panel fieldset h3.toggle {
+    left: 1.5em;
+    margin: 0;
+    padding: 0;
+}
+
+#control-panel fieldset h3.toggle {
+    font-size: 1em;
+}
+
+#control-panel fieldset h4.toggle {
+    font-size: .9em;
+}
+
+/*#control-panel .masked .input-group,
+#control-panel .masked .glyphicon {
+    display: none;
+}*/
+
+#control-panel fieldset {
+  margin: 1em 0;
+}
+
+#control-panel fieldset.open > .toggle-icon:before {
+    content: "-";
+}
+
+#control-panel fieldset.open fieldset.closed,
+#control-panel fieldset.closed {
+    max-height: 0;
+    overflow: hidden;
+}
+#control-panel fieldset p.text {
+    font-size: 0.9em;
+    margin: 0.5em 0 0 0.9em;
+}
+#control-panel span.symbol-radio {
+    display: inline-block;
+    position: relative;
+    font-size: 1.5em;
+    width: 1em;
+    height: 1em;
+    margin: 0 1em 0 0;
+    cursor: pointer;
+    filter: grayscale(90%);
+}
+
+#control-panel span.symbol-radio:hover,
+#control-panel span.symbol-radio.checked {
+    filter: grayscale(0%);
+}
+
+#control-form .glyphicon-time,
+#control-form .glyphicon-calendar {
+    font-size: 1.3333em;
+}
+
+
+
+#control-form .glyphicon-calendar:before {
+    content: "\e953";
+}
+
+#control-form .glyphicon-time:before {
+    content: "\e94e";
+}
+
+/* #control-panel span.icon-female-bust {
+    color: #ff5555;
+}
+
+#control-panel span.icon-male-bust {
+    color: #3333ff;
+} */
+
+#control-panel span.symbol-radio input {
+    display: none;
+}
+
+#control-panel #settings-form.active,
+#control-panel #control-form.active {
+    min-height: 80em;
+}
+
+#control-panel span.symbol-radio label {
+    opacity: 0;
+    position: absolute;
+    top: -0.75em;
+    left: 1.25em;
+    font-size: 0.5em;
+    color: #999999;
+}
+
+#control-panel span.symbol-radio:hover label {
+    opacity: 1;
+}
+
+#control-panel fieldset.open fieldset.open fieldset.closed > p,
+#control-panel fieldset.open fieldset.closed > p,
+#control-panel fieldset.closed > p {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#control-panel fieldset.closed fieldset.closed {
+    display: none;
+}
+
+#control-panel fieldset {
+    transition: max-height .5s ease-in;
+}
+
+#control-panel fieldset.open {
+    padding: 1.5em 0 1em 0;
+    max-height: 100em;
+    overflow: visible;
+}
+
+#control-panel fieldset.open p {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#control-panel .form-actions {
+    clear: both;
+    margin: 1em 0;
+}
+
+
+#settings-form label.left {
+    min-width: 12em;
+    text-align: right;
+    padding-right: 0.5em;
+    white-space: normal;
+}
+
+#settings-form span.radio-options {
+    display: inline-block;
+}
+
+#settings-form p > label {
+    float: left;
+}
+
+#settings-form .radio-options p {
+    padding: 0;
+    margin: 0;
+}
+
+#settings-form .radio-options p > label {
+    float: none;
+}
+
+#settings-form span.radio-options span.option {
+    display: block;
+    clear:  left;
+}
+
+@media screen and (min-width: 768px) {
+    #settings-form span.radio-options span.option,
+    #settings-form span.radio-options {
+        display: inline;
+    }
+}
+
+#settings-form div.notes {
+    font-size: 0.75em;
+    padding: 0.75em 0 0.75em 1em;
+}
+
+#settings-form .sub-section {
+    padding: 0 0 0.75em 0;
+}
+
+#settings-form div.notes p {
+    margin: 0;
+    padding: 0.125em 0;
+}
+
+#chart-tabs {
+    position:  absolute;
+    top: 1.33em;
+    left:  0;
+    margin-top: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    font-size: 0.8em;
+}
+
+#pane-tabs li:hover ul#chart-tabs {
+    max-height: 20em;
+    opacity: 1;
+    pointer-events: all;
+}
+
+#main #chart-tabs li {
+    display: block;
+    text-align: left;
+}
+
+#results-pane dl dd,
+#results-pane dl dt {
+    float: left;
+    margin-bottom: 0.75em;
+}
+
+#results-pane dl dt {
+    clear: both;
+    width: 8em;
+    margin-right: 0.75em;
+    font-weight: bold;
+}
+
+#results-pane dl dd {
+    padding: 0;
+    margin-left: 0;
+}
+
+#results-pane dl dd pre {
+    max-width: 40em;
+    overflow: auto;
+    color: #999999;
+}
+
+
+#results-pane dl dd ul {
+    list-style-type: none;
+    margin: 0 0 1em 0;
+    padding:0;
+}
+
+#results-pane dl dd li {
+    margin: 0;
+    padding: 0;
+}
+
+
+#main > .active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 40;
+}
+
+
+
+.large-pane svg {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    max-height: 60vh;
+    transition: all 0.5s ease-in;
+}
+
+object#chart-pane .container,
+object#chart-pane {
+    overflow: hidden;
+}
+
+@media screen and (min-height: 640px) {
+    .large-pane svg {
+        max-height: 70vh;
+    }
+}
+
+@media screen and (min-height: 750px) {
+    .large-pane svg {
+        max-height: 80vh;
+    }
+}
+
+.large-pane .magnify-2 svg {
+    width: 200%;
+    max-width: 200%;
+    max-height: 160vh;
+    transform: translateX(-25%);
+    height: 160vh;
+}
+
+.large-pane .magnify-4 svg {
+    width: 400%;
+    max-width: 400%;
+    max-height: 320vh;
+    height: 320vh;
+    transform: translate(-50%,-25%);
+}
+
+#chart-pane .container {
+    max-height: calc(100vh - 8em);
+}
+
+#infobox {
+    opacity: 0;
+    position: absolute;
+    top: -0.5em;
+    left: 1em;
+    padding: 1em;
+    text-align: left;
+    max-width:  20em;
+}
+
+.show-control-panel #infobox {
+    top: -1em;
+    left: 1.5em;
+}
+
+#infobox p {
+    padding: 0;
+    margin: 0 0 0.25em 0;
+}
+
+#infobox p.notes {
+    font-size: 0.75em;
+}
+
+#infobox p em {
+    margin-left: 0.5em;
+}
+
+#infobox .small {
+    font-size: 0.75em;
+}
+
+#infobox.has-data {
+    opacity: 1;
+}
+
+.query-list li span.delete {
+    display: none;
+}
+
+.listing ol li {
+    cursor: pointer;
+}
+
+ol.listing li.selected {
+  color: #00ff00;
+}
+
+ol.geonames li.selected {
+   font-style: italic;
+}
+ol.listing li:hover {
+    color: #0000ff;
+}
+
+ol.geonames li:hover {
+  color: #990066;
+}
+
+.query-list li:hover span.delete {
+    display: inline-block;
+    margin-left: .5em;
+    color: red;
+    font-weight: bold;
+    transform: scale(2,2);
+    cursor: pointer;
+}
+
+
+.large-pane svg .planet {
+    transition: transform 1s ease-in, opacity .5s ease-in;
+}
+
+.large-pane svg .body {
+    transition: transform 1s ease-in, opacity .5s ease-in;
+}
+
+.planet {
+    opacity: 0;
+}
+
+.large-pane svg.planets-assigned .planet {
+    opacity: 1;
+}
+
+.line-label,
+.boundary {
+  transform-origin: 100% 100% 0;
+  transition: transform .5s ease-in;
+}
+
+line.solid {
+    stroke-width: 1px;
+    stroke: black;
+}
+
+.main-segments {
+    transform-origin: center center 0;
+}
+
+@keyframes spin {
+    0% {transform: rotate(0deg);}
+    8.3333% {transform: rotate(30deg);}
+    16.6667% {transform: rotate(60deg);}
+    25% {transform: rotate(90deg);}
+    33.3333% {transform: rotate(120deg);}
+    41.6667% {transform: rotate(150deg);}
+    50% {transform: rotate(180deg);}
+    58.3333% {transform: rotate(210deg);}
+    66.6667% {transform: rotate(240deg);}
+    75% {transform: rotate(270deg);}
+    83.3333% {transform: rotate(300deg);}
+    91.6667% {transform: rotate(330deg);}
+    100% {transform: rotate(360deg);}
+}
+
+#control-panel:hover .toggle-aside:before {
+    animation: spin 1s infinite linear;
+}
+
+#control-panel {
+  min-height: 100vh;
+}
+
+#control-panel ul.hor-tabs {
+    position: absolute;
+    left:  1em;
+    right:  2.5em;
+    top: 0.5em;
+    width:  auto;
+}
+
+#control-panel .pane {
+    position: absolute;
+    top: 1em;
+    left: -100vw;
+    transition: left 0.5s ease-in;
+    z-index: -1;
+    max-width: 50%;
+}
+
+#control-panel .pane.active {
+    left:  0;
+    overflow: visible;
+    z-index:  5000;
+    min-height: 90vh;
+    max-width: 100%;
+}
+
+#control-panel {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.75em;
+    transition: width .5s ease-in;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+#control-panel .toggle-aside {
+    position: absolute;
+    font-size: 0;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 4rem;
+    z-index: 40;
+}
+
+.show-control-panel #control-panel .toggle-aside {
+    right: 0.5rem;
+}
+
+#control-panel .toggle-aside:before {
+    font-size: 2rem;
+    content: "\e994";
+    cursor:pointer;
+    position: absolute;
+    top: 0;
+    right:0;
+    color: #999999;
+    transition: transform .5s ease-in;
+}
+
+#control-panel .toggle-aside:hover:before {
+    transform: rotate(-45deg);
+    color: #3399ff;
+}
+
+.show-control-panel #control-panel .toggle-aside:before {
+    transform: rotate(45deg);
+    animation: none;
+}
+
+.show-control-panel #control-panel .toggle-aside:hover:before {
+    transform: rotate(-15deg);
+}
+
+#control-panel > .inner {
+    position: relative;
+    opacity: 0;
+    max-height:0;
+    overflow: hidden;
+    overflow-y: auto;
+    pointer-events: none;
+    transition: opacity 0.25s linear .5s,max-height 0 linear .5s;
+}
+
+#queries li span {
+    cursor:  pointer;
+    display:  inline-block;
+}
+
+.new-record .delete,
+#queries li span.delete {
+    padding-left: 1em;
+    color:  red;
+    cursor: pointer;
+}
+
+#queries li span.delete {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.new-record:hover .delete,
+#queries li:hover span.delete {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.new-record span.delete:after,
+#queries li span.delete:after {
+    content:  "-";
+    font-size:  1.5em;
+    color:  red;
+}
+
+#queries li span.refresh:after {
+    content:  "*";
+    margin-left: 0.5em;
+}
+
+.new-record span.delete:after {
+    position: absolute;
+    left: 0.5em;
+    top: -0.25em;
+}
+
+#control-panel,
+#control-panel .toggle-aside {
+    cursor: pointer;
+}
+
+.show-control-panel #control-panel {
+    max-width: 96vw;
+    width: 100%;
+    padding: 3em 0 2vh 2vw;
+    transition: width .5s ease-in,min-width 0s linear .5s;
+    background-color: white;
+    border-right: solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
+    pointer-events: auto;
+    cursor: auto;
+}
+
+
+@media screen and (min-width: 640px) {
+    .show-control-panel #control-panel {
+        width: 75vw;
+        max-width: 32em;
+    }
+    #control-panel #form-location {
+        min-width: 13em;
+    }
+    #control-panel form {
+        min-width:  16em;
+    }
+    #navbar nav {
+        right:  0.5em;
+    }
+}
+
+
+@media screen and (min-width: 960px) {
+    .show-control-panel #control-panel {
+        width: 40vw;
+        max-width: 32em;
+    }
+    #control-panel #form-location {
+        min-width: 14em;
+        max-width: 80%;
+    }
+    #control-panel form {
+        min-width:  21em;
+    }
+
+    #pane-tabs,
+    #control-panel {
+        position: fixed;
+    }
+
+    #pane-tabs {
+        width:  auto;
+        top: 0;
+        left: 0;
+        right:  0;
+        z-index: 55;
+        height: 1.75em;
+        padding: 0.5em 0;
+        background-color: white;
+    }
+
+
+}
+
+/* @media screen and (min-width: 1280px) {
+    .show-control-panel #control-panel {
+        max-width: 36vw;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .show-control-panel #control-panel {
+        max-width: 30vw;
+    }
+} */
+
+.show-control-panel #control-panel > .inner {
+    opacity: 1;
+    transition: opacity 0.25s linear;
+    pointer-events: auto;
+    height: auto;
+    min-height: 100vh;
+    padding-right: 2.5em
+}
+
+#control-panel .input-group {
+    display: inline-block;
+    position: relative;
+    width: 5em;
+    padding-right: 0.5em;
+}
+
+#control-panel .new-item {
+    position: absolute;
+    right:  0;
+    top: .25em;
+    width: 7.5em;
+    white-space: nowrap;
+}
+
+#control-panel .new-record {
+    right:  9em;
+}
+
+#control-panel .new-person {
+    right:  0em;
+}
+
+.new-item .delete,
+.new-item label,
+.new-item input {
+    float:  left;
+    width: auto;
+}
+
+.new-item label {
+    font-size:  0.75em;
+}
+
+.new-item input {
+    margin-top: 0.25em;
+}
+.new-item label {
+    padding-left:  0.25em;
+    padding-right: 0.5em;
+}
+
+.new-record .delete {
+    display: block;
+     position: relative;
+    padding-left:  1.5em;
+    opacity: 0.75;
+}
+
+.new-record .delete:hover {
+    color:  red;
+    opacity: 1;
+    font-weight: bold;
+}
+
+#control-panel .input-group-addon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 1em;
+    width: 1em;
+}
+
+#control-panel span.dms-select {
+    display: inline-block;
+}
+
+#control-panel span.dms-select input {
+    outline: none;
+}
+
+#control-panel span.dms-select,
+#control-panel input.degree {
+    max-width: 0;
+    
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+#control-panel fieldset.coordinates {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+fieldset.show-dms-degrees .mode-controls .dms-mode,
+fieldset.display .mode-controls .show-mode,
+fieldset.show-dec-degrees .mode-controls .dec-mode,
+fieldset.display .mode-controls .find-map {
+    display:  none;
+}
+
+
+fieldset.coordinates .mode-controls .dms-mode:before {
+    content:  "\e910";
+}
+.mode-controls .disable-datebox:before,
+fieldset.coordinates .mode-controls .dec-mode:before {
+    content:  "\e913";
+}
+fieldset.coordinates .mode-controls .show-mode:before {
+    content:  "\ea34";
+}
+fieldset.coordinates .mode-controls .find-map:before {
+    content:  "\e052";
+}
+
+#control-panel .mode-controls {
+    position: absolute;
+    right:  0.5em;
+    top: 0.5em;
+}
+
+#control-panel .datetime .mode-controls {
+    top:  1em;
+}
+#control-panel .show-dec-degrees .mode-controls,
+#control-panel .show-dms-degrees .mode-controls {
+    top: 0.25em;
+}
+
+.mode-controls span {
+    display: block;
+    width:  1em;
+    height: 1em;
+    margin-bottom:  0.5em;
+    cursor: pointer;
+}
+
+#control-panel input.degree {
+    padding: 0;
+}
+
+#control-panel fieldset.coordinates p {
+  max-height: 1.5em;
+  white-space: nowrap;
+}
+
+#control-panel span.dms-select,
+#control-panel input.degree,
+#control-panel span.coordinates {
+    transition: max-width 0.25s ease-in;
+}
+
+#control-panel .show-dms-degrees input.degree,
+#control-panel .show-dms-degrees span.dms-select,
+#control-panel .show-dec-degrees input.degree {
+    max-width:  10em;
+    opacity: 1;
+    pointer-events: auto;
+    overflow: visible;
+    margin-right:  1em;
+}
+
+#control-panel span.coordinates {
+    position: relative;
+    display: inline-block;
+    max-width:  8em;
+    cursor: pointer;
+    padding-right:  1.5em;
+    max-height: 1rem;
+}
+
+#control-panel .show-dms-degrees span.coordinates {
+    max-width:  0;
+    width: 0;
+    overflow: hidden;
+    color:  transparent;
+}
+
+#control-panel .show-dms-degrees input.degree {
+    border: none;
+    pointer-events: none;
+}
+
+#control-panel .dms-select,
+#control-panel input[type=text] {
+    border: solid 1px #999999;
+}
+#control-panel span.dms-select {
+    display: inline-block;
+    padding-right: 0.5em;
+}
+
+#control-panel .dms-select span:after {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#control-panel .dms-select input {
+  font-size: 0.9em;
+}
+
+#control-panel .dms-select input.deg {
+    width:  2em;
+}
+
+#control-panel .dms-select input.min {
+    width:  1.5em;
+}
+#control-panel .dms-select input.sec {
+    width:  3em;
+}
+
+#control-panel .dms-select span.deg:after {
+    content:  "º";
+}
+
+#control-panel .dms-select span.min:after {
+    content:  "'";
+}
+
+#control-panel .dms-select span.sec:after {
+    content:  "\"";
+}
+
+#control-panel .dms-select input {
+    border:  none;
+    text-align: right;
+}
+
+#control-panel .dms-select span {
+    position: relative;
+    display: inline-block;
+    margin-right: 0.25em;
+    width:  0.25em;
+    height:  1em;
+}
+
+
+#control-panel .show-dec-degrees input.degree,
+#control-panel .show-dms-degrees input.degree {
+    min-width: 5em;
+}
+
+#control-panel span.dms-select {
+    white-space: nowrap;
+    max-height: 2em;
+}
+
+#control-panel .show-dec-degrees input.degree {
+    min-width: 6em;
+    padding:  0 0.125em;
+}
+
+#control-panel .second .input-group-addon {
+    right: 3em;
+}
+
+#control-panel .tob-field .ui-datebox-container {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+}
+
+#control-panel input.altitude {
+    max-width: 3.6em;
+}
+
+#gmap {
+    padding-top: 1.5em;
+    width: 100%;
+    height: 60vh;
+}
+
+div#map-pane > .inner {
+    position: relative;
+    padding: 0 2.5%;
+    text-align: left;
+}
+
+@media screen and (min-width:768px) {
+
+    #control-panel .input-group {
+        width:  9em;
+        padding-right: 1em;
+    }
+    #main .panes {
+        padding-top: 3em;
+    }
+}
+
+#control-panel p {
+    padding: 0;
+}
+
+#control-panel p label {
+    display: inline-block;
+    min-width: 5em;
+    max-width:  9em;
+    margin-right: 0.5em;
+    font-size: 0.8em;
+    white-space: nowrap;
+}
+#control-panel p.gender-row label {
+  min-width: 1.5em;
+  padding: 0 0.75em 0 0.25em;
+}
+
+#control-panel p label.sub {
+    width: auto;
+}
+
+/*#contol-panel p label.form-gender-female,
+#contol-panel p label.form-gender-unknown {
+    width: 64px;
+}
+
+#contol-panel p label.form-gender-male {
+    width: 47px;
+}*/
+
+#contol-panel p label.degree,
+#contol-panel p label.minute,
+#contol-panel p label.second {
+    width: 0.5em;
+    margin-left: -0.25em;
+}
+
+form .radios > label {
+    width: auto;
+    margin-right: 1em;
+}
+
+form .radios input {
+    margin-right: 0.25em;
+}
+
+#control-panel #form-geobirth {
+    max-width: 50vw;
+    min-width: 10em;
+}
+
+#control-panel #form-submit {
+    font-size: 1em;
+    margin-right: 1.5em;
+}
+
+#control-panel > p {
+    transition: max-height 0.5s ease-in;
+}
+
+#control-panel p.collapsed {
+    max-height: 0;
+    overflow: hidden;
+}
+
+#control-panel p.expanded {
+    max-height: 3em;
+    overflow: visible;
+}
+
+#form-dob {
+    max-width: 9em;
+}
+
+#control-panel select {
+    font-size: 0.9em;
+}
+#control-panel input#form-alt {
+    margin-right: 0.3em;
+}
+#geo-address {
+    clear: both;
+    color: #666699;
+    font-size: 0.8em;
+    padding: 0.25em;
+}
+
+.hidden {
+    display: none;
+}
+
+.disabled {
+    opacity: 0.3333;
+    pointer-events: none;
+}
+
+.behind {
+    opacity:0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+#menu-toggle {
+    margin:  0;
+    padding:  0 0 .25em 1em;
+    position: absolute;
+    top: 0.25rem;
+    right: 0.5rem;
+    width:  1em;
+    height:  1em;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+#menu-toggle:before {
+    position: absolute;
+    top: 0;
+    right:  0;
+    font-family: "icomoon";
+    content: "\e9bd";
+}
+
+#navbar {
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1em;
+    color: #999999;
+    pointer-events: none;
+}
+
+@media screen and (min-height: 400px) {
+    #navbar {
+        height: 2em;
+    }
+    #menu-toggle {
+        font-size: 2em
+    }
+}
+
+@media screen and (min-height: 600px) {
+    #navbar {
+        height: 2.5em;
+    }
+    #menu-toggle {
+        font-size: 2.5em
+    }
+}
+
+.show-menu #navbar,
+#navbar #menu-toggle,
+#navbar h1 {
+    pointer-events: auto;
+}
+
+.show-menu #navbar {
+    z-index: 21;
+    height: 5em;
+}
+
+ul.ver-tabs,
+ul.ver-tabs li,
+ul.hor-tabs,
+ul.hor-tabs li,
+nav.horizontal ul,
+nav.horizontal li {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.hor-tabs {
+    white-space: nowrap;
+}
+
+ul.hor-tabs,
+nav.horizontal ul {
+    margin: 0.75em auto;
+    width: 100%;
+    text-align: center;
+}
+
+ul.hor-tabs li {
+    position: relative;
+}
+
+ul.hor-tabs li,
+nav.horizontal li {
+    display: inline-block;
+    margin: 0 0.5em;
+    font-weight: bold;
+}
+
+ul.hor-tabs li {
+    padding: 0 0.75em;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+ul.hor-tabs li.active {
+    color:  #0033cc;
+}
+
+#aspect-controls h4 {
+    font-size: 1em;
+    padding: 0 1em 0 0;
+}
+
+#aspect-controls h4,
+#aspect-controls label,
+#aspect-controls input {
+    display: inline-block;
+}
+
+#aspect-controls label {
+    margin: 0 1em 0 .5em;
+}
+
+@media screen and (min-width:640px) {
+    #main ul#pane-tabs > li {
+        font-size: 1.25em;
+    }
+    ul.hor-tabs li,
+    nav.horizontal li {
+        margin: 0 0.75em;
+    }
+}
+
+@media screen and (min-width:960px) {
+    #main ul#pane-tabs > li {
+        padding: 0 1em;
+        font-size: 1.5em;
+    }
+    #control-panel #form-geobirth {
+        max-width: 75%;
+    }
+
+    div#map-pane > .inner .sub-pane {
+        float:  left;
+        width:  45%;
+        padding:  0 0 0 2.5%;
+    }
+    ul.hor-tabs li,
+    nav.horizontal li {
+      margin: 0 1em;
+    }
+}
+
+@media screen and (min-width:1280px) {
+    #control-panel #form-geobirth {
+        max-width: 80%;
+    }
+    ul.hor-tabs li,
+    nav.horizontal li {
+      margin: 0 1.25em;
+    }
+}
+
+@media screen and (min-width:1440px) {
+    #control-panel #form-geobirth {
+        max-width: 85%;
+    }
+    ul.hor-tabs li,
+    nav.horizontal li {
+      margin: 0 1.5em;
+    }
+}
+
+ul.hor-tabs li.active {
+    color: #0000cc;
+}
+
+#chart-mode {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 200;
+}
+
+
+
+#chart-mode li {
+    font-size: 2vw;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    color: #999999;
+    cursor: pointer;
+}
+
+#chart-mode li.active {
+    color: #882222;
+}
+
+ul.ver-tabs li,
+ul.hor-tabs li {
+    transition: transform 250ms ease-in;
+}
+
+ul.ver-tabs li:hover,
+ul.hor-tabs li:not(.disabled):hover {
+    transform: scale(1.125);
+}
+
+#chart-main {
+    position: relative;
+    margin: 3vh auto;
+    top:  3vh;
+}
+
+#chart-main svg {
+    width: 90vw;
+    max-height: 90vh;
+}
+
+.results-list dd span {
+    display: inline-block;
+    padding-right: 0.5em;
+}
+
+.results-list {
+    width: 100%;
+}
+
+#results-pane .section {
+    clear:  both;
+}
+
+ol.plain {
+    list-style-type: none;
+}
+
+#results-pane li em,
+#results-pane li strong,
+#results-pane li span {
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+
+#results-pane li strong.value sup {
+   font-size: 0.75em;
+   font-weight: normal;
+}
+
+#results-pane td.separator:before,
+#results-pane li span.separator:before {
+    content: "—";
+}
+
+#results-pane table.aspect-group caption {
+    font-size: 1.25em;
+    text-align: left;
+    margin-top: 0.75em;
+    font-style: italic;
+}
+
+#results-pane table.aspect-group tbody th {
+    text-align: right;
+}
+
+.results-list li span.label {
+    min-width: 5em;
+}
+
+.results-list dd p {
+    padding:  0 0 0.125em 0;
+    margin: 0;
+}
+
+.results-list dd li span.degree {
+   
+}
+
+.bodies-table {
+    width:100%;
+}
+
+#magnifier-controls {
+    position: absolute;
+    top: -2em;
+    right: 5%;
+    z-index: 80;
+}
+
+.active #magnifier-controls {
+    position: fixed;
+    top:  6em;
+}
+
+@media screen and (min-width: 768px) {
+   .active #magnifier-controls {
+        top:  3.5em;
+    }
+    #navbar h1.title-logo {
+        opacity: 1;
+        width:  auto;
+        overflow: visible;
+    }
+}
+
+#magnifier-controls span {
+    float:  left;
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    font-size:  0.667em;
+    margin-right: 0.5em;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+#magnifier-controls span:hover {
+    color: #0033cc;
+}
+
+#magnifier-controls span:before {
+    font-family: "icomoon";
+    display: inline-block;
+    padding-right: 0.125em;
+}
+
+#magnifier-controls span.magnify:before {
+   content:  "\e912";
+}
+
+#magnifier-controls span.two:before {
+    font-size: 1.5em;
+}
+
+#magnifier-controls span.four:before {
+    font-size: 2em;
+}
+
+.magnify-1 #magnifier-controls span.one,
+.magnify-2 #magnifier-controls span.two,
+.magnify-4 #magnifier-controls span.four {
+    opacity: 1;
+}
+
+.scroll-container {
+    position: relative;
+}
+
+#control-panel .input-group-addon,
+#control-panel .ui-datebox-container {
+    cursor:  pointer;
+}
+
+#user-form.hidden {
+    display: none;
+}
+
+#user-status {
+    position: absolute;
+    top: 0.25em;
+    right:  5em;
+}
+
+.show-login #user-form {
+    z-index: 100;
+    pointer-events: all;
+    position: fixed;
+    background: white;
+    height:  2em;
+    right:  5em;
+    min-width: 20em;
+    padding: 0.5em 1em;
+}
+
+#user-form input,
+#user-form button {
+    display: inline-block;
+}
+
+#user-form button.register {
+    margin-right: 3em;
+}
+
+#user-form p {
+    padding: 0.25em 0;
+    margin: 0;
+}
+
+#user-form p input {
+    padding: 0.125em;
+    margin:  0 0.25em 0 0;
+}
+
+#user-form p input.username {
+    width: 12em;
+}
+
+#user-form p input.password {
+    width: 9em;
+}
+
+body.admin #main {
+    top: 4em;
+}
+
+ul.dashas li span {
+    display: inline-block;
+    padding: 0 0 0 1em;
+}
+#dashas-pane {
+    text-align: left;
+}
+
+#dashas-pane ul.dashas > li {
+    padding: 0;
+    margin: 0.25em 0;
+    font-size: 1.33em;
+}
+
+#dashas-pane ul.dashas ul.closed {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 1s ease-in,opacity 250ms ease-in 0;
+}
+
+#dashas-pane ul.dashas ul.open {
+    max-height: 100em;
+    opacity: 1;
+    margin-bottom: 0.5em;
+    transition: max-height 1s ease-in,opacity 250ms ease-in 250ms;
+}
+
+#dashas-pane ul.dashas li.toggle {
+    cursor: pointer;
+}
+
+#dashas-pane ul.dashas li.toggle:before {
+    font-family: icomoon;
+    content:  "\ea34";
+    font-size:  0.75em;
+    display: inline-block;
+    margin-right: 0.25em;
+    opacity: 0.5;
+}
+
+#dashas-pane li {
+   clear:  both;
+}
+
+#dashas-pane li strong {
+   color: #999999;
+   font-size: 0.8em;
+}
+
+#dashas-pane li strong:before {
+   font-size: 2em;
+   display: inline-block;
+   color: #00aa00;
+   position: relative;
+   margin:  0 0.25em 0 0;
+   top:  0.125em;
+}
+
+#dashas-pane li ul.ads > li strong:before {
+   color: #118866;
+}
+
+#dashas-pane li ul.pds > li strong:before {
+   color: #668844;
+}
+
+#dashas-pane ul.dashas li.toggle:hover:before {
+    color: #000099;
+    opacity: 1;
+}
+
+#dashas-pane ul.dashas li.toggle.expanded:before {
+    content:  "\ea36";
+}
+
+#dashas-pane ul.dashas li.toggle:hover > strong {
+    font-style: italic;
+}
+
+@media screen and (min-width:1200px) {
+
+    
+    #main .panes.show-results #results-pane,
+    #main .panes.show-dashas #dashas-pane {
+        width:  50%;
+        margin-left: 50%;
+    }
+
+    #main .panes.show-chart #chart-pane {
+        width:  66.667%;
+    }
+    .hide-control-panel #main .panes.show-map #map-pane {
+        width:  50%;
+    }
+
+    #main .panes.show-chart #results-pane {
+        margin-left:  66.667%;
+    }
+
+    #main .panes.show-chart #results-pane table {
+        font-size: 80%;
+    }
+
+    .hide-control-panel #main .panes.show-map #chart-pane {
+        margin-left:  50%;
+    }
+
+    #main .panes.show-chart #results-pane,
+    .hide-control-panel #main .panes.show-map #chart-pane,
+    #main .panes.show-results #chart-pane,
+    #main .panes.show-dashas #chart-pane {
+        left:  0;
+        pointer-events: all;
+    }
+
+    #main .panes.show-chart #results-pane {
+        width:  33.333%;
+    }
+
+    .hide-control-panel #main .panes.show-map #chart-pane,
+    #main .panes.show-results #chart-pane,
+    #main .panes.show-dashas #chart-pane {
+        width:  50%;
+    }
+
+    .show-control-panel #main .panes.show-dashas #dashas-pane ul.dashas > li {
+        font-size: 80%;
+    }
+}
+
+#dashas-pane ul.dashas > li li {
+    padding: 0 0 0 1em;
+    margin: 0 0 0.25em 1em;
+    font-size: 0.8667em;
+}
+
+table thead tr th {
+    padding: 0.5em 0.25em;
+}
+
+table td, table th {
+    padding: 0.25em;
+}
+
+td.inactive {
+    pointer-events: none;
+    opacity: 0
+}
+

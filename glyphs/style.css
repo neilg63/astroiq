@@ -1,0 +1,132 @@
+@font-face {
+  font-family: 'glyphs';
+  src:  url('fonts/icomoon.eot?uxe4bq');
+  src:  url('fonts/icomoon.eot?uxe4bq#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?uxe4bq') format('truetype'),
+    url('fonts/icomoon.woff?uxe4bq') format('woff'),
+    url('fonts/icomoon.svg?uxe4bq#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="glyph-"], [class*=".glyph-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'glyphs' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.glyph-pencil2:before {
+  content: "\e914";
+}
+.glyph-pencil:before {
+  content: "\e913";
+}
+.glyph-finder:before {
+  content: "\e911";
+}
+.glyph-clock:before {
+  content: "\e94e";
+}
+.glyph-calendar:before {
+  content: "\e953";
+}
+.glyph-database:before {
+  content: "\e964";
+}
+.glyph-wrench:before {
+  content: "\e991";
+}
+.glyph-cog:before {
+  content: "\e994";
+}
+.glyph-menu:before {
+  content: "\e9bd";
+}
+.glyph-cross:before {
+  content: "\ea0f";
+}
+.glyph-checkmark:before {
+  content: "\ea10";
+}
+.glyph-arrow-up:before {
+  content: "\ea32";
+}
+.glyph-arrow-right:before {
+  content: "\ea34";
+}
+.glyph-arrow-down:before {
+  content: "\ea36";
+}
+.glyph-arrow-left:before {
+  content: "\ea38";
+}
+.glyph-compass:before {
+  content: "\e910";
+}
+.glyph-paperclip:before {
+  content: "\e02d";
+}
+.glyph-global:before {
+  content: "\e052";
+}
+.glyph-lightbulb:before {
+  content: "\e90e";
+}
+.glyph-gearwheel:before {
+  content: "\e90f";
+}
+.glyph-magnifier:before {
+  content: "\e912";
+}
+.glyph-male-sign:before {
+  content: "\e90c";
+}
+.glyph-female-sign:before {
+  content: "\e90d";
+}
+.glyph-lagna:before {
+  content: "\e900";
+}
+.glyph-ketu-devanagari:before {
+  content: "\e901";
+}
+.glyph-rahu-devanagari:before {
+  content: "\e902";
+}
+.glyph-saturn-devanagari:before {
+  content: "\e903";
+}
+.glyph-venus-devanagari:before {
+  content: "\e904";
+}
+.glyph-jupiter2-devanagari:before {
+  content: "\e905";
+}
+.glyph-jupiter-devanagari:before {
+  content: "\e906";
+}
+.glyph-mercury-devanagari:before {
+  content: "\e907";
+}
+.glyph-mars2-devanagari:before {
+  content: "\e908";
+}
+.glyph-mars-devanagari:before {
+  content: "\e909";
+}
+.glyph-moon-devanagari:before {
+  content: "\e90a";
+}
+.glyph-sun-devanagari:before {
+  content: "\e90b";
+}
+

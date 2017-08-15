@@ -1,0 +1,265 @@
+svg {
+font-size: 16px;
+}
+
+text,
+svg text {
+    font-family: genlight, Helvetica, Arial, sans-serif;
+}
+
+/* Not compatible FF latest + Chrome on Windows
+.main-disc {
+    transform-origin: center center 0;
+}*/
+
+.house-label text {
+  font-size: 3em;
+}
+
+text {
+  opacity: 1;
+  transition: all 250s ease-in;
+  fill: #999999;
+  font-family: Helvetica;
+}
+
+text.degreeLabels {
+  transform-origin: center center 0;
+}
+
+.invisible {
+  opacity:  0;
+}
+
+line.ascendant {
+stroke: red;
+}
+
+.segment-symbol path {
+  transform: scale(1, -1) translate(0,-700px);
+}
+
+.degree-label {
+font-size:  1.5em;
+}
+
+#north-indian-chart {
+opacity: 0;
+pointer-events: none;
+}
+
+.show-indian #north-indian-chart {
+opacity: 1;
+pointer-events: auto;
+}
+
+.show-indian #north-indian-chart .shape {
+stroke-width: 3px;
+stroke: blue;
+}
+
+.western-chart {
+opacity: 1;
+  position: relative;
+  z-index:  10;
+}
+
+.european-element,
+#north-indian-chart {
+transition: all 1s ease-in;
+}
+
+.show-indian .european-element {
+opacity: 0;
+pointer-events: none;
+}
+
+path.segment {
+  fill: #999999;
+  opacity: 0.9;
+}
+
+.main-segments path.segment-1,
+.main-segments path.segment-7 {
+  fill: #cc2222;
+}
+
+.main-segments path.segment-2,
+.main-segments path.segment-8 {
+  fill: #33bb33;
+}
+
+.main-segments path.segment-3,
+.main-segments path.segment-9 {
+  fill: #2244bb;
+}
+
+.main-segments path.segment-4,
+.main-segments path.segment-10 {
+  fill: #cc7700;
+}
+
+.main-segments path.segment-5,
+.main-segments path.segment-11 {
+  fill: #339933;
+}
+
+.main-segments path.segment-6,
+.main-segments path.segment-12 {
+  fill: #444488;
+}
+
+.main-segments path.segment-7,
+.main-segments path.segment-8,
+.main-segments path.segment-9,
+.main-segments path.segment-10,
+.main-segments path.segment-11,
+.main-segments path.segment-12 {
+  -webkit-filter: hue-rotate(120deg);
+  filter: hue-rotate(120deg);
+}
+
+g.bodies-layer {
+  position: relative;
+  z-index: 60;
+}
+
+g.body .symbol {
+  transform: scale(0.6);
+  transition: all .5s ease-in;
+}
+
+g.body:hover .symbol {
+  transform: scale(0.9) translate(-15%,-15%);
+}
+
+g.body {
+  pointer-events: all;
+  cursor: pointer;
+}
+
+
+
+g.body text {
+  position: relative;
+  fill: #999999;
+  transform: translate(-8px, -8px);
+}
+
+
+g.coords text {
+  font-size: 0.8em;
+}
+
+
+
+/* g.bodies-layer text.coords:hover,
+g.bodies-layer text.over {
+  fill:  black;
+  opacity: 1;
+  font-size: 1em;
+} */
+
+g.bodies-layer g.body:hover text {
+  transform: translate(0, -10px);
+}
+
+g.body:hover path {
+  fill:  #330099;
+}
+
+g.body circle.body-bg {
+  fill:white;
+  cx:  20px;
+  cy:  30px;
+  r: 40px;
+  fill: white;
+  stroke:  none;
+  opacity: 0;
+}
+/**/
+line.aspect {
+  stroke: #cccccc;
+}
+
+line.aspect-semisquare {
+  stroke: #ff9999;
+}
+
+line.aspect-semisextile {
+  stroke: #ff99ff;
+}
+
+line.aspect-binovile,
+line.aspect-novile {
+  stroke: #99ccff;
+}
+
+line.aspect-quintile,
+line.aspect-dectile {
+  stroke: #ffcccc;
+}
+
+line.aspect-triseptile,
+line.aspect-biseptile,
+line.aspect-septile {
+  stroke: #dddd99;
+}
+
+g.bodies-layer line.aspect-trine {
+  stroke: #999999;
+}
+
+/* trine */
+g.bodies-layer line.aspect-square {
+  stroke: blue;
+}
+
+
+/* square */
+g.bodies-layer line.aspect-sextile {
+  stroke: #ee4400;
+}
+
+/* sextile */
+g.bodies-layer line.aspect-opposition {
+  stroke: #00cc00;
+}
+
+/* conjunction */
+g.bodies-layer line.aspect-inconjunction {
+  stroke: #990000;
+}
+
+g.body circle {
+  stroke:#996600;
+}
+g.body path {
+  fill: #556677;
+}
+
+line.aspect {
+    opacity: 0;
+}
+
+.show-main-aspects line.aspect-conjunction,
+.show-main-aspects line.aspect-inconjunction,
+.show-main-aspects line.aspect-opposition,
+.show-main-aspects line.aspect-square,
+.show-main-aspects line.aspect-sextile,
+.show-main-aspects line.aspect-trine {
+  opacity: 1;
+}
+
+.show-minor-aspects line.aspect-quadnovile,
+.show-minor-aspects line.aspect-inconjunction,
+.show-minor-aspects line.aspect-triseptile,
+.show-minor-aspects line.aspect-sesquisquare,
+.show-minor-aspects line.aspect-tridecile,
+.show-minor-aspects line.aspect-biseptile,
+.show-minor-aspects line.aspect-binovile,
+.show-minor-aspects line.aspect-novile,
+.show-minor-aspects line.aspect-dectile,
+.show-minor-aspects line.aspect-semisextile {
+  opacity: 1;
+}
