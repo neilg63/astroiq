@@ -151,6 +151,14 @@ g.coords text {
   font-size: 0.8em;
 }
 
+g.coords {
+  cursor: pointer;
+}
+
+g.coords text:hover {
+  font-size: 1.2em;
+}
+
 
 
 /* g.bodies-layer text.coords:hover,
@@ -252,7 +260,6 @@ line.aspect {
 }
 
 .show-minor-aspects line.aspect-quadnovile,
-.show-minor-aspects line.aspect-inconjunction,
 .show-minor-aspects line.aspect-triseptile,
 .show-minor-aspects line.aspect-sesquisquare,
 .show-minor-aspects line.aspect-tridecile,
