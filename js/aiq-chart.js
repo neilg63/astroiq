@@ -18,7 +18,7 @@ var AstroChart = {
         300,
         330
     ],
-
+    bodyKeys: ['sun','moon','mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto','ketu','rahu'],
     bodyLayer: null,
     bodies: [],
     bodyOffset: 120,
@@ -72,7 +72,7 @@ var AstroChart = {
 
     buildDegrees: function() {
         this.degreeLayer = d3.select('g.degrees');
-        this.degreeLabels = d3.selectAll('text.degree-label');
+        this.degreeLabels = d3.selectAll('g.degree-label');
     },
 
     _segmentPathCoords: function(radius,deg,inset) {
@@ -97,7 +97,7 @@ var AstroChart = {
 
   tweenDegreeLabels: function(deg) {
     AstroChart.degreeLabels.attr('transform',function(){
-      var it = d3.select(this), x = it.attr('x'), y = it.attr('y');
+      var txt = d3.select(this).select('text'), x = txt.attr('x'), y = txt.attr('y');
       return 'rotate('+(0-deg)+','+x+','+y+')';
     });
     AstroChart.signGlyphs.select('g.glyph').attr('transform',function(){
@@ -247,7 +247,7 @@ var AstroChart = {
 
   placeBodies: function() {
     this.bodyLayer = d3.select('g.bodies-layer');
-    var bNames = ['sun','moon','mercury','venus','mars','jupiter','saturn','uranus','neptune','pluto','ketu','rahu'],
+    var bNames = this.bodyKeys,
     bNum= bNames.length,
     dist = 360,
     deg = 0,d,
@@ -306,9 +306,10 @@ var AstroChart = {
           
           oldDeg = parseFloat(body.attr('data-lng')),
           diff=oldDeg-d;
-          collision = [];
+          /*collisions = [];
           if (item.collisions) {
             collisions = item.collisions;
+            console.log(collisions)
           }
           offset = 0;
           if (collisions.length>0) {
@@ -330,7 +331,7 @@ var AstroChart = {
             case 'ketu':
               offset += 75;
               break;
-          }
+          }*/
           body.attr('data-lng',d);
           for (i=0;i<steps;i++) {
             pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),(dist-offset),-12,-12);
@@ -391,6 +392,29 @@ var AstroChart = {
     AstroChart.updateHouses(data.houseLngs,2000,data.ascendant);
     AstroChart.moveBodies(data.bodies,mode,data.ayanamsa);
     AstroChart.updateAspects(data.aspects,data.ayanamsa);
+    var bKeys = this.bodyKeys;
+    var mainBodies = _.filter(data.bodies, function(b) { return bKeys.indexOf(b.key) >= 0 });
+    var addDistances = function(b,mainBodies) {
+      var i=0, nb = mainBodies.length, distances = {}, b2,d;
+      for (;i<nb;i++) {
+        b2 = mainBodies[i];
+        d = b.lng - b2.lng;
+        if (d > 180) {
+          d -= 360
+        } else if (d < -180) {
+          d += 360
+        }
+        if (d < 15 && d > -15) {
+          distances[b2.key] = d;
+        }
+      }
+      b.distances = distances;
+    }
+    var bs = _.map(mainBodies, function(b) {
+      addDistances(b,mainBodies)
+      return b; 
+    });
+    console.log(bs);
   },
 
   addDiscDrag: function() {

@@ -4,8 +4,10 @@
   <g class="degrees">
     <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-90,750,750)">
     </line>
-    <text class="degree-label" x="100" y="750">0º</text>
-    <text class="degree-label" x="1400" y="750">180º</text>
+    <g class="degree-label">
+        <text class="degree-value" x="100" y="750">0º</text>
+    </g>
+    <g class="degree-label"><text class="degree-value" x="1400" y="750">180º</text></g>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-89,750,750)">
     </line>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-88,750,750)">
@@ -66,8 +68,8 @@
     </line>
     <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-60,750,750)">
     </line>
-    <text class="degree-label" x="187.0834875401149" y="424.99999999999994">330º</text>
-    <text class="degree-label" x="1312.9165124598853" y="1074.9999999999998">150º</text>
+    <g class="degree-label"><text class="degree-value" x="187.0834875401149" y="424.99999999999994">330º</text></g>
+    <g class="degree-label"><text class="degree-value" x="1312.9165124598853" y="1074.9999999999998">150º</text></g>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-59,750,750)">
     </line>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-58,750,750)">
@@ -128,8 +130,8 @@
     </line>
     <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(-30,750,750)">
     </line>
-    <text class="degree-label" x="425.00000000000006" y="187.0834875401148">300º</text>
-    <text class="degree-label" x="1075" y="1312.9165124598853">120º</text>
+    <g class="degree-label"><text class="degree-value" x="425.00000000000006" y="187.0834875401148">300º</text></g>
+    <g class="degree-label"><text class="degree-value" x="1075" y="1312.9165124598853">120º</text></g>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-29,750,750)">
     </line>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(-28,750,750)">
@@ -190,8 +192,8 @@
     </line>
     <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(0,750,750)">
     </line>
-    <text class="degree-label" x="750" y="100">270º</text>
-    <text class="degree-label" x="750.0000000000001" y="1400">90º</text>
+    <g class="degree-label"><text class="degree-value" x="750" y="100">270º</text></g>
+    <g class="degree-label"><text class="degree-value" x="750.0000000000001" y="1400">90º</text></g>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(1,750,750)">
     </line>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(2,750,750)">
@@ -252,8 +254,8 @@
     </line>
     <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(30,750,750)">
     </line>
-    <text class="degree-label" x="1075" y="187.0834875401148">240º</text>
-    <text class="degree-label" x="424.99999999999994" y="1312.916512459885">60º</text>
+    <g class="degree-label"><text class="degree-value" x="1075" y="187.0834875401148">240º</text></g>
+    <g class="degree-label"><text class="degree-value" x="424.99999999999994" y="1312.916512459885">60º</text></g>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(31,750,750)">
     </line>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(32,750,750)">
@@ -314,8 +316,8 @@
     </line>
     <line class="degree-line degree-line-ten" x1="750" y1="120" x2="750" y2="1380" stroke="black" stroke-width="2" transform="rotate(60,750,750)">
     </line>
-    <text class="degree-label" x="1312.916512459885" y="424.99999999999994">210º</text>
-    <text class="degree-label" x="187.08348754011502" y="1075.0000000000002">30º</text>
+    <g class="degree-label"><text class="degree-value" x="1312.916512459885" y="424.99999999999994">210º</text></g>
+    <g class="degree-label"><text class="degree-value" x="187.08348754011502" y="1075.0000000000002">30º</text></g>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(61,750,750)">
     </line>
     <line class="degree-line" x1="750" y1="140" x2="750" y2="1360" stroke="#999999" stroke-width="1" transform="rotate(62,750,750)">
