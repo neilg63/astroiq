@@ -303,6 +303,9 @@ var AstroChart = {
           }
           
           d = this.bodyOffset - deg + ayanamsa;
+          if (item.offset) {
+            d -= item.offset;
+          }
           
           oldDeg = parseFloat(body.attr('data-lng')),
           diff=oldDeg-d;
@@ -387,34 +390,101 @@ var AstroChart = {
     }
   },
 
+  calcBodyOffsets: function(data) {
+    var bKeys = this.bodyKeys;
+    var mainBodies = _.filter(data.bodies, function(b) { return bKeys.indexOf(b.key) >= 0 });
+    
+    var calcDistance = function(b, b2) {
+      var d = b.lng - b2.lng;
+      if (d > 180) {
+        d -= 360
+      } else if (d < -180) {
+        d += 360
+      }
+      return 0-d;
+    }
+    var currCluster = null;
+    var matchBody = function(bodies,kn) {
+      var si = _.findIndex(bodies, function(b){ return b.key == kn; } );
+      if (si >= 0) {
+        return bs[si];
+      }
+    }
+    var addDistances = function(b,index,sorted,clusters) {
+      var len = sorted.length, prevIndex = index - 1, nextIndex = index + 1;
+      if (prevIndex < 0) {
+        prevIndex = len - 1;
+      }
+      if (nextIndex >= len) {
+        nextIndex = 0;
+      }
+      var prevD = calcDistance(b,sorted[prevIndex]),
+      nextD = calcDistance(b,sorted[nextIndex]),
+      pk = sorted[prevIndex].key,
+      nk=sorted[nextIndex].key,
+      refK =nk, pushMode = false;
+      if (sorted[prevIndex].key) {
+         b.distances = {};
+         b.distances[pk] = prevD;
+         b.distances[nk] = nextD
+      }
+      b.offset = 0;
+      if (nextD < 13.5) {
+        pushMode = true;
+        if (clusters.hasOwnProperty(nk)) {
+          currCluster = nk;
+          refK = b.key;
+          pushMode = false;
+        }
+        if (currCluster === null) {
+          currCluster = b.key
+          clusters[currCluster] = [b.key];
+        }
+        if (pushMode) {
+          clusters[currCluster].push(refK);
+        } else {
+          clusters[currCluster].unshift(refK);
+        }
+      } else {
+        currCluster = null;
+      }
+    }
+    var sorted = mainBodies.sort(function(a,b) {return a.lng - b.lng; });
+    var clusters = {};
+    var bs = _.map(sorted, function(b,index) {
+      addDistances(b,index,sorted,clusters)
+      return b; 
+    });
+    var si = -1, j=0, cls, num, kn, kn2,b, ds, lastB, td;
+    for (kn in clusters) {
+      cls = clusters[kn];
+      num = cls.length;
+      lastB = matchBody(bs, cls[(num-1)]);
+      for (j=0; j < num; j++) {
+        b = matchBody(bs,cls[j]);
+        if (b) {
+            if (j === 0) {
+              td = (num*8) - calcDistance(b,lastB);
+           }
+           if (b.distances) {
+              ds = _.toArray(b.distances)
+              if (ds.length == 2) {
+                b.offset = (j - ((num-1)/2)) * (td/num);
+              }
+           }
+        }
+      }
+    }
+    data.bodies = bs;
+  },
+
   refresh: function(data,mode) {
-    this.bodyOffset = 90 - (180 - data.ascendant);
+    this.bodyOffset = 60 + (data.ascendant % 30);
+    AstroChart.calcBodyOffsets(data);
     AstroChart.updateHouses(data.houseLngs,2000,data.ascendant);
     AstroChart.moveBodies(data.bodies,mode,data.ayanamsa);
     AstroChart.updateAspects(data.aspects,data.ayanamsa);
-    var bKeys = this.bodyKeys;
-    var mainBodies = _.filter(data.bodies, function(b) { return bKeys.indexOf(b.key) >= 0 });
-    var addDistances = function(b,mainBodies) {
-      var i=0, nb = mainBodies.length, distances = {}, b2,d;
-      for (;i<nb;i++) {
-        b2 = mainBodies[i];
-        d = b.lng - b2.lng;
-        if (d > 180) {
-          d -= 360
-        } else if (d < -180) {
-          d += 360
-        }
-        if (d < 15 && d > -15) {
-          distances[b2.key] = d;
-        }
-      }
-      b.distances = distances;
-    }
-    var bs = _.map(mainBodies, function(b) {
-      addDistances(b,mainBodies)
-      return b; 
-    });
-    console.log(bs);
+    
   },
 
   addDiscDrag: function() {
