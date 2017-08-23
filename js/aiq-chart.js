@@ -22,8 +22,8 @@ var AstroChart = {
     bodyLayer: null,
     bodies: [],
     bodyOffset: 120,
-
-  westernLayer: null,
+    minDegDistance: 10,
+    westernLayer: null,
 
   northIndianLayer: null,
 
@@ -309,32 +309,6 @@ var AstroChart = {
           
           oldDeg = parseFloat(body.attr('data-lng')),
           diff=oldDeg-d;
-          /*collisions = [];
-          if (item.collisions) {
-            collisions = item.collisions;
-            console.log(collisions)
-          }
-          offset = 0;
-          if (collisions.length>0) {
-            mult = (45 / collisions.length) + 5;
-            for (var j=0,colItem;j<collisions.length;j++) {
-              colItem = collisions[j];
-              if (!offsetMap[colItem]) {
-                offsetMap[colItem] = ((j+1) * mult) - 5;
-              }
-            }
-            if (offsetMap[bn]) {
-              offset = offsetMap[bn];
-            } else {
-              offset = -5;
-            }
-          }
-          switch (bn) {
-            case 'rahu':
-            case 'ketu':
-              offset += 75;
-              break;
-          }*/
           body.attr('data-lng',d);
           for (i=0;i<steps;i++) {
             pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),(dist-offset),-12,-12);
@@ -429,7 +403,7 @@ var AstroChart = {
          b.distances[nk] = nextD
       }
       b.offset = 0;
-      if (nextD < 13.5) {
+      if (nextD < (AstroChart.minDegDistance * 1.5)) {
         pushMode = true;
         if (clusters.hasOwnProperty(nk)) {
           currCluster = nk;
@@ -455,23 +429,29 @@ var AstroChart = {
       addDistances(b,index,sorted,clusters)
       return b; 
     });
-    var si = -1, j=0, cls, num, kn, kn2,b, ds, lastB, td;
+    var md = this.minDegDistance, j=0, cls, num, kn, kn2,b, ds, lastB, td;
     for (kn in clusters) {
       cls = clusters[kn];
       num = cls.length;
-      lastB = matchBody(bs, cls[(num-1)]);
-      for (j=0; j < num; j++) {
-        b = matchBody(bs,cls[j]);
-        if (b) {
-            if (j === 0) {
-              td = (num*8) - calcDistance(b,lastB);
-           }
-           if (b.distances) {
-              ds = _.toArray(b.distances)
-              if (ds.length == 2) {
-                b.offset = (j - ((num-1)/2)) * (td/num);
-              }
-           }
+      if (num > 1) {
+        lastB = matchBody(bs, cls[(num-1)]);
+        if (lastB) {
+          for (j=0; j < num; j++) {
+            b = matchBody(bs,cls[j]);
+            if (b) {
+                if (j === 0) {
+                  td = (num*md) - calcDistance(b,lastB);
+               }
+               if (b.distances) {
+                  ds = _.toArray(b.distances)
+                  if (ds.length == 2) {
+                    if (ds[0] > (0-md) || ds[1] < md) {
+                      b.offset = (j - ((num-1)/2)) * (td/num);
+                    }
+                  }
+               }
+            }
+          }
         }
       }
     }
