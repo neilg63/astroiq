@@ -620,7 +620,7 @@ var AstroIQ = {
                 AstroIQ.loadAnonQuery(c, tm);
               }
             }
-          }, 8000)
+          }, 15000);
         }
       }
     }, 1000);
@@ -948,10 +948,8 @@ var app = new Vue({
   },
   methods: {
     loadUserData: function() {
-      this.loadQueries();
-      
-      
       if (this.user.loggedin) {
+        this.loadQueries();
         var stored = getItem('persons');
         if (stored.data) {
             this.people.persons = stored.data;

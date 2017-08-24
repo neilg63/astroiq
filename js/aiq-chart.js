@@ -22,7 +22,7 @@ var AstroChart = {
     bodyLayer: null,
     bodies: [],
     bodyOffset: 120,
-    minDegDistance: 10,
+    minDegDistance: 9,
     westernLayer: null,
 
   northIndianLayer: null,
@@ -283,7 +283,7 @@ var AstroChart = {
     }
     var deg = 15,
     steps=30,
-    dist = 330,
+    dist = 345,
     collisions=[],
     offset=0,
     offsetMap={},
@@ -326,16 +326,16 @@ var AstroChart = {
           if (isNumeric(item.lng)) {
 
             lbl = d3.select('#'+bn+'-coords');
-            txt = toAstroDegree(item.lng % 30);
+            txt = toAstroDegree(item.lng % 30, 'simple');
             if (isNumeric(item.house)) {
               lbl.attr('title',Math.approxFixed(item.house,2));
             }
-            pos = AstroChart._xyPos(dOff,420);
+            pos = AstroChart._xyPos(dOff,400);
             lbl.select('text').text(txt);
             lbl.attr('transform','translate('+pos.x+','+pos.y+') rotate('+(dOff-270)+',0,0)');
             lbl = d3.select('#'+bn+'-coords-line');
             pos = AstroChart._xyPos(d,510);
-            pos2 = AstroChart._xyPos(d,500);
+            pos2 = AstroChart._xyPos(dOff+1.2,450);
             lbl.attr('x1', pos.x).attr('x2', pos2.x).attr('y1', pos.y).attr('y2', pos2.y);
           }
         }

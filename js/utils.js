@@ -490,6 +490,7 @@ function _toLatLngString(dec,degType,format,approx) {
     var strDeg = '&deg;', strApos = '&apos;',strQuot='&quot;';
     switch (format) {
       case 'plain':
+      case 'simple':
         strDeg='º';
         strApos = '\'';
         strQuot='”';
@@ -500,7 +501,7 @@ function _toLatLngString(dec,degType,format,approx) {
     if (!approx || degree.min > 0 || degree.sec > 0) {
       out +=  ' ' + degree.min + strApos;
     }
-    if (!approx || degree.sec > 0) {
+    if ((!approx || degree.sec > 0) && format != 'simple') {
       out +=  ' ' + degree.sec + strQuot;
     }
     if (degType !== 'plain') {
