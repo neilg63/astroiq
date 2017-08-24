@@ -612,7 +612,7 @@ c24 83 84 146 156 164 42 11 45 13 45 45 0 29 -4 34 -22 34 -34 -1 -99 -33
              <text class="label">Mars</text>
              <circle class="body-bg"></circle>
 <g class="symbol">
-            <path d="M 465,648 563,618 453,508 c -42.35743,24.21481 -89.07319,43.31921 -138.71643,42.18331 -78.42709,4.36477 -159.24211,-30.84839 -202.74605,-97.5685 -65.096866,-93.76113 -52.391711,-234.02477 33.47919,-310.9269 91.41006,-87.499597 252.95883,-81.00325 337.06522,13.6733 69.6453,76.62253 75.41739,197.83371 26.90724,286.92122 -25.62924,25.52553 16.80734,42.47586 29.74567,61.44894 21.46228,21.97634 43.2766,44.23123 69.72805,60.25691 23.55914,-17.12063 8.92021,-75.25097 33.62392,-77.60857 C 685.2369,572.93888 721.39803,662.75061 756,753 753.94905,786.84539 698.68782,748.81977 688.69288,744.74639 613.47435,713.2328 532.28872,677.0084 465,648 Z M 377,489 C 484.25685,450.25966 528.02511,295.77323 450.76962,209.58659 389.19085,138.52213 269.82683,134.31948 201.21823,197.66549 137.42931,250.21155 124.24215,350.31221 170.1155,418.64037 211.91115,486.52496 302.22211,519.95267 377,489 Z" fill="#ff0000" transform="scale(0.1,-0.1) translate(-75,-900)"></path>
+            <path d="M 46.010669,14.734943 56.498955,18.115475 44.726389,30.510762 C 40.193156,27.78213 35.19348,25.629362 29.880495,25.75736 21.486966,25.265518 12.837874,29.233493 8.1819374,36.75181 1.215054,47.317228 2.574802,63.122755 11.764992,71.788427 c 9.783009,9.859841 27.072496,9.127804 36.073842,-1.540768 7.453672,-8.634165 8.07142,-22.292777 2.879703,-32.331551 -1.371464,-1.438165 -1.233169,-2.618555 -1.233169,-2.618555 0,0 3.724297,-3.236798 4.416649,-4.305783 2.296965,-2.476391 8.597682,-8.358714 8.597682,-8.358714 0,0 1.593195,6.761513 2.46339,10.313975 4.192383,-16.327463 11.694739,-31.4632508 11.694739,-31.4632508 0,0 -14.222571,7.8907704 -30.647159,13.2511628 z m -9.418053,17.916823 c 11.478985,4.365432 16.16321,21.773646 7.89507,31.485538 -6.590365,8.007857 -20.35836,9.00433 -27.70108,1.866222 C 9.959703,60.082403 9.1159461,48.205019 14.025465,40.5055 18.498574,32.855964 28.589637,29.163882 36.592616,32.651766 Z" ></path>
             </g>
         </g>
         <g class="body jupiter" id="jupiter-symbol">
@@ -687,17 +687,29 @@ m88 -380 c36 -35 34 -88 -4 -126 -16 -16 -39 -29 -50 -29 -52 0 -101 48 -101
     </g>
 
         <g class="coords sun" id="sun-coords"><text></text></g>
+        <line class="coords-line sun" id="sun-coords-line"></line>
         <g class="coords moon" id="moon-coords"><text></text></g>
+        <line class="coords-line sun" id="sun-coords-line"></line>
         <g class="coords mercury" id="mercury-coords"><text></text></g>
+        <line class="coords-line mercury" id="mercury-coords-line"></line>
         <g class="coords venus" id="venus-coords"><text></text></g>
+        <line class="coords-line venus" id="venus-coords-line"></line>
         <g class="coords mars" id="mars-coords"><text></text></g>
+        <line class="coords-line mars" id="mars-coords-line"></line>
         <g class="coords jupiter" id="jupiter-coords"><text></text></g>
+        <line class="coords-line jupiter" id="jupiter-coords-line"></line>
         <g class="coords saturn" id="saturn-coords"><text></text></g>
+        <line class="coords-line saturn" id="saturn-coords-line"></line>
         <g class="coords uranus" id="uranus-coords"><text></text></g>
+        <line class="coords-line uranus" id="uranus-coords-line"></line>
         <g class="coords neptune" id="neptune-coords"><text></text></g>
+        <line class="coords-line neptune" id="neptune-coords-line"></line>
         <g class="coords pluto" id="pluto-coords"><text></text></g>
+        <line class="coords-line pluto" id="pluto-coords-line"></line>
         <g class="coords rahu" id="rahu-coords"><text></text></g>
+        <line class="coords-line rahu" id="rahu-coords-line"></line>
         <g class="coords ketu" id="ketu-coords"><text></text></g>
+        <line class="coords-line ketu" id="ketu-coords-line"></line>
     </g>
     <text id="label-text">Label text</text>
   <g id="north-indian-chart" class="chart north-indian-chart european-element" stroke="none" fill="none" transform="translate(60,60)">

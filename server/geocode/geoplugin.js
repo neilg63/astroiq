@@ -10,7 +10,7 @@ var geoplugin = {
 		let ipInfo = getIP(req),
       ip = ipInfo.clientIp;
 
-    if (ip.endsWith('127.0.0.1')) {
+    if (ip.endsWith('127.0.0.1') || ip.endsWith('::1')) {
       ip = '149.126.76.98';
     }
 		let  href = geoPluginUrl + `?ip=${ip}`;

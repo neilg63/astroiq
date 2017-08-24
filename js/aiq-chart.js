@@ -283,13 +283,13 @@ var AstroChart = {
     }
     var deg = 15,
     steps=30,
-    dist = 375,
+    dist = 330,
     collisions=[],
     offset=0,
     offsetMap={},
     duration=900,
     i=0,lbl,txt,
-    d,dy,bn,index=0,item,body,pos,pos2,diff,mult,td;
+    d,dOff,dy,bn,index=0,item,body,pos,pos2,diff,mult,td;
     for (index in bodies) {
       item = bodies[index];
       if (typeof item == 'object') {
@@ -303,12 +303,13 @@ var AstroChart = {
           }
           
           d = this.bodyOffset - deg + ayanamsa;
+          dOff = d;
           if (item.offset) {
-            d -= item.offset;
+            dOff -= item.offset;
           }
           
           oldDeg = parseFloat(body.attr('data-lng')),
-          diff=oldDeg-d;
+          diff=oldDeg-dOff;
           body.attr('data-lng',d);
           for (i=0;i<steps;i++) {
             pos = AstroChart._xyPos((oldDeg - (diff*((i+1)/steps))),(dist-offset),-12,-12);
@@ -316,7 +317,7 @@ var AstroChart = {
             .delay(i*(duration/steps))
             .duration((duration/steps))
             .attr('transform','translate('+pos.x+','+pos.y+')');
-            td = (((d%180)+270)%180);
+            td = (((dOff%180)+270)%180);
             if (td > 90) {
               td += 180;
             }
@@ -329,9 +330,13 @@ var AstroChart = {
             if (isNumeric(item.house)) {
               lbl.attr('title',Math.approxFixed(item.house,2));
             }
-            pos = AstroChart._xyPos(d,430);
+            pos = AstroChart._xyPos(dOff,420);
             lbl.select('text').text(txt);
-            lbl.attr('transform','translate('+pos.x+','+pos.y+') rotate('+(d-270)+',0,0)');
+            lbl.attr('transform','translate('+pos.x+','+pos.y+') rotate('+(dOff-270)+',0,0)');
+            lbl = d3.select('#'+bn+'-coords-line');
+            pos = AstroChart._xyPos(d,510);
+            pos2 = AstroChart._xyPos(d,500);
+            lbl.attr('x1', pos.x).attr('x2', pos2.x).attr('y1', pos.y).attr('y2', pos2.y);
           }
         }
       }

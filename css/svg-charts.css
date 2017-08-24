@@ -144,7 +144,7 @@ g.body {
 g.body text {
   position: relative;
   fill: #999999;
-  transform: translate(-8px, -8px);
+  transform: translate(-10px, 0);
 }
 
 
@@ -152,12 +152,17 @@ g.coords text {
   font-size: 0.8em;
 }
 
+line.coords-line {
+  stroke: #999999;
+  stroke-width: 1px;
+}
+
 g.coords {
   cursor: pointer;
 }
 
 g.coords text:hover {
-  font-size: 1.2em;
+  transform: scale(1.25);
 }
 
 

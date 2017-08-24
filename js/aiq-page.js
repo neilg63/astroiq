@@ -31,7 +31,50 @@ var config = {
   storage: {
     maxRecs:50,
     maxKb: 2048
-  }
+  },
+  randomLocales: [
+    {lat:48.856614,lng:2.3522219,name:"Paris"},
+    {lat:53.4807593,lng:-2.2426305,name:"Manchester"},
+    {lat:59.32932349999999,lng:18.0685808,name:"Stockholm"},
+    {lat:30.0444196,lng:31.2357116,name:"Cairo"},
+    {lat:41.0082376,lng:28.9783589,name:"Istanbul"},
+    {lat:35.6891975,lng:51.3889736,name:"Tehran"},
+    {lat:37.566535,lng:126.9779692,name:"Seoul"},
+    {lat:6.5243793,lng:3.3792057,name:"Lagos"},
+    {lat:39.90419989999999,lng:116.4073963,name:"Beijing"},
+    {lat:22.572646,lng:88.36389500000001,name:"Kalkota"},
+    {lat:35.6894875,lng:139.6917064,name:"Tokyo"},
+    {lat:41.9027835,lng:12.4963655,name:"Rome"},
+    {lat:40.4167754,lng:-3.7037902,name:"Madrid"},
+    {lat:52.2296756,lng:21.0122287,name:"Warsaw"},
+    {lat:50.1109221,lng:8.6821267,name:"Frankfurt"},
+    {lat:52.52000659999999,lng:13.404954,name:"Berlin"},
+    {lat:55.755826,lng:37.6172999,name:"Moscow"},
+    {lat:-34.6036844,lng:-58.3815591,name:"Buenos Aires"},
+    {lat:-33.8688197,lng:151.2092955,name:"Sydney"},
+    {lat:40.7127837,lng:-74.0059413,name:"New York"},
+    {lat:47.6062095,lng:-122.3320708,name:"Seattle"},
+    {lat:43.653226,lng:-79.3831843,name:"Toronto"},
+    {lat:34.0522342,lng:-118.2436849,name:"Los Angeles"},
+    {lat:19.4326077,lng:-99.133208,name:"Mexico DF"},
+    {lat:-23.5505199,lng:-46.63330939999999,name:"Sao Paulo"},
+    {lat:28.7040592,lng:77.10249019999999,name:"Delhi"},
+    {lat:19.0759837,lng:72.877655,name:"Mumbai"},
+    {lat:13.0826802,lng:80.2707184,name:"Chennai"},
+    {lat:31.230416,lng:121.473701,name:"Shanghai"},
+    {lat:23.12911,lng:113.264385,name: "Guangzhou"},
+    {lat:29.4315861,lng:106.912251,name:"Chongqing"},
+    {lat:23.810332,lng:90.4125181,name:"Dhaka"},
+    {lat:13.7563309,lng:100.5017651,name:"Bangkok"},
+    {lat:56.83892609999999,lng:60.6057025,name:"Yekaterinburg"},
+    {lat:-26.2041028,lng:28.0473051,name:"Johannesburg"},
+    {lat:-1.2920659,lng:36.8219462,name:"Nairobi"},
+    {lat:-6.17511,lng:106.8650395,name:"Jakarta"},
+    {lat:-4.4419311,lng:15.2662931,name:"Kinshasa"},
+    {lat:-12.0463731,lng:-77.042754,name:"Lima"},
+    {lat:24.8614622,lng:67.0099388,name:"Karachi"},
+    {lat:24.8614622,lng:67.0099388,name:"Karachi"}
+  ]
 };
 
 var pDom = {};
@@ -141,7 +184,7 @@ var GeoMap = {
             }, 2250);
         }
 
-        var ts = GeoMap.hasMap? 125 : 750;
+        var ts = GeoMap.hasMap? 125: 750;
         setTimeout(function() {
           if (GeoMap.hasMap) {
             GeoMap.map.setCenter(pos);
@@ -528,6 +571,21 @@ var AstroIQ = {
       }
     });
   },
+  loadAnonQuery: function(coords, topName) {
+    var params = {
+        address: topName,
+        chartType: "-",
+        dt: moment.utc().toISOString(),
+        gender: "unknown",
+        lc: coords.lat+","+coords.lng + ",15",
+        name: "public",
+        newPerson: true,
+        newRecord: true,
+        rodden: "-",
+        userId: vars.public.userId
+    };
+    app.loadQuery(params);
+  },
   init: function() {
     AstroChart.init();
     var p = pDom;
@@ -542,12 +600,27 @@ var AstroIQ = {
     p.medDesktopMin = 1280;
     setTimeout(function(){
       if (app) {
-      if (app.currId) {
+        if (app.currId) {
           if (typeof app.currId == 'string') {
             if (app.currId.length>8) {
               app.loadQuery(app.currId);
             }
           }
+        } else {
+          var ri = Math.floor(Math.random() * config.randomLocales.length * 0.99999),
+            c = config.randomLocales[ri];
+          AstroIQ.loadAnonQuery(c, c.name)
+          setTimeout(function() {
+            if (User.geo.coords) {
+              var c = User.geo.coords, tm = "unknown";
+              if (c.lat) {
+                if (User.geo.name) {
+                  tm = User.geo.name;
+                }
+                AstroIQ.loadAnonQuery(c, tm);
+              }
+            }
+          }, 8000)
         }
       }
     }, 1000);
@@ -1489,7 +1562,11 @@ var app = new Vue({
             app.activeTab = 'chart';
             objId = response.data._id;
             chartKey = 'ch_' + objId;
-            storeItem(chartKey,response.data);
+            if (params.chartType) {
+              if (params.chartType.length > 2) {
+                storeItem(chartKey,response.data);
+              }
+            }
             var data = app.updateChartResults(response.data);
             var item = {
               id: objId,
