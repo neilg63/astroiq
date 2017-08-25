@@ -1971,7 +1971,7 @@ ul.dashas li span {
     font-style: italic;
 }
 
-@media screen and (min-width:1080px) {
+@media screen and (min-width:960px) {
 
     
     #main .panes.show-results #results-pane {
@@ -1984,14 +1984,14 @@ ul.dashas li span {
     }
 
     #main .panes.show-chart #chart-pane {
-        width:  66.667%;
+        width:  75%;
     }
     .hide-control-panel #main .panes.show-map #map-pane {
         width:  50%;
     }
 
     #main .panes.show-chart #results-pane {
-        margin-left:  66.667%;
+        margin-left:  75%;
     }
 
     #main .panes.show-chart #results-pane table {

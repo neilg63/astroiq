@@ -11,24 +11,18 @@ dl.results-list(:class="{hidden: !results.valid}")
     span.gender {{results.person.gender}}
   dt.chart-type Chart type
   dd.chart-type {{results.chartType}}
-  dt.astro-data Astrological Data
-  dd.astro-data
-    ul
-      li.ayanamsa 
-        span.label Ayanamsa
-        strong.value {{results.ayanamsa}}
-        sup.type {{options.ayanamsaName}}
-      li.ascendant
-        span.label Ascendant
-        strong.value {{results.ascendant}}
-      li.mc
-        span.label(title="Medium Coeli") Midheaven
-        strong.value {{results.mc}}
-      li.et
-        span.label Ephemeris time
-        strong.value
-          span.ut(v-bind:title="results.ut_info") {{results.et}}
-          sup.delta.small(title="Delta") {{results.delta_t}} 
+  dt.astro-data.ayanamsa Ayanamsa
+  dd.astro-data.ayanamsa
+    span.value {{results.ayanamsa}}
+    sup.type {{options.ayanamsaName}}
+  dt.astro-data.ascendant Ascendant
+  dd.astro-data.ascendant {{results.ascendant}}
+  dt.astro-data.mc(title="Medium Coeli") Midheaven
+  dd.astro-data.mc {{results.mc}}
+  dt.astro-data.et Ephemeris time
+  dd.astro-data.et
+    span.value(v-bind:title="results.ut_info") {{results.et}}
+    sup.delta.small(title="Delta") {{results.delta_t}} 
   dt.rahu Rahu
   dd.rahu
     p.true-node

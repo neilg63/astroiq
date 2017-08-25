@@ -1549,15 +1549,17 @@ var app = new Vue({
         var stored = getItem(chartKey);
         if (stored.valid) {
           this.updateChartResults(stored.data);
+          this.activeTab = 'chart';
+          this.paneClass = 'show-chart';
           hasData = true;
         }
       }
-
       if (!hasData && params.lc) {
         params.userId = this.user.id;
         axios.post('/api/astro',params).then(function (response) {
           if (response.data) {
             app.activeTab = 'chart';
+            app.paneClass = 'show-chart';
             objId = response.data._id;
             chartKey = 'ch_' + objId;
             if (params.chartType) {

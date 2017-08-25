@@ -27,10 +27,6 @@ body
     div#main
       ul#pane-tabs.hor-tabs
         li.chart(:class="{active:activeTab=='chart'}" v-on:click="showPane('chart')") Chart
-          ul#chart-tabs
-            li.western(v-on:click="showChart('western')") Western
-            li.northindian(v-on:click="showChart('northindian')") North Indian
-            li.southindian(v-on:click="showChart('southindian')") South Indian
         li.map(:class="{active:activeTab=='map'}" v-on:click="showPane('map')") Map
         li.results(:class="{disabled:!results.valid,active:activeTab=='results'}" v-on:click="showPane('results')") Results
         li.results(:class="{disabled:!results.valid,active:activeTab=='dashas'}" v-on:click="showPane('dashas')") Dashas

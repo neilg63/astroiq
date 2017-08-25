@@ -130,9 +130,6 @@ g.body .symbol {
   transition: all .5s ease-in;
 }
 
-g.body:hover .symbol {
-  transform: scale(0.9) translate(-15%,-15%);
-}
 
 g.body {
   pointer-events: all;
@@ -145,8 +142,8 @@ g.body text {
   position: relative;
   fill: #999999;
   transform: translate(-10px, 0);
+  opacity: 0;
 }
-
 
 g.coords text {
   font-size: 1em;
@@ -173,9 +170,13 @@ g.bodies-layer text.over {
   opacity: 1;
   font-size: 1em;
 } */
+g.body {
+  pointer-events: all;
+}
 
+g.body.over text,
 g.bodies-layer g.body:hover text {
-  transform: translate(0, -10px);
+  opacity: 1;
 }
 
 g.body:hover path {
