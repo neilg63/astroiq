@@ -9,27 +9,27 @@ dl.results-list(:class="{hidden: !results.valid}")
   dd.name-gender
     span.name {{results.person.name}}
     span.gender {{results.person.gender}}
-  dt.chart-type Chart type
-  dd.chart-type {{results.chartType}}
+  dt.chart-type(v-if="results.chartType.length > 2") Chart type
+  dd.chart-type(v-if="results.chartType.length > 2") {{results.chartType}}
   dt.astro-data.ayanamsa Ayanamsa
   dd.astro-data.ayanamsa
-    span.value {{results.ayanamsa}}
+    span.value(v-html="results.ayanamsa")
     sup.type {{options.ayanamsaName}}
   dt.astro-data.ascendant Ascendant
-  dd.astro-data.ascendant {{results.ascendant}}
+  dd.astro-data.ascendant(v-html="results.ascendant")
   dt.astro-data.mc(title="Medium Coeli") Midheaven
-  dd.astro-data.mc {{results.mc}}
+  dd.astro-data.mc(v-html="results.mc")
   dt.astro-data.et Ephemeris time
   dd.astro-data.et
-    span.value(v-bind:title="results.ut_info") {{results.et}}
-    sup.delta.small(title="Delta") {{results.delta_t}} 
+    span.value(v-bind:title="results.ut_info" v-html="results.et")
+    sup.delta.small(title="Delta"  v-html="results.delta_t")
   dt.rahu Rahu
   dd.rahu
     p.true-node
-      span.lng {{results.true_node.lng}}
+      span.lng(v-html="results.true_node.lng")
       em.label.lng (true node)
     p.mean-node
-      span.lng {{results.mean_node.lng}}
+      span.lng(v-html="results.mean_node.lng")
       em.label.ng Rahu (mean node)
 
 table.bodies-table
@@ -44,9 +44,9 @@ table.bodies-table
     template(v-for="body in results.bodies")
       tr(v-bind:class="body.key")
         th.label {{body.key}}
-        td.degrees.lng {{body.lng}}
-        td.degrees.lat {{body.lat}}
-        td.degrees.spd {{body.spd}}
+        td.degrees.lng(v-html="body.lng")
+        td.degrees.lat(v-html="body.lat")
+        td.degrees.spd(v-html="body.spd")
         td.house-position {{body.pos}}
 
 dl.results-list
@@ -56,8 +56,10 @@ dl.results-list
       template(v-for="house in results.houses")
         li(v-if="house.num > 0")
           span.label {{house.num}}
-          span.coords {{house.lng}} to {{house.end}}
-
+          span.coords
+            span(class="lng" v-html="house.lng")
+            span.to to
+            span(class="end" v-html="house.end")
 
 div.aspects-list.section(v-if="results.hasAspects")
   h3 Aspects
@@ -67,8 +69,8 @@ div.aspects-list.section(v-if="results.hasAspects")
       tbody.aspect-list.plain
         template(v-for="item in set.items")
           tr
-            th.body.from {{item.from}}
-            td.dms.from {{item.startDms}}
+            th.body.from(v-html="item.from")
+            td.dms.from(v-html="item.startDms")
             td.separator
-            th.body.to {{item.to}}
-            td.dms.to {{item.endDms}}
+            th.body.to(v-html="item.to")
+            td.dms.to(v-html="item.endDms")

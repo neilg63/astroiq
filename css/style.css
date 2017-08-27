@@ -1729,6 +1729,21 @@ ol.plain {
     margin-right: 0.5em;
 }
 
+#results-pane li span.to {
+    width: 1em;
+}
+
+span.dms-part {
+    position: relative;
+    display: inline-block;
+    margin:  0 0.25em 0 0;
+}
+
+span.dms-part.seconds {
+    font-size: 0.8em;
+    bottom: 0.2em;
+}
+
 
 #results-pane li strong.value sup {
    font-size: 0.75em;

@@ -571,11 +571,11 @@ var AstroIQ = {
       }
     });
   },
-  loadAnonQuery: function(coords, topName) {
+  loadAnonQuery: function(coords, topName,offset) {
     var params = {
         address: topName,
         chartType: "-",
-        dt: moment.utc().toISOString(),
+        dt: moment.utc(offset).toISOString(),
         gender: "unknown",
         lc: coords.lat+","+coords.lng + ",15",
         name: "public",
@@ -585,6 +585,12 @@ var AstroIQ = {
         userId: vars.public.userId
     };
     app.loadQuery(params);
+  },
+  showRandom: function() {
+    var ri = Math.floor(Math.random() * config.randomLocales.length * 0.99999),
+    c = config.randomLocales[ri];
+    var offset = new Date().getTime() - (Math.random() * 86400 * 365.25 * 50 * 1000);
+    AstroIQ.loadAnonQuery(c, c.name,offset);
   },
   init: function() {
     AstroChart.init();
@@ -607,9 +613,7 @@ var AstroIQ = {
             }
           }
         } else {
-          var ri = Math.floor(Math.random() * config.randomLocales.length * 0.99999),
-            c = config.randomLocales[ri];
-          AstroIQ.loadAnonQuery(c, c.name)
+          AstroIQ.showRandom();
           setTimeout(function() {
             if (User.geo.coords) {
               var c = User.geo.coords, tm = "unknown";
@@ -681,7 +685,7 @@ var EphemerisData = {
   },
   houses: AstroIQ.buildHouses(),
   houseLngs: [],
-  chart_type: "birth",
+  chartType: "birth",
   aspects: {},
   hasAspects: false
 };
@@ -1439,6 +1443,11 @@ var app = new Vue({
     },
     saveSettings: function() {
       storeItem('options',this.options);
+    },
+    showRandom: function() {
+      if (!this.user.loggedin) {
+        AstroIQ.showRandom();
+      }
     },
     sendControlForm: function() {
       if (this.dob.length>0 && this.candidateName.length>0) {

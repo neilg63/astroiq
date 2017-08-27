@@ -428,7 +428,7 @@ function parseAstroResult(val,key,pKey) {
           break;
         default:
           if (isNumeric(val)) {
-            val = toAstroDegree(val);
+            val = toAstroDegree(val,'html');
           }
           break;
       }
@@ -491,24 +491,42 @@ function _toLatLngString(dec,degType,format,approx) {
     switch (format) {
       case 'plain':
       case 'simple':
+      case 'html':
         strDeg='º';
         strApos = '\'';
         strQuot='”';
         break;
     }
     var degree = convertDDToDMS(dec,isLng),
-    out = degree.deg + strDeg;
+    parts = [degree.deg + strDeg];
+     if (format == 'simple') {
+      degree.min = parseInt(parseInt(degree.min) + (parseFloat(degree.sec) / 60));
+    }
     if (!approx || degree.min > 0 || degree.sec > 0) {
-      out +=  ' ' + degree.min + strApos;
+      parts.push(degree.min + strApos);
     }
     if ((!approx || degree.sec > 0) && format != 'simple') {
-      out +=  ' ' + degree.sec + strQuot;
+      parts.push(degree.sec + strQuot);
     }
     if (degType !== 'plain') {
-      out += ' ' + degree.dir;
+      parts.push(degree.dir);
     }
-    return  out;
-  } 
+    if (format == 'html') {
+      var out = '<span class="dms-part degrees">'+parts[0]+'</span>';
+      if (parts.length > 1) {
+         out += '<span class="dms-part minutes">'+parts[1]+'</span>';
+      }
+      if (parts.length > 2) {
+         out += '<span class="dms-part seconds">'+parts[2]+'</span>';
+      }
+      if (parts.length > 3) {
+         out += '<span class="dms-part polarity">'+parts[4]+'</span>';
+      }
+      return out;
+    } else {
+      return parts.join(' ');
+    }
+  }
 }
 
 var toEuroDate = function(strDate) {

@@ -54,14 +54,14 @@ body
           div#infobox(:class="{'has-data': chartActive}")
             p.name
               span.label Name: 
-              strong.person-name {{results.person.name}}
-              em.chart-type {{results.chartType}}
+              strong.person-name(v-on:click="showRandom()") {{results.person.name}}
+              em.chart-type(v-if="results.chartType.length > 2") {{results.chartType}}
             p.datetime(v-bind:title="results.dateinfo.display_utc") {{results.dateinfo.display}}
             p.notes.zoneinfo.small {{results.dateinfo.info}}
             p.location-name.small(:title="results.geo.coords") {{results.geo.address}}
             p.ayanamsa.small
               strong.label Ayanamsa
-              span.value {{results.ayanamsa}}
+              span.value(v-html="results.ayanamsa")
               em.type {{options.ayanamsaName}}
             p.hsy.small
               strong.label House System
