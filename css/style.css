@@ -1744,6 +1744,15 @@ span.dms-part.seconds {
     bottom: 0.2em;
 }
 
+.not-logged-in #infobox .person-name {
+    cursor: pointer
+}
+
+.not-logged-in #infobox .person-name:hover {
+    color: #0000cc;
+    font-style: italic;
+}
+
 
 #results-pane li strong.value sup {
    font-size: 0.75em;

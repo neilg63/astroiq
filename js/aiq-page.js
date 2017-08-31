@@ -584,13 +584,19 @@ var AstroIQ = {
         rodden: "-",
         userId: vars.public.userId
     };
-    app.loadQuery(params);
+    if (app) {
+      app.loadQuery(params);
+    }
   },
   showRandom: function() {
     var ri = Math.floor(Math.random() * config.randomLocales.length * 0.99999),
     c = config.randomLocales[ri];
-    var offset = new Date().getTime() - (Math.random() * 86400 * 365.25 * 50 * 1000);
-    AstroIQ.loadAnonQuery(c, c.name,offset);
+    if (typeof c == 'object' && c !== null) {
+      var offset = new Date().getTime() - (Math.random() * 86400 * 365.25 * 40 * 1000);
+      if (c.lat && c.name) {
+        AstroIQ.loadAnonQuery(c, c.name,offset);
+      }
+    }
   },
   init: function() {
     AstroChart.init();
@@ -605,7 +611,7 @@ var AstroIQ = {
     p.mobileMax = 959;
     p.medDesktopMin = 1280;
     setTimeout(function(){
-      if (app) {
+      if (typeof app == 'object') {
         if (app.currId) {
           if (typeof app.currId == 'string') {
             if (app.currId.length>8) {
@@ -616,10 +622,12 @@ var AstroIQ = {
           AstroIQ.showRandom();
           setTimeout(function() {
             if (User.geo.coords) {
-              var c = User.geo.coords, tm = "unknown";
+              var c = User.geo.coords, tm = "Edinburgh";
               if (c.lat) {
-                if (User.geo.name) {
-                  tm = User.geo.name;
+                if (User.geo) {
+                  if (User.geo.name) {
+                    tm = User.geo.name;
+                  }
                 }
                 AstroIQ.loadAnonQuery(c, tm);
               }
@@ -627,7 +635,7 @@ var AstroIQ = {
           }, 15000);
         }
       }
-    }, 1000);
+    }, 2000);
     d3.selectAll('#control-panel .collapsible > .toggle').on('click',function(){
       var e = d3.event, par = d3.select(this.parentNode);
       e.stopImmediatePropagation();
@@ -1097,7 +1105,7 @@ var app = new Vue({
           v1 = data[k1];
           if (typeof v1 == 'object') {
             for (k2 in v1) {
-              if (this.results[k1].hasOwnProperty(k2)) {
+              if (typeof this.results[k1] == 'object' && this.results[k1].hasOwnProperty(k2)) {
                 v2 = v1[k2];
                 if (typeof v2 == 'object') {
                   for (k3 in v2) {
@@ -1184,12 +1192,13 @@ var app = new Vue({
       if (this.results.person) {
         this.updateRefName(this.results.person.name);
       }
-
-      if (data.person.gender) {
-        this.gender.type = data.person.gender;
-      }
-      if (data.person.name) {
-        this.candidateName = data.person.name;
+      if (data.person) {
+        if (data.person.gender) {
+          this.gender.type = data.person.gender;
+        }
+        if (data.person.name) {
+          this.candidateName = data.person.name;
+        }
       }
       if (data.aspects) {
         this.results.hasAspects = false;
@@ -1577,6 +1586,12 @@ var app = new Vue({
               }
             }
             var data = app.updateChartResults(response.data);
+            if (!data.person) {
+              data.person = {
+                name: "public",
+                gender: "unknown"
+              };
+            }
             var item = {
               id: objId,
               chartId: chartKey,
