@@ -612,7 +612,7 @@ var AstroIQ = {
     p.medDesktopMin = 1280;
     setTimeout(function(){
       if (typeof app == 'object') {
-        if (app.currId && app.loggedin) {
+        if (app.currId && app.user.loggedin) {
           if (typeof app.currId == 'string') {
             if (app.currId.length>8) {
               app.loadQuery(app.currId);
