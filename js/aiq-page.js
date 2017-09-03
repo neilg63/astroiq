@@ -612,7 +612,7 @@ var AstroIQ = {
     p.medDesktopMin = 1280;
     setTimeout(function(){
       if (typeof app == 'object') {
-        if (app.currId) {
+        if (app.currId && this.loggedin) {
           if (typeof app.currId == 'string') {
             if (app.currId.length>8) {
               app.loadQuery(app.currId);
@@ -843,6 +843,7 @@ var app = new Vue({
     if (localStorageSupported()) {
       this.loadUserData();
     }
+    document.cookie = '';
   },
   mounted: function() {
     var idData = getItem('curr_id');
@@ -979,6 +980,8 @@ var app = new Vue({
         if (stored.data) {
           this.options = stored.data;
         }
+      } else {
+        this.logout();
       }
     },
     matchPerson: function() {
@@ -1941,7 +1944,7 @@ var app = new Vue({
       deleteItem('persons');
       deleteItem('user');
       this.deleteLocalRecords();
-
+      this.currId = '';
     },
     loadUserRecords: function() {
       var href = '/api/charts/'+this.user.id+'/full/'+config.storage.maxRecs;
