@@ -39,11 +39,11 @@ var config = {
     {lat:30.0444196,lng:31.2357116,name:"Cairo"},
     {lat:41.0082376,lng:28.9783589,name:"Istanbul"},
     {lat:35.6891975,lng:51.3889736,name:"Tehran"},
-    {lat:37.566535,lng:126.9779692,name:"Seoul"},
-    {lat:6.5243793,lng:3.3792057,name:"Lagos"},
+    {lat:37.566535,lng:126.9779692,name:"Seoul, Korea"},
+    {lat:6.5243793,lng:3.3792057,name:"Lagos, Nigeria"},
     {lat:39.90419989999999,lng:116.4073963,name:"Beijing"},
-    {lat:22.572646,lng:88.36389500000001,name:"Kalkota"},
-    {lat:35.6894875,lng:139.6917064,name:"Tokyo"},
+    {lat:22.572646,lng:88.36389500000001,name:"Kalkota, India"},
+    {lat:35.6894875,lng:139.6917064,name:"Tokyo, Japan"},
     {lat:41.9027835,lng:12.4963655,name:"Rome"},
     {lat:40.4167754,lng:-3.7037902,name:"Madrid"},
     {lat:52.2296756,lng:21.0122287,name:"Warsaw"},
@@ -51,21 +51,22 @@ var config = {
     {lat:52.52000659999999,lng:13.404954,name:"Berlin"},
     {lat:55.755826,lng:37.6172999,name:"Moscow"},
     {lat:-34.6036844,lng:-58.3815591,name:"Buenos Aires"},
-    {lat:-33.8688197,lng:151.2092955,name:"Sydney"},
-    {lat:40.7127837,lng:-74.0059413,name:"New York"},
+    {lat:-33.8688197,lng:151.2092955,name:"Sydney, Australia"},
+    {lat:40.7127837,lng:-74.0059413,name:"New York City"},
     {lat:47.6062095,lng:-122.3320708,name:"Seattle"},
     {lat:43.653226,lng:-79.3831843,name:"Toronto"},
     {lat:34.0522342,lng:-118.2436849,name:"Los Angeles"},
+    {lat:41.8781136,"lng":-87.6297982,name:"Chicago"},
     {lat:19.4326077,lng:-99.133208,name:"Mexico DF"},
-    {lat:-23.5505199,lng:-46.63330939999999,name:"Sao Paulo"},
+    {lat:-23.5505199,lng:-46.63330939999999,name:"Sao Paulo, Brazil"},
     {lat:28.7040592,lng:77.10249019999999,name:"Delhi"},
-    {lat:19.0759837,lng:72.877655,name:"Mumbai"},
+    {lat:19.0759837,lng:72.877655,name:"Mumbai, India"},
     {lat:13.0826802,lng:80.2707184,name:"Chennai, Tamil Nadu, India"},
     {lat:31.230416,lng:121.473701,name:"Shanghai, China"},
     {lat:23.12911,lng:113.264385,name: "Guangzhou, China"},
     {lat:29.4315861,lng:106.912251,name:"Chongqing, China"},
     {lat:22.396428,lng:114.109497,name:"Hong Kong"},
-    {lat:23.810332,lng:90.4125181,name:"Dhaka"},
+    {lat:23.810332,lng:90.4125181,name:"Dhaka, Bangladesh"},
     {lat:13.7563309,lng:100.5017651,name:"Bangkok"},
     {lat:3.139003,lng:101.686855,name:"Kuala Lumpur"},
     {lat:14.5995124,lng:120.9842195,name:"Manila, Philippines"},  
@@ -74,26 +75,34 @@ var config = {
     {lat:-22.9068467,lng:-43.1728965,name:"Rio de Janeiro, Brazil"},
     {lat:-33.4488897,lng:-70.6692655,name:"Santiago de Chile"},
     {lat:41.3850639,lng:2.1734035,name:"Barcelona, Catalonia"},
-    {lat:-8.839987599999999,lng:13.2894368,name:"Addis Ababa, Ethiopia"},
-    {lat:8.9806034,lng:38.7577605,name:"Luanda, Angola"},
+    {lat:8.9806034,lng:38.7577605,name:"Addis Ababa, Ethiopia"},
+    {lat:-8.839987599999999,lng:13.2894368,name:"Luanda, Angola"},
     {lat:59.9342802,lng:30.3350986,name:"Saint Petersburg"},
     {lat:56.83892609999999,lng:60.6057025,name:"Yekaterinburg, Russia"},
     {lat:55.00835259999999,lng:82.9357327,name:"Novosibirsk, Russia"},
-    {lat:10.8230989,lng:106.6296638,name:"Ho Chi Minh City"},
-    {lat:30.572816,lng:104.066801,name:"Chengdu"},
-    {lat:6.9270786,lng:79.861243,name:"Colombo"},
+    {lat:10.8230989,lng:106.6296638,name:"Ho Chi Minh City, Vietnam"},
+    {lat:30.572816,lng:104.066801,name:"Chengdu, China"},
+    {lat:6.9270786,lng:79.861243,name:"Colombo, Sri Lanka"},
     {lat:27.7172453,lng:85.3239605,name:"Kathmandu, Nepal"},
     {lat:12.9715987,lng:77.5945627,name:"Bengaluru, Karnataka, India"},
     {lat:-26.2041028,lng:28.0473051,name:"Johannesburg, South Africa"},
-    {lat:-1.2920659,lng:36.8219462,name:"Nairobi"},
-    {lat:-6.17511,lng:106.8650395,name:"Jakarta"},
-    {lat:-4.4419311,lng:15.2662931,name:"Kinshasa"},
-    {lat:-12.0463731,lng:-77.042754,name:"Lima"},
-    {lat:24.8614622,lng:67.0099388,name:"Karachi"},
+    {lat:-15.3875259,lng:28.3228165,name:"Lusaka, Zambia"},
+    {lat:36.753768,lng:3.0587561,name:"Algiers, Algeria"},
+    {lat:5.3599517,lng:-4.0082563,name:"Abidjan, Cote d'Ivoire"},
+    {lat:5.6037168,lng:-0.1869644,name:"Accra, Ghana"},
+    {lat:-6.792354,lng:39.2083284,name:"Dar es Salaam, Tanzania"},
+    {lat:-1.2920659,lng:36.8219462,name:"Nairobi, Kenya"},
+    {lat:-6.17511,lng:106.8650395,name:"Jakarta, Indonesia"},
+    {lat:-4.4419311,lng:15.2662931,name:"Kinshasa, DR Congo"},
+    {lat:-12.0463731,lng:-77.042754,name:"Lima, Peru"},
+    {lat:24.8614622,lng:67.0099388,name:"Karachi, Pakistan"},
+    {lat:33.3128057,lng:44.3614875,name:"Baghdad, Iraq"},
+    {lat:21.2854067,"lng":39.237550,name:"Jeddah, Saudi Arabia"},
     {lat:43.7101728,lng:7.26195320000000,name:"Nice, France"},
     {lat:51.5073509,lng:-0.1277583,name:"London, England"},
     {lat:37.9838096,lng:23.7275388,name:"Athens, Greece"},
     {lat:47.497912,lng:19.040235,name:"Budapest, Hungary"},
+    {lat:50.0755381,"lng":14.4378005,name:"Prague, Czechia"},
     {lat:50.4501,lng:30.5234,name:"Kiev, Ukraine"},
     {lat:55.864237,lng:-4.251806,name:"Glasgow, Scotland"},
     {lat:48.2081743,lng:16.3738189,name:"Vienna, Austria"},
@@ -105,6 +114,7 @@ var config = {
 var pDom = {};
 
 var User = {
+  randomClicked: false,
   geo: {}
 };
 
@@ -646,7 +656,7 @@ var AstroIQ = {
         } else {
           AstroIQ.showRandom();
           setTimeout(function() {
-            if (User.geo.coords) {
+            if (User.geo.coords && User.randomClicked == false) {
               var c = User.geo.coords, tm = "Edinburgh";
               if (c.lat) {
                 if (User.geo) {
@@ -1484,6 +1494,7 @@ var app = new Vue({
     showRandom: function() {
       if (!this.user.loggedin) {
         AstroIQ.showRandom();
+        User.randomClicked = true;
       }
     },
     sendControlForm: function() {

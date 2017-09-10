@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="/js/svg.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/svg.draggable.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/lodash.min.js" type="text/javascript" charset="utf-8"></script>
+<style>
+figure {
+	margin: 0;
+	padding: 0;
+	-webkit-margin-start:0;
+}
+
+body {
+	margin:0 auto;
+	padding: 0;
+}
+
+#drawing,
+#drawing svg {
+	position: relative;
+	height: auto;
+	margin: 0 auto;
+}
+
+#drawing {
+	padding: 2.5vh 2.5%;
+	width: 95%;
+}
+
+#drawing svg {
+	max-height: 95vh;
+	width: 100%;
+	max-width: 100%;
+}
+
+#drawing .draggable {
+	cursor: pointer;
+	fill: #ffcccc;
+}
+
+#drawing .draggable:hover {
+	fill: #ff6666;
+}
+
+#drawing .planet text {
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
+}
+
+#drawing .planet.active text,
+#drawing .planet:hover text {
+	opacity: 1;
+}
+
+#drawing .degree-label {
+	fill: orange;
+}
+
+</style>
+
+</head>
+<body>
+<div id="drawing">
+
+</div>
+
+<script type="text/javascript">
+	
+  var pairs = [
+    
+  ]
+
+	// var g = draw.group().addClass('yellow');
+
+	// g.rect(200,200).fill("orange")
+	// g.text("Orange box").dy(10).dx(10)
+	// g.animate().move(300,300)
+  
+</script>
+</body>
+</html>

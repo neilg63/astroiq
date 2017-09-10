@@ -129,6 +129,8 @@ app.use('/glyphs', express.static('glyphs'));
 
 app.use('/svgs', express.static('svgs'));
 
+app.use('/demos', express.static('demos'));
+
 app.get('/', function(req, res) {
    loadApp(res);
 });

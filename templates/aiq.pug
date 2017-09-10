@@ -58,7 +58,8 @@ body
               em.chart-type(v-if="results.chartType.length > 2") {{results.chartType}}
             p.datetime(v-bind:title="results.dateinfo.display_utc") {{results.dateinfo.display}}
             p.notes.zoneinfo.small {{results.dateinfo.info}}
-            p.location-name.small(:title="results.geo.coords") {{results.geo.address}}
+            p.location-name.small {{results.geo.address}}
+            p.location-coords.small {{location.coords.latDms}} {{location.coords.lngDms}}
             p.ayanamsa.small
               strong.label Ayanamsa
               span.value(v-html="results.ayanamsa")

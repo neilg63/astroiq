@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="/js/svg.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/svg.draggable.js" type="text/javascript" charset="utf-8"></script>
+<style>
+figure {
+	margin: 0;
+	padding: 0;
+	-webkit-margin-start:0;
+}
+
+body {
+	margin:0 auto;
+	padding: 0;
+}
+
+#drawing,
+#drawing svg {
+	position: relative;
+	height: auto;
+	margin: 0 auto;
+}
+
+#drawing {
+	padding: 2.5vh 2.5%;
+	width: 95%;
+}
+
+#drawing svg {
+	max-height: 95vh;
+	width: 100%;
+	max-width: 100%;
+}
+
+#drawing .draggable {
+	cursor: pointer;
+	fill: #ffcccc;
+}
+
+#drawing .draggable:hover {
+	fill: #ff6666;
+}
+
+#drawing .planet text {
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
+}
+
+#drawing .planet.active text,
+#drawing .planet:hover text {
+	opacity: 1;
+}
+
+#drawing .degree-label {
+	fill: black;
+  font-size: 0.8em
+}
+
+</style>
+
+</head>
+<body>
+<div id="drawing">
+
+</div>
+
+<script type="text/javascript">
+
+Math.sinDeg = function(deg) {
+  return Math.sin( (deg/180) * Math.PI);
+}
+
+Math.cosDeg = function(deg) {
+  return Math.cos( (deg/180) * Math.PI);
+}
+
+function xyPos(deg,pad,x,y) {
+  if (!pad) {
+    pad = 0;
+  }
+  if (!x) {
+      x = 0;
+  }
+  if (!y) {
+      y=0;
+  }
+  var d = 800,r = (d/2)-pad;
+  return {
+    x: ( (Math.sinDeg(deg) * r) + r) + pad + x,
+    y: Math.abs(0 - (Math.cosDeg(deg) * r) + r + pad) + y
+  };
+}
+
+	var draw = SVG('drawing').size(1200,900).viewbox(0,0,1200,900)
+  var disc = draw.group();
+  var bigCircle = disc.circle(800).cy(450).cx(600).attr('fill','#000066')
+  var planets = [], planetCircles=[];
+  var bodyData = [
+  	{ color: '#ffff00', name: 'Sun' },
+  	{ color: '#ff00ff', name: 'Moon' },
+  	{ color: '#00ffff', name: 'Mercury' },
+  	{ color: '#99ff66', name: 'Venus' },
+  	{ color: '#996699', name: 'Mars' },
+  	{ color: '#669999', name: 'Jupiter' },
+  	{ color: '#cccc44', name: 'Saturn' },
+  	{ color: '#cc44cc', name: 'Uranus' },
+  	{ color: '#44cccc', name: 'Neptune' },
+  	{ color: '#77aa77', name: 'Pluto' },
+  	{ color: '#aa77aa', name: 'Ketu' },
+  	{ color: '#77aaaa', name: 'Rahu' }
+  ]
+  for (var i=0, g; i < 12; i++) {
+  	g = draw.group().addClass('planet planet-' + i);
+  	g.circle(30).cy(450).cx(300).attr('fill',bodyData[i].color);
+  	g.text(function(add){
+  		add.tspan(bodyData[i].name).addClass("name").newLine()
+  		add.tspan((i*30)).addClass("coords").newLine()
+  	}).dx(330).dy(380).addClass("label").fill("#ffffff").rotate(0 - (i*30));
+    var aspects  = draw.set();
+  	g.rotate((i*30), 600,450)
+  	planets[i] = g;
+    g.on('click', function(e){
+      var c,
+        j=0,
+        deg = parseFloat(this.attr('data-deg')),
+        pos = xyPos((deg+270),100,200,50),
+        deg2 = 0,
+        pos2,
+        b;
+        aspects.each(function(i,children) {
+          this.remove();
+        });
+        this.select('circle').animate(200).radius(25);
+      for (; j < planets.length;j++) {
+        planets[j].removeClass('active');
+        deg2 = parseFloat(planets[j].attr('data-deg'));
+        pos2 = xyPos((deg2+270),100,200,50);
+        if (pos.x !== pos2.x && pos.y !== pos2.y) {
+          planets[j].select('circle').animate(200).radius(15);
+          c = draw.line(pos.x, pos.y, pos.x, pos.y).stroke({color: '#ffff99', width: 1});
+          c.addClass('aspect')
+          c.animate(1000).attr('x2', pos2.x).attr('y2', pos2.y);
+          aspects.add(c)
+        }
+        
+        
+      }
+      this.addClass('active')
+    })
+
+  }
+  var lines = [], w=1, len = 80;
+  var lineLabels = [];
+  for (var i=0; i<360;i++) {
+  	if (i % 30 === 0) {
+  		w =2;
+  		len = 80;
+      var lbl = disc.text(i.toString()).dx(170).dy(430).rotate(i, 600,450).addClass('degree-label')
+  		lineLabels.push( lbl )
+      lbl.rotate(0);
+  	} else if (i % 10 === 0) {
+  		len = 60;
+  		w = 1;
+  	} else if (i % 5 === 0) {
+  		len = 40;
+  		w = 1;
+  	} else {
+  		w = 1;
+  		len = 20;
+  	}
+  	lines[i] = disc.line(200, 450, (200+len), 450).stroke({ width: w, color: '#ffffff' }).rotate(i, 600,450)
+  }
+
+  var poly = draw.polygon('600,600 575,600 550,587.5 575,575 600,575').attr('class','draggable');
+
+  var rotatePlanets = function() {
+  	var deg = 0,
+      discDeg = Math.random() * 360,
+      p,cSpan;
+  	poly.animate(300).move(550,575)
+  	for (var i=0; i < 12; i++) {
+  		deg = Math.random() * 360;
+  		p = planets[i];
+  		p.removeClass('active');
+  		p.animate(3000).rotate(deg,600,450);
+  		p.select('text').animate(3000).rotate(0-deg)
+      p.attr('data-deg',deg)
+  		cSpan = p.select('tspan.coords');
+  		if (cSpan.members.length > 0) {
+  			cSpan.members[0].clear().plain(deg.toFixed(4))
+  		}
+  	}
+    //disc.animate(1000).rotate(discDeg, 600, 450)
+  }
+
+  setTimeout(rotatePlanets, 1000)
+  bigCircle.on('click', rotatePlanets)
+
+
+  function matchMinMix(bb) {
+  	bb.minX = Math.min(bb.x,bb.x2)
+		bb.maxX = Math.max(bb.x,bb.x2)
+		bb.minY = Math.min(bb.y,bb.y2)
+		bb.maxY = Math.max(bb.y,bb.y2)
+  }
+
+  function inBounds(bb, b) {
+  	matchMinMix(bb)
+  	matchMinMix(b)
+		var score = 1000000;
+		var overlap = (bb.maxX > b.minX && bb.minX < b.maxX && bb.maxY > b.minY && bb.minY < b.maxY);
+		if (overlap) {
+			score = Math.pow(Math.pow(bb.cx - b.cx,2) + Math.pow(bb.cy - b.cy,2), 0.5)
+		}
+		return score;
+  }
+
+  poly.draggable().on('dragstart', function(e){
+  	for (var i=0; i < 12; i++) {
+  		planets[i].select('circle').animate(200).radius(15)
+  		planets[i].removeClass('active')
+  	}
+	}).on('dragend', function(e){
+  	var bb = this.rbox(), b, p;
+		var scores = [];
+		for (var i=0; i < 12; i++) {
+  		b = planets[i].rbox();
+  		scores[i] = inBounds(bb,b)
+  	}
+  	if (scores.length>0) {
+  		var min = Math.min.apply(Math,scores),
+  			mi = scores.indexOf(min),
+  			p;
+  		for (var i=0; i < 12; i++) {
+  			p = planets[i].select('circle');
+	  		if (i == mi && min < 60) {
+	  			p.animate(200).radius(25);
+	  			planets[i].addClass('active')
+	  		} else {
+	  			p.animate(200).radius(15)
+	  			planets[i].removeClass('active')
+	  		}
+	  	}
+  	}
+	})
+
+	// var g = draw.group().addClass('yellow');
+
+	// g.rect(200,200).fill("orange")
+	// g.text("Orange box").dy(10).dx(10)
+	// g.animate().move(300,300)
+  
+</script>
+</body>
+</html>
