@@ -54,7 +54,7 @@ var config = {
     {lat:-33.8688197,lng:151.2092955,name:"Sydney, Australia"},
     {lat: -31.9505269, lng: 115.8604572, name: "Perth, Australia"},
     {lat: -36.8484597,lng: 174.7633315, name: "Auckland, New Zealand"},
-    {lat: 64.18140989999999, lng: -51.6941381,, name: "Nuuk, Greenland"},
+    {lat: 64.18140989999999, lng: -51.6941381, name: "Nuuk, Greenland"},
     {lat:40.7127837,lng:-74.0059413,name:"New York City"},
     {lat:47.6062095,lng:-122.3320708,name:"Seattle"},
     {lat:43.653226,lng:-79.3831843,name:"Toronto"},
