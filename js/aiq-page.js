@@ -65,7 +65,7 @@ var config = {
     {lat: 23.1135925,lng: -82.3665956,name:"Havana, Cuba"},
     {lat: 33.7489954,lng: -84.3879824,name:"Atlanta, GA, USA"},  
     {lat: 49.2827291,lng: -123.1207375,name:"Vancouver, BC, Canada"},
-    {lat: 10.4805937,lng: -66.90360629999999,,name:"Caracas, Venezuela"},
+    {lat: 10.4805937,lng: -66.90360629999999,name:"Caracas, Venezuela"},
     {lat: 4.710988599999999, lng: -74.072092, name: "Bogotá, Colombia"},
     {lat: 39.7392358,lng: -104.990251,name: "Denver, CO, USA"},
     {lat:-23.5505199,lng:-46.63330939999999,name:"Sao Paulo, Brazil"},
